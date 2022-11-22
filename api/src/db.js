@@ -16,7 +16,11 @@ const {LINK_DB} = process.env
 
 const db = async () =>{
     try {
-        const db = await mongoose.connect(LINK_DB)
+        const db = await mongoose.connect(LINK_DB, {
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+            autoIndex: true, //make this also true
+        })
         console.log("db connected")
     }   catch (error){
         console.error(error);

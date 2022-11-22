@@ -19,7 +19,7 @@ router.post("/", async (req,res)=>{
    const s = await a.save()
    return res.status(200).json(s)
     } catch (error) {
-        res.status(400).send("something get wrong")
+        res.status(400).send("something get wrong posting")
     } 
 })
 
