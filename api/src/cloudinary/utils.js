@@ -11,6 +11,3 @@ cloudinary.config({
 
 module.exports = { cloudinary }
 
-cloud_name: 'ddmdopmzf'
-cloud_api_key: '465375795926734'
-cloud_api_secret: 'G8Q88cKJBxk-xyDmEl2IFq8uylM'
