@@ -4,7 +4,7 @@ const {Schema, model, default: mongoose} = require("mongoose");
 
 const reviewsSchema = new Schema({
     user:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
     review:{
@@ -12,8 +12,7 @@ const reviewsSchema = new Schema({
         required: true,
         trim: true
     }
-}
-)
+});
 
 const ratingSchema = new Schema({
     points:{
@@ -26,11 +25,11 @@ const ratingSchema = new Schema({
     rating: {
         type: Number,
         default: function() {
-            return this.points / this.votes
+            if(this.points > 0 || this.votes > 0) return this.points / this.votes ;
+              return 0
         }
     }
-}
-)
+});
 
 const productSchema = new Schema({
     title:{
@@ -65,17 +64,16 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    details:{
+        type: Array
+    },
     reviews:[reviewsSchema]
 },
     {
         timestamps: true,
         versionKey: false
     },
- 
-)
-
-
-
+);
 
  const Product = model("Product", productSchema);
  module.exports = Product;
