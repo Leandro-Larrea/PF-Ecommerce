@@ -5,7 +5,7 @@ const Product = require("../models/Product.js");
 
 router.get("/", async(req, res) =>{
     try {
-        let products = await getApiProducts();
+        let products = await Product.find();
          res.status(200).json(products);
     } catch (error) {
          res.status(404).send("le erraste chamigo");
