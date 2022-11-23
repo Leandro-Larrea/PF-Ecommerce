@@ -3,14 +3,14 @@ const router = Router();
 const getApiProducts = require("../controllers/getProducts.js");
 const Product = require("../models/Product.js")
 
-router.get("/", async(req,res) =>{
+router.get("/", async(req, res) =>{
     try {
         let products = await getApiProducts();
          res.status(200).json(products);
     } catch (error) {
          res.status(404).send("le erraste chamigo");
     }
-})
+});
 
 router.post("/", async (req,res)=>{
     try {
