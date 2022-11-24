@@ -1,5 +1,6 @@
 import React ,{useEffect,useState}from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { SearchBar } from '../SearchBar/SearchBar'
 
 
 
@@ -13,12 +14,14 @@ export const LookProducts = () => {
 
 
   return (
-    <View>  
-     <View><Text>search</Text></View>
-     <View><Text>filters</Text></View>
-     <Cards></Cards>
-       
-    </View>
+   
+     <View>
+      <SearchBar/>
+      <Cards/>
+     </View>
+   
+
+
   )
 }
 
