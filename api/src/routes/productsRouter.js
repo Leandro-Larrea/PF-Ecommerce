@@ -17,6 +17,26 @@ router.get("/", async(req, res) =>{
 router.post("/", async (req, res)=>{
     try {
         let obj = req.body
+        if(Array.isArray(obj)){
+            for(const e of obj){
+            let product = {
+                title:e.title,
+                price:e.price,
+                description:e.description ,
+                category: e.category,
+                image: e.image,
+                rating:{
+                points: 0,
+                votes: 0
+                },
+                details:e.details
+        }
+        let a = Product(product)
+        let s = await a.save()
+            }
+            let productsDb = await Product.find();
+            return res.status(200).json(productsDb);
+        }
    const a = Product(obj)
    const s = await a.save()
    return res.status(200).json(s)
