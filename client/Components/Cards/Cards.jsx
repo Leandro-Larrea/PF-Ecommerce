@@ -18,13 +18,12 @@ export default function Cards(){
  
 useEffect(()=>{
     dispatch(actions.getProducts())
-
 },[])
 
+    console.log('cards', products)
     return(
-    <View>
+    <View style={style.container}>
         <Text>Cards</Text>
-
         {
             products.length ?
             products.map(e=>{
@@ -36,3 +35,12 @@ useEffect(()=>{
     </View>
     )
 }
+
+const style = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        height: 140,
+        width: 380,
+        backgroundColor: 'red',
+    },
+})
