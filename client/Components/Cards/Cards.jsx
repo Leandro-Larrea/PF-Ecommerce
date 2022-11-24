@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 
 import { View, Text, StyleSheet } from 'react-native'
 import {useDispatch,useSelector} from 'react-redux'
-import * as actions from '../../redux/actions'
+import * as actions from '../../Redux/Actions'
 
-import Card from "./Card";
+/* import Card from "./Card"; */
 
 
 
@@ -29,7 +29,7 @@ useEffect(()=>{
             products.length ?
             products.map(e=>{
             return(
-             <Card title={e.title} image={e.image} price={e.price} key={e.title}></Card>)
+             {/* <Card title={e.title} image={e.image} price={e.price} key={e.title}></Card> */})
             })
             :<Text>no se esta renderizando</Text>
         }

@@ -8,12 +8,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Home } from '../Home/Home';
 import { LookProducts } from '../LookProducts/LookProducts';
 import { Cart } from '../Cart/Cart'
+import { PostProduct } from '../PostProduct/PostProduct';
 
 //Screen-Name
 
 const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
+const postName = 'Post';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +25,7 @@ export const MainContainer = () => {
         <Tab.Navigator 
         initialRouteName={homeName}
         screenOptions={({route}) => ({
+            headerShown: false,
             tabBarIcon: ({focused, color, size}) => {
                 let iconName;
                 let rn = route.name;
@@ -33,6 +36,8 @@ export const MainContainer = () => {
                     iconName = focused ? 'search-sharp' : 'search-outline';
                 } else if (rn === cartName) {
                     iconName = focused ? 'cart-sharp' : 'cart-outline';
+                } else if (rn === postName ) {
+                    iconName = focused ? 'add-circle-sharp' : 'add-circle-outline'
                 }
                 return <Icon name={iconName} size={size} color={color} />
             },
@@ -42,6 +47,7 @@ export const MainContainer = () => {
         <Tab.Screen name={homeName} component={Home} />
         <Tab.Screen name={lookProductsName} component={LookProducts} />
         <Tab.Screen name={cartName} component={Cart} />
+        <Tab.Screen name={postName} component={PostProduct}/>
 
         </Tab.Navigator>
     </NavigationContainer>
