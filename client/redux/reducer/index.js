@@ -1,4 +1,4 @@
-import * as actions from '../actions'
+import * as actions from '../Actions'
 
 const initialState = {
     products:[]
@@ -11,6 +11,11 @@ const reducer = (state = initialState,action)=>{
                 ...state,
                 products:action.payload
             }
+        case actions.SEARCH: 
+            return {
+                ...state,
+                products: action.payload
+            }    
         default:
             return state
     }
