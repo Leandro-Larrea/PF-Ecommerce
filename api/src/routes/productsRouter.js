@@ -6,10 +6,8 @@ const axios = require("axios")
 
 router.get("/", async(req, res) =>{
     try {
-        let products = await getApiProducts();
-
-
-        res.status(200).json(products);
+        let products = await Product.find();
+         res.status(200).json(products);
     } catch (error) {
          res.status(404).send({"le erraste chamigo": error});
     }
