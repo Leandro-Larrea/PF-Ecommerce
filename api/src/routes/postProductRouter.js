@@ -1,12 +1,15 @@
+const { Router } = require("express");
+const router = Router();
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
 
-const postProductRouter = () => {
+router.post('/', async (req, res) => {
 
         try {
-            uploadToCloudinary()
+            let result = await uploadToCloudinary()
+            res.send({'listo': result})
         }catch(error){
             res.status(500).json({'error: ': error})
         }
-}
+})
 
-module.exports = postProductRouter
+module.exports = router
