@@ -1,23 +1,23 @@
-import * as actions from '../Actions'
+import {GET_PRODUCTS, SEARCH} from '../actions';
 
 const initialState = {
-    products:[]
-}
+  products: undefined,
+};
 
-const reducer = (state = initialState,action)=>{
-    switch (action.type){
-        case actions.GET_PRODUCTS:
-            return {
-                ...state,
-                products:action.payload
-            }
-        case actions.SEARCH: 
-            return {
-                ...state,
-                products: action.payload
-            }    
-        default:
-            return state
-    }
-}
-export default reducer
+const reducer = (state = initialState, {type, payload}) => {
+  switch (type) {
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: payload,
+      };
+    case SEARCH:
+      return {
+        ...state,
+        products: payload,
+      };
+    default:
+      return state;
+  }
+};
+export default reducer;

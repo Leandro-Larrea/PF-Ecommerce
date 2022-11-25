@@ -1,38 +1,42 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from 'react';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProducts} from '../../redux/actions';
+import CardProduct from './CardProduct';
 
-import { View, Text, StyleSheet } from 'react-native'
-import {useDispatch,useSelector} from 'react-redux'
-import * as actions from '../../Redux/Actions'
+export default function Cards() {
+  const dispatch = useDispatch();
 
-/* import Card from "./Card"; */
+  const {products} = useSelector(state => state.products);
+  //   const products = data.products;
 
+  useEffect(() => {
+    async function ejet() {
+      if (!products) {
+        await dispatch(getProducts());
+      } else {
+        console.log('cards', products?.[0]);
+      }
+    }
+    ejet();
+  }, [products]);
 
-
-export default function Cards(){
-
- const dispatch = useDispatch()
-
- const data = useSelector(state=>state.products)
- const products= data.products
-
- 
-useEffect(()=>{
-    dispatch(actions.getProducts())
-
-},[])
-
-    return(
+  return (
     <View>
-        <Text>Cards</Text>
-
-        {
-            products.length ?
-            products.map(e=>{
-            return(
-             {/* <Card title={e.title} image={e.image} price={e.price} key={e.title}></Card> */})
-            })
-            :<Text>no se esta renderizando</Text>
-        }
+      {products && (
+        <FlatList
+          data={products}
+          renderItem={({item}) => (
+            <CardProduct
+              title={item.title}
+              description={item.description}
+              image={item.image}
+              price={item.price}
+              key={item._id}
+            />
+          )}
+        />
+      )}
     </View>
-    )
+  );
 }
