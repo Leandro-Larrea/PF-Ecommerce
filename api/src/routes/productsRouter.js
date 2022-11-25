@@ -2,7 +2,8 @@ const { Router } = require("express");
 const router = Router();
 const Product = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts } = require("../controllers/getProducts.js");
+const { getProducts, deleteProducts } = require("../controllers/getProducts.js");
+const e = require("express");
 
 router.get("/", async(req, res) =>{
     try {
@@ -23,6 +24,7 @@ router.post('/', async (req, res) => {
     try {
         let image = await uploadToCloudinary(obj.image)
         obj.image = image 
+        console.log(obj.image)
         const objectMongo = Product(obj)
         const result = await objectMongo.save() 
         return res.status(200).json(result)
@@ -33,13 +35,38 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req,res)=>{
     try {
-    let {id} = req.params
-
+       let {id} = req.params
+     let obj = req.body
+     if(Array.isArray(obj)){
+         for(const e of obj){
+             let changes = {
+                 image:e.url,
+                 imageId:e["public_id"]
+                }
+                let box = await Product.findOneAndUpdate({title:e.title},changes) 
+                console.log(box)
+            }
+            let todos = await Product.find() 
+         return res.status(200).json(todos) 
+     }
+     
+        
     let a = await Product.findByIdAndUpdate(id, req.body);
     let b = await Product.findById(id);
-        res.status(200).json({a,b})
+        res.status(201).json({a,b})
+    } catch (error) 
+    {
+        res.status(400).send(error)
+    } 
+})
+
+router.delete("/:id", async (req,res)=>{
+    try {
+        let {id} = req.params
+        let a = await deleteProducts(id)
+        return res.status(201).json(a)
     } catch (error) {
-        res.status(400).send("something get wrong")
+        res.status(400).send(error)
     } 
 })
 
