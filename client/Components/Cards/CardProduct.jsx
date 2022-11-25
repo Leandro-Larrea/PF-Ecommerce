@@ -13,9 +13,9 @@ const CardProduct = ({title, image, description}) => {
     <View style={styles.container} title={title}>
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
-        onProgress={(loaded, total) => {
+       /*  onProgress={(loaded, total) => {
           console.log(loaded);
-        }}
+        }} */
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"

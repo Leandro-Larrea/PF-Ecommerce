@@ -4,7 +4,7 @@ import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://192.168.18.25:3001';
+axios.defaults.baseURL = 'http://192.168.100.32:3001';
 /* import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './Components/Home/Home';
