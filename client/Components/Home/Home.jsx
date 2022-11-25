@@ -1,20 +1,51 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Button } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 /* import { NavBar } from '../NavBar/NavBar' */
+import { getCategories,getProducts } from '../../redux/actions'
 
-export const Home = () => {
+import HomeCategories from './HomeCategories'
+import Header from './Header'
+
+
+
+
+export const Home = ({navigation}) => {
+
+  const dispatch = useDispatch()
+  const data = useSelector((state)=>state.products)
+  const products= data.products
+  const categories = data.categories
+
+
+useEffect(()=>{
+    
+    if(!categories.length){
+        dispatch(getCategories())
+    }
+    
+},[])
+
+
     return (
         <SafeAreaView style={style.container} >
             <View style={style.header} >
-                <Text style={style.headerText}>"X MARKET"</Text>
+               <Header></Header>
                 
             </View>
             <View style={style.content}>
                 <View style={style.ofertaBox}>
                     <Text>OFERTAS 🔥</Text>
+               
                 </View>
                 <View style={style.categoriaBox} >
-                    <Text>Categorias Sugeridas</Text>
+                    <Text style={style.categoriesText}>Suggested categories</Text>
+                    { categories?
+                       <HomeCategories navigation={navigation} categories={categories}></HomeCategories>
+                       :<Text>cargando</Text>
+
+                    }
+                   
                 </View>
             </View>
             {/* <NavBar/> */}
@@ -32,7 +63,7 @@ const style = StyleSheet.create({
     },
     header: {
         flex: 1,
-        backgroundColor: "#6A37C4",
+        backgroundColor: "#2d2d2d",
         paddingTop: 15,
         paddingBottom: 15
     },
@@ -52,7 +83,13 @@ const style = StyleSheet.create({
         marginRight: 20,
         marginBottom: 20,
         flex: 2,
-        borderWidth: 1,
-        borderColor: "black"
+       
+    },
+    categoriesText:{
+        fontSize:20,
+        textAlign:'center',
+        flex:0,
+        marginTop:50
+        
     }
 })
