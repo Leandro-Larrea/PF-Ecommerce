@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const {createCategory, findCategory} = require("../controllers/categories");
-
+const Product = require("../models/Product.js")
 
 router.post("/", async (req,res)=>{
     try { 
@@ -21,4 +21,19 @@ router.get("/", async(req, res) =>{
     }
 });
 
+
+router.get("/:category", async (req, res) => {
+    const { category } = req.params;
+ 
+    try {
+        let categories = await Product.find({category})
+         res.json({categories})
+    } catch (error) {
+        res.status(400).json({"error": error})
+    }
+});
+
 module.exports = router;
+
+/*
+ */
