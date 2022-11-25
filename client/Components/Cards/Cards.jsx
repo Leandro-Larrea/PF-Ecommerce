@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
-
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProducts} from '../../redux/actions';
 import CardProduct from './CardProduct';
-
-// import Card from "./Card";
 
 export default function Cards() {
   const dispatch = useDispatch();

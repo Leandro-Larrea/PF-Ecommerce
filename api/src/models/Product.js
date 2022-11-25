@@ -68,8 +68,18 @@ const productSchema = new Schema(
       type: Number,
     },
     rating: {
-      type: ratingSchema,
-      required: true,
+        type: ratingSchema,
+        required: true
+    },
+  
+    image:{
+        type: String,
+        required: true,
+        trim: true
+    },
+    imageId:{
+        type: String,
+        trim: true
     },
     image: {
       type: String,
