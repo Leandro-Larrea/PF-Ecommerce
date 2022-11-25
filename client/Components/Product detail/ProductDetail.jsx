@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 
-function Detail() {
+export const ProductDetail = ({image, title, price, description, navigation }) => {
   return (
     <View>
-        Product detail
+        <Text>Product detail</Text>
     </View>
   )
 }
-
-export default Detail

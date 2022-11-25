@@ -9,6 +9,15 @@ import {
 } from 'react-native';
 
 const CardProduct = ({title, image, description}) => {
+
+  const handleView = () => {
+    alert('View')
+  }
+
+  const handleAddCart = () => {
+    alert('Added to cart!')
+  }
+
   return (
     <View style={styles.container} title={title}>
       <Image
@@ -25,13 +34,13 @@ const CardProduct = ({title, image, description}) => {
         {title}
       </Text>
       <View style={styles.separator} />
-      <Text style={styles.description} numberOfLines={5}>
+      {/* <Text style={styles.description} numberOfLines={5}>
         {description}
-      </Text>
+      </Text> */}
       <View style={styles.fixToText}>
-        <Button title={'VIEW'}></Button>
+        <Button title={'VIEW'} onPress={handleView}></Button>
 
-        <Button title={'ADD CART'} color="#65AE77" style={{margin: 10}}>
+        <Button title={'ADD CART'} onPress={handleAddCart} color="#65AE77" style={{margin: 10}}>
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
