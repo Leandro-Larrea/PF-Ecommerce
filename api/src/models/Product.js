@@ -60,9 +60,15 @@ const productSchema = new Schema({
         type: ratingSchema,
         required: true
     },
+  
     image:{
         type: String,
-        required: true
+        required: true,
+        trim: true
+    },
+    imageId:{
+        type: String,
+        trim: true
     },
     details:{
         type: Array

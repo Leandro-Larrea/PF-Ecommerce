@@ -1,8 +1,13 @@
 const axios = require("axios");
+const Product = require("../models/Product.js");
 
-const getApiProducts = async()=>{
-    let products = await axios.get('https://fakestoreapi.com/products');   
-    return products.data;
+const getProducts = async(title)=>{
+   let productsDb = await Product.find();
+   let producsFilter = productsDb.filter(e=> e.title.toLowerCase().includes(title.toLowerCase()));
+   if (producsFilter.length) return producsFilter;
+   throw ("the text doesn't match any product");
 };
 
-module.exports = getApiProducts;
+module.exports = {
+    getProducts
+};
