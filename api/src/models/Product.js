@@ -30,23 +30,12 @@ const ratingSchema = new Schema({
     },
   },
 });
-const imageSchema = new Schema({
-  image: {
-    type: String,
-    required: true,
-  },
-  imageId: {
-    type: String,
-    required: true,
-  },
-});
 
 const productSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     price: {
@@ -79,13 +68,9 @@ const productSchema = new Schema(
     },
     imageId:{
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
-    image: {
-      type: String,
-      required: true,
-    },
-    imageCloudinary: imageSchema,
     details: {
       type: Array,
     },
@@ -98,4 +83,8 @@ const productSchema = new Schema(
 );
 
 const Product = model("Product", productSchema);
-module.exports = Product;
+const ProductBackUp = model("ProductBackUp", productSchema);
+module.exports = {
+  Product,
+  ProductBackUp
+};

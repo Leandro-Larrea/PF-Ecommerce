@@ -23,9 +23,9 @@ router.post('/', async (req, res) => {
     try {
         let image = await uploadToCloudinary(obj.image)
         console.log('imagen: ', image)
-        //obj.image = image 
-        //const objectMongo = Product(obj)
-        //const result = await objectMongo.save() 
+        obj.image = image 
+        const objectMongo = Product(obj)
+        const result = await objectMongo.save() 
         return res.status(200).json(image)
     }catch(error){
             res.status(500).json({'error: ': error})
