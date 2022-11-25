@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, TextInput, Text, View, StyleSheet, Pressable } from 'react-native'
-import { search } from '../../Redux/Actions'
+import { search } from '../../redux/actions'
 
 export const SearchBar = () => {
     const dispatch = useDispatch();
