@@ -1,4 +1,6 @@
 const Category = require("../models/Category.js");
+const Product = require("../db.js")
+
 
 const createCategory = async(obj) => {
     const categoryCreated = Category(obj)

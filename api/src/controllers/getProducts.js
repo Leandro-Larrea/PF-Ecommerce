@@ -34,7 +34,20 @@ const deleteProducts = async(id)=>{
     throw ("some error ocurred into the controller");
  };
 
+
+const filterPrice = async(price) => {
+    let priceFilter = await Product.find();
+    
+    if(priceFilter) {
+        const products = priceFilter.filter(el => el.price <= price);
+        // console.log("2", products)
+        return products
+    };
+    
+};
+
 module.exports = {
     getProducts,
-    deleteProducts
-};
+    deleteProducts,
+    filterPrice
+}

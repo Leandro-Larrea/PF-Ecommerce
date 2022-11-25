@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const { Product, ProductBackUp } = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, deleteProducts } = require("../controllers/getProducts.js");
+const { getProducts, deleteProducts,  filterPrice } = require("../controllers/getProducts.js");
 const e = require("express");
 
 router.get("/", async(req, res) =>{
@@ -16,6 +16,17 @@ router.get("/", async(req, res) =>{
         res.status(200).json(products);
     } catch (error) {
          res.status(404).send({'error: ': error});
+    }
+});
+
+router.get("/:price", async(req, res) => {
+    const { price } = req.params
+    try {
+        const products = await filterPrice(price);
+        res.status(200).json(products)
+        // console.log("1", products)
+    } catch (error) {
+        res.status(400).send("No hay nada");
     }
 });
 
@@ -70,5 +81,6 @@ router.delete("/:id", async (req,res)=>{
         res.status(400).send(error)
     } 
 })
+
 
 module.exports = router;
