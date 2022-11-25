@@ -21,7 +21,6 @@ export const PostProduct = () => {
                 label="Product Name"
                 isRequired
                 asterik
-
             />
 
             <FormItem
@@ -29,13 +28,12 @@ export const PostProduct = () => {
                 isRequired
                 asterik
                 textArea
-
             />
 
             <FormItem
                 label="Price"
                 isRequired
-                asterik
+                asterik   
                 secureTextEntry
             />
 

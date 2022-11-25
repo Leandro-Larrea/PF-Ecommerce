@@ -1,7 +1,8 @@
-import {GET_PRODUCTS, SEARCH} from '../actions';
+import {GET_PRODUCTS, SEARCH, GET_CATEGORIES} from '../actions';
 
 const initialState = {
   products: undefined,
+  categories: []
 };
 
 const reducer = (state = initialState, {type, payload}) => {
@@ -16,6 +17,11 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         products: payload,
       };
+    case GET_CATEGORIES:
+        return {
+            ...state,
+            categories:payload
+        }  
     default:
       return state;
   }
