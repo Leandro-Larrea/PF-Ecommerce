@@ -2,10 +2,14 @@ const axios = require("axios");
 const  {Product, ProductBackUp } = require("../models/Product.js");
 
 const getProducts = async(title)=>{
-   let productsDb = await Product.find();
-   let producsFilter = productsDb.filter(e=> e.title.toLowerCase().includes(title.toLowerCase()));
-   if (producsFilter.length) return producsFilter;
-   throw ("the text doesn't match any product");
+    let productsDb = await Product.find();
+    if (!!title){
+        let producsFilter = productsDb.filter(e=> e.title.toLowerCase().includes(title.toLowerCase()));
+        return producsFilter;
+    }
+    else {
+        return productsDb
+    }
 };
 
 
@@ -35,19 +39,8 @@ const deleteProducts = async(id)=>{
  };
 
 
-const filterPrice = async(price) => {
-    let priceFilter = await Product.find();
-    
-    if(priceFilter) {
-        const products = priceFilter.filter(el => el.price <= price);
-        // console.log("2", products)
-        return products
-    };
-    
-};
 
 module.exports = {
     getProducts,
-    deleteProducts,
-    filterPrice
+    deleteProducts
 }
