@@ -1,4 +1,5 @@
 const axios = require("axios");
+const uploadToCloudinary = require("../cloudinary/uploadToCloudinary.js");
 const  {Product, ProductBackUp } = require("../models/Product.js");
 const productValidation = require("./productValidation.js");
 
@@ -15,6 +16,7 @@ const getProducts = async(title)=>{
 
 
 const postProducts = async(obj) => {
+
     try {
         let validation = productValidation(obj)
         if(validation === 'OK'){
@@ -30,6 +32,7 @@ const postProducts = async(obj) => {
     }catch(error){
         return error
     }
+
 }
 
 const deleteProducts = async(id)=>{
