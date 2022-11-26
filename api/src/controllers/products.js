@@ -16,7 +16,6 @@ const getProducts = async(title)=>{
 
 
 const postProducts = async(obj) => {
-
     try {
         let validation = productValidation(obj)
         if(validation === 'OK'){
@@ -32,7 +31,6 @@ const postProducts = async(obj) => {
     }catch(error){
         return error
     }
-
 }
 
 const deleteProducts = async(id)=>{
