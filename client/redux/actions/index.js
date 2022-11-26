@@ -7,7 +7,7 @@ export const FILTER_CATEGORIES = 'FILTER_CATEGORIES'
 
 export const getProducts = () => dispatch => {
   /*cada uno tiene que poner su propia IP*/
-  return axios.get('/products').then(res => {
+  return axios.get('/search').then(res => {
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
@@ -30,7 +30,7 @@ export const getCategories =  ()=> dispatch =>{
 }
 
 export const filterByCategories = (category)=>dispatch=>{
-    return axios.get(`/products/${category}`)
+    return axios.get(`/search?category=${category}`)
     .then(res=>{
       dispatch({
         type:'FILTER_CATEGORIES',
