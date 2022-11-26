@@ -13,6 +13,19 @@ const getProducts = async(title)=>{
 };
 
 
+const postProducts = async(obj) => {
+    try {
+        const { image, imageId } = await uploadToCloudinary(obj.image)
+        obj.image = image
+        obj.imageId = imageId 
+        const objectMongo = await Product(obj);
+        const result = await objectMongo.save(); 
+        return result
+    }catch(error){
+        return error
+    }
+}
+
 const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
      let o = productDb;
@@ -27,7 +40,6 @@ const deleteProducts = async(id)=>{
          details: o.details,
          reviews: o.reviews,
          createdAt:o.createdAt,
-         updatedAt:o.updatedAt
        }
 
     let productMoved = await ProductBackUp(obj);
@@ -38,9 +50,15 @@ const deleteProducts = async(id)=>{
     throw ("some error ocurred into the controller");
  };
 
-
-
 module.exports = {
     getProducts,
-    deleteProducts
-}
+    deleteProducts,
+    postProducts
+};
+
+
+
+
+
+
+

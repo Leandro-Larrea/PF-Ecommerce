@@ -1,4 +1,4 @@
-const {getProducts} = require('./getProducts')
+const {getProducts} = require('./products')
 
 const combinedFilters = async (obj) => {
     let results = await getProducts(obj.title)
