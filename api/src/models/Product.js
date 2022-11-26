@@ -17,9 +17,11 @@ const reviewsSchema = new Schema({
 const ratingSchema = new Schema({
   points: {
     type: Number,
+    required: true
   },
   votes: {
-    type: Number
+    type: Number,
+    required: true,
   },
   rating: {
     type: Number,
@@ -54,10 +56,10 @@ const productSchema = new Schema(
     },
     stock: {
       type: Number,
-      required: true
     },
     rating: {
-        type: ratingSchema
+        type: ratingSchema,
+        required: true
     },
   
     image:{

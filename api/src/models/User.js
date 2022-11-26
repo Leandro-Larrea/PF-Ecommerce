@@ -60,6 +60,10 @@ const userSchema = new Schema({
         type: locationSchema,
         required: true
     },
+    admin:{
+        type: Boolean,
+        required: true
+    }
 },
     {
     timestamps: true,
