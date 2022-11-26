@@ -1,4 +1,5 @@
 const axios = require("axios");
+const uploadToCloudinary = require("../cloudinary/uploadToCloudinary.js");
 const  {Product, ProductBackUp } = require("../models/Product.js");
 
 const getProducts = async(title)=>{
@@ -14,16 +15,15 @@ const getProducts = async(title)=>{
 
 
 const postProducts = async(obj) => {
-    try {
         const { image, imageId } = await uploadToCloudinary(obj.image)
+        console.log("1",image, imageId)
         obj.image = image
         obj.imageId = imageId 
         const objectMongo = await Product(obj);
         const result = await objectMongo.save(); 
+        console.log("2",result)
         return result
-    }catch(error){
-        return error
-    }
+    
 }
 
 const deleteProducts = async(id)=>{
