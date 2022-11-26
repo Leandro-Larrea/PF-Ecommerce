@@ -1,5 +1,6 @@
 const axios = require("axios");
 const  {Product, ProductBackUp } = require("../models/Product.js");
+const productValidation = require("./productValidation.js");
 
 const getProducts = async(title)=>{
     let productsDb = await Product.find();
@@ -15,12 +16,17 @@ const getProducts = async(title)=>{
 
 const postProducts = async(obj) => {
     try {
-        const { image, imageId } = await uploadToCloudinary(obj.image)
-        obj.image = image
-        obj.imageId = imageId 
-        const objectMongo = await Product(obj);
-        const result = await objectMongo.save(); 
-        return result
+        let validation = productValidation(obj)
+        if(validation === 'OK'){
+            const { image, imageId } = await uploadToCloudinary(obj.image)
+            obj.image = image
+            obj.imageId = imageId 
+            const objectMongo = await Product(obj);
+            const result = await objectMongo.save(); 
+            return result
+        }
+        return validation
+
     }catch(error){
         return error
     }

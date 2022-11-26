@@ -19,8 +19,7 @@ const ratingSchema = new Schema({
     type: Number,
   },
   votes: {
-    type: Number,
-    required: true,
+    type: Number
   },
   rating: {
     type: Number,
@@ -55,10 +54,10 @@ const productSchema = new Schema(
     },
     stock: {
       type: Number,
+      required: true
     },
     rating: {
-        type: ratingSchema,
-        required: true
+        type: ratingSchema
     },
   
     image:{
