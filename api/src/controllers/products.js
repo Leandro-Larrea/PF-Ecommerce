@@ -2,12 +2,29 @@ const axios = require("axios");
 const  {Product, ProductBackUp } = require("../models/Product.js");
 
 const getProducts = async(title)=>{
-   let productsDb = await Product.find();
-   let producsFilter = productsDb.filter(e=> e.title.toLowerCase().includes(title.toLowerCase()));
-   if (producsFilter.length) return producsFilter;
-   throw ("the text doesn't match any product");
+    let productsDb = await Product.find();
+    if (!!title){
+        let producsFilter = productsDb.filter(e=> e.title.toLowerCase().includes(title.toLowerCase()));
+        return producsFilter;
+    }
+    else {
+        return productsDb
+    }
 };
 
+
+const postProducts = async(obj) => {
+    try {
+        const { image, imageId } = await uploadToCloudinary(obj.image)
+        obj.image = image
+        obj.imageId = imageId 
+        const objectMongo = await Product(obj);
+        const result = await objectMongo.save(); 
+        return result
+    }catch(error){
+        return error
+    }
+}
 
 const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
@@ -23,7 +40,6 @@ const deleteProducts = async(id)=>{
          details: o.details,
          reviews: o.reviews,
          createdAt:o.createdAt,
-         updatedAt:o.updatedAt
        }
 
     let productMoved = await ProductBackUp(obj);
@@ -36,5 +52,13 @@ const deleteProducts = async(id)=>{
 
 module.exports = {
     getProducts,
-    deleteProducts
+    deleteProducts,
+    postProducts
 };
+
+
+
+
+
+
+

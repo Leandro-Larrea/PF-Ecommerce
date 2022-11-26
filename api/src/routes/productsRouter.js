@@ -1,9 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const { Product, ProductBackUp } = require("../models/Product.js")
+const Product = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, deleteProducts } = require("../controllers/getProducts.js");
-const e = require("express");
+const { getProducts, postProducts } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -13,21 +12,15 @@ router.get("/", async(req, res) =>{
            return res.status(200).json(filterProducts)
         }
         let products = await Product.find();
-        res.status(200).json(products);
+         res.status(200).json(products);
     } catch (error) {
-         res.status(404).send({'error: ': error});
+         res.status(404).send("it doesn't work");
     }
 });
 
 router.post('/', async (req, res) => {
-    let obj = req.body
     try {
-        const { image, imageId } = await uploadToCloudinary(obj.image)
-        obj.image = image
-        obj.imageId = imageId 
-        console.log(obj.image, obj.imageId);
-        const objectMongo = await Product(obj);
-        const result = await objectMongo.save(); 
+        let result = await postProducts(req.body)
         return res.status(200).json(result);
     }catch(error){
             res.status(500).json({'error: ': error})
@@ -36,38 +29,13 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req,res)=>{
     try {
-       let {id} = req.params
-     let obj = req.body
-     if(Array.isArray(obj)){
-         for(const e of obj){
-             let changes = {
-                 image:e.url,
-                 imageId:e["public_id"]
-                }
-                let box = await Product.findOneAndUpdate({title:e.title},changes) 
-                console.log(box)
-            }
-            let todos = await Product.find() 
-         return res.status(200).json(todos) 
-     }
-     
-        
+    let {id} = req.params
+
     let a = await Product.findByIdAndUpdate(id, req.body);
     let b = await Product.findById(id);
-        res.status(201).json({a,b})
-    } catch (error) 
-    {
-        res.status(400).send(error)
-    } 
-})
-
-router.delete("/:id", async (req,res)=>{
-    try {
-        let {id} = req.params
-        let a = await deleteProducts(id)
-        return res.status(201).json(a)
+        res.status(200).json({a,b})
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send("something get wrong")
     } 
 })
 

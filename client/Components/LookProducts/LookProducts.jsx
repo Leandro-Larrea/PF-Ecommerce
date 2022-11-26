@@ -20,7 +20,7 @@ export const LookProducts = () => {
       dispatch(actions.getCategories())
      }
     
- })
+ },[])
 
   return (
    
