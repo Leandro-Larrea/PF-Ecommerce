@@ -3,11 +3,12 @@
  const postUser = async (obj) =>{    
      const { name, description, mail, reviews, phone, location, admin } = obj
      const {country, city, address} = location;
-     if(!name || !description || !mail || !phone || !location || !country || ! city || ! address || !admin){
+     console.log(country,city, address)
+
+     if(!name || !description || !mail || !phone || !location || !country || !city || !address ||
+         typeof(admin) !== "boolean"){
         throw("insufficient data")
      }
-
-    
 
     const validation ={
         name: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,40}$/,
@@ -26,6 +27,13 @@
            throw `the field ${e} it's wrong`
         }
     }
-
-     return "it works"
+    console.log(obj)
+    let a = await User(obj)
+    console.log(a)
+    let b = await a.save()
+     return b
  }
+
+ module.exports = {
+    postUser
+ };
