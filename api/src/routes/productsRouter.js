@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const Product = require("../models/Product.js")
+const {Product} = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts } = require("../controllers/getProducts.js");
+const { getProducts, postProducts } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -19,14 +19,10 @@ router.get("/", async(req, res) =>{
 });
 
 router.post('/', async (req, res) => {
-    let obj = req.body
     try {
-        let image = await uploadToCloudinary(obj.image)
-        console.log('imagen: ', image)
-        obj.image = image 
-        const objectMongo = Product(obj)
-        const result = await objectMongo.save() 
-        return res.status(200).json(image)
+        let result = await postProducts(req.body)
+        console.log(req.body)
+        return res.status(200).json(result);
     }catch(error){
             res.status(500).json({'error: ': error})
         }

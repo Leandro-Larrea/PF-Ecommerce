@@ -1,7 +1,5 @@
 const {Schema, model} = require("mongoose");
 
-
-
 const locationSchema = new Schema({
     country:{
         type: String,
@@ -19,7 +17,19 @@ const locationSchema = new Schema({
         trim: true,      
     },
     
-})
+});
+
+const reviewsSchema = new Schema({
+    product: {
+      type: String,
+      required: true,
+    },
+    review: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  });
 
 const userSchema = new Schema({
     name:{
@@ -38,15 +48,22 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
+    reviews:{
+        type:[reviewsSchema]
+    },
     phone:{
         type: String,
         required: true,
         trim: true
     },
-    address:{
-
+    location:{
+        type: locationSchema,
+        required: true
+    },
+    admin:{
+        type: Boolean,
+        required: true
     }
-    
 },
     {
     timestamps: true,
@@ -55,4 +72,6 @@ const userSchema = new Schema({
 )
 
  const User = model("User", userSchema);
- module.exports = User;
+ module.exports = {
+    User
+};
