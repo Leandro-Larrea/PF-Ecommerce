@@ -50,4 +50,9 @@ export const search = (name) => {
   };
 };
 
+export const postProduct = (payload) => {
+  return async function (dispatch) {
+    return await axios.post('/products', payload)
+  }
+}
 

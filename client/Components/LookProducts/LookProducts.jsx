@@ -1,5 +1,5 @@
 import React ,{useEffect,useState}from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, FlatList } from 'react-native'
 import { SearchBar } from '../SearchBar/SearchBar'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions'
