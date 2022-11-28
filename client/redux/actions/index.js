@@ -28,14 +28,15 @@ export const getCategories = () => dispatch => {
     });
 };
 
-export const filterByCategories = category => dispatch => {
-  return axios.get(`/products/${category}`).then(res => {
-    dispatch({
-      type: 'FILTER_CATEGORIES',
-      payload: res.data,
-    });
-  });
-};
+/* export const filterByCategories = (category)=>dispatch=>{
+    return axios.get(`/products/${category}`)
+    .then(res=>{
+      dispatch({
+        type:'FILTER_CATEGORIES',
+        payload:res.data
+      })
+    })
+} */
 
 export const search = name => {
   return async function (dispatch) {
@@ -47,3 +48,20 @@ export const search = name => {
     );
   };
 };
+
+export const postProduct = (payload) => {
+  return async function (dispatch) {
+    return await axios.post('/products', payload)
+  }
+}
+
+export const filterByCategories = (category)=>dispatch=>{
+  return axios.get(`/search?category=${category}`)
+  .then(res=>{
+    dispatch({
+      type:'FILTER_CATEGORIES',
+      payload:res.data
+    })
+  })
+}
+

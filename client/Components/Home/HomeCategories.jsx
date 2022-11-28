@@ -8,23 +8,37 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function HomeCategories({categories, navigation}) {
-  const data = categories.slice(4).map(e => {
-    return {
-      id: e.id,
-      title: e.category.toUpperCase(),
-    };
-  });
 
-  const handlePress = () => {
-    navigation.navigate('Products');
-  };
-  const Item = ({title}) => (
-    <TouchableOpacity
-      style={styles.item}
-      activeOpacity={0.7}
-      onPress={() => handlePress()}>
-      <Text style={styles.title}>{title}</Text>
+
+
+
+
+
+export default function HomeCategories({categories,navigation}){
+
+
+const data = categories.slice(4).map(e=>{
+
+    return {
+        id:e._id,
+        title:e.category.toUpperCase()
+    }
+})
+
+
+
+const handlePress=()=>{
+    navigation.navigate('Products')
+    
+}
+const Item = ({ title }) => (
+    
+    <TouchableOpacity 
+    style={styles.item}
+    activeOpacity={0.7}
+    onPress={()=>handlePress()}
+    >
+        <Text style={styles.title} >{title}</Text>
     </TouchableOpacity>
   );
 
