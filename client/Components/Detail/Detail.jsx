@@ -57,5 +57,3 @@ const styles = StyleSheet.create({
 });
 
 export default Detail;
-
-export default Detail
