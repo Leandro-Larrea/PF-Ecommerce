@@ -1,4 +1,4 @@
-import {GET_PRODUCTS, SEARCH, GET_CATEGORIES} from '../actions';
+import {GET_PRODUCTS, SEARCH, GET_CATEGORIES,FILTER_CATEGORIES} from '../actions';
 
 const initialState = {
   products: undefined,
@@ -21,7 +21,13 @@ const reducer = (state = initialState, {type, payload}) => {
         return {
             ...state,
             categories:payload
-        }  
+        }
+    case FILTER_CATEGORIES:
+      console.log('reducer ejecutado')
+      return {
+        ...state,
+        products:payload
+      }
     default:
       return state;
   }
