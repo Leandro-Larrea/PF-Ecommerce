@@ -5,6 +5,7 @@ import { Form, FormItem, Picker } from 'react-native-form-component';
 import { getCategories, postProduct } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -84,6 +85,8 @@ export const PostProduct = () => {
         <Form style={style.Form} buttonTextStyle={style.buttonText} buttonStyle={style.buttonForm} buttonText='Crear Producto 😎' onButtonPress={() => handleSubmit()}>
             <FormItem
                 label="Product Name"
+                labelStyle={style.label}
+                style={style.inputForm}
                 isRequired
                 asterik
                 value={input.title}
@@ -91,7 +94,9 @@ export const PostProduct = () => {
                 />
 
             <FormItem
-                label="Price -USD"
+                label="Price $USD"
+                labelStyle={style.label}
+                style={style.inputForm}
                 isRequired
                 asterik
                 value={input.price}
@@ -100,6 +105,8 @@ export const PostProduct = () => {
 
             <FormItem
                 label="Description"
+                labelStyle={style.label}
+                style={style.inputForm}
                 isRequired
                 asterik
                 value={input.description}
@@ -108,6 +115,8 @@ export const PostProduct = () => {
 
             <FormItem
                 label="Stock"
+                labelStyle={style.label}
+                style={style.inputForm}
                 isRequired
                 asterik
                 value={input.stock}
@@ -125,7 +134,13 @@ export const PostProduct = () => {
                     { label: 'Monitors', value: 'Monitors' },
                     { label: 'Joysticks', value: 'Joysticks' },
                 ]}
+                style={style.picker}
+                asterik
+                buttonStyle={{ marginHorizontal: 20, backgroundColor: "#bec0b5" }}
+                iconWrapperStyle={{ backgroundColor:"#bec0b5" }}
+                pickerIcon={<Icon name='caret-down' size={25}  />}
                 label="Category"
+                labelStyle={style.label}
                 placeholder='-Select Category-'
                 selectedValue={input.category}
                 onSelection={(item) => { setInput({ ...input, category: item.value }) }}
@@ -153,7 +168,7 @@ export const PostProduct = () => {
 
 const style = StyleSheet.create({
     buttonForm: {
-        backgroundColor: "violet",
+        backgroundColor: "#60707d",
         width: 200,
         left: 100
     },
@@ -164,5 +179,12 @@ const style = StyleSheet.create({
     Form: {
         flex: 1,
         marginTop: 40
+    },
+    inputForm: {
+        backgroundColor: "#bec0b5",
+        marginHorizontal: 20
+    },
+    label: {
+        marginLeft: 20
     }
 })
