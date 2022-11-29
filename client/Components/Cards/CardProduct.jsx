@@ -31,7 +31,7 @@ const CardProduct = ({navegar, title, image, description, price}) => {
       <View style={styles.fixToText}>
         <Button title={'VIEW'}></Button>
 
-        <Button title={'ADD CART'} onPress={handleAddCart} color="#65AE77" style={{margin: 10}}>
+        <Button title={'ADD CART'} color="#65AE77" style={{margin: 10}}>
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
