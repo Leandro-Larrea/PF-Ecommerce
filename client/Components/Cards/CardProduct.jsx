@@ -8,12 +8,12 @@ import {
   View,
 } from 'react-native';
 
-const CardProduct = ({title, image, description}) => {
+const CardProduct = ({navegar, title, image, description, price}) => {
   return (
     <View style={styles.container} title={title}>
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
-       /*  onProgress={(loaded, total) => {
+        /*  onProgress={(loaded, total) => {
           console.log(loaded);
         }} */
         style={styles.image}
@@ -29,7 +29,11 @@ const CardProduct = ({title, image, description}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <Button title={'VIEW'}></Button>
+        <Button
+          title={'VIEW'}
+          onPress={() => {
+            navegar({title, image, description, price});
+          }}></Button>
 
         <Button title={'ADD CART'} color="#65AE77" style={{margin: 10}}>
           <Icon size={20} name="cart-plus" color="#fff" />

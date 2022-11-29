@@ -21,7 +21,7 @@ router.get("/", async(req, res) =>{
 router.post('/', async (req, res) => {
     try {
         let result = await postProducts(req.body)
-        console.log(req.body)
+        console.log("aca envio",req.body)
         return res.status(200).json(result);
     }catch(error){
             res.status(500).json({'error: ': error})
