@@ -18,17 +18,17 @@ const locationSchema = new Schema({
     },
 });
 
-// const reviewsSchema = new Schema({
-//     product: {
-//       type: String,
-//       required: true,
-//     },
-//     review: {
-//       type: String,
-//       required: true,
-//       trim: true,
-//     },
-//   });
+ const reviewsSchema = new Schema({
+     product: {
+       type: String,
+       required: true,
+     },
+     review: {
+       type: String,
+       required: true,
+       trim: true,
+     },
+   });
 
 const userSchema = new Schema({
     name:{
@@ -46,9 +46,9 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-    // reviews:{
-    //     type:[reviewsSchema]
-    // },
+    //  reviews:{
+        //  type:[reviewsSchema]
+    //  },
     phone:{
         type: String,
         required: true,
