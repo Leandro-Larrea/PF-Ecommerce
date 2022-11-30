@@ -1,23 +1,40 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {SearchBar} from '../SearchBar/SearchBar';
 
-import Detail from '../Detail/Detail';
+import Detail from '../Products/DetailProduct';
 import {useDispatch, useSelector} from 'react-redux';
-import * as actions from '../../redux/actions';
-
-const Stack = createStackNavigator();
 
 //--componentes---
-import Cards from '../Cards/Cards.jsx';
+import Cards from '../Products/CardProducts.jsx';
+import Select from '../Filters/Select';
+import {getCategories} from '../../redux/actions';
 
-export const LookProducts = () => {
+export const LookProducts = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {categories} = useSelector(state => state.products);
+
+  useEffect(() => {
+    if (!categories) {
+      dispatch(getCategories());
+    }
+  }, []);
+  function navegar(product) {
+    navigation.navigate('DetailProduct', product);
+  }
+
   return (
-    <Stack.Navigator initialRouteName="Cards">
-      <Stack.Screen name={'Cards'} component={Cards} />
-      <Stack.Screen name={'Detail'} component={Detail} />
-    </Stack.Navigator>
+    <View>
+      <SearchBar />
+      <View>
+        {categories ? (
+          <Select categories={categories}></Select>
+        ) : (
+          <Text>no se renderizo</Text>
+        )}
+      </View>
+      <Cards navegar={navegar} />
+    </View>
   );
 };
 

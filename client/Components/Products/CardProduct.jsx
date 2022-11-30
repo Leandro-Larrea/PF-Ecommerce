@@ -7,8 +7,16 @@ import {
   Text,
   View,
 } from 'react-native';
+import storage from '../AsyncStorage/AsyncStorage';
+import {CartContext} from '../Cart/ShoppingCart';
+import {useContext} from 'react';
+import {stylesCardProduct} from '../../styles';
 
-const CardProduct = ({navegar, title, image, description, price}) => {
+const CardProduct = ({navegar, product}) => {
+  let {_id, title, image, description, price} = product;
+  const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
+    useContext(CartContext);
+  const inCart = cartItems.find(product => product.productId === _id);
   return (
     <View style={styles.container} title={title}>
       <Image
@@ -35,50 +43,22 @@ const CardProduct = ({navegar, title, image, description, price}) => {
             navegar({title, image, description, price});
           }}></Button>
 
-        <Button title={'ADD CART'} color="#65AE77" style={{margin: 10}}>
+        <Button
+          title={inCart ? 'DEL CART' : 'ADD CART'}
+          color={inCart ? '#FF4544' : '#65AE77'}
+          style={{margin: 10}}
+          onPress={async () => {
+            if (inCart) {
+              deleteItemToCart(product);
+              return;
+            }
+            addItemToCart(product, 1);
+          }}>
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    margin: '2%',
-    padding: '2%',
-    borderRadius: 7,
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.75,
-    elevation: 3,
-  },
-  image: {
-    width: '100%',
-    height: 250,
-  },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: 'green',
-    borderRadius: 5,
-    padding: 5,
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  title: {
-    marginVertical: 8,
-    fontWeight: 'bold',
-  },
-  description: {marginBottom: 10},
-});
+const styles = stylesCardProduct;
 export default CardProduct;
