@@ -4,7 +4,6 @@ import {CartContext} from './ShoppingCart';
 import CardCart from './CardCart';
 
 const ListCart = ({navigation}) => {
-  console.log(navigation);
   const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
     useContext(CartContext);
 
@@ -12,25 +11,24 @@ const ListCart = ({navigation}) => {
     navigation.navigate('DetailProduct', product);
   }
   return (
-    <View>
-      <Button title="Reset" onPress={resetCart} />
-      <Text>Carrito de Compras: {cartItems?.length} </Text>
-      <View>
+    <View style={{flex: 1}}>
+      <View style={{flex: 1.2}}>
+        <Button title="Reset" onPress={resetCart} />
+        <Text>Carrito de Compras: {cartItems?.length} </Text>
+      </View>
+      <View style={{backgroundColor: 'black', flex: 10}}>
         {!!cartItems?.length && (
           <FlatList
             data={cartItems}
-            renderItem={({item, index}) => (
-              <>
-                <CardCart navegar={navegar} productInCart={item} />
-                {cartItems.length - 1 === index && (
-                  <View style={{height: 200}}></View>
-                )}
-              </>
+            renderItem={({item}) => (
+              <CardCart navegar={navegar} productInCart={item} />
             )}
           />
         )}
       </View>
-      <Button title="PAY NOW" />
+      <View style={{flex: 0.8}}>
+        <Button color="green" title="PAY NOW" />
+      </View>
     </View>
   );
 };

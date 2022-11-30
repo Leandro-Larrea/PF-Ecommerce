@@ -12,7 +12,7 @@ import {getCategories} from '../../redux/actions';
 
 export const LookProducts = ({navigation}) => {
   const dispatch = useDispatch();
-  const {categories} = useSelector(state => state.products);
+  const categories = useSelector(state => state.categories);
 
   useEffect(() => {
     if (!categories) {

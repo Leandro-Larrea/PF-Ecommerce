@@ -6,7 +6,7 @@ import CardProduct from './CardProduct';
 
 export default function Cards({navegar}) {
   const dispatch = useDispatch();
-  const {products} = useSelector(state => state.products);
+  const products = useSelector(state => state.products);
   useEffect(() => {
     async function ejet() {
       if (!products) {
@@ -17,21 +17,16 @@ export default function Cards({navegar}) {
     }
     ejet();
   }, [products]);
-
+  const _renderitem = ({item}) => (
+    <CardProduct navegar={navegar} product={item} />
+  );
   return (
     <View>
       {products && (
         <FlatList
+          initialNumToRender={2}
           data={products}
-          renderItem={({item, index}) => (
-            <>
-              <CardProduct navegar={navegar} product={item} />
-              {}
-              {products.length - 1 === index && (
-                <View style={{height: 300}}></View>
-              )}
-            </>
-          )}
+          renderItem={_renderitem}
         />
       )}
     </View>

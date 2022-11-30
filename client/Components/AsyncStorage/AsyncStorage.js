@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const storage = {
   //------------------------------------------------------> Value
   set: async (key, value) => {
@@ -20,7 +21,7 @@ const storage = {
   setJSON: async (key, value) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(key, jsonValue);
+      AsyncStorage.setItem(key, jsonValue);
     } catch (e) {
       // saving error
     }

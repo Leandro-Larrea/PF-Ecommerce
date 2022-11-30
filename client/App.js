@@ -1,6 +1,6 @@
 import React from 'react';
 import {MainContainer} from './Components/MainContainer/MainContainer';
-import {store} from './redux/store';
+import store from './redux/store';
 import {Provider} from 'react-redux';
 import axios from 'axios';
 import {CartProvider} from './Components/Cart/ShoppingCart';

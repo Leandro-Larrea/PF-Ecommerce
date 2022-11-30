@@ -1,10 +1,18 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Image, Button} from 'react-native';
-import {stylesCardCart, stylesCardProduct} from '../../styles';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  //   Button,
+  TouchableOpacity,
+} from 'react-native';
+import {stylesCardCart} from '../../styles';
 import {CartContext} from './ShoppingCart';
+import {Button} from '@rneui/themed';
 
 function Card({productInCart, navegar}) {
-  const {addItemToCart, subtractItemToCart, deleteItemToCart} =
+  const {updateItemToCart, subtractItemToCart, deleteItemToCart} =
     useContext(CartContext);
   const {image, title, price} = productInCart.product;
   return (
@@ -22,28 +30,28 @@ function Card({productInCart, navegar}) {
           <Text style={styles.title}>{title}</Text>
           <Text>{price}$</Text>
         </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <Button
-            title="+"
-            onPress={() =>
-              addItemToCart(productInCart.product, ++productInCart.quantity)
-            }
-          />
-          <Text>{productInCart.quantity}</Text>
-          <Button
-            title="-"
-            onPress={() => subtractItemToCart(productInCart.product)}
-          />
-        </View>
+        {/* <Button title="View" onPress={() => navegar(productInCart.product)} /> */}
       </View>
-      <View style={{flex: 1}}>
+      <View style={{flex: 2}}>
         <Button
           title="x"
           onPress={() => {
             deleteItemToCart(productInCart.product);
           }}
         />
-        <Button title="View" onPress={() => navegar(productInCart.product)} />
+        <View style={stylesCardCart.containerBttnsCart}>
+          <Button
+            style={{flex: 1}}
+            title="-"
+            onPress={() => subtractItemToCart(productInCart.product)}
+          />
+          <Text style={{flex: 1}}>{productInCart.quantity}</Text>
+          <Button
+            title="+"
+            style={{flex: 1, color: 'black'}}
+            onPress={() => updateItemToCart(productInCart)}
+          />
+        </View>
       </View>
     </View>
   );

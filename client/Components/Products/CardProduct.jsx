@@ -9,13 +9,12 @@ import {
 } from 'react-native';
 import storage from '../AsyncStorage/AsyncStorage';
 import {CartContext} from '../Cart/ShoppingCart';
-import {useContext} from 'react';
+import {useContext, memo} from 'react';
 import {stylesCardProduct} from '../../styles';
 
 const CardProduct = ({navegar, product}) => {
   let {_id, title, image, description, price} = product;
-  const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
-    useContext(CartContext);
+  const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const inCart = cartItems.find(product => product.productId === _id);
   return (
     <View style={styles.container} title={title}>
@@ -33,14 +32,14 @@ const CardProduct = ({navegar, product}) => {
         {title}
       </Text>
       <View style={styles.separator} />
-      <Text style={styles.description} numberOfLines={5}>
+      <Text style={styles.description} numberOfLines={3}>
         {description}
       </Text>
       <View style={styles.fixToText}>
         <Button
           title={'VIEW'}
           onPress={() => {
-            navegar({title, image, description, price});
+            navegar(product);
           }}></Button>
 
         <Button
@@ -61,4 +60,4 @@ const CardProduct = ({navegar, product}) => {
   );
 };
 const styles = stylesCardProduct;
-export default CardProduct;
+export default memo(CardProduct);

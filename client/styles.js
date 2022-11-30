@@ -27,6 +27,14 @@ export const stylesCardCart = StyleSheet.create({
     // marginHorizontal: 5,
     fontWeight: 'bold',
   },
+  containerBttnsCart: {
+    position: 'relative',
+    flexDirection: 'row',
+    borderColor: 'gray',
+    borderRadius: 5,
+    borderWidth: 1,
+    margin: 2,
+  },
 });
 export const stylesCardProduct = StyleSheet.create({
   container: {

@@ -1,5 +1,6 @@
 import {createContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {setReducerCart} from '../../redux/actions';
 import storage from '../AsyncStorage/AsyncStorage';
 // import {
 //   updateToCart,
@@ -54,7 +55,12 @@ export const CartProvider = ({children}) => {
             return setCartItems([]);
           });
       } else {
+        // storage.setJSON(
+        //   'products',
+        //   cartItems.map(item => `${item.productId}_${item.quantity}`),
+        // );
         storage.setJSON('products', cartItems);
+        console.log('cartItems');
         // console.log('cart', cartItems);
       }
     }
@@ -111,12 +117,12 @@ export const CartProvider = ({children}) => {
   //   }
   // }, [isSaveDB]);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     setCartItems([...cart]);
-  //     //"finalCartDB"
-  //   }
-  // }, [cart]);
+  useEffect(() => {
+    // if (userId) {
+    //   setCartItems([...cart]);
+    //   //"finalCartDB"
+    // }
+  }, [cart]);
   //-----------------> Login
   const logIn = () => {
     setUserId(0 /* verificar() */);
@@ -131,62 +137,57 @@ export const CartProvider = ({children}) => {
   //<--------------
 
   const resetCart = () => {
-    storage.setJSON('products', []).then(() => {
-      setCartItems([]);
-    });
+    setCartItems([]);
+  };
+
+  const updateItemToCart = async (productInCart, quantity) => {
+    if (
+      quantity
+        ? quantity <= productInCart.product.stock
+        : productInCart.quantity + 1 <= productInCart.product.stock
+    ) {
+      productInCart.quantity = quantity ? quantity : productInCart.quantity + 1;
+      setCartItems([...cartItems]);
+      // dispatch(updateToCart(cartItems));
+      // if (userId) {
+      //   dispatch(updateDBCart(productInCart));
+      // }
+      return;
+    }
   };
   const addItemToCart = async (detailProduct, quantity) => {
     const inCart = cartItems.find(
       productInCart => productInCart.productId === detailProduct._id,
     );
+    if (quantity ? quantity : 1 <= detailProduct.stock) {
+      const porductInCart = {
+        quantity: quantity ? quantity : 1,
+        description: '',
+        productId: detailProduct._id,
+        saleId: null,
+        userId: null,
+        product: detailProduct,
+      };
+      cartItems.push(porductInCart);
+      setCartItems([...cartItems]);
+      // if (userId) {
+      //   Toast.fire({
+      //     icon: 'success',
+      //     title: 'loading...',
+      //   });
+      //   Swal.showLoading();
+      //   dispatch(createDBCart(porductInCart, userId, true));
+      //   //"obteniendo carrito ----> DB"
+      //   dispatch(getDBCart(userId));
+      // } else dispatch(updateToCart(cartItems));
 
-    let isShowDialog = false;
-    if (inCart) {
-      if (quantity ? quantity : inCart.quantity + 1 <= inCart.product.stock) {
-        inCart.quantity = quantity ? quantity : inCart.quantity + 1;
-        setCartItems([...cartItems]);
-
-        // dispatch(updateToCart(cartItems));
-        // if (userId) {
-        //   dispatch(updateDBCart(inCart));
-        // }
-        return;
-      }
-      isShowDialog = true;
-    } else {
-      if (quantity ? quantity : 1 <= detailProduct.stock) {
-        const porductInCart = {
-          quantity: quantity ? quantity : 1,
-          description: '',
-          productId: detailProduct._id,
-          saleId: null,
-          userId: null,
-          product: detailProduct,
-        };
-        cartItems.push(porductInCart);
-        setCartItems([...cartItems]);
-        // if (userId) {
-        //   Toast.fire({
-        //     icon: 'success',
-        //     title: 'loading...',
-        //   });
-        //   Swal.showLoading();
-        //   dispatch(createDBCart(porductInCart, userId, true));
-        //   //"obteniendo carrito ----> DB"
-        //   dispatch(getDBCart(userId));
-        // } else dispatch(updateToCart(cartItems));
-
-        return;
-      }
-      isShowDialog = true;
+      return;
     }
-    if (isShowDialog) {
-      // Swal.fire({
-      //   icon: 'warning',
-      //   title: 'Oops...',
-      //   text: 'Not in stock',
-      // });
-    }
+    // Swal.fire({
+    //   icon: 'warning',
+    //   title: 'Oops...',
+    //   text: 'Not in stock',
+    // });
   };
 
   const subtractItemToCart = detailProduct => {
@@ -242,6 +243,7 @@ export const CartProvider = ({children}) => {
         SignOff,
         cartItems,
         resetCart,
+        updateItemToCart,
         addItemToCart,
         subtractItemToCart,
         deleteItemToCart,
