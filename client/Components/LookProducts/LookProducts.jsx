@@ -14,7 +14,7 @@ import Cards from '../Cards/Cards.jsx';
 
 export const LookProducts = () => {
   return (
-    <Stack.Navigator initialRouteName="Cards">
+    <Stack.Navigator initialRouteName="Cards" screenOptions={{headerShown: false}}>
       <Stack.Screen name={'Cards'} component={Cards} />
       <Stack.Screen name={'Detail'} component={Detail} />
     </Stack.Navigator>

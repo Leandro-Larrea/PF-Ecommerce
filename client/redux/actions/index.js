@@ -4,10 +4,12 @@ export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH = 'SEARCH';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const FILTER_CATEGORIES = 'FILTER_CATEGORIES';
+export const SORT_BY_PRICE='SORT_BY_PRICE'
+export const SET_FILTER= 'SET_FILTER'
 
 export const getProducts = () => dispatch => {
   /*cada uno tiene que poner su propia IP*/
-  return axios.get('/products').then(res => {
+  return axios.get('/search').then(res => {
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
@@ -28,19 +30,28 @@ export const getCategories = () => dispatch => {
     });
 };
 
-/* export const filterByCategories = (category)=>dispatch=>{
-    return axios.get(`/products/${category}`)
+export const filterByCategories = (category)=>dispatch=>{
+    return axios.get(`/search?category=${category}`)
     .then(res=>{
       dispatch({
         type:'FILTER_CATEGORIES',
         payload:res.data
       })
     })
-} */
+} 
 
-export const search = name => {
+export const sortByPrice=payload=>{
+ 
+  return {
+        type:"SORT_BY_PRICE",
+        payload:payload
+  }
+  }
+
+export const search = (title,min,max,category) => {
   return async function (dispatch) {
-    return await axios(`/products?name=${name}`).then(res =>
+    return await axios(`/search?title=${title}&min=${min}&max=${max}&category=${category}`)
+    .then(res =>
       dispatch({
         type: SEARCH,
         payload: res.data,
@@ -49,19 +60,18 @@ export const search = name => {
   };
 };
 
+export const setfilter = (payload) => {
+
+  return {
+    type:'SET_FILTER',
+    payload:payload
+  }
+}
+
+
 export const postProduct = (payload) => {
   return async function (dispatch) {
     return await axios.post('/products', payload)
   }
-}
-
-export const filterByCategories = (category)=>dispatch=>{
-  return axios.get(`/search?category=${category}`)
-  .then(res=>{
-    dispatch({
-      type:'FILTER_CATEGORIES',
-      payload:res.data
-    })
-  })
 }
 

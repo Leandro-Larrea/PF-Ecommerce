@@ -28,20 +28,25 @@ const CardProduct = ({navegar, title, image, description, price}) => {
       <Text style={styles.description} numberOfLines={5}>
         {description}
       </Text>
+      <View style={styles.buttonMain}>
       <View style={styles.fixToText}>
         <Button
+          color="#df5a00"
           title={'VIEW'}
           onPress={() => {
             navegar({title, image, description, price});
           }}></Button>
 
-        <Button title={'ADD CART'} color="#65AE77" style={{margin: 10}}>
+        <Button title={'ADD CART'} color="#89c30d" >
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
+      </View>
       </View>
     </View>
   );
 };
+
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -60,25 +65,28 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 250,
   },
-  fixToText: {
+  buttonMain:{
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent:'flex-end'
   },
-  button: {
-    alignItems: 'center',
-    backgroundColor: 'green',
-    borderRadius: 5,
-    padding: 5,
+
+  fixToText: {
+    width:140,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+
   separator: {
     marginVertical: 8,
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+
   title: {
     marginVertical: 8,
     fontWeight: 'bold',
   },
+
   description: {marginBottom: 10},
 });
 export default CardProduct;
