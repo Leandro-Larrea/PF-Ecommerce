@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
   TextInput,
@@ -9,57 +9,99 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import {search} from '../../redux/actions';
+import {search, setfilter} from '../../redux/actions';
+
+
+
 
 export const SearchBar = () => {
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
 
-  const handleTextChange = name => {
-    setName(name);
+const dispatch = useDispatch();
+const [name, setName] = useState('');
+const [filterInput,setFilterInput] = useState(
+  {
+    title:'',
+    min:'',
+    max:'',
+    category:''
+  }
+)
+
+const {filters} = useSelector(state=>state.products)
+
+
+  const handleTextChange = name=> {
+
+       setFilterInput({
+         ...filters,
+         title:name
+       })
+        setName(name)
+  
+
+    
   };
 
   const handleSearch = e => {
-    dispatch(search(name));
-    setName('');
+
+    //dispatch(search(title,min));
+    let title=filterInput.title
+    let min=filterInput.min
+    let max = filterInput.max
+    let category=filterInput.category
+     setName('');
+    dispatch(setfilter(filterInput))
+    dispatch(search(title,min,max,category))
+    setFilterInput(
+      {
+        title:'',
+        min:'',
+        max:'',
+        category:''
+      }
+    )
   };
 
+
+
   return (
-    <View>
+    <View style={style.main}>
       <TextInput
         placeholder="Search..."
         value={name}
         onChangeText={e => handleTextChange(e)}
         style={style.Input}
       />
-      <Pressable onPress={e => handleSearch(e)} style={style.Button}>
-        <Text>🔍</Text>
-      </Pressable>
+      <View style={style.button}>
+      <Button title='SEARCH' color={'#df5a00'} onPress={(e) => handleSearch(e)} style={style.Button}>
+     
+      </Button> 
+      </View>
     </View>
   );
 };
 
 const style = StyleSheet.create({
+  main:{
+    backgroundColor:'#2d2d2d',
+    minHeight:50,
+    paddingHorizontal:40,
+    flexDirection:'row',
+    justifyContent:'space-around',
+    alignItems:'center'
+  },
+
   Input: {
     backgroundColor: '#F5F5F5',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 50,
-    marginRight: 50,
-    borderWidth: 1,
-    borderColor: 'black',
-    height: 40,
+   
+    paddingHorizontal:10,
+
+    height: 35,
+    width:200,
     borderRadius: 10,
   },
-  Button: {
-    backgroundColor: 'white',
-    width: 30,
-    height: 30,
-    position: 'relative',
-    left: 350,
-    top: -45,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  
+  button:{
+
+  }
 });

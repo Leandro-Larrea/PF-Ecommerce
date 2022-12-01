@@ -18,6 +18,17 @@ router.get("/", async(req, res) =>{
     }
 });
 
+router.get("/:id", async (req,res)=>{
+    try {
+    let {id} = req.params
+
+    let a = await Product.findById(id);
+        res.status(200).json({a})
+    } catch (error) {
+        res.status(400).json({"errorGetById":error})
+    } 
+})
+
 router.post('/', async (req, res) => {
     try {
         let result = await postProducts(req.body)
@@ -39,5 +50,19 @@ router.put("/:id", async (req,res)=>{
         res.status(400).send("something get wrong")
     } 
 })
+
+///////Ruta para borrar un documento de mongoose usando el titulo. Tambien borra su imagen de cloudinary
+router.delete("/title/:title", async (req, res) => {
+    let { title } = req.params
+    try {
+        let obj = await Product.findOne({title: title})
+        deleteFileCloudinary(obj.imageId)
+        let deleted = await Product.deleteOne({_id: obj._id})
+        res.status(200).json(deleted)
+    } catch (error) {
+        res.status(400).send({"something get wrong": error})
+    } 
+  })
+
 
 module.exports = router;
