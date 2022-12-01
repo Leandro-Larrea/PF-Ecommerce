@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+
+import ShowAll from '../Filters/ShowAll';
+import Sort from '../Filters/Sort';
 import {SearchBar} from '../SearchBar/SearchBar';
 
 import Detail from '../Products/DetailProduct';
@@ -26,6 +29,20 @@ export const LookProducts = ({navigation}) => {
   return (
     <View>
       <SearchBar />
+
+      <View style={styles.showAll}>
+        <ShowAll />
+      </View>
+
+      <View style={styles.filterContainer}>
+        {categories ? (
+          <Select categories={categories}></Select>
+        ) : (
+          <Text>no se renderizo</Text>
+        )}
+
+        <Sort />
+      </View>
       <View>
         {categories ? (
           <Select categories={categories}></Select>
@@ -37,12 +54,22 @@ export const LookProducts = ({navigation}) => {
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  text: {
-    backgroundColor: 'red',
+const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '2d2d2d',
   },
-  play: {
-    height: '100%',
+  filterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 80,
+    zIndex: 1,
+    marginTop: 10,
+  },
+
+  showAll: {
+    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

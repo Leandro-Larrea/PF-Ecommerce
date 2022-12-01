@@ -8,7 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import DetailProduct from './Components/Products/DetailProduct';
 import {NavigationContainer} from '@react-navigation/native';
 
-axios.defaults.baseURL = 'http://192.168.18.25:3001';
+axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
 /* import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './Components/Home/Home';

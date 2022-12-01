@@ -18,6 +18,17 @@ router.get("/", async(req, res) =>{
     }
 });
 
+router.get("/:id", async (req,res)=>{
+    try {
+    let {id} = req.params
+
+    let a = await Product.findById(id);
+        res.status(200).json({a})
+    } catch (error) {
+        res.status(400).json({"errorGetById":error})
+    } 
+})
+
 router.post('/', async (req, res) => {
     try {
         let result = await postProducts(req.body)

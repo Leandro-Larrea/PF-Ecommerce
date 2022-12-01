@@ -5,6 +5,7 @@ import { Form, FormItem, Picker } from 'react-native-form-component';
 import { getCategories, postProduct } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -81,79 +82,106 @@ export const PostProduct = () => {
     return (
         <ScrollView>
 
-        <Form style={style.Form} buttonTextStyle={style.buttonText} buttonStyle={style.buttonForm} buttonText='Crear Producto 😎' onButtonPress={() => handleSubmit()}>
-            <FormItem
-                label="Product Name"
-                isRequired
-                asterik
-                value={input.title}
-                onChangeText={(text) => { setInput({ ...input, title: text }) }}
+            <Form style={style.Form} buttonTextStyle={style.buttonText} buttonStyle={style.buttonForm} buttonText='Crear Producto 😎' onButtonPress={() => handleSubmit()}>
+                <FormItem
+                    label="Product Name"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.title}
+                    onChangeText={(text) => { setInput({ ...input, title: text }) }}
                 />
 
-            <FormItem
-                label="Price -USD"
-                isRequired
-                asterik
-                value={input.price}
-                onChangeText={(e) => { setInput({ ...input, price: Number(e) }) }}
+                <FormItem
+                    label="Price $USD"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.price}
+                    onChangeText={(e) => { setInput({ ...input, price: Number(e) }) }}
                 />
 
-            <FormItem
-                label="Description"
-                isRequired
-                asterik
-                value={input.description}
-                onChangeText={(text) => { setInput({ ...input, description: text }) }}
-            />
-
-            <FormItem
-                label="Stock"
-                isRequired
-                asterik
-                value={input.stock}
-                onChangeText={(e) => { setInput({ ...input, stock: Number(e) }) }}
+                <FormItem
+                    label="Description"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.description}
+                    onChangeText={(text) => { setInput({ ...input, description: text }) }}
                 />
 
-            <Picker
-                items={[
-                    { label: 'Notebook', value: 'Notebook' },
-                    { label: 'Keyboard', value: 'Keyboard' },
-                    { label: 'Pc', value: 'Pc' },
-                    { label: 'Ipad', value: 'Ipad' },
-                    { label: 'Consoles', value: 'Consoles' },
-                    { label: 'Headphones', value: 'Headphones' },
-                    { label: 'Monitors', value: 'Monitors' },
-                    { label: 'Joysticks', value: 'Joysticks' },
-                ]}
-                label="Category"
-                placeholder='-Select Category-'
-                selectedValue={input.category}
-                onSelection={(item) => { setInput({ ...input, category: item.value }) }}
+                <FormItem
+                    label="Stock"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.stock}
+                    onChangeText={(e) => { setInput({ ...input, stock: Number(e) }) }}
                 />
 
-            <View style={{ alignItems: "center" }}>
-                <Button
-                    onPress={() => openGallery()}
-                    title='Upload Image'>
-                </Button>
-                <Image
+                <FormItem
+                    label="Image"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.image}
+                    onChangeText={e => { setInput({ ...input, image: e }) }}
+                />
+
+                <Picker
+                    items={[
+                        { label: 'Notebook', value: 'Notebook' },
+                        { label: 'Keyboard', value: 'Keyboard' },
+                        { label: 'Pc', value: 'Pc' },
+                        { label: 'Ipad', value: 'Ipad' },
+                        { label: 'Consoles', value: 'Consoles' },
+                        { label: 'Headphones', value: 'Headphones' },
+                        { label: 'Monitors', value: 'Monitors' },
+                        { label: 'Joysticks', value: 'Joysticks' },
+                    ]}
+                    style={style.picker}
+                    asterik
+                    buttonStyle={{ marginHorizontal: 20, backgroundColor: "#bec0b5" }}
+                    iconWrapperStyle={{ backgroundColor: "#bec0b5" }}
+                    pickerIcon={<Icon name='caret-down' size={25} />}
+                    label="Category"
+                    labelStyle={style.label}
+                    placeholder='-Select Category-'
+                    selectedValue={input.category}
+                    onSelection={(item) => { setInput({ ...input, category: item.value }) }}
+                />
+
+                <View style={{ alignItems: "center" }}>
+                    <Button
+                        onPress={() => openGallery()}
+                        title='Upload Image'>
+                    </Button>
+                    {input.image.length > 0?  
+                    <Image
                     source={image}
                     style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
 
-                </Image>
-            </View>
+                    </Image> :
+                    <Text>Photo</Text>
+                        }
+                </View>
 
 
 
 
-        </Form>
-</ScrollView>
+            </Form>
+        </ScrollView>
     );
 }
 
 const style = StyleSheet.create({
     buttonForm: {
-        backgroundColor: "violet",
+        backgroundColor: "#60707d",
         width: 200,
         left: 100
     },
@@ -164,5 +192,12 @@ const style = StyleSheet.create({
     Form: {
         flex: 1,
         marginTop: 40
+    },
+    inputForm: {
+        backgroundColor: "#bec0b5",
+        marginHorizontal: 20
+    },
+    label: {
+        marginLeft: 20
     }
 })
