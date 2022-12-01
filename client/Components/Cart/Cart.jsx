@@ -1,19 +1,33 @@
 import React from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
-import { LoginButton } from '../LogButtons/LoginButton'
-import { LogoutButton } from '../LogButtons/LogoutButton'
 import { Profile } from '../LogButtons/Profile'
+import {useAuth0} from 'react-native-auth0';
+import CartList from './CartList';
+
 
 export const Cart = () => {
+  const {user} = useAuth0()
+  const loggedIn = user !== undefined && user !== null;
   return (
     <View>
-        <Text>Carrito de Compras</Text>
         <Profile/>
-        <LoginButton/>
-        <LogoutButton/>
+        {loggedIn && 
+        <>
+          <CartList/>        
+        </>}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  }
+});
+
 
 // import {useAuth0 } from 'react-native-auth0';
 
