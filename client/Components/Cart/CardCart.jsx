@@ -30,7 +30,7 @@ function Card({productInCart, navegar}) {
           <Text style={styles.title}>{title}</Text>
           <Text>{price}$</Text>
         </View>
-        {/* <Button title="View" onPress={() => navegar(productInCart.product)} /> */}
+        <Button title="View" onPress={() => navegar(productInCart.product)} />
       </View>
       <View style={{flex: 2}}>
         <Button

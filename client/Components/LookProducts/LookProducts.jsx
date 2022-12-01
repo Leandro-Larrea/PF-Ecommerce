@@ -27,30 +27,27 @@ export const LookProducts = ({navigation}) => {
   }
 
   return (
-    <View>
-      <SearchBar />
+    <View style={{flex: 1}}>
+      <View style={{flex: 2}}>
+        <SearchBar />
 
-      <View style={styles.showAll}>
-        <ShowAll />
-      </View>
+        <View style={styles.showAll}>
+          <ShowAll />
+        </View>
 
-      <View style={styles.filterContainer}>
-        {categories ? (
-          <Select categories={categories}></Select>
-        ) : (
-          <Text>no se renderizo</Text>
-        )}
+        <View style={styles.filterContainer}>
+          {categories ? (
+            <Select categories={categories}></Select>
+          ) : (
+            <Text>no se renderizo</Text>
+          )}
 
-        <Sort />
+          <Sort />
+        </View>
       </View>
-      <View>
-        {categories ? (
-          <Select categories={categories}></Select>
-        ) : (
-          <Text>no se renderizo</Text>
-        )}
+      <View style={{flex: 5}}>
+        <Cards navegar={navegar} />
       </View>
-      <Cards navegar={navegar} />
     </View>
   );
 };

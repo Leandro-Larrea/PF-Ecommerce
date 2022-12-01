@@ -21,7 +21,7 @@ export default function Cards({navegar}) {
     <CardProduct navegar={navegar} product={item} />
   );
   return (
-    <View>
+    <>
       {products && (
         <FlatList
           initialNumToRender={2}
@@ -29,6 +29,6 @@ export default function Cards({navegar}) {
           renderItem={_renderitem}
         />
       )}
-    </View>
+    </>
   );
 }
