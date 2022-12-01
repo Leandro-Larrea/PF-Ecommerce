@@ -1,26 +1,37 @@
 import React from "react";
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, Image, StyleSheet} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
-import CartList from "../Cart/CartList";
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
 export const Profile = () => {
     const {user} = useAuth0();
+    //console.log(user)
 
     return (
         <>
             <View style={styles.container}>
             {user ? (
+                <View style={styles.info}>
+                <View>
+                    <Text>Logged in as: {user.name}</Text>
+                    <Text>Email: {user.email}</Text>
+                    <Text>Nickname: {user.nickname}</Text>
+                    <Image source={user.image} />
+                </View>
                 <View style={styles.boton}>
-                    <Text>Logged in as {user.name}</Text>
                     <LogoutButton />
+                </View>
                 </View>
             )
             : (
                 <View>
+                <View>
                     <Text>Not logged in</Text>
+                </View>
+                <View style={styles.botonIn}>
                     <LoginButton />
+                </View>
                 </View>
             )}
             </View>
@@ -30,20 +41,35 @@ export const Profile = () => {
 
 const styles = StyleSheet.create({
     container: {
+        height: 20,
         display: "flex",
+        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         marginTop: 10,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,
+        
        
+    },
+    info: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: "space-between",
     },
     boton: {
         width: 100,
-        height: 30,
+        height: 100,
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: "column",
+    },
+    botonIn: {
+        width: 100,
+        height: 100,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })

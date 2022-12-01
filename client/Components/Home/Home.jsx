@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 /* import { NavBar } from '../NavBar/NavBar' */
 import { getCategories,getProducts } from '../../redux/actions'
-
+import {useAuth0} from 'react-native-auth0';
 import HomeCategories from './HomeCategories'
 import Header from './Header'
 
@@ -11,7 +11,8 @@ import Header from './Header'
 
 
 export const Home = ({navigation}) => {
-
+  const {user} = useAuth0();
+  console.log(user)
   const dispatch = useDispatch()
   const data = useSelector((state)=>state.products)
   const products= data.products

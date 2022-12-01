@@ -7,8 +7,16 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useAuth0} from 'react-native-auth0';
 
 const CardProduct = ({navegar, title, image, description, price}) => {
+  const {user} = useAuth0();
+  function handleAddCart() {
+    if (user) return alert('permitido')
+    return alert('permitido');
+  }
+  
+
   return (
     <View style={styles.container} title={title}>
       <Image
@@ -25,7 +33,7 @@ const CardProduct = ({navegar, title, image, description, price}) => {
         {title}
       </Text>
       <View style={styles.separator} />
-      {/* <Text style={styles.description} numberOfLines={5}>
+      <Text style={styles.description} numberOfLines={5}>
         {description}
       </Text>
       <View style={styles.buttonMain}>
@@ -37,7 +45,7 @@ const CardProduct = ({navegar, title, image, description, price}) => {
             navegar({title, image, description, price});
           }}></Button>
 
-        <Button title={'ADD CART'} color="#89c30d" >
+        <Button title={'ADD CART'} color="#89c30d" onPress={handleAddCart}>
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
