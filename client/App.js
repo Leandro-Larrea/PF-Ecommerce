@@ -3,8 +3,8 @@ import {MainContainer} from './Components/MainContainer/MainContainer';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import axios from 'axios';
-
-axios.defaults.baseURL = 'http://192.168.0.161:3001';
+/* https://pf-ecommerce-rho.vercel.app/products */
+axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
 /* import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './Components/Home/Home';
