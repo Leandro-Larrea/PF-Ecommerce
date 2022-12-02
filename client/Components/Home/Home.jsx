@@ -6,6 +6,7 @@ import { getCategories,getProducts } from '../../redux/actions'
 import {useAuth0} from 'react-native-auth0';
 import HomeCategories from './HomeCategories'
 import Header from './Header'
+import AuthenticationButton from '../LogButtons/AuthenticationButton';
 
 
 
@@ -32,7 +33,7 @@ useEffect(()=>{
         <SafeAreaView style={style.container} >
             <View style={style.header} >
                <Header></Header>
-                
+                <AuthenticationButton />
             </View>
             <View style={style.content}>
                 <View style={style.ofertaBox}>

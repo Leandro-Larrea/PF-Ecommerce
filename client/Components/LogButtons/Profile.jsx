@@ -3,10 +3,12 @@ import {Text, View, Image, StyleSheet} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
+import {Auth0} from "react-native-auth0";
 
 export const Profile = () => {
     const {user} = useAuth0();
     //console.log(user)
+    
 
     return (
         <>

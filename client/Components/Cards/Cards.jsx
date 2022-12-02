@@ -8,6 +8,7 @@ import {getCategories, getProducts} from '../../redux/actions';
 import Select from '../Filters/Select';
 import ShowAll from '../Filters/ShowAll';
 import Sort from '../Filters/Sort';
+import AuthenticationButton from '../LogButtons/AuthenticationButton';
 import {SearchBar} from '../SearchBar/SearchBar';
 import CardProduct from './CardProduct';
 
@@ -46,7 +47,7 @@ export default function Cards({navigation}) {
 
     <View style={styles.main}>
       <SearchBar />
-      
+      <AuthenticationButton/>
       <View style={styles.showAll}>
       <ShowAll/>
       </View>

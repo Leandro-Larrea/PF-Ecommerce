@@ -13,7 +13,7 @@ const CardProduct = ({navegar, title, image, description, price}) => {
   const {user} = useAuth0();
   function handleAddCart() {
     if (user) return alert('permitido')
-    return alert('permitido');
+    return alert('no permitido');
   }
   
 
