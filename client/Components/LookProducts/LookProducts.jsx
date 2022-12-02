@@ -1,31 +1,72 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+
+import ShowAll from '../Filters/ShowAll';
+import Sort from '../Filters/Sort';
 import {SearchBar} from '../SearchBar/SearchBar';
 
-import Detail from '../Detail/Detail';
+import Detail from '../Products/DetailProduct';
 import {useDispatch, useSelector} from 'react-redux';
-import * as actions from '../../redux/actions';
-
-const Stack = createStackNavigator();
 
 //--componentes---
-import Cards from '../Cards/Cards.jsx';
+import Cards from '../Products/CardProducts.jsx';
+import Select from '../Filters/Select';
+import {getCategories} from '../../redux/actions';
 
-export const LookProducts = () => {
+export const LookProducts = ({navigation}) => {
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.categories);
+
+  useEffect(() => {
+    if (!categories) {
+      dispatch(getCategories());
+    }
+  }, []);
+  function navegar(product) {
+    navigation.navigate('DetailProduct', product);
+  }
+
   return (
-    <Stack.Navigator initialRouteName="Cards" screenOptions={{headerShown: false}}>
-      <Stack.Screen name={'Cards'} component={Cards} />
-      <Stack.Screen name={'Detail'} component={Detail} />
-    </Stack.Navigator>
+    <View style={{flex: 1}}>
+      <View style={{flex: 2}}>
+        <SearchBar />
+
+        <View style={styles.showAll}>
+          <ShowAll />
+        </View>
+
+        <View style={styles.filterContainer}>
+          {categories ? (
+            <Select categories={categories}></Select>
+          ) : (
+            <Text>no se renderizo</Text>
+          )}
+
+          <Sort />
+        </View>
+      </View>
+      <View style={{flex: 5}}>
+        <Cards navegar={navegar} />
+      </View>
+    </View>
   );
 };
-
-const style = StyleSheet.create({
-  text: {
-    backgroundColor: 'red',
+const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '2d2d2d',
   },
-  play: {
-    height: '100%',
+  filterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 80,
+    zIndex: 1,
+    marginTop: 10,
+  },
+
+  showAll: {
+    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

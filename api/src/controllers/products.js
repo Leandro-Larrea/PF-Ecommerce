@@ -18,11 +18,13 @@ const getProducts = async(title)=>{
 const postProducts = async(obj) => {
     try {
         let validation = productValidation(obj)
+        console.log("desde el try")
         if(validation === 'OK'){
             const { image, imageId } = await uploadToCloudinary(obj.image)
             obj.image = image
             obj.imageId = imageId 
             const objectMongo = await Product(obj);
+            console.log("holaaaa",objectMongo)
             const result = await objectMongo.save(); 
             return result
         }
@@ -33,6 +35,8 @@ const postProducts = async(obj) => {
     }
 }
 
+
+/////* product delete with buckup*///////
 const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
      let o = productDb;
@@ -80,7 +84,18 @@ const deleteProducts = async(id)=>{
     if (a) return a;
     throw ("some error ocurred into the controller");
  };
+//////* product delete with buckup*///////
 
+//////* product logic "delete"*///////
+
+const logicDelete = async(id,change)=>{
+    let productDb = await Product.findByIdAndUpdate(id, available);   
+    console.log("hasta aca si")
+    const saved = await productMoved.save();
+    let a = await productDb.delete();
+    if (a) return a;
+    throw ("some error ocurred into the controller");
+ };
 module.exports = {
     getProducts,
     deleteProducts,

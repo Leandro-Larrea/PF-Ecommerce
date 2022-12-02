@@ -32,6 +32,18 @@ const ratingSchema = new Schema({
   },
 });
 
+const cartSchema = new Schema({
+  productId:{
+    type: String,
+    required: true
+  },
+  quantify:{
+    type: Number,
+    required: true,
+    default: 1
+  }
+});
+
 const productSchema = new Schema(
   {
     title: {
@@ -61,11 +73,14 @@ const productSchema = new Schema(
         type: ratingSchema,
         required: true
     },
-  
     image:{
         type: String,
         required: true,
         trim: true
+    },
+    available:{
+      type: Boolean,
+      default: true
     },
     imageId:{
         type: String,
@@ -75,6 +90,11 @@ const productSchema = new Schema(
     details: {
       type: Array,
     },
+    sales:{
+      type: Number,
+      default: 0
+    },
+    cart:[cartSchema],
     reviews: [reviewsSchema],
   },
   {
