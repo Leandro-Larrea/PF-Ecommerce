@@ -27,7 +27,7 @@ const ListCart = ({navigation}) => {
         )}
       </View>
       <View style={{flex: 0.8}}>
-        <Button color="green" title="PAY NOW" />
+        <Button color="green" title="PAY NOW" onPress={() => navigation.navigate('Pay')} />
       </View>
     </View>
   );

@@ -1,13 +1,16 @@
 const { Router } = require("express");
 const router = Router();
+const Stripe = require("stripe");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 router.post("/pay", async (req, res) => {
     try {
+      console.log("payment aca", req.body);
       const { name } = req.body;
       if (!name) return res.status(400).json({ message: "Please enter a name" });
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(25 * 100),
-        currency: "INR",
+        currency: "USD",
         payment_method_types: ["card"],
         metadata: { name },
       });
