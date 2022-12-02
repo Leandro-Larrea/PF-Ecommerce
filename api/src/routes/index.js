@@ -9,6 +9,7 @@ router.use("/products", productMidleware)
 router.use("/categories", categoriesMidleware)
 router.use("/users", userMidleware)
 router.use("/search", searchRouter)
+router.use("/payments", searchRouter)
 
 
 
