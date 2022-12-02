@@ -41,8 +41,8 @@ router.post('/', async (req, res) => {
 router.put("/:id", async (req,res)=>{
     try {
     let {id} = req.params;
-    let a = await Product.updateMany(req.body)
-    let b = await Product.find();
+    let a = await Product.findByIdAndUpdate(id, req.body)
+    let b = await Product.findById(id);
         res.status(200).json({a,b})
     } catch (error) {
         res.status(400).send("something went wrong")
