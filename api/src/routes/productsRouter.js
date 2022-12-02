@@ -32,7 +32,6 @@ router.get("/:id", async (req,res)=>{
 router.post('/', async (req, res) => {
     try {
         let result = await postProducts(req.body)
-        console.log("aca envio",req.body)
         return res.status(200).json(result);
     }catch(error){
             res.status(500).json({'error: ': error})
@@ -41,13 +40,12 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req,res)=>{
     try {
-    let {id} = req.params
-
-    let a = await Product.findByIdAndUpdate(id, req.body);
-    let b = await Product.findById(id);
+    let {id} = req.params;
+    let a = await Product.updateMany(req.body)
+    let b = await Product.find();
         res.status(200).json({a,b})
     } catch (error) {
-        res.status(400).send("something get wrong")
+        res.status(400).send("something went wrong")
     } 
 })
 
