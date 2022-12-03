@@ -13,6 +13,7 @@ import {search, setFilter} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
 export const SearchBar = ({navigation}) => {
   const {user} = useAuth0();
   const dispatch = useDispatch();
