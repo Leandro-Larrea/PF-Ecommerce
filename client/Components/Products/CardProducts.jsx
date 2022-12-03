@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, FlatList,StyleSheet,Image} from 'react-native';
+import {View, FlatList,StyleSheet,Image, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProducts} from '../../redux/actions';
 import CardProduct from './CardProduct';
@@ -30,7 +30,7 @@ export default function Cards({navegar}) {
   );
 
   return (
-    <>
+    <View style={{ paddingBottom: 400 }} >
 
       
       { products =='No existe'?  
@@ -43,7 +43,7 @@ export default function Cards({navegar}) {
         />
       )
      }
-    </>
+    </View>
   );
 }
 

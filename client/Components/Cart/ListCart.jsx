@@ -12,6 +12,9 @@ const ListCart = ({navigation}) => {
 
     const precios = cartItems.length > 0? cartItems.map(e => e.product.price * e.quantity) : ''
     const total = precios.length> 0 ? precios.reduce((prev, curr) => prev + curr) : 0
+    const final = total ? total.toFixed(2) : 0
+    console.log("precios aca", final);
+
     
     const onPress = () => {
       dispatch({type: SET_PRICE, payload: total})
@@ -38,7 +41,7 @@ const ListCart = ({navigation}) => {
         )}
       </View>
       <View style={{flex: 0.8}}>
-        <Button color="green" title={`Pay Now $${total} USD`} onPress={onPress} />
+        <Button color="green" title={`Pay Now $${final} USD`} onPress={onPress} />
       </View>
     </View>
   );
