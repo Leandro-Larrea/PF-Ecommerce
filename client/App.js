@@ -10,16 +10,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Pay } from './Components/Stripe/Pay';
 import { StripeProvider } from '@stripe/stripe-react-native';
 
-axios.defaults.baseURL = 'http://192.168.100.32:3001';
-/* import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from './Components/Home/Home';
-import { LookProducts } from './Components/LookProducts/LookProducts'; */
+axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+
 
 const Stack = createStackNavigator();
 const App = () => {
-  /* 
-const Stack = createNativeStackNavigator(); */
+
   return (
     <Provider store={store}>
       <CartProvider>

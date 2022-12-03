@@ -7,6 +7,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const FILTER_CATEGORIES = 'FILTER_CATEGORIES';
 export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
+export const SET_PRICE = 'SET_PRICE'
 
 export const setReducerCart = cart => {
   console.log(cart);
