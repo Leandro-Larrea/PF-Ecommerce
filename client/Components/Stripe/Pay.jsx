@@ -13,7 +13,7 @@ export const Pay = () => {
   /* 192.168.100.32 */
   const subscribe = async () => {
     try {
-      const response = await fetch('http://192.168.100.32:3001/payments/pay', {
+      const response = await fetch('https://pf-ecommerce-rho.vercel.app/payments/pay', {
         method: 'POST',
         body: JSON.stringify({ name, lastname, price }),
         headers: {

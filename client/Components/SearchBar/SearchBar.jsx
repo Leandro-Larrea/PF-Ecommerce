@@ -9,9 +9,11 @@ import {
   Pressable,
   TouchableHighlight,
 } from 'react-native';
+
 import {search, setfilter} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 
 export const SearchBar = ({navigation}) => {
   const {user} = useAuth0();
@@ -41,7 +43,7 @@ export const SearchBar = ({navigation}) => {
     let max = filterInput.max;
     let category = filterInput.category;
     setName('');
-    dispatch(setfilter(filterInput));
+    dispatch(setFilter(filterInput));
     dispatch(search(title, min, max, category));
     setFilterInput({
       title: '',
