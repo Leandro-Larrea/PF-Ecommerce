@@ -60,7 +60,7 @@ export const search = (title, min, max, category) => {
   };
 };
 
-export const setfilter = payload => {
+export const setFilter = payload => {
   return {
     type: 'SET_FILTER',
     payload: payload,
