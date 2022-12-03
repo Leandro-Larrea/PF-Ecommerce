@@ -48,7 +48,7 @@ const CardProduct = ({navegar, product}) => {
           style={{margin: 10}}
           onPress={async () => {
             if (inCart) {
-              deleteItemToCart(product);
+              deleteItemToCart(inCart);
               return;
             }
             addItemToCart(product, 1);

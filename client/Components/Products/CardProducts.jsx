@@ -3,6 +3,7 @@ import {View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProducts} from '../../redux/actions';
 import CardProduct from './CardProduct';
+import {FlashList} from '@shopify/flash-list';
 
 export default function Cards({navegar}) {
   const dispatch = useDispatch();
@@ -23,10 +24,11 @@ export default function Cards({navegar}) {
   return (
     <>
       {products && (
-        <FlatList
+        <FlashList
           initialNumToRender={2}
           data={products}
           renderItem={_renderitem}
+          estimatedItemSize={products.length}
         />
       )}
     </>
