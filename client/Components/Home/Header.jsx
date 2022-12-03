@@ -1,5 +1,5 @@
 import { View,Text,Image,StyleSheet } from "react-native";
-import image from './images/logo.png'
+import image from '../../images/logo.png'
 export default function (){
 
 

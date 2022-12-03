@@ -1,6 +1,6 @@
 import { Button, View, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../redux/actions";
+import { getProducts,setFilter } from "../../redux/actions";
 
 export default function ShowAll(){
 
@@ -8,6 +8,13 @@ const dispatch = useDispatch()
 
 const handlePress= ()=>{
   dispatch(getProducts())
+  setFilter({
+    title: '',
+    min: '',
+    max: '',
+    category: '',
+  })
+
 }
     return(
         <View style={styles.container}>
@@ -22,7 +29,7 @@ const handlePress= ()=>{
 
 const styles = StyleSheet.create({
      container:{
-        width:200
+        width:100
      }   
 }
 );

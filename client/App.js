@@ -18,13 +18,13 @@ const App = () => {
   return (
     <Provider store={store}>
       <CartProvider>
-          <StripeProvider publishableKey='pk_test_51MAHh5BMOrGzu3h6xWovI9a9tAY6YXTIY4VllgaV3F3lk716NehzrQUhngQI2KXUQo2kVyZouPLLiYqbLDD1ncRL00D2io0vNo'>
+      <StripeProvider publishableKey='pk_test_51MAHh5BMOrGzu3h6xWovI9a9tAY6YXTIY4VllgaV3F3lk716NehzrQUhngQI2KXUQo2kVyZouPLLiYqbLDD1ncRL00D2io0vNo'>
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main">
-              <Stack.Screen name={'Main'} component={MainContainer} />
-              <Stack.Screen name={'DetailProduct'} component={DetailProduct} />
-              <Stack.Screen name={'Pay'} component={Pay} />
-            </Stack.Navigator>
+          <Stack.Navigator initialRouteName="Main"   >
+            <Stack.Screen name={'Main'} component={MainContainer} options={{headerShown:false}}/>
+            <Stack.Screen name={'DetailProduct'} component={DetailProduct} />
+            <Stack.Screen name={'Pay'} component={Pay} />
+          </Stack.Navigator>
         </NavigationContainer>
           </StripeProvider>
       </CartProvider>
