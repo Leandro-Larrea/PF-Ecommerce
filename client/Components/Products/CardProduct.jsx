@@ -11,11 +11,24 @@ import storage from '../AsyncStorage/AsyncStorage';
 import {CartContext} from '../Cart/ShoppingCart';
 import {useContext, memo} from 'react';
 import {stylesCardProduct} from '../../styles';
+import {useAuth0} from 'react-native-auth0'
 
 const CardProduct = ({navegar, product}) => {
   let {_id, title, image, description, price} = product;
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const inCart = cartItems.find(product => product.productId === _id);
+  const {user} = useAuth0(); //Auht0
+  const {authorize} = useAuth0(); //Auht0
+  //---Auht0
+  const handleLogin = async () => {
+    return await authorize()
+  }
+
+  const handleButtonAdd = async (inCart) => {
+    if(inCart) await deleteItemToCart(product)
+    else await addItemToCart(product, 1)
+  } 
+
   return (
     <View style={styles.container} title={title}>
       <Image
@@ -46,12 +59,11 @@ const CardProduct = ({navegar, product}) => {
           title={inCart ? 'DEL CART' : 'ADD CART'}
           color={inCart ? '#FF4544' : '#65AE77'}
           style={{margin: 10}}
-          onPress={async () => {
-            if (inCart) {
-              deleteItemToCart(product);
-              return;
-            }
-            addItemToCart(product, 1);
+          onPress={() => {
+            user ?
+            handleButtonAdd(inCart)
+            :
+            handleLogin()
           }}>
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>

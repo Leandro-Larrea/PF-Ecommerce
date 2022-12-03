@@ -3,13 +3,10 @@ import {Text, View, Image, StyleSheet} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
-import {Auth0} from "react-native-auth0";
 
 export const Profile = () => {
     const {user} = useAuth0();
     //console.log(user)
-    
-
     return (
         <>
             <View style={styles.container}>
@@ -29,7 +26,7 @@ export const Profile = () => {
             : (
                 <View>
                 <View>
-                    <Text>Not logged in</Text>
+                    <Text>Not logged in. Please log in</Text>
                 </View>
                 <View style={styles.botonIn}>
                     <LoginButton />
@@ -47,7 +44,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        alignItems: 'center',
         marginTop: 10,
         marginLeft: 20,
         marginRight: 20,
@@ -67,11 +65,10 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     botonIn: {
-        width: 100,
-        height: 100,
+        width: '100%',
+        paddingTop: 15,
         display: "flex",
-        flexDirection: "column",
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: "center",
     },
 })

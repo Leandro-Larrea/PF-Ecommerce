@@ -14,8 +14,9 @@ import DetailProduct from './Components/Products/DetailProduct';
 import { NavigationContainer } from '@react-navigation/native';
 import { Pay } from './Components/Stripe/Pay';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { Profile } from './Components/LogButtons/Profile';
 
-axios.defaults.baseURL = 'http://192.168.100.32:3001';
+//axios.defaults.baseURL = 'http://192.168.100.32:3001';
 /* import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './Components/Home/Home';
@@ -33,13 +34,14 @@ const Stack = createNativeStackNavigator(); */
         redirectUri={'https://dev-df4sl8wp8lidlkx3.us.auth0.com/login/callback'}>
         <CartProvider>
           <StripeProvider publishableKey='pk_test_51MAHh5BMOrGzu3h6xWovI9a9tAY6YXTIY4VllgaV3F3lk716NehzrQUhngQI2KXUQo2kVyZouPLLiYqbLDD1ncRL00D2io0vNo'>
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main">
-              <Stack.Screen name={'Main'} component={MainContainer} />
-              <Stack.Screen name={'DetailProduct'} component={DetailProduct} />
-              <Stack.Screen name={'Pay'} component={Pay} />
-            </Stack.Navigator>
-        </NavigationContainer>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Main">
+                  <Stack.Screen name={'Main'} component={MainContainer} />
+                  <Stack.Screen name={'DetailProduct'} component={DetailProduct} />
+                  <Stack.Screen name={'Pay'} component={Pay} />
+                  <Stack.Screen name={'Profile'} component={Profile} />
+                </Stack.Navigator>
+            </NavigationContainer>
           </StripeProvider>
       </CartProvider>
       </Auth0Provider>

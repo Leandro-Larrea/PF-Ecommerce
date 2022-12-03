@@ -29,7 +29,7 @@ export const LookProducts = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <View style={{flex: 2}}>
-        <SearchBar />
+        <SearchBar navigation={navigation}/>
 
         <View style={styles.showAll}>
           <ShowAll />
