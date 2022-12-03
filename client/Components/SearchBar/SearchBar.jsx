@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import {search, setfilter} from '../../redux/actions';
+import {search, setFilter} from '../../redux/actions';
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export const SearchBar = () => {
     let max = filterInput.max;
     let category = filterInput.category;
     setName('');
-    dispatch(setfilter(filterInput));
+    dispatch(setFilter(filterInput));
     dispatch(search(title, min, max, category));
     setFilterInput({
       title: '',
