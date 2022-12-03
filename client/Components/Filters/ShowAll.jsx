@@ -8,12 +8,12 @@ const dispatch = useDispatch()
 
 const handlePress= ()=>{
   dispatch(getProducts())
-  setFilter({
+  dispatch(setFilter({
     title: '',
     min: '',
     max: '',
     category: '',
-  })
+  }))
 
 }
     return(

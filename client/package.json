@@ -24,6 +24,8 @@
     "link": "^1.5.1",
     "react": "18.1.0",
     "react-native": "^0.70.6",
+    "react-native-auth0": "^2.16.0",
+    "react-native-dotenv": "^3.4.2",
     "react-native-dropdown-select-list": "^2.0.2",
     "react-native-form-component": "^2.6.1",
     "react-native-gesture-handler": "^2.8.0",

@@ -6,7 +6,7 @@ const productValidation = (obj) => {
         return 'Titulo con simbolos no validos o demasiado extenso.'
     if(obj.title.price <=0)
         return 'El precio no puede ser negativo'
-    if(obj.description.match(/[a-zA-Z 0-9.,'¡!¿?$]+/gi)[0].length !== obj.description.length || obj.description.length > 500)
+    if(obj.description.match(/[()a-zA-Z 0-9.,'¡!¿?$]+/gi)[0].length !== obj.description.length || obj.description.length > 600)
         return 'Descripcion con simbolos no validos o demasiado extenso.'
     if(obj.stock < 0 || !Number.isInteger(obj.stock))
         return 'El stock no puede ser negativo o contener decimales'

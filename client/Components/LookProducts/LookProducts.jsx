@@ -35,13 +35,15 @@ export const LookProducts = ({navigation}) => {
           <View style={styles.showAll}>
             <ShowAll />
           </View>
-
           <View style={styles.filterContainer}>
             {categories ? (
               <Select categories={categories}></Select>
             ) : (
               <Text>no se renderizo</Text>
             )}
+    <View >
+      <SearchBar navigation={navigation}/>
+      <View style={styles.main}>
 
             <Sort />
           </View>
