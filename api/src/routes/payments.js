@@ -1,4 +1,5 @@
 const { Router } = require("express");
+require('dotenv').config()
 const router = Router();
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
