@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, FlatList, StyleSheet, Image} from 'react-native';
+import {View, FlatList, StyleSheet, Image, Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getProducts} from '../../redux/actions';
 import CardProduct from './CardProduct';
@@ -27,22 +27,19 @@ export default function Cards({navegar}) {
   );
 
   return (
-    <>
+    <View style={{height: '100%', width: Dimensions.get('screen').width}}>
       {products == 'No existe' ? (
         <View style={styles.imgMain}>
           <Image style={styles.image} source={image} />
         </View>
       ) : (
-        products && (
-          <FlashList
-            initialNumToRender={2}
-            data={products}
-            renderItem={_renderitem}
-            estimatedItemSize={products.length}
-          />
-        )
+        <FlashList
+          data={products}
+          renderItem={_renderitem}
+          estimatedItemSize={100}
+        />
       )}
-    </>
+    </View>
   );
 }
 

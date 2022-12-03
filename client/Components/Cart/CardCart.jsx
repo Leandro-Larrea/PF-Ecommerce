@@ -33,7 +33,7 @@ function Card({productInCart, navegar, index, aniRemoveItem}) {
           <Text>{price}$</Text>
         </View>
         <Button type="clear" onPress={() => navegar(productInCart.product)}>
-          <IconAwe5 name="eye" color="blue" />
+          <IconAwe5 style={{marginRight: 10}} name="eye" color="blue" />
           View
         </Button>
       </View>
