@@ -10,8 +10,8 @@ const ListCart = ({navigation}) => {
   const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
     useContext(CartContext);
 
-    const precios = cartItems.map(e => e.product.price * e.quantity)
-    const total = precios.reduce((prev, curr) => prev + curr)
+    const precios = cartItems.length > 0? cartItems.map(e => e.product.price * e.quantity) : ''
+    const total = precios.length> 0 ? precios.reduce((prev, curr) => prev + curr) : 0
     
     const onPress = () => {
       dispatch({type: SET_PRICE, payload: total})
