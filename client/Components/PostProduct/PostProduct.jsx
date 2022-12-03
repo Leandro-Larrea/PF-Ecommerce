@@ -22,6 +22,20 @@ export const PostProduct = () => {
         dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
     }, [dispatch])
 
+    const [errors, setErrors] = useState({})
+
+    function validate(input) {
+        let errors = {};
+        if (!input.title) errors.title = "Enter title"
+        if (!input.price) errors.price = "Enter price"
+        if (!input.description) errors.description = "Enter description"
+        if (!input.category) errors.category = "Enter category"
+        if (!input.image) errors.title = "Enter Image"
+        if (!input.stock) errors.title = "Enter Stock"
+
+        return errors;
+    }
+
     const [image, setImage] = useState({ uri: '' });
     const [input, setInput] = useState({
         title: '',
@@ -56,6 +70,7 @@ export const PostProduct = () => {
                 console.log("se cargo la imagen wachin");
                 console.log(image);
                 setInput({ ...input, image: source })
+                setErrors(validate({ ...input, image: source }))
                 console.log("formulario", input)
             }
         })
@@ -63,26 +78,29 @@ export const PostProduct = () => {
 
 
     const handleSubmit = () => {
-        console.log(input)
-        dispatch(postProduct(input));
-        Alert.alert('Producto Creado 👍 ')
-        setInput({
-            title: '',
-            price: '',
-            description: '',
-            category: '',
-            rating: { points: 0, votes: 0, rating: 0 },
-            image: '',
-            details: [],
-            stock: ''
-        })
-        setImage({ uri: '' })
+        if (!input.title | !input.price | !input.description | !input.category | !input.image | !input.stock) {
+            Alert.alert('Completar todos los campos')
+        } else {
+            dispatch(postProduct(input));
+            Alert.alert('Producto Creado 👍 ')
+            setInput({
+                title: '',
+                price: '',
+                description: '',
+                category: '',
+                rating: { points: 0, votes: 0, rating: 0 },
+                image: '',
+                details: [],
+                stock: ''
+            })
+            setImage({ uri: '' })
+        }
     }
 
     return (
         <ScrollView>
 
-            <Form style={style.Form} buttonTextStyle={style.buttonText} buttonStyle={style.buttonForm} buttonText='Crear Producto 😎' onButtonPress={() => handleSubmit()}>
+            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.price && !errors.title && !errors.description && !errors.category && !errors.image && !errors.stock ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Crear Producto 😎' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
                     label="Product Name"
                     labelStyle={style.label}
@@ -90,7 +108,7 @@ export const PostProduct = () => {
                     isRequired
                     asterik
                     value={input.title}
-                    onChangeText={(text) => { setInput({ ...input, title: text }) }}
+                    onChangeText={(text) => { setInput({ ...input, title: text }), setErrors(validate({ ...input, title: text })) }}
                 />
 
                 <FormItem
@@ -100,7 +118,7 @@ export const PostProduct = () => {
                     isRequired
                     asterik
                     value={input.price}
-                    onChangeText={(e) => { setInput({ ...input, price: Number(e) }) }}
+                    onChangeText={(e) => { setInput({ ...input, price: Number(e) }), setErrors(validate({ ...input, price: Number(e) })) }}
                 />
 
                 <FormItem
@@ -110,7 +128,7 @@ export const PostProduct = () => {
                     isRequired
                     asterik
                     value={input.description}
-                    onChangeText={(text) => { setInput({ ...input, description: text }) }}
+                    onChangeText={(text) => { setInput({ ...input, description: text }), setErrors(validate({ ...input, description: text })) }}
                 />
 
                 <FormItem
@@ -120,18 +138,9 @@ export const PostProduct = () => {
                     isRequired
                     asterik
                     value={input.stock}
-                    onChangeText={(e) => { setInput({ ...input, stock: Number(e) }) }}
+                    onChangeText={(e) => { setInput({ ...input, stock: Number(e) }), setErrors(validate({ ...input, stock: Number(e) })) }}
                 />
 
-                <FormItem
-                    label="Image"
-                    labelStyle={style.label}
-                    style={style.inputForm}
-                    isRequired
-                    asterik
-                    value={input.image}
-                    onChangeText={e => { setInput({ ...input, image: e }) }}
-                />
 
                 <Picker
                     items={[
@@ -153,7 +162,7 @@ export const PostProduct = () => {
                     labelStyle={style.label}
                     placeholder='-Select Category-'
                     selectedValue={input.category}
-                    onSelection={(item) => { setInput({ ...input, category: item.value }) }}
+                    onSelection={(item) => { setInput({ ...input, category: item.value }), setErrors(validate({ ...input, category: item.value })) }}
                 />
 
                 <View style={{ alignItems: "center" }}>
@@ -161,14 +170,14 @@ export const PostProduct = () => {
                         onPress={() => openGallery()}
                         title='Upload Image'>
                     </Button>
-                    {input.image.length > 0?  
-                    <Image
-                    source={image}
-                    style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
+                    {input.image.length > 0 ?
+                        <Image
+                            source={image}
+                            style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
 
-                    </Image> :
-                    <Text>Photo</Text>
-                        }
+                        </Image> :
+                        <Text>Photo</Text>
+                    }
                 </View>
 
 
@@ -189,6 +198,10 @@ const style = StyleSheet.create({
         color: "white",
         fontStyle: "italic"
     },
+    buttonTextFail: {
+        color: "red",
+
+    },
     Form: {
         flex: 1,
         marginTop: 40
@@ -199,5 +212,11 @@ const style = StyleSheet.create({
     },
     label: {
         marginLeft: 20
+    },
+    buttonFail: {
+        backgroundColor: "#f5f5f5",
+        borderRadius: 0,
+        width: "50%",
+        alignSelf: "center",
     }
 })

@@ -13,11 +13,17 @@ import {useContext, memo} from 'react';
 import {stylesCardProduct} from '../../styles';
 
 const CardProduct = ({navegar, product}) => {
+
   let {_id, title, image, description, price} = product;
+
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
+
   const inCart = cartItems.find(product => product.productId === _id);
+  
   return (
     <View style={styles.container} title={title}>
+ 
+
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
         /*  onProgress={(loaded, total) => {
@@ -26,7 +32,7 @@ const CardProduct = ({navegar, product}) => {
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"
-        source={{uri: image.toString()}}
+        source={{uri: image &&  image.toString()}}
       />
       <Text style={styles.title} numberOfLines={2}>
         {title}
@@ -56,6 +62,7 @@ const CardProduct = ({navegar, product}) => {
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
+
     </View>
   );
 };

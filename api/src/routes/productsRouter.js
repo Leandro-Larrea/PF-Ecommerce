@@ -32,7 +32,6 @@ router.get("/:id", async (req,res)=>{
 router.post('/', async (req, res) => {
     try {
         let result = await postProducts(req.body)
-        console.log("aca envio",req.body)
         return res.status(200).json(result);
     }catch(error){
             res.status(500).json({'error: ': error})
@@ -41,24 +40,28 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req,res)=>{
     try {
-    let {id} = req.params
-
-    let a = await Product.findByIdAndUpdate(id, req.body);
+    let {id} = req.params;
+    let a = await Product.findByIdAndUpdate(id, req.body)
     let b = await Product.findById(id);
         res.status(200).json({a,b})
     } catch (error) {
-        res.status(400).send("something get wrong")
+        res.status(400).send("something went wrong")
     } 
 })
 
-///////Ruta para borrar un documento de mongoose usando el titulo. Tambien borra su imagen de cloudinary
-router.delete("/title/:title", async (req, res) => {
-    let { title } = req.params
+///////Ruta para borrar todos los documentos por algun fragmento del titulo
+
+router.delete("/title", async (req, res) => {
+    let { title } = req.query
+    let c = 0
     try {
-        let obj = await Product.findOne({title: title})
-        deleteFileCloudinary(obj.imageId)
-        let deleted = await Product.deleteOne({_id: obj._id})
-        res.status(200).json(deleted)
+        let obj = await getProducts(title)
+        for (const it of obj) {
+            await deleteFileCloudinary(it.imageId)
+            deleted = await Product.deleteOne({_id: it._id})
+            c += deleted.deletedCount
+            }                
+        res.status(200).json({'borrados: ': c})
     } catch (error) {
         res.status(400).send({"something get wrong": error})
     } 

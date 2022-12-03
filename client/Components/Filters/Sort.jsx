@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
           paddingHorizontal:20,
           zIndex:1
       },
-    select:{
-       backgroundColor:'white'
-      }
+ 
     }
   );

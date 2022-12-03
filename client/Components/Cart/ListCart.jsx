@@ -3,14 +3,15 @@ import {View, Text, Button, FlatList, LayoutAnimation} from 'react-native';
 import {FlashList} from '@shopify/flash-list';
 import {CartContext} from './ShoppingCart';
 import CardCart from './CardCart';
+import {useDispatch} from 'react-redux';
+import {SET_PRICE} from '../../redux/actions';
 
-const ListCart = props => {
-  const {navigation} = props;
+const ListCart = ({navigation}) => {
+  const dispatch = useDispatch();
   const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
     useContext(CartContext);
   const [data, setData] = useState([...cartItems]);
   const list = useRef(FlashList);
-
   useEffect(() => {
     setData([...cartItems]);
   }, [cartItems]);
@@ -24,6 +25,17 @@ const ListCart = props => {
     // After removing the item, we can start the animation.
     list.current?.prepareForLayoutAnimationRender();
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+  };
+  const precios =
+    cartItems.length > 0
+      ? cartItems.map(e => e.product.price * e.quantity)
+      : '';
+  const total =
+    precios.length > 0 ? precios.reduce((prev, curr) => prev + curr) : 0;
+
+  const onPress = () => {
+    dispatch({type: SET_PRICE, payload: total});
+    navigation.navigate('Pay');
   };
   function navegar(product) {
     navigation.navigate('DetailProduct', product);
@@ -53,7 +65,11 @@ const ListCart = props => {
         )}
       </View>
       <View style={{flex: 0.8}}>
-        <Button color="green" title="PAY NOW" />
+        <Button
+          color="green"
+          title={`Pay Now $${total} USD`}
+          onPress={onPress}
+        />
       </View>
     </View>
   );
