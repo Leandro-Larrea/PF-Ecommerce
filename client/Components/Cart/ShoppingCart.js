@@ -141,12 +141,15 @@ export const CartProvider = ({children}) => {
   };
 
   const updateItemToCart = async (productInCart, quantity) => {
+    const inCart = cartItems.find(
+      proInCart => proInCart.productId === productInCart.productId,
+    );
     if (
-      quantity
-        ? quantity <= productInCart.product.stock
-        : productInCart.quantity + 1 <= productInCart.product.stock
+      inCart && quantity
+        ? quantity <= inCart.product.stock
+        : inCart.quantity + 1 <= inCart.product.stock
     ) {
-      productInCart.quantity = quantity ? quantity : productInCart.quantity + 1;
+      inCart.quantity = quantity ? quantity : inCart.quantity + 1;
       setCartItems([...cartItems]);
       // dispatch(updateToCart(cartItems));
       // if (userId) {
@@ -166,7 +169,13 @@ export const CartProvider = ({children}) => {
         productId: detailProduct._id,
         saleId: null,
         userId: null,
-        product: detailProduct,
+        product: {
+          _id: detailProduct._id,
+          title: detailProduct.title,
+          image: detailProduct.image,
+          price: detailProduct.price,
+          stock: detailProduct.stock,
+        },
       };
       cartItems.push(porductInCart);
       setCartItems([...cartItems]);
@@ -190,9 +199,9 @@ export const CartProvider = ({children}) => {
     // });
   };
 
-  const subtractItemToCart = detailProduct => {
+  const subtractItemToCart = productInCart => {
     const inCart = cartItems.find(
-      productInCart => productInCart.productId === detailProduct._id,
+      proInCart => proInCart.productId === productInCart.productId,
     );
     if (inCart) {
       if (inCart.quantity > 1) {
@@ -212,9 +221,9 @@ export const CartProvider = ({children}) => {
       }
     }
   };
-  const deleteItemToCart = detailProduct => {
+  const deleteItemToCart = productInCart => {
     const inCart = cartItems.find(
-      productInCart => productInCart.productId === detailProduct._id,
+      proInCart => proInCart.productId === productInCart.productId,
     );
     if (inCart) {
       cartItems.splice(cartItems.indexOf(inCart), 1);

@@ -64,6 +64,12 @@ const CardProduct = ({navegar, product}) => {
           title={inCart ? 'DEL CART' : 'ADD CART'}
           color={inCart ? '#FF4544' : '#65AE77'}
           style={{margin: 10}}
+          onPress={async () => {
+            if (inCart) {
+              deleteItemToCart(inCart);
+              return;
+            }
+            addItemToCart(product, 1);
           onPress={() => {
             user ?
             handleButtonAdd(inCart)

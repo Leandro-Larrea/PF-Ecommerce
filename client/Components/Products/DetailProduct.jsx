@@ -42,7 +42,7 @@ function DetailProduct({route, navigation}) {
           style={{margin: 10}}
           onPress={() => {
             if (inCart) {
-              deleteItemToCart(route.params);
+              deleteItemToCart(inCart);
               navigation.goBack();
               return;
             }

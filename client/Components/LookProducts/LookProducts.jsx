@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Cards from '../Products/CardProducts.jsx';
 import Select from '../Filters/Select';
 import {getCategories} from '../../redux/actions';
-import PriceFilter from '../Filters/PriceFilter'
+import PriceFilter from '../Filters/PriceFilter';
 
 export const LookProducts = ({navigation}) => {
   const dispatch = useDispatch();
@@ -28,28 +28,29 @@ export const LookProducts = ({navigation}) => {
   }
 
   return (
-
+    <View style={{flex: 1}}>
+      <View style={{flex: 2}}>
+        <SearchBar />
+        <View style={styles.main}>
+          <View style={styles.showAll}>
+            <ShowAll />
+          </View>
+          <View style={styles.filterContainer}>
+            {categories ? (
+              <Select categories={categories}></Select>
+            ) : (
+              <Text>no se renderizo</Text>
+            )}
     <View >
       <SearchBar navigation={navigation}/>
       <View style={styles.main}>
-        
 
-        <View style={styles.showAll}>
-          <ShowAll />
+            <Sort />
+          </View>
+          <PriceFilter />
         </View>
-
-        <View style={styles.filterContainer}>
-          {categories ? (
-            <Select categories={categories}></Select>
-          ) : (
-            <Text>no se renderizo</Text>
-          )}
-
-          <Sort />
-        </View>
-        <PriceFilter/>
       </View>
-      <View >
+      <View style={{flex: 5}}>
         <Cards navegar={navegar} />
       </View>
     </View>
@@ -57,22 +58,21 @@ export const LookProducts = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   main: {
-    minHeight:150,
-    alignItems:'center',
-    justifyContent:'center'
+    minHeight: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   filterContainer: {
     flexDirection: 'row',
-     margin:10,
-     zIndex: 1,
-
+    margin: 10,
+    zIndex: 1,
   },
 
   showAll: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width:200
+    width: 200,
   },
 });
