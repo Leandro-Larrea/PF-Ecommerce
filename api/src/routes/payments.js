@@ -6,8 +6,10 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 router.post("/pay", async (req, res) => {
     try {
       console.log("payment aca", req.body);
-      const { name } = req.body;
+      const { name, lastname } = req.body;
       if (!name) return res.status(400).json({ message: "Please enter a name" });
+      if (!lastname) return res.status(400).json({ message: "Please enter a LastName" });
+
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(25 * 100),
         currency: "USD",
