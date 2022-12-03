@@ -14,8 +14,11 @@ import {stylesCardProduct} from '../../styles';
 import {useAuth0} from 'react-native-auth0'
 
 const CardProduct = ({navegar, product}) => {
+
   let {_id, title, image, description, price} = product;
+
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
+
   const inCart = cartItems.find(product => product.productId === _id);
   const {user} = useAuth0(); //Auht0
   const {authorize} = useAuth0(); //Auht0
@@ -31,6 +34,8 @@ const CardProduct = ({navegar, product}) => {
 
   return (
     <View style={styles.container} title={title}>
+ 
+
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
         /*  onProgress={(loaded, total) => {
@@ -39,7 +44,7 @@ const CardProduct = ({navegar, product}) => {
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"
-        source={{uri: image.toString()}}
+        source={{uri: image &&  image.toString()}}
       />
       <Text style={styles.title} numberOfLines={2}>
         {title}
@@ -68,6 +73,7 @@ const CardProduct = ({navegar, product}) => {
           <Icon size={20} name="cart-plus" color="#fff" />
         </Button>
       </View>
+
     </View>
   );
 };

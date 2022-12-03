@@ -6,6 +6,7 @@ import {
   FILTER_CATEGORIES,
   SORT_BY_PRICE,
   SET_FILTER,
+  SET_PRICE,
 } from '../actions';
 
 const initialState = {
@@ -18,10 +19,16 @@ const initialState = {
     max: '',
     category: '',
   },
+  total: 0
 };
 
 const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
+    case SET_PRICE:
+      return {
+        ...state,
+        total: payload
+      }
     case SET_REDUCER_CART:
       return {
         ...state,

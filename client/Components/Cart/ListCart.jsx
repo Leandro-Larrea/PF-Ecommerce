@@ -2,10 +2,21 @@ import React, {useContext} from 'react';
 import {View, Text, Button, FlatList} from 'react-native';
 import {CartContext} from './ShoppingCart';
 import CardCart from './CardCart';
+import { useDispatch } from 'react-redux';
+import { SET_PRICE } from '../../redux/actions';
 
 const ListCart = ({navigation}) => {
+  const dispatch = useDispatch();
   const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
     useContext(CartContext);
+
+    const precios = cartItems.length > 0? cartItems.map(e => e.product.price * e.quantity) : ''
+    const total = precios.length> 0 ? precios.reduce((prev, curr) => prev + curr) : 0
+    
+    const onPress = () => {
+      dispatch({type: SET_PRICE, payload: total})
+      navigation.navigate('Pay')
+    }
 
   function navegar(product) {
     navigation.navigate('DetailProduct', product);
@@ -27,7 +38,7 @@ const ListCart = ({navigation}) => {
         )}
       </View>
       <View style={{flex: 0.8}}>
-        <Button color="green" title="PAY NOW" onPress={() => navigation.navigate('Pay')} />
+        <Button color="green" title={`Pay Now $${total} USD`} onPress={onPress} />
       </View>
     </View>
   );

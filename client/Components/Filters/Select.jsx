@@ -3,9 +3,11 @@ import {View, Text} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {filterByCategories, search} from '../../redux/actions';
+import {search, setFilter} from '../../redux/actions';
 
 export default function ({categories}) {
+
+
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState('');
@@ -33,17 +35,10 @@ export default function ({categories}) {
   };
 
   const handleFilter = () => {
-    let title = filterInput.title;
-    let min = filterInput.min;
-    let max = filterInput.max;
-    let category = filterInput.category;
+    const {title, min, max, category} =filterInput
     dispatch(search(title, min, max, category));
-    setFilterInput({
-      title: '',
-      min: '',
-      max: '',
-      category: '',
-    });
+    dispatch(setFilter(filterInput))
+
   };
 
   return (

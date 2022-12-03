@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Cards from '../Products/CardProducts.jsx';
 import Select from '../Filters/Select';
 import {getCategories} from '../../redux/actions';
+import PriceFilter from '../Filters/PriceFilter'
 
 export const LookProducts = ({navigation}) => {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ export const LookProducts = ({navigation}) => {
   }
 
   return (
-    <View style={{flex: 1}}>
-      <View style={{flex: 2}}>
-        <SearchBar navigation={navigation}/>
+
+    <View >
+      <SearchBar navigation={navigation}/>
+      <View style={styles.main}>
+        
 
         <View style={styles.showAll}>
           <ShowAll />
@@ -44,8 +47,9 @@ export const LookProducts = ({navigation}) => {
 
           <Sort />
         </View>
+        <PriceFilter/>
       </View>
-      <View style={{flex: 5}}>
+      <View >
         <Cards navegar={navegar} />
       </View>
     </View>
@@ -53,20 +57,22 @@ export const LookProducts = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '2d2d2d',
+    minHeight:150,
+    alignItems:'center',
+    justifyContent:'center'
   },
+
   filterContainer: {
-    flex: 1,
     flexDirection: 'row',
-    minHeight: 80,
-    zIndex: 1,
-    marginTop: 10,
+     margin:10,
+     zIndex: 1,
+
   },
 
   showAll: {
-    padding: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width:200
   },
 });
