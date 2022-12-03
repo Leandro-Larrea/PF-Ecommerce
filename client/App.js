@@ -11,7 +11,14 @@ import { Pay } from './Components/Stripe/Pay';
 import { StripeProvider } from '@stripe/stripe-react-native';
 
 axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+<<<<<<< Updated upstream
 
+=======
+/* import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Home } from './Components/Home/Home';
+import { LookProducts } from './Components/LookProducts/LookProducts'; */
+>>>>>>> Stashed changes
 
 const Stack = createStackNavigator();
 const App = () => {
