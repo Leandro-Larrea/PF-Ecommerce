@@ -30,7 +30,7 @@ export const LookProducts = ({navigation}) => {
   return (
 
     <View >
-      <SearchBar />
+      <SearchBar navigation={navigation}/>
       <View style={styles.main}>
         
 

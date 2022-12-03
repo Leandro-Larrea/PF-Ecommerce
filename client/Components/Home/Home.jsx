@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
-import {View, Text, SafeAreaView, StyleSheet, Button} from 'react-native';
+import {View, Text, SafeAreaView, StyleSheet, Button, TouchableHighlight} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 /* import { NavBar } from '../NavBar/NavBar' */
 import {getCategories, getProducts} from '../../redux/actions';
-
+import AuthenticationButton from '../LogButtons/AuthenticationButton'
+import Icon from 'react-native-vector-icons/Ionicons';
 import HomeCategories from './HomeCategories';
 import Header from './Header';
 
@@ -21,6 +22,12 @@ export const Home = ({navigation}) => {
     <SafeAreaView style={style.container}>
       <View style={style.header}>
         <Header></Header>
+      </View>
+      <View style={style.cuenta}>
+        <AuthenticationButton/>
+        <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
+            <Icon name="person-outline" size={28} color="#6A37C4" />
+        </TouchableHighlight>
       </View>
       <View style={style.content}>
         <View style={style.ofertaBox}>
@@ -79,4 +86,9 @@ const style = StyleSheet.create({
     flex: 0,
     marginTop: 50,
   },
+  cuenta: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  }
 });

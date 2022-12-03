@@ -7,10 +7,15 @@ import {
   View,
   StyleSheet,
   Pressable,
+  TouchableHighlight,
 } from 'react-native';
 import {search, setFilter} from '../../redux/actions';
+import {useAuth0} from 'react-native-auth0';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchBar = () => {
+
+export const SearchBar = ({navigation}) => {
+  const {user} = useAuth0();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [filterInput, setFilterInput] = useState({
@@ -47,6 +52,8 @@ export const SearchBar = () => {
     });
   };
 
+  const loggedIn = user !== undefined && user !== null;
+  
   return (
     <View style={style.main}>
       <TextInput
@@ -62,6 +69,17 @@ export const SearchBar = () => {
           onPress={e => handleSearch(e)}
           style={style.Button}></Button>
       </View>
+      <View style={style.botonCuenta}>
+        {loggedIn ? (
+          <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
+            <Icon size={28} name="person-outline" color="#6A37C4" />
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
+            <Icon name="person-outline" size={28} color="#df5a00" />
+          </TouchableHighlight>
+        )}
+      </View>
     </View>
   );
 };
@@ -70,9 +88,10 @@ const style = StyleSheet.create({
   main: {
     backgroundColor: '#2d2d2d',
     minHeight: 50,
-    paddingHorizontal: 40,
+    paddingLeft: 40,
+    paddingRight: 20,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
@@ -86,5 +105,8 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
 
-  button: {},
+  botonCuenta: {
+    marginLeft: 10,
+    justifyContent: 'flex-end',
+  },
 });
