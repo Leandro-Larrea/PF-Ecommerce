@@ -25,15 +25,16 @@ const AuthenticationButton = () => {
 
   return (
     <View style={styles.container}>
-      <View>  
-      {loggedIn && <Text>Logged in as: {user.name}</Text>}
-      {!loggedIn && <Text>You are not logged in</Text>}
+      <View style={styles.text}>  
+      {loggedIn && <Text style={styles.text}>Logged in as: {user.name}</Text>}
+      {!loggedIn && <Text style={styles.text}>You are not logged in</Text>}
       </View>
       <View style={styles.boton}>
       <Button
         onPress={loggedIn ? onLogout : onLogin}
         title={loggedIn ? 'Log Out' : 'Log In'}
         style={styles.boton}
+        color={'#89c30d'}
       />
       </View>
     </View>
@@ -45,14 +46,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 5,
+
+        
     },
-    boton: {
-      marginLeft: 10,
-      height: 30,
-      alignItems: 'center',
-      textAlign: 'center',
+    text:{
+      color:'white',
+      fontSize:18,
+      marginRight:5
     }
+   
 })
 
 export default AuthenticationButton
