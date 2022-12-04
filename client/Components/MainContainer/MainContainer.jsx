@@ -9,7 +9,7 @@ import {Home} from '../Home/Home';
 import {LookProducts} from '../LookProducts/LookProducts';
 import ListCart from '../Cart/ListCart';
 import {PostProduct} from '../PostProduct/PostProduct';
-import { Profile } from '../LogButtons/Profile';
+import {Profile} from '../LogButtons/Profile';
 //Screen-Name
 
 const homeName = 'Home';
@@ -19,9 +19,8 @@ const postName = 'Post';
 
 const Tab = createBottomTabNavigator();
 
-
 export const MainContainer = () => {
-  const {user} = useAuth0()
+  const {user} = useAuth0();
   const loggedIn = user !== undefined && user !== null;
   return (
     <Tab.Navigator
@@ -45,8 +44,6 @@ export const MainContainer = () => {
         },
         tabBarActiveTintColor: 'tomato',
       })}>
-
-
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={lookProductsName} component={LookProducts} />
       <Tab.Screen name={cartName} component={loggedIn ? ListCart : Profile} />

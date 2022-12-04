@@ -69,7 +69,11 @@ const ListCart = ({navigation}) => {
           title={`Pay Now $${Math.floor(total)} USD`}
           onPress={onPress}
         />
-        <Button color="green" title={`Pay Now $${final} USD`} onPress={onPress} />
+        <Button
+          color="green"
+          title={`Pay Now $${final} USD`}
+          onPress={onPress}
+        />
       </View>
     </View>
   );
