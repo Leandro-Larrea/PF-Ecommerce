@@ -39,8 +39,6 @@ export default function Cards({navegar}) {
           estimatedItemSize={100}
         />
       )}
-      )
-     }
     </View>
   );
 }
