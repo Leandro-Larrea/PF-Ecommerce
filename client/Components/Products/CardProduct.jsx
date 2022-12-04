@@ -11,10 +11,9 @@ import storage from '../AsyncStorage/AsyncStorage';
 import {CartContext} from '../Cart/ShoppingCart';
 import {useContext, memo} from 'react';
 import {stylesCardProduct} from '../../styles';
-import {useAuth0} from 'react-native-auth0'
+import {useAuth0} from 'react-native-auth0';
 
 const CardProduct = ({navegar, product}) => {
-
   let {_id, title, image, description, price} = product;
 
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
@@ -24,18 +23,16 @@ const CardProduct = ({navegar, product}) => {
   const {authorize} = useAuth0(); //Auht0
   //---Auht0
   const handleLogin = async () => {
-    return await authorize()
-  }
+    return await authorize();
+  };
 
-  const handleButtonAdd = async (inCart) => {
-    if(inCart) await deleteItemToCart(product)
-    else await addItemToCart(product, 1)
-  } 
+  const handleButtonAdd = async inCart => {
+    if (inCart) await deleteItemToCart(inCart);
+    else await addItemToCart(product);
+  };
 
   return (
     <View style={styles.container} title={title}>
- 
-
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
         /*  onProgress={(loaded, total) => {
@@ -44,8 +41,9 @@ const CardProduct = ({navegar, product}) => {
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"
-        source={{uri: image &&  image.toString()}}
+        source={{uri: image && image.toString()}}
       />
+      <Text numberOfLines={1} style={styles.price}>${price}</Text>
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>

@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {getCategories, getProducts} from '../../redux/actions';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories, getProducts } from '../../redux/actions';
 
 
 //------componentes-----
 import Select from '../Filters/Select';
 import ShowAll from '../Filters/ShowAll';
 import Sort from '../Filters/Sort';
-import {SearchBar} from '../SearchBar/SearchBar';
+import { SearchBar } from '../SearchBar/SearchBar';
 import CardProduct from './CardProduct';
 
 
@@ -16,10 +16,10 @@ import CardProduct from './CardProduct';
 
 
 
-export default function Cards({navigation}) {
+export default function Cards({ navigation }) {
   const dispatch = useDispatch();
-  const {categories} = useSelector(state => state.products);
-  const {products} = useSelector(state => state.products);
+  const { categories } = useSelector(state => state.products);
+  const { products } = useSelector(state => state.products);
 
 
 
@@ -46,25 +46,25 @@ export default function Cards({navigation}) {
 
     <View style={styles.main}>
       <SearchBar />
-      
+
       <View style={styles.showAll}>
-      <ShowAll/>
+        <ShowAll />
       </View>
 
-     <View style={styles.filterContainer}>
-  
+      <View style={styles.filterContainer}>
+
         {categories ? (
           <Select categories={categories}></Select>
         ) : (
           <Text>no se renderizo</Text>
         )}
-   
-      <Sort/>
+
+        <Sort />
       </View>
       {products && (
         <FlatList
           data={products}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <>
               <CardProduct
                 navegar={navegar}
@@ -74,9 +74,9 @@ export default function Cards({navigation}) {
                 price={item.price}
                 key={item._id}
               />
-              {}
+              { }
               {products.length - 1 === index && (
-                <View style={{height: 300}}></View>
+                <View style={{ height: 300 }}></View>
               )}
             </>
           )}
@@ -90,23 +90,24 @@ export default function Cards({navigation}) {
 
 
 const styles = StyleSheet.create({
- main:{
-  backgroundColor:'2d2d2d'
- },
+  main: {
+    backgroundColor: '2d2d2d',
+  },
   filterContainer: {
-    
-    flex:1,
-    flexDirection:'row',
-    minHeight:80,
-    zIndex:1,
-    marginTop:10
-    },
-  
-  showAll:{
-    padding:10,
-    flexDirection:'column',
-    justifyContent:'center',
-    alignItems:'center'
+
+    flex: 1,
+    backgroundColor:"red",
+    flexDirection: 'row',
+    minHeight: 80,
+    zIndex: 1,
+    marginTop: 10
+  },
+
+  showAll: {
+    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 }
 );

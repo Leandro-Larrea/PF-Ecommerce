@@ -12,12 +12,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import Cards from '../Products/CardProducts.jsx';
 import Select from '../Filters/Select';
 import {getCategories} from '../../redux/actions';
-import PriceFilter from '../Filters/PriceFilter'
+import PriceFilter from '../Filters/PriceFilter';
 
 export const LookProducts = ({navigation}) => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
-
   useEffect(() => {
     if (!categories) {
       dispatch(getCategories());
@@ -28,51 +27,61 @@ export const LookProducts = ({navigation}) => {
   }
 
   return (
-
-    <View >
-      <SearchBar navigation={navigation}/>
-      <View style={styles.main}>
-        
-
-        <View style={styles.showAll}>
-          <ShowAll />
-        </View>
-
+    <View style={{flex: 1}}>
+      <View>
         <View style={styles.filterContainer}>
-          {categories ? (
-            <Select categories={categories}></Select>
-          ) : (
-            <Text>no se renderizo</Text>
-          )}
-
-          <Sort />
+          <SearchBar navigation={navigation} />
+          <View style={styles.showAll}>
+            <ShowAll />
+          </View>
+          <View style={styles.filterRow}>
+            {categories && <Select categories={categories}></Select>}
+            <View>
+              <Sort />
+            </View>
+          </View>
+          
+          <PriceFilter />
         </View>
-        <PriceFilter/>
       </View>
-      <View >
+      <View style={{flex: 5,position:"relative", zIndex:1}}>
         <Cards navegar={navegar} />
       </View>
     </View>
   );
 };
+const gap = 6;
 const styles = StyleSheet.create({
   main: {
-    minHeight:150,
-    alignItems:'center',
-    justifyContent:'center'
+    paddingBottom:(gap/2),
+    minHeight: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+   
+    
   },
-
-  filterContainer: {
-    flexDirection: 'row',
-     margin:10,
-     zIndex: 1,
-
+   filterRow:{
+    margin:(gap/2),
+     zIndex:10,
+     flexDirection:"row",
+     position:"relative",
+     height:50,
+     justifyContent:"space-around",
+     flexWrap:"wrap",
+     maxWidth:"100%"
+   },
+  filterContainer: { 
+    marginBottom:(gap/2),
+    position:"relative",
+    zIndex: 5, 
   },
 
   showAll: {
+    margin:(gap/2),
     flexDirection: 'column',
+    width:"100%",
     justifyContent: 'center',
     alignItems: 'center',
-    width:200
+    
   },
 });

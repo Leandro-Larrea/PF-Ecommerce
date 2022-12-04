@@ -17,7 +17,7 @@ import {
 export default function HomeCategories({categories,navigation}){
 
 
-const data = categories.slice(4).map(e=>{
+const data = categories.slice(5).map(e=>{
 
     return {
         id:e._id,
@@ -61,13 +61,12 @@ const Item = ({ title }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     marginTop: 10,
   },
 
   item: {
     flex: 1,
-    backgroundColor: '#df5a00',
+    backgroundColor: '#2d2d2d',
     padding: 20,
     marginVertical: 10,
     marginHorizontal: 10,

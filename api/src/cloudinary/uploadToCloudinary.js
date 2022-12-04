@@ -9,11 +9,13 @@ const uploadToCloudinary = async (file) => {
     else {
         let a = {archivo: file}
         result = await cloudinary.v2.uploader.upload(a.archivo)
+
     }
-    return {
+      return {
         'imageId': result.public_id,
-        'image': result.url
-    }
+        'image': result.secure_url
+    } 
+
     
 }
 
