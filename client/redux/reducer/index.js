@@ -46,6 +46,7 @@ const reducer = (state = initialState, {type, payload}) => {
         products: payload,
       };
     case SET_FILTER:
+      console.log(state.filters)
       return {
         ...state,
         filters: payload,

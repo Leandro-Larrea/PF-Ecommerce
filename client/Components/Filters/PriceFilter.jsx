@@ -2,6 +2,7 @@ import { View, TextInput, Button,StyleSheet,Text, Alert } from "react-native";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { search,setFilter } from "../../redux/actions";
+import { useEffect } from "react";
 
 
 
@@ -12,11 +13,15 @@ const dispatch = useDispatch()
 
 const {filters} = useSelector(state => state);
 const [filterInput, setFilterInput] = useState({
-  title: '',
-  min: '',
-  max: '',
-  category: '',
+...filters
 });
+
+useEffect(()=>{
+  console.log(filters, filterInput)
+  if(filters.category !== filterInput.category){
+    setFilterInput({...filterInput,category : filters.category})
+  }
+},[filters])
 
 const [min, setMin] = useState("");
 const [max, setMax] = useState("");
@@ -25,24 +30,24 @@ const [max, setMax] = useState("");
 const handleMin =(e)=>{
    setMin(e)
    setFilterInput({
-    ...filters,
-    min: e,
+    ...filterInput,
+    min: e
   })
 
 }
 const handleMax =(e)=>{
   setMax(e)
   setFilterInput({
-    ...filters,
-  min:min,
-   max: e,
+    ...filterInput,
+    max: e,
   })
 
 }
 
 const handlePress = ()=>{
-const {title, min, max, category} =filterInput
-if(min>max){
+  const {title, min, max, category} =filterInput
+  console.log("press", title, min, max, category)
+if(parseInt(min) > parseInt(max)){
    Alert.alert(
     "ups!",
     "The minimum value cannot be greater than the maximum",
@@ -56,18 +61,23 @@ if(min>max){
   );
      setMin('')
    setMax('')
-} else{
-   dispatch(search(title, min, max, category));
+  } else{
+    dispatch(search(title, min, max, category));
+    
    setFilterInput({
-     title: '',
+     ...filters,
      min: '',
      max: '',
-     category: '',
+    
    });
-   dispatch(setFilter(filterInput))
-   
+   dispatch(setFilter({...filters,
+    min: '',
+    max: '', }))
+    setMin('')
+    setMax('') 
  }
 }
+
 
     return (
         <View style={styles.container}>
@@ -97,7 +107,7 @@ if(min>max){
 const styles = StyleSheet.create({
    container:{
         flexDirection:'row',
-        minWidth:200,
+        width:"100%",
         justifyContent:'space-around',
         alignItems:'center',
         
@@ -117,7 +127,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         color:'#df5a00'
     },
-
+     
     input2:{
       height: 40,
       width:60,
