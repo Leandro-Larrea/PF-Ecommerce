@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     minHeight: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    padding:(gap/2)
+   
     
   },
    filterRow:{
@@ -69,12 +69,9 @@ const styles = StyleSheet.create({
      flexWrap:"wrap",
      maxWidth:"100%"
    },
-  filterContainer: {
-    margin:(gap/2),
+  filterContainer: { 
     position:"relative",
-    margin: 10,
-    zIndex: 5,
-    
+    zIndex: 5, 
   },
 
   showAll: {

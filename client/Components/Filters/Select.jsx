@@ -46,7 +46,7 @@ export default function ({ categories }) {
       <View style={styles.container}>
         <SelectList
           onSelect={() => handleFilter()}
-          placeholder="select category"
+          placeholder="category"
           setSelected={e => handleChage(e)}
           data={data}
           save="value"

@@ -2,6 +2,7 @@ import { View, TextInput, Button,StyleSheet,Text, Alert } from "react-native";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { search,setFilter } from "../../redux/actions";
+import { useEffect } from "react";
 
 
 
@@ -22,24 +23,27 @@ const [max, setMax] = useState("");
 const handleMin =(e)=>{
    setMin(e)
    setFilterInput({
-    ...filters,
-    min: e,
+    ...filterInput,
+    min: e
   })
 
 }
+useEffect(()=>{
+  console.log("useEffect filter input",filterInput)
+},[filterInput])
 const handleMax =(e)=>{
   setMax(e)
   setFilterInput({
-    ...filters,
-  min:min,
-   max: e,
+    ...filterInput,
+    max: e,
   })
 
 }
 
 const handlePress = ()=>{
-const {title, min, max, category} =filterInput
-if(min>max){
+  const {title, min, max, category} =filterInput
+  console.log("press", title, min, max, category)
+if(parseInt(min) > parseInt(max)){
    Alert.alert(
     "ups!",
     "The minimum value cannot be greater than the maximum",
