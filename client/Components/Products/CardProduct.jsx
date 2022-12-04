@@ -27,8 +27,8 @@ const CardProduct = ({navegar, product}) => {
   };
 
   const handleButtonAdd = async inCart => {
-    if (inCart) await deleteItemToCart(product);
-    else await addItemToCart(product, 1);
+    if (inCart) await deleteItemToCart(inCart);
+    else await addItemToCart(product);
   };
 
   return (
