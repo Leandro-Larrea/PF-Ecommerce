@@ -12,10 +12,7 @@ const dispatch = useDispatch()
 
 const {filters} = useSelector(state => state);
 const [filterInput, setFilterInput] = useState({
-  title: '',
-  min: '',
-  max: '',
-  category: '',
+...filters
 });
 
 const [min, setMin] = useState("");
@@ -56,18 +53,23 @@ if(min>max){
   );
      setMin('')
    setMax('')
-} else{
-   dispatch(search(title, min, max, category));
+  } else{
+    dispatch(search(title, min, max, category));
+    
    setFilterInput({
-     title: '',
+     ...filters,
      min: '',
      max: '',
-     category: '',
+    
    });
-   dispatch(setFilter(filterInput))
-   
+   dispatch(setFilter({...filters,
+    min: '',
+    max: '', }))
+    setMin('')
+    setMax('') 
  }
 }
+
 
     return (
         <View style={styles.container}>
@@ -97,7 +99,7 @@ if(min>max){
 const styles = StyleSheet.create({
    container:{
         flexDirection:'row',
-        minWidth:200,
+        width:"100%",
         justifyContent:'space-around',
         alignItems:'center',
         
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         color:'#df5a00'
     },
-
+     
     input2:{
       height: 40,
       width:60,

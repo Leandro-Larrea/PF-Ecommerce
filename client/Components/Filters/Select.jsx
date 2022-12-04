@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {SelectList} from 'react-native-dropdown-select-list';
-import {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {search, setFilter} from '../../redux/actions';
+import { View, Text, StyleSheet } from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { search, setFilter } from '../../redux/actions';
 
-export default function ({categories}) {
+export default function ({ categories }) {
 
 
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState('');
-  const {filters} = useSelector(state => state);
+  const { filters } = useSelector(state => state);
   const [filterInput, setFilterInput] = useState({
     title: '',
     min: '',
@@ -35,24 +35,45 @@ export default function ({categories}) {
   };
 
   const handleFilter = () => {
-    const {title, min, max, category} =filterInput
+    const { title, min, max, category } = filterInput
     dispatch(search(title, min, max, category));
     dispatch(setFilter(filterInput))
 
   };
 
   return (
-    <View style={{paddingHorizontal: 20}}>
-      <SelectList
-        onSelect={() => handleFilter()}
-        placeholder="select category"
-        setSelected={e => handleChage(e)}
-        data={data}
-        save="value"
-        search={false}
-        boxStyles={{borderRadius: 0}}
-        dropdownStyles={{backgroundColor: '#efefef'}}
-      />
+    <View style={styles.containerPosition}>
+      <View style={styles.container}>
+        <SelectList
+          onSelect={() => handleFilter()}
+          placeholder="select category"
+          setSelected={e => handleChage(e)}
+          data={data}
+          save="value"
+          search={false}
+          boxStyles={{ borderRadius: 0,}}
+          style={{color:"red"}}
+          dropdownStyles={{borderRadius:10,backgroundColor:"#2d2d2d"}}
+          dropdownTextStyles={{color:"white"}}
+          maxHeight={1000}
+          
+        />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  containerPosition: {
+    position: "relative", 
+    zIndex: 2,
+    width:140,
+    
+  },
+  container:{
+    zIndex:20,
+    borderRadius:10,
+    width:"100%",
+    position:"absolute",
+}
+})

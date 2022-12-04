@@ -17,7 +17,6 @@ import PriceFilter from '../Filters/PriceFilter';
 export const LookProducts = ({navigation}) => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
-
   useEffect(() => {
     if (!categories) {
       dispatch(getCategories());
@@ -32,39 +31,58 @@ export const LookProducts = ({navigation}) => {
       <View>
         <View style={styles.filterContainer}>
           <SearchBar navigation={navigation} />
-          {categories && <Select categories={categories}></Select>}
-          <View>
-            <Sort />
-          </View>
           <View style={styles.showAll}>
             <ShowAll />
           </View>
+          <View style={styles.filterRow}>
+            {categories && <Select categories={categories}></Select>}
+            <View>
+              <Sort />
+            </View>
+          </View>
+          
           <PriceFilter />
         </View>
       </View>
-      <View style={{flex: 5}}>
+      <View style={{flex: 5,position:"relative", zIndex:1}}>
         <Cards navegar={navegar} />
       </View>
     </View>
   );
 };
+const gap = 8;
 const styles = StyleSheet.create({
   main: {
     minHeight: 150,
     alignItems: 'center',
     justifyContent: 'center',
+    padding:(gap/2)
+    
   },
-
+   filterRow:{
+    margin:(gap/2),
+     zIndex:10,
+     flexDirection:"row",
+     position:"relative",
+     height:50,
+     justifyContent:"space-around",
+     flexWrap:"wrap",
+     maxWidth:"100%"
+   },
   filterContainer: {
-    // flexDirection: 'row',
+    margin:(gap/2),
+    position:"relative",
     margin: 10,
-    // zIndex: 1,
+    zIndex: 5,
+    
   },
 
   showAll: {
+    margin:(gap/2),
     flexDirection: 'column',
+    width:"100%",
     justifyContent: 'center',
     alignItems: 'center',
-    width: 200,
+    
   },
 });

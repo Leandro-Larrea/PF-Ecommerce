@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   Pressable,
   TouchableHighlight,
 } from 'react-native';
-import {search, setFilter} from '../../redux/actions';
+import {cleanFilter, search, setFilter} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -19,10 +19,7 @@ export const SearchBar = ({navigation}) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [filterInput, setFilterInput] = useState({
-    title: '',
-    min: '',
-    max: '',
-    category: '',
+    ...filters,title:""
   });
 
   const {filters} = useSelector(state => state);
@@ -41,17 +38,15 @@ export const SearchBar = ({navigation}) => {
     let min = filterInput.min;
     let max = filterInput.max;
     let category = filterInput.category;
-    setName('');
-    dispatch(setFilter(filterInput));
+    dispatch(setFilter({...filters,title:""}));
     dispatch(search(title, min, max, category));
-    setFilterInput({
-      title: '',
-      min: '',
-      max: '',
-      category: '',
-    });
+     setFilterInput({
+      ...filters,title:""
+    })
+     setName("") 
   };
 
+  
   const loggedIn = user !== undefined && user !== null;
   
   return (

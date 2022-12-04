@@ -1,38 +1,40 @@
-import { View,Text,StyleSheet } from "react-native";
-import {SelectList} from 'react-native-dropdown-select-list'
+import { View, Text, StyleSheet } from "react-native";
+import { SelectList } from 'react-native-dropdown-select-list'
 import { useState } from "react";
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { sortByPrice } from "../../redux/actions";
 
 
 
-export default function Sort(){
+export default function Sort() {
 
-const dispatch = useDispatch()   
-const [selected,setSelected]= useState('')
+    const dispatch = useDispatch()
+    const [selected, setSelected] = useState('')
 
-const data = ['min-max','max-min']
+    const data = ['min-max', 'max-min']
 
 
 
-const handleSort = ()=>{
-    dispatch(sortByPrice(selected))
-}
+    const handleSort = () => {
+        dispatch(sortByPrice(selected))
+    }
     return (
-        <View style={styles.container}>
-           <SelectList
-            label="price"
-            style={styles.select}
-            dropdownOverlayColor='red'
-            onSelect={()=>handleSort()}
-            placeholder='Sort by price'
-            setSelected={(val)=>setSelected(val)}
-            data={data }
-            save="value"
-            search={false} 
-            boxStyles={{borderRadius:0}} 
-            dropdownStyles={{backgroundColor:'#efefef'}}
-            />
+        <View style={styles.containerPosition}>
+            <View style={styles.container}>
+                <SelectList
+                    label="price"
+                    style={styles.select}
+                    onSelect={() => handleSort()}
+                    placeholder='Sort by price'
+                    setSelected={(val) => setSelected(val)}
+                    data={data}
+                    save="value"
+                    search={false}
+                    boxStyles={{ borderRadius: 0,}}
+                    dropdownStyles={{borderRadius:10,backgroundColor:"#2d2d2d"}}
+                    dropdownTextStyles={{color:"white"}}
+                />
+            </View>
         </View>
     )
 }
@@ -41,10 +43,17 @@ const handleSort = ()=>{
 
 const styles = StyleSheet.create({
 
-    container: {
-          paddingHorizontal:20,
-          zIndex:1
-      },
- 
+    containerPosition: {
+        position: "relative",
+        width:140,
+        zIndex: 1,   
+       
+    },
+    container:{
+        zIndex: 10,
+        position:"absolute",
+        
     }
-  );
+
+}
+);
