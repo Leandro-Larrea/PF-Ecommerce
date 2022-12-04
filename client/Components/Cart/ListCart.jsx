@@ -26,17 +26,16 @@ const ListCart = ({navigation}) => {
     list.current?.prepareForLayoutAnimationRender();
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
   };
-  const precios =
-    cartItems.length > 0
-      ? cartItems.map(e => e.product.price * e.quantity)
-      : '';
-  const total =
-    precios.length > 0 ? precios.reduce((prev, curr) => prev + curr) : 0;
 
-  const onPress = () => {
-    dispatch({type: SET_PRICE, payload: total});
-    navigation.navigate('Pay');
-  };
+    const precios = cartItems.length > 0? cartItems.map(e => e.product.price * e.quantity) : ''
+    const total = precios.length> 0 ? precios.reduce((prev, curr) => prev + curr) : 0
+    const final = total ? total.toFixed(2) : 0
+
+    
+    const onPress = () => {
+      dispatch({type: SET_PRICE, payload: total})
+      navigation.navigate('Pay')
+    }
   function navegar(product) {
     navigation.navigate('DetailProduct', product);
   }
