@@ -24,6 +24,13 @@ export const SearchBar = ({navigation}) => {
 
   const {filters} = useSelector(state => state);
 
+  useEffect(()=>{
+    console.log(filters, filterInput)
+    if(filters.category !== filterInput.category){
+      setFilterInput({...filterInput,category : filters.category})
+    }
+  },[filters])
+
   const handleTextChange = name => {
     setFilterInput({
       ...filters,

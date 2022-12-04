@@ -50,9 +50,10 @@ export const LookProducts = ({navigation}) => {
     </View>
   );
 };
-const gap = 8;
+const gap = 6;
 const styles = StyleSheet.create({
   main: {
+    paddingBottom:(gap/2),
     minHeight: 150,
     alignItems: 'center',
     justifyContent: 'center',
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
      maxWidth:"100%"
    },
   filterContainer: { 
+    marginBottom:(gap/2),
     position:"relative",
     zIndex: 5, 
   },

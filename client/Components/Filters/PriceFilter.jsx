@@ -16,6 +16,13 @@ const [filterInput, setFilterInput] = useState({
 ...filters
 });
 
+useEffect(()=>{
+  console.log(filters, filterInput)
+  if(filters.category !== filterInput.category){
+    setFilterInput({...filterInput,category : filters.category})
+  }
+},[filters])
+
 const [min, setMin] = useState("");
 const [max, setMax] = useState("");
 
@@ -28,9 +35,6 @@ const handleMin =(e)=>{
   })
 
 }
-useEffect(()=>{
-  console.log("useEffect filter input",filterInput)
-},[filterInput])
 const handleMax =(e)=>{
   setMax(e)
   setFilterInput({
