@@ -65,8 +65,7 @@ if(min>max){
      category: '',
    });
    dispatch(setFilter(filterInput))
-   setMin('')
-   setMax('')
+   
  }
 }
 
