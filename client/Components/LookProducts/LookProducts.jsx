@@ -29,26 +29,17 @@ export const LookProducts = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={{flex: 2}}>
-        <SearchBar />
-        <View style={styles.main}>
+      <View>
+        <View style={styles.filterContainer}>
+          <SearchBar navigation={navigation} />
+          {categories && <Select categories={categories}></Select>}
+          <View>
+            <Sort />
+          </View>
           <View style={styles.showAll}>
             <ShowAll />
           </View>
-        </View>
-        <View style={styles.filterContainer}>
-          {categories ? (
-            <Select categories={categories}></Select>
-          ) : (
-            <Text>no se renderizo</Text>
-          )}
-          <View>
-            <SearchBar navigation={navigation} />
-            <View style={styles.main}>
-              <Sort />
-            </View>
-            <PriceFilter />
-          </View>
+          <PriceFilter />
         </View>
       </View>
       <View style={{flex: 5}}>
@@ -65,9 +56,9 @@ const styles = StyleSheet.create({
   },
 
   filterContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     margin: 10,
-    zIndex: 1,
+    // zIndex: 1,
   },
 
   showAll: {
