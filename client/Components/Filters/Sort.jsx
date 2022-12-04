@@ -46,11 +46,10 @@ const styles = StyleSheet.create({
     containerPosition: {
         position: "relative",
         zIndex: 1,   
-        width:140,
-        
+        width:145,
     },
     container:{
-        width:140,
+        width:145,
         zIndex: 10,
         position:"absolute",    
     }

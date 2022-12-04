@@ -43,6 +43,7 @@ const CardProduct = ({navegar, product}) => {
         resizeMode="contain"
         source={{uri: image && image.toString()}}
       />
+      <Text numberOfLines={1} style={styles.price}>${price}</Text>
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>

@@ -39,6 +39,8 @@ export const stylesCardCart = StyleSheet.create({
 export const stylesCardProduct = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    position:"relative",
+    zIndex:1,
     margin: '2%',
     padding: '2%',
     borderRadius: 7,
@@ -74,4 +76,12 @@ export const stylesCardProduct = StyleSheet.create({
     fontWeight: 'bold',
   },
   description: {marginBottom: 10},
+  price:{
+    position:"absolute",
+    margin: 10,
+    fontSize: 20,
+    color: "rgba(30,30,30,0.9)",
+    fontWeight: "bold",
+    bottom:0
+  }
 });
