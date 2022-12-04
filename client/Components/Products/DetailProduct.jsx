@@ -32,10 +32,10 @@ function DetailProduct({route, navigation}) {
       </Text>
       <View style={styles.separator} />
       <Text style={styles.description}>{description}</Text>
-      <Text style={styles.title} numberOfLines={2}>
+      <Text style={styles.price} numberOfLines={2}>
         {price}$
       </Text>
-      <View style={styles.fixToText}>
+      <View style={styles.fixToTextDetail}>
         <Button
           title={inCart ? 'DEL CART' : 'ADD CART'}
           color={inCart ? '#FF4544' : '#65AE77'}

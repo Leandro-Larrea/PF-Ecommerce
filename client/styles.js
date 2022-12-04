@@ -54,9 +54,27 @@ export const stylesCardProduct = StyleSheet.create({
     width: '100%',
     height: 250,
   },
-  fixToText: {
+  fixToTextDetail: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  fixToTextButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  fixToTextPrice: {
+  textAlign: 'center',
+  alignItems: 'center',
+  marginLeft: 10
+  },
+  price: {
+    marginVertical: 8,
+    fontWeight: "900",
+    fontSize: 15,
   },
   button: {
     alignItems: 'center',

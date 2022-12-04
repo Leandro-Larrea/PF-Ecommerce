@@ -54,28 +54,34 @@ const CardProduct = ({navegar, product}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <Button
-          title={'VIEW'}
-          onPress={() => {
-            navegar(product);
-          }}></Button>
+        <View style={styles.fixToTextPrice}>
+          <Text style={styles.price} >$ {price}</Text> 
+        </View>
+        <View style={styles.fixToTextButtons}>
+          <Button
+            title={'VIEW'}
+            onPress={() => {
+              navegar(product);
+            }}></Button>
 
-        <Button
-          title={inCart ? 'DEL CART' : 'ADD CART'}
-          color={inCart ? '#FF4544' : '#65AE77'}
-          style={{margin: 10}}
-          onPress={() => {
-            user ?
-            handleButtonAdd(inCart)
-            :
-            handleLogin()
-          }}>
-          <Icon size={20} name="cart-plus" color="#fff" />
-        </Button>
+          <Button
+            title={inCart ? 'DEL CART' : 'ADD CART'}
+            color={inCart ? '#FF4544' : '#65AE77'}
+            style={{margin: 10}}
+            onPress={() => {
+              user ?
+              handleButtonAdd(inCart)
+              :
+              handleLogin()
+            }}>
+            <Icon size={20} name="cart-plus" color="#fff" />
+          </Button>
+        </View>
       </View>
-
     </View>
   );
 };
 const styles = stylesCardProduct;
 export default memo(CardProduct);
+
+
