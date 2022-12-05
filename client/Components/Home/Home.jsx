@@ -41,7 +41,7 @@ export const Home = ({navigation}) => {
 
         <Carousel></Carousel>
         <View style={style.categoriaBox}>
-          <Text style={style.categoriesText}>Suggested categories</Text>
+          <Text style={style.categoriesText}>SUGGESTED CATEGORIES</Text>
           {categories ? (
             <HomeCategories
               navigation={navigation}
@@ -82,6 +82,7 @@ const style = StyleSheet.create({
     flex: 2,
   },
   categoriesText: {
+    fontFamily:'Louis George Cafe Bold',
     fontSize: 20,
     textAlign: 'center',
     flex: 0,

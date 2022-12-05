@@ -24,8 +24,15 @@ export const MainContainer = () => {
   const loggedIn = user !== undefined && user !== null;
   return (
     <Tab.Navigator
+          
       initialRouteName={homeName}
       screenOptions={({route}) => ({
+        tabBarStyle: {
+         
+          paddingTop: 2,
+          backgroundColor: 'rgba(34,36,40,1)',
+          
+      },
         headerShown: false,
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -42,7 +49,12 @@ export const MainContainer = () => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#89c30d',
+        
+
+          
+
+        
       })}>
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={lookProductsName} component={LookProducts} />

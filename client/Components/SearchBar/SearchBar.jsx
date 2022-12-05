@@ -67,7 +67,7 @@ export const SearchBar = ({navigation}) => {
       <View style={style.button}>
         <Button
           title="SEARCH"
-          color={'#df5a00'}
+          color={'#89c30d'}
           onPress={e => handleSearch(e)}
           style={style.Button}></Button>
       </View>
@@ -78,7 +78,7 @@ export const SearchBar = ({navigation}) => {
           </TouchableHighlight>
         ) : (
           <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
-            <Icon name="person-outline" size={28} color="#df5a00" />
+            <Icon name="person-outline" size={28} color="#89c30d" />
           </TouchableHighlight>
         )}
       </View>
@@ -101,7 +101,7 @@ const style = StyleSheet.create({
     backgroundColor: '#F5F5F5',
 
     paddingHorizontal: 10,
-
+    fontFamily:'Louis George Cafe Bold',
     height: 35,
     width: 200,
     borderRadius: 10,
