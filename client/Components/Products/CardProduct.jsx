@@ -43,7 +43,7 @@ const CardProduct = ({navegar, product}) => {
         resizeMode="contain"
         source={{uri: image && image.toString()}}
       />
-      <Text numberOfLines={1} style={styles.price}>${price}</Text>
+      <Text numberOfLines={1} style={styles.price}>US${price}</Text>
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>
@@ -52,29 +52,20 @@ const CardProduct = ({navegar, product}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <View style={styles.fixToTextPrice}>
-          <Text style={styles.price} >{price}</Text> 
-        </View>
-        <View style={styles.fixToTextButtons}>
-          <Button
-            title={'VIEW'}
-            onPress={() => {
-              navegar(product);
-            }}></Button>
+        <Button
+        color={'#2d2d2d'}
+          title={'VIEW'}
+          onPress={() => {
+            navegar(product);
+          }}></Button>
 
-          <Button
-            title={inCart ? 'DEL CART' : 'ADD CART'}
-            color={inCart ? '#FF4544' : '#65AE77'}
-            style={{margin: 10}}
-            onPress={() => {
-              user ?
-              handleButtonAdd(inCart)
-              :
-              handleLogin()
-            }}>
-            <Icon size={20} name="cart-plus" color="#fff" />
-          </Button>
-        </View>
+        <Button
+          title={inCart ? 'DEL CART' : 'ADD CART'}
+          color={inCart ? '#DC0025' : '#89c30d'}
+          style={{margin: 10}}
+          onPress={() => handleButtonAdd(inCart)}>
+          <Icon size={20} name="cart-plus" color="#fff" />
+        </Button>
       </View>
     </View>
   );

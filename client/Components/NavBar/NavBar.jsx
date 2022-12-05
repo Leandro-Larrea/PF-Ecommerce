@@ -14,14 +14,11 @@ export const NavBar = ({ navigation }) => {
 
 const style = StyleSheet.create({
     container: {
-        /* backgroundColor: "#6A37C4", */
+        backgroundColor: "#2d2d2d",
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-around"
     },
-    button : {
-        backgroundColor: "#6A37C4",
-        
-    }
+ 
 })
 

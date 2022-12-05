@@ -7,9 +7,12 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 router.post("/pay", async (req, res) => {
     try {
       console.log("payment aca", req.body);
-      const { name, lastname, price } = req.body;
+      const { name, lastname, mail, price } = req.body;
       if (!name) return res.status(400).json({ message: "Please enter a name" });
       if (!lastname) return res.status(400).json({ message: "Please enter a LastName" });
+      if (!mail ) return res.status(400).json({ message: "Please enter a mail" });
+      if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) return res.status(400).json({ message: "Please enter a valid mail" });
+
 
       const paymentIntent = await stripe.paymentIntents.create({
         amount: price * 100,

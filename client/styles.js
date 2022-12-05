@@ -61,12 +61,10 @@ export const stylesCardProduct = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   fixToText: {
+    width:140,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  fixToTextButtons: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignSelf:'flex-end'
   },
   fixToTextPrice: {
   textAlign: 'center',
@@ -90,16 +88,26 @@ export const stylesCardProduct = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   title: {
-    marginVertical: 8,
+    color:'#2d2d2d',
+    fontSize:15,
+    fontFamily:'Louis George Cafe Bold',
     fontWeight: 'bold',
+    textAlign:'center'
   },
-  description: {marginBottom: 10},
+  description: {
+    marginBottom: 10,
+    fontFamily:'Louis George Cafe Bold',
+  },
   price:{
     position:"absolute",
     margin: 10,
-    fontSize: 20,
-    color: "rgba(30,30,30,0.9)",
-    fontWeight: "bold",
-    bottom:0
+    fontSize: 18,
+    fontFamily:'Louis George Cafe Bold',
+    backgroundColor:'#2d2d2d',
+    color: "#89c30d",
+    bottom:0,
+    padding:6,
+    borderRadius:6,
+  
   }
 });

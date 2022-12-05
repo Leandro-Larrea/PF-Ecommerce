@@ -26,7 +26,7 @@ const AuthenticationButton = () => {
   return (
     <View style={styles.container}>
       <View style={styles.text}>  
-      {loggedIn && <Text style={styles.text}>Logged in as: {user.name}</Text>}
+      {loggedIn && <Text style={styles.logtext} > {user.name}</Text>}
       {!loggedIn && <Text style={styles.text}>You are not logged in</Text>}
       </View>
       <View style={styles.boton}>
@@ -52,7 +52,13 @@ const styles = StyleSheet.create({
     text:{
       color:'white',
       fontSize:18,
-      marginRight:5
+      marginRight:5,
+      fontFamily:'Louis George Cafe Bold'
+    },
+    logtext:{
+      color:'white',
+      marginRight:5,
+      fontFamily:'Louis George Cafe Bold'
     }
    
 })
