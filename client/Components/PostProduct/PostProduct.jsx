@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
 import { getCategories, postProduct } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import Header from '../Home/Header';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -99,9 +100,20 @@ export const PostProduct = () => {
 
     return (
         <ScrollView>
+        <LinearGradient
+        style={{paddingBottom: 67}}
+          colors={['#89c30d', 'white', '#2d2d2d' ]}
+          start={{ x: 0.7, y: 0 }}
+          >
 
-            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.price && !errors.title && !errors.description && !errors.category && !errors.image && !errors.stock ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Crear Producto 😎' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
+            <View style={style.header}>
+                <Header />
+            </View>
+
+            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.price && !errors.title && !errors.description && !errors.category && !errors.image && !errors.stock ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Crear Producto ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
                     label="Product Name"
                     labelStyle={style.label}
                     style={style.inputForm}
@@ -109,9 +121,11 @@ export const PostProduct = () => {
                     asterik
                     value={input.title}
                     onChangeText={(text) => { setInput({ ...input, title: text }), setErrors(validate({ ...input, title: text })) }}
-                />
+                    />
 
                 <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
                     label="Price $USD"
                     labelStyle={style.label}
                     style={style.inputForm}
@@ -119,9 +133,11 @@ export const PostProduct = () => {
                     asterik
                     value={input.price}
                     onChangeText={(e) => { setInput({ ...input, price: Number(e) }), setErrors(validate({ ...input, price: Number(e) })) }}
-                />
+                    />
 
                 <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
                     label="Description"
                     labelStyle={style.label}
                     style={style.inputForm}
@@ -129,9 +145,11 @@ export const PostProduct = () => {
                     asterik
                     value={input.description}
                     onChangeText={(text) => { setInput({ ...input, description: text }), setErrors(validate({ ...input, description: text })) }}
-                />
+                    />
 
                 <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
                     label="Stock"
                     labelStyle={style.label}
                     style={style.inputForm}
@@ -139,7 +157,7 @@ export const PostProduct = () => {
                     asterik
                     value={input.stock}
                     onChangeText={(e) => { setInput({ ...input, stock: Number(e) }), setErrors(validate({ ...input, stock: Number(e) })) }}
-                />
+                    />
 
 
                 <Picker
@@ -155,28 +173,32 @@ export const PostProduct = () => {
                     ]}
                     style={style.picker}
                     asterik
-                    buttonStyle={{ marginHorizontal: 20, backgroundColor: "#bec0b5" }}
-                    iconWrapperStyle={{ backgroundColor: "#bec0b5" }}
+                    buttonStyle={{ marginHorizontal: 20, backgroundColor: "rgba(114, 115, 114, 1)" }}
+                    iconWrapperStyle={{ backgroundColor: "rgba(114, 115, 114, 1)" }}
                     pickerIcon={<Icon name='caret-down' size={25} />}
                     label="Category"
                     labelStyle={style.label}
                     placeholder='-Select Category-'
+                    selectedValueStyle={{ color: "white" }}
                     selectedValue={input.category}
                     onSelection={(item) => { setInput({ ...input, category: item.value }), setErrors(validate({ ...input, category: item.value })) }}
-                />
+                    />
 
                 <View style={{ alignItems: "center" }}>
-                    <Button
+                    <TouchableOpacity
                         onPress={() => openGallery()}
-                        title='Upload Image'>
-                    </Button>
+                        style={{ backgroundColor: "#018c34", padding: 9, flexDirection:"row", marginBottom: 9}}
+                        >
+                            <Icon name="camera-sharp" size={30} color={"white"} ></Icon>
+                            <Text style={{color: "white", fontSize: 17, marginTop: 3}}>  Upload Image</Text>
+                    </TouchableOpacity>
                     {input.image.length > 0 ?
                         <Image
                             source={image}
                             style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
 
                         </Image> :
-                        <Text>Photo</Text>
+                        <Text style={{ color: "black" }}>Photo</Text>
                     }
                 </View>
 
@@ -184,13 +206,16 @@ export const PostProduct = () => {
 
 
             </Form>
+                    </LinearGradient>
         </ScrollView>
     );
 }
 
 const style = StyleSheet.create({
     buttonForm: {
-        backgroundColor: "#60707d",
+        backgroundColor: "#2d2d2d",
+        borderColor: "white",
+        borderWidth: 1,
         width: 200,
         left: 100
     },
@@ -204,19 +229,29 @@ const style = StyleSheet.create({
     },
     Form: {
         flex: 1,
-        marginTop: 40
+        marginTop: 40,
     },
     inputForm: {
-        backgroundColor: "#bec0b5",
-        marginHorizontal: 20
+        backgroundColor: "rgba(114, 115, 114, 1)",
+        marginHorizontal: 20,
     },
     label: {
         marginLeft: 20
     },
     buttonFail: {
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "transparent",
         borderRadius: 0,
         width: "50%",
         alignSelf: "center",
-    }
+        marginTop: 0
+    },
+    textoInput: {
+        color: "white"
+    },
+    header: {
+        flex: 1,
+        backgroundColor: '#2d2d2d',
+        paddingTop: 15,
+        paddingBottom: 15,
+    },
 })
