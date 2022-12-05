@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Louis George Cafe Bold.ttf",
+      "sha1": "bda7a89e65e08829645ecee7e6b7b97c8735b0b3"
+    },
+    {
+      "path": "assets/fonts/Louis George Cafe Light.ttf",
+      "sha1": "fe58003905d197c6866d95a721257a6473cc1658"
+    }
+  ]
+}
