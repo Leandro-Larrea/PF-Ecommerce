@@ -53,7 +53,7 @@ const CardProduct = ({navegar, product}) => {
       </Text>
       <View style={styles.fixToText}>
         <View style={styles.fixToTextPrice}>
-          <Text style={styles.price} >$ {price}</Text> 
+          <Text style={styles.price} >{price}</Text> 
         </View>
         <View style={styles.fixToTextButtons}>
           <Button

@@ -49,7 +49,7 @@ function DetailProduct({route, navigation}) {
       <View style={styles.separator} />
       <Text style={styles.description}>{description}</Text>
       <Text style={styles.price} numberOfLines={2}>
-        {price}$
+        $ {price}
       </Text>
       <View style={styles.fixToTextDetail}>
         <Button
