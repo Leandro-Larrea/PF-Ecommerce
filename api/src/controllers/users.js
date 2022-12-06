@@ -1,11 +1,11 @@
  const { User } = require("../models/User")
 
  const postUser = async (obj) =>{    
-     const { name, description, mail, reviews, phone, location, admin } = obj
+     const { name, mail, reviews, phone, location, admin} = obj
      const {country, city, address} = location;
-     console.log(country,city, address)
+     console.log(obj)
 
-     if(!name || !description || !mail || !phone || !location || !country || !city || !address ||
+     if(!name || !mail || !phone || !country || !city || !address ||
          typeof(admin) !== "boolean"){
         throw("insufficient data")
      }
@@ -34,6 +34,19 @@
      return b
  }
 
+ const getUser = async (id) => {
+    let admin
+    if(id){
+        console.log('id: ',id)
+        admin = await User.findById(id)
+    }
+    else{
+        admin = await User.find()
+    }
+    console.log('admin: ', admin)
+    return admin
+ }
+
  module.exports = {
-    postUser
+    postUser, getUser
  };
