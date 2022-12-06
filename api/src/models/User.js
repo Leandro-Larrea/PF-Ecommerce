@@ -32,7 +32,8 @@ const locationSchema = new Schema({
 const userSchema = new Schema({
     _id:{type: String,
         required: true,
-        trim: true},
+        trim: true
+    },
     name:{
         type: String,
         required: true,

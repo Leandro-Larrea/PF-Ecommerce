@@ -76,7 +76,11 @@ export const setFilter = payload => {
 export function postUser(obj){
   return async function (dispatch){
        await axios.post(`/users`, obj)
-       .then(a=> { console.log(a.data) 
+       .then(a=> { console.log(a.data)
+        return 
+    }).catch(error => {
+      console.log("error", error) 
+      return
     })
   }
 }
