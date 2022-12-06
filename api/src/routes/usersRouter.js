@@ -3,17 +3,13 @@ const { postUser, getUser } = require("../controllers/users.js");
 const router = Router();
 const { User } = require('../models/User')
 
-
-
 router.post("/", async (req,res)=>{
     try {
-        console.log("desde ruta user",req.body)
-        return res.status(200).json(req.body)
         let user = await postUser(req.body)
-    const s = await a.save()
-//    return res.status(200).json(s)
+        return res.status(200).json(user)     
     } catch (error) {
-        res.status(400).send(error)
+        console.log(error)
+        res.status(200).send(error)
     } 
 });
 
