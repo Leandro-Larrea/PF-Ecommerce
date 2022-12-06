@@ -30,31 +30,58 @@ const locationSchema = new Schema({
    });
 
 const userSchema = new Schema({
+    _id:{type: String,
+        required: true,
+        trim: true},
     name:{
         type: String,
         required: true,
         trim: true
     },
+<<<<<<< Updated upstream
+=======
+    lastName:{
+        type: String,
+        required: true,
+        trim: true
+    },
+>>>>>>> Stashed changes
     mail:{
         type: String,
         required: true,
         trim: true
     },
+<<<<<<< Updated upstream
     reviews:{
         type:[reviewsSchema]
     },
+=======
+    purchases:{
+          type:[reviewsSchema]
+      },
+>>>>>>> Stashed changes
     phone:{
         type: String,
         required: true,
         trim: true
     },
+    reviews:[reviewsSchema],
     location:{
         type: locationSchema,
-        required: true
+    },
+    cart:{
+        type: Array,
+        required: false
     },
     admin:{
         type: Boolean,
-        required: true
+        default: false
+    },
+    image:{
+        type: String
+    },
+    imageId:{
+        type: String
     }
 },
     {

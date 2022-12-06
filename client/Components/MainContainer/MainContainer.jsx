@@ -8,7 +8,7 @@ import {useAuth0} from 'react-native-auth0';
 import {Home} from '../Home/Home';
 import {LookProducts} from '../LookProducts/LookProducts';
 import ListCart from '../Cart/ListCart';
-import {PostProduct} from '../PostProduct/PostProduct';
+import {PostUser} from '../PostUser/PostUser';
 import {Profile} from '../LogButtons/Profile';
 //Screen-Name
 
@@ -59,7 +59,7 @@ export const MainContainer = () => {
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={lookProductsName} component={LookProducts} />
       <Tab.Screen name={cartName} component={loggedIn ? ListCart : Profile} />
-      <Tab.Screen name={postName} component={PostProduct} />
+      <Tab.Screen name={postName} component={PostUser} />
     </Tab.Navigator>
   );
 };

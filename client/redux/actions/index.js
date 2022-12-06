@@ -67,11 +67,26 @@ export const setFilter = payload => {
   };
 };
 
-export const postProduct = payload => {
-  return async function (dispatch) {
-    return await axios.post('/products', payload);
-  };
-};
+//  export const postProduct = payload => {
+//    return async function (dispatch) {
+//      return await axios.post('/products', payload);
+//    };
+//  };
+
+export function postUser(obj){
+  return async function (dispatch){
+       await axios.post(`/users`, obj)
+       .then(a=> { console.log(a.data) 
+    })
+  }
+}
+
+// export const postUser = payload => {
+//   return async function (dispatch) {
+//     return await axios.post('/users', payload);
+//   };
+// };
+
 
 
 export const filterByCategories = category => dispatch => {

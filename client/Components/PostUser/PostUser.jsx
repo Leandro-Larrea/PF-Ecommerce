@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
-import { getCategories, postProduct } from '../../redux/actions';
+import { getCategories, postUser } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../Home/Header';
 import LinearGradient from 'react-native-linear-gradient';
+import {useAuth0} from 'react-native-auth0';
 
 
 
-export const PostProduct = () => {
+export const PostUser = () => {
 
-
+    const {user} = useAuth0();
     const dispatch = useDispatch();
+   
 
     // aca me traigo el estado de las categorias ej: state => state.allCategories
     const allCategories = useSelector(state => state.categories)
@@ -27,26 +29,26 @@ export const PostProduct = () => {
 
     function validate(input) {
         let errors = {};
-        if (!input.title) errors.title = "Enter title"
-        if (!input.price) errors.price = "Enter price"
-        if (!input.description) errors.description = "Enter description"
-        if (!input.category) errors.category = "Enter category"
-        if (!input.image) errors.title = "Enter Image"
-        if (!input.stock) errors.title = "Enter Stock"
+        if (!input.name) errors.name = "Enter name"
+        if (!input.lastName) errors.lastName = "Enter Last name"
+        if (!input.phone) errors.phone = "Enter phone"
+        if (!input.location.country) errors.country = "Enter country"
+        if (!input.location.city) errors.city = "Enter city"
+        if (!input.location.address) errors.address = "Enter address"
+        if (!input.email) errors.email = "Enter email"
+        
+      
 
         return errors;
     }
 
     const [image, setImage] = useState({ uri: '' });
     const [input, setInput] = useState({
-        title: '',
-        price: '',
-        description: '',
-        category: '',
-        rating: { points: 0, votes: 0, rating: 0 },
-        image: '',
-        details: [],
-        stock: ''
+        name: '',
+        lastName: '',
+        location: { country:"", city:"", address:"" },
+        image:"",
+        phone:""
     })
 
     const openGallery = () => {
@@ -79,20 +81,19 @@ export const PostProduct = () => {
 
 
     const handleSubmit = () => {
-        if (!input.title | !input.price | !input.description | !input.category | !input.image | !input.stock) {
+        if (!input.name || !input.lastName | !input.location.country || !input.location.city | !input.location.address || !input.email || !input.phone) {
             Alert.alert('Completar todos los campos')
         } else {
-            dispatch(postProduct(input));
+            console.log("else", user.sub)
+            dispatch(postUser({...input, _id:user.sub}));
             Alert.alert('Producto Creado 👍 ')
             setInput({
-                title: '',
-                price: '',
-                description: '',
-                category: '',
-                rating: { points: 0, votes: 0, rating: 0 },
-                image: '',
-                details: [],
-                stock: ''
+                name: '',
+                lastName: '',
+                location: { country:"", city:"", address:"" },
+                image:"",
+                phone:"",
+                email:""
             })
             setImage({ uri: '' })
         }
@@ -100,88 +101,94 @@ export const PostProduct = () => {
 
     return (
         <ScrollView>
-        <LinearGradient
+        {/* <LinearGradient
         style={{paddingBottom: 67}}
           colors={['#89c30d', 'white', '#2d2d2d' ]}
           start={{ x: 0.7, y: 0 }}
-          >
+          > */}
 
             <View style={style.header}>
                 <Header />
             </View>
 
-            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.price && !errors.title && !errors.description && !errors.category && !errors.image && !errors.stock ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Crear Producto ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
+            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.name && !errors.lastName && !errors.email && !errors.phone && !errors.country && !errors.city && !errors.address ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Guardar Datos ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
-                    label="Product Name"
+                    label="Name"
                     labelStyle={style.label}
                     style={style.inputForm}
                     isRequired
                     asterik
-                    value={input.title}
-                    onChangeText={(text) => { setInput({ ...input, title: text }), setErrors(validate({ ...input, title: text })) }}
+                    value={input.name}
+                    onChangeText={(text) => { setInput({ ...input, name: text }), setErrors(validate({ ...input, name: text })) }}
                     />
 
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
-                    label="Price $USD"
+                    label="Last name"
                     labelStyle={style.label}
                     style={style.inputForm}
                     isRequired
                     asterik
-                    value={input.price}
-                    onChangeText={(e) => { setInput({ ...input, price: Number(e) }), setErrors(validate({ ...input, price: Number(e) })) }}
+                    value={input.lastName}
+                    onChangeText={(text) => { setInput({ ...input, lastName: text }), setErrors(validate({ ...input, lastName: text})) }}
                     />
-
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
-                    label="Description"
+                    label="Email"
                     labelStyle={style.label}
                     style={style.inputForm}
                     isRequired
                     asterik
-                    value={input.description}
-                    onChangeText={(text) => { setInput({ ...input, description: text }), setErrors(validate({ ...input, description: text })) }}
+                    value={input.email}
+                    onChangeText={(text) => { setInput({ ...input, email: text }), setErrors(validate({ ...input, email: text })) }}
                     />
-
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
-                    label="Stock"
+                    label="Phone"
                     labelStyle={style.label}
                     style={style.inputForm}
                     isRequired
                     asterik
-                    value={input.stock}
-                    onChangeText={(e) => { setInput({ ...input, stock: Number(e) }), setErrors(validate({ ...input, stock: Number(e) })) }}
+                    value={input.phone}
+                    onChangeText={(e) => { setInput({ ...input, phone: e }), setErrors(validate({ ...input, phone: e })) }}
                     />
-
-
-                <Picker
-                    items={[
-                        { label: 'Notebook', value: 'Notebook' },
-                        { label: 'Keyboard', value: 'Keyboard' },
-                        { label: 'Pc', value: 'Pc' },
-                        { label: 'Ipad', value: 'Ipad' },
-                        { label: 'Consoles', value: 'Consoles' },
-                        { label: 'Headphones', value: 'Headphones' },
-                        { label: 'Monitors', value: 'Monitors' },
-                        { label: 'Joysticks', value: 'Joysticks' },
-                    ]}
-                    style={style.picker}
-                    asterik
-                    buttonStyle={{ marginHorizontal: 20, backgroundColor: "rgba(114, 115, 114, 1)" }}
-                    iconWrapperStyle={{ backgroundColor: "rgba(114, 115, 114, 1)" }}
-                    pickerIcon={<Icon name='caret-down' size={25} />}
-                    label="Category"
+                <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
+                    label="Country"
                     labelStyle={style.label}
-                    placeholder='-Select Category-'
-                    selectedValueStyle={{ color: "white" }}
-                    selectedValue={input.category}
-                    onSelection={(item) => { setInput({ ...input, category: item.value }), setErrors(validate({ ...input, category: item.value })) }}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.location.country}
+                    onChangeText={(text) => { setInput({ ...input, location:{...input.location,country: text }}), setErrors(validate({ ...input, location:{...input.location,country: text }})) }}
+                    />
+                <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
+                    label="City"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.location.city}
+                    onChangeText={(text) => { setInput({ ...input, location:{...input.location,city: text }}), setErrors(validate({ ...input, location:{...input.location,city: text }})) }}
+                    />
+                <FormItem
+                    textInputStyle={style.textoInput}
+                    cursorColor={"white"}
+                    label="Address"
+                    labelStyle={style.label}
+                    style={style.inputForm}
+                    isRequired
+                    asterik
+                    value={input.location.address}
+                    onChangeText={(text) => { setInput({ ...input, location:{...input.location,address: text }}), setErrors(validate({ ...input, location:{...input.location,address: text }})) }}
                     />
 
                 <View style={{ alignItems: "center" }}>
@@ -202,11 +209,8 @@ export const PostProduct = () => {
                     }
                 </View>
 
-
-
-
             </Form>
-                    </LinearGradient>
+                    {/* </LinearGradient> */}
         </ScrollView>
     );
 }
@@ -225,10 +229,10 @@ const style = StyleSheet.create({
     },
     buttonTextFail: {
         color: "red",
-
     },
     Form: {
         flex: 1,
+        justifyContent:"center",
         marginTop: 40,
     },
     inputForm: {
