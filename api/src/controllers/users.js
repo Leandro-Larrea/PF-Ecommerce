@@ -1,23 +1,14 @@
  const { User } = require("../models/User")
 
  const postUser = async (obj) =>{    
-<<<<<<< Updated upstream
-     const { name, mail, reviews, phone, location, admin} = obj
-=======
      const {_id, name, lastName, email , phone, location} = obj
      if(User.findById(_id)){
         throw ("u have already setted your profile")
      }
->>>>>>> Stashed changes
      const {country, city, address} = location;
      console.log(obj)
 
-<<<<<<< Updated upstream
-     if(!name || !mail || !phone || !country || !city || !address ||
-         typeof(admin) !== "boolean"){
-=======
      if(!name || !lastname || !email || !phone || !location || !country || !city || !address){
->>>>>>> Stashed changes
         throw("insufficient data")
      }
 
