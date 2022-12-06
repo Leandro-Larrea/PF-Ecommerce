@@ -6,6 +6,7 @@ import { LogoutButton } from "./LogoutButton";
 
 export const Profile = () => {
     const {user} = useAuth0();
+    console.log(user)
     //console.log(user)
     return (
         <>
