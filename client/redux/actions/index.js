@@ -8,6 +8,7 @@ export const FILTER_CATEGORIES = 'FILTER_CATEGORIES';
 export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
+export const GET_USER = 'GET_USER';
 
 export const setReducerCart = cart => {
   console.log(cart);
@@ -67,12 +68,6 @@ export const setFilter = payload => {
   };
 };
 
-//  export const postProduct = payload => {
-//    return async function (dispatch) {
-//      return await axios.post('/products', payload);
-//    };
-//  };
-
 export function postUser(obj){
   return async function (dispatch){
        await axios.post(`/users`, obj)
@@ -85,13 +80,14 @@ export function postUser(obj){
   }
 }
 
-// export const postUser = payload => {
-//   return async function (dispatch) {
-//     return await axios.post('/users', payload);
-//   };
-// };
-
-
+export const getUser = id => dispatch => {
+  return axios.get(`/users?id=${id}`).then(res => {
+    dispatch({
+      type: 'GET_USER',
+      payload: res.data,
+    });
+  });
+};
 
 export const filterByCategories = category => dispatch => {
   return axios.get(`/search?category=${category}`).then(res => {
