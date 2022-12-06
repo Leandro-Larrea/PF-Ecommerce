@@ -21,12 +21,11 @@ const locationSchema = new Schema({
  const reviewsSchema = new Schema({
      product: {
        type: String,
-       required: true,
+       trim: true
      },
      review: {
        type: String,
-       required: true,
-       trim: true,
+       trim: true
      },
    });
 
@@ -36,19 +35,14 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-    description:{
-        type: String,
-        required: true,
-        trim: true
-    },
     mail:{
         type: String,
         required: true,
         trim: true
     },
-    //  reviews:{
-        //  type:[reviewsSchema]
-    //  },
+    reviews:{
+        type:[reviewsSchema]
+    },
     phone:{
         type: String,
         required: true,
