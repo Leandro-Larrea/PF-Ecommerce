@@ -18,7 +18,29 @@ router.get("/", async(req, res) =>{
     }
 });
 
+router.get("/categories/:category", async(req, res) => {
+    const { category } = req.params; 
+    try {
+        const categories = await Product.find({category})
+        res.status(200).json(categories)
+    } catch (error) {
+        res.status(400).json({"error": error})
+    }
+});
+
 router.get("/:id", async (req,res)=>{
+    console.log("1", price)
+    try {
+        const products = await filterPrice(price);
+        res.status(200).json(products)
+        // console.log("1", products)
+    } catch (error) {
+        res.status(400).send("No hay nada");
+    }
+});
+
+router.get("/:id", async (req,res)=>{
+    console.log("1", price)
     try {
     let {id} = req.params
 
@@ -65,7 +87,7 @@ router.delete("/title", async (req, res) => {
     } catch (error) {
         res.status(400).send({"something get wrong": error})
     } 
-  })
+  });
 
 
 module.exports = router;
