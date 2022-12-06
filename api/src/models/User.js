@@ -38,28 +38,19 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-<<<<<<< Updated upstream
-=======
     lastName:{
         type: String,
         required: true,
         trim: true
     },
->>>>>>> Stashed changes
     mail:{
         type: String,
         required: true,
         trim: true
     },
-<<<<<<< Updated upstream
-    reviews:{
-        type:[reviewsSchema]
-    },
-=======
     purchases:{
           type:[reviewsSchema]
       },
->>>>>>> Stashed changes
     phone:{
         type: String,
         required: true,
