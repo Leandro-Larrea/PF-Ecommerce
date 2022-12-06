@@ -19,19 +19,6 @@ export const CartProvider = ({children}) => {
   const myUser = useSelector(state => state.myUser);
   const [updateUser, setUpdateUser] = useState(false);
   const [cartItems, setCartItems] = useState(null);
-  // const verificar = () => {
-  //   try {
-  //     const cookies = new Cookies();
-  //     const token = cookies.get('token');
-  //     if (token) {
-  //       const tokenDecode = jwt_decode(token);
-  //       return tokenDecode.id;
-  //     }
-  //     return 0;
-  //   } catch (error) {
-  //     return 0;
-  //   }
-  // };
   const [userId, setUserId] = useState(0 /* verificar() */);
 
   const [isSaveDB, setSaveDB] = useState(() => {
@@ -55,13 +42,7 @@ export const CartProvider = ({children}) => {
             return setCartItems([]);
           });
       } else {
-        // storage.setJSON(
-        //   'products',
-        //   cartItems.map(item => `${item.productId}_${item.quantity}`),
-        // );
         storage.setJSON('products', cartItems);
-        console.log('cartItems');
-        // console.log('cart', cartItems);
       }
     }
     ejet();

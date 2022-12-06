@@ -10,8 +10,6 @@ export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 
 export const setReducerCart = cart => {
-  console.log(cart);
-
   return {
     type: SET_REDUCER_CART,
     payload: cart,
@@ -73,16 +71,19 @@ export const setFilter = payload => {
 //    };
 //  };
 
-export function postUser(obj){
-  return async function (dispatch){
-       await axios.post(`/users`, obj)
-       .then(a=> { console.log(a.data)
-        return 
-    }).catch(error => {
-      console.log("error", error) 
-      return
-    })
-  }
+export function postUser(obj) {
+  return async function (dispatch) {
+    await axios
+      .post(`/users`, obj)
+      .then(a => {
+        console.log(a.data);
+        return;
+      })
+      .catch(error => {
+        console.log('error', error);
+        return;
+      });
+  };
 }
 
 // export const postUser = payload => {
@@ -90,8 +91,6 @@ export function postUser(obj){
 //     return await axios.post('/users', payload);
 //   };
 // };
-
-
 
 export const filterByCategories = category => dispatch => {
   return axios.get(`/search?category=${category}`).then(res => {

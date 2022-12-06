@@ -19,7 +19,7 @@ const initialState = {
     max: '',
     category: '',
   },
-  total: 0
+  total: 0,
 };
 
 const reducer = (state = initialState, {type, payload}) => {
@@ -27,8 +27,8 @@ const reducer = (state = initialState, {type, payload}) => {
     case SET_PRICE:
       return {
         ...state,
-        total: payload
-      }
+        total: payload,
+      };
     case SET_REDUCER_CART:
       return {
         ...state,
@@ -46,7 +46,6 @@ const reducer = (state = initialState, {type, payload}) => {
         products: payload,
       };
     case SET_FILTER:
-      console.log(state.filters)
       return {
         ...state,
         filters: payload,
