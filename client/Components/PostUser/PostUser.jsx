@@ -35,7 +35,7 @@ export const PostUser = () => {
         if (!input.location.country) errors.country = "Enter country"
         if (!input.location.city) errors.city = "Enter city"
         if (!input.location.address) errors.address = "Enter address"
-        if (!input.email) errors.email = "Enter email"
+        if (!input.mail) errors.mail = "Enter mail"
         
       
 
@@ -81,7 +81,7 @@ export const PostUser = () => {
 
 
     const handleSubmit = () => {
-        if (!input.name || !input.lastName | !input.location.country || !input.location.city | !input.location.address || !input.email || !input.phone) {
+        if (!input.name || !input.lastName | !input.location.country || !input.location.city | !input.location.address || !input.mail || !input.phone) {
             Alert.alert('Completar todos los campos')
         } else {
             console.log("else", user.sub)
@@ -93,7 +93,7 @@ export const PostUser = () => {
                 location: { country:"", city:"", address:"" },
                 image:"",
                 phone:"",
-                email:""
+                mail:""
             })
             setImage({ uri: '' })
         }
@@ -111,7 +111,7 @@ export const PostUser = () => {
                 <Header />
             </View>
 
-            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.name && !errors.lastName && !errors.email && !errors.phone && !errors.country && !errors.city && !errors.address ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Guardar Datos ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
+            <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.name && !errors.lastName && !errors.mail && !errors.phone && !errors.country && !errors.city && !errors.address ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Guardar Datos ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
@@ -138,13 +138,13 @@ export const PostUser = () => {
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
-                    label="Email"
+                    label="mail"
                     labelStyle={style.label}
                     style={style.inputForm}
                     isRequired
                     asterik
-                    value={input.email}
-                    onChangeText={(text) => { setInput({ ...input, email: text }), setErrors(validate({ ...input, email: text })) }}
+                    value={input.mail}
+                    onChangeText={(text) => { setInput({ ...input, mail: text }), setErrors(validate({ ...input, mail: text })) }}
                     />
                 <FormItem
                     textInputStyle={style.textoInput}
