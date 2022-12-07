@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const {Product} = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, postProducts } = require("../controllers/products.js");
+const { getProducts, postProducts, reviewProduct } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -36,6 +36,15 @@ router.post('/', async (req, res) => {
     }catch(error){
             res.status(500).json({'error: ': error})
         }
+})
+
+router.put("/review", async (req,res)=>{
+    try {
+        let response = await reviewProduct(req.body)
+        res.status(201).json(response)
+    } catch (error) {
+        res.status(400).send(error)
+    } 
 })
 
 router.put("/:id", async (req,res)=>{

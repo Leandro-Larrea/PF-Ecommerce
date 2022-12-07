@@ -1,6 +1,7 @@
 const axios = require("axios");
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary.js");
 const  {Product, ProductBackUp } = require("../models/Product.js");
+const { User } = require("../models/User.js");
 const productValidation = require("./productValidation.js");
 
 const getProducts = async(title)=>{
@@ -35,6 +36,36 @@ const postProducts = async(obj) => {
     }
 }
 
+const reviewProduct = async(obj) => {
+   const { userId, productId, review } = obj
+   try {
+    // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}}) 
+    // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
+    let updateUser = await User.findByIdAndUpdate(userId,{$push:{reviews:{product:productId, review:review}}}) 
+    let updateProduct = await Product.findByIdAndUpdate(productId,{$push:{reviews:{user:userId, review:review}}})
+    let a = await User.findById(userId)
+    let b = await Product.findById(productId)
+    return [a,b]
+   } catch (error) {
+    throw (error)
+   }   
+}
+
+const ratingProduct = async(obj) => {
+    const { userId, productId, review } = obj
+    try {
+     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}}) 
+     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
+     let updateUser = await User.findByIdAndUpdate(userId,{$push:{reviews:{product:productId, review:review}}}) 
+     let updateProduct = await Product.findByIdAndUpdate(productId,{$push:{reviews:{user:userId, review:review}}})
+     let a = await User.findById(userId)
+     let b = await Product.findById(productId)
+     return [a,b]
+    } catch (error) {
+     throw (error)
+    }   
+ 
+ }
 
 /////* product delete with buckup*///////
 const deleteProducts = async(id)=>{
@@ -99,7 +130,8 @@ const logicDelete = async(id,change)=>{
 module.exports = {
     getProducts,
     deleteProducts,
-    postProducts
+    postProducts,
+    reviewProduct
 };
 
 
