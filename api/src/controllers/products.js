@@ -36,6 +36,12 @@ const postProducts = async(obj) => {
     }
 }
 
+const getProductField = async(field)=>{
+  
+   let a = await Product.find(null,{[field]:1, _id: 0})
+   return a
+}
+
 const reviewProduct = async(obj) => {
    const { userId, productId, review } = obj
    try {
@@ -139,7 +145,8 @@ module.exports = {
     getProducts,
     deleteProducts,
     postProducts,
-    reviewProduct
+    reviewProduct,
+    getProductField
 };
 
 
