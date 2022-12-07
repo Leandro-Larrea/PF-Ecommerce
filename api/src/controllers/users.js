@@ -49,10 +49,12 @@ const { User } = require("../models/User")
  }
 
  const getUser = async (id) => {
+
     let user
+
     if(id){
         console.log('id: ',id)
-        getUser = await User.findById(id)
+        user = await User.findById(id)
     }
     else{
         user = await User.find()

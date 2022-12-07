@@ -13,23 +13,22 @@ import {cleanFilter, search, setFilter} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
 export const SearchBar = ({navigation}) => {
   const {user} = useAuth0();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [filterInput, setFilterInput] = useState({
-    ...filters,title:""
+    ...filters,
+    title: '',
   });
 
   const {filters} = useSelector(state => state);
 
-  useEffect(()=>{
-    console.log(filters, filterInput)
-    if(filters.category !== filterInput.category){
-      setFilterInput({...filterInput,category : filters.category})
+  useEffect(() => {
+    if (filters.category !== filterInput.category) {
+      setFilterInput({...filterInput, category: filters.category});
     }
-  },[filters])
+  }, [filters]);
 
   const handleTextChange = name => {
     setFilterInput({
@@ -45,17 +44,17 @@ export const SearchBar = ({navigation}) => {
     let min = filterInput.min;
     let max = filterInput.max;
     let category = filterInput.category;
-    dispatch(setFilter({...filters,title:""}));
+    dispatch(setFilter({...filters, title: ''}));
     dispatch(search(title, min, max, category));
-     setFilterInput({
-      ...filters,title:""
-    })
-     setName("") 
+    setFilterInput({
+      ...filters,
+      title: '',
+    });
+    setName('');
   };
 
-  
   const loggedIn = user !== undefined && user !== null;
-  
+
   return (
     <View style={style.main}>
       <TextInput
@@ -73,11 +72,11 @@ export const SearchBar = ({navigation}) => {
       </View>
       <View style={style.botonCuenta}>
         {loggedIn ? (
-          <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
+          <TouchableHighlight onPress={() => navigation.navigate('Profile')}>
             <Icon size={28} name="person-outline" color="#6A37C4" />
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight onPress={()=> navigation.navigate('Profile')}>
+          <TouchableHighlight onPress={() => navigation.navigate('Profile')}>
             <Icon name="person-outline" size={28} color="#89c30d" />
           </TouchableHighlight>
         )}
@@ -101,7 +100,7 @@ const style = StyleSheet.create({
     backgroundColor: '#F5F5F5',
 
     paddingHorizontal: 10,
-    fontFamily:'Louis George Cafe Bold',
+    fontFamily: 'Louis George Cafe Bold',
     height: 35,
     width: 200,
     borderRadius: 10,

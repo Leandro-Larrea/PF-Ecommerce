@@ -8,8 +8,9 @@ import {useAuth0} from 'react-native-auth0';
 import {Home} from '../Home/Home';
 import {LookProducts} from '../LookProducts/LookProducts';
 import ListCart from '../Cart/ListCart';
-import {PostUser} from '../PostUser/PostUser';
-import {Profile} from '../LogButtons/Profile';
+import {Profile} from '../User/Profile';
+import {PostUser} from '../User/PostUser';
+
 //Screen-Name
 
 const homeName = 'Home';
@@ -24,15 +25,12 @@ export const MainContainer = () => {
   const loggedIn = user !== undefined && user !== null;
   return (
     <Tab.Navigator
-          
       initialRouteName={homeName}
       screenOptions={({route}) => ({
         tabBarStyle: {
-         
           paddingTop: 2,
           backgroundColor: 'rgba(34,36,40,1)',
-          
-      },
+        },
         headerShown: false,
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -50,16 +48,11 @@ export const MainContainer = () => {
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#89c30d',
-        
-
-          
-
-        
       })}>
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={lookProductsName} component={LookProducts} />
-      <Tab.Screen name={cartName} component={loggedIn ? ListCart : Profile} />
-      <Tab.Screen name={postName} component={PostUser} />
+      <Tab.Screen name={cartName} component={ListCart} />
+      <Tab.Screen name={postName} component={loggedIn ? PostUser : Profile} />
     </Tab.Navigator>
   );
 };

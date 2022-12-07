@@ -27,25 +27,28 @@ const ListCart = ({navigation}) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
   };
 
-    const precios = cartItems.length > 0? cartItems.map(e => e.product.price * e.quantity) : ''
-    const total = precios.length> 0 ? precios.reduce((prev, curr) => prev + curr) : 0
-    const final = total ? total.toFixed(2) : 0
+  const precios =
+    cartItems.length > 0
+      ? cartItems.map(e => e.product.price * e.quantity)
+      : '';
+  const total =
+    precios.length > 0 ? precios.reduce((prev, curr) => prev + curr) : 0;
+  const final = total ? total.toFixed(2) : 0;
 
-    
-    const onPress = () => {
-      dispatch({type: SET_PRICE, payload: total})
-      navigation.navigate('Pay')
-    }
+  const onPress = () => {
+    dispatch({type: SET_PRICE, payload: total});
+    navigation.navigate('Pay');
+  };
   function navegar(product) {
     navigation.navigate('DetailProduct', product);
   }
   return (
     <View style={{flex: 1}}>
-      <View style={{flex: 1.2}}>
+      <View>
         <Button title="Reset" onPress={resetCart} />
         <Text>Carrito de Compras: {cartItems?.length} </Text>
       </View>
-      <View style={{flex: 10}}>
+      <View style={{flex: 1}}>
         {!!data?.length && (
           <FlashList
             ref={list}
@@ -63,7 +66,7 @@ const ListCart = ({navigation}) => {
           />
         )}
       </View>
-      <View style={{flex: 0.8}}>
+      <View>
         <Button
           color="green"
           title={`Pay Now $${final} USD`}
