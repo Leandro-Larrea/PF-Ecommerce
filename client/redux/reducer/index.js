@@ -7,6 +7,7 @@ import {
   SORT_BY_PRICE,
   SET_FILTER,
   SET_PRICE,
+  GET_USER,
 } from '../actions';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     max: '',
     category: '',
   },
+  user: {},
   total: 0,
 };
 
@@ -44,6 +46,11 @@ const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload,
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: payload,
       };
     case SET_FILTER:
       return {

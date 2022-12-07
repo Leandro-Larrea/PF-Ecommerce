@@ -39,8 +39,6 @@ export const stylesCardCart = StyleSheet.create({
 export const stylesCardProduct = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    position:"relative",
-    zIndex:1,
     margin: '2%',
     padding: '2%',
     borderRadius: 7,
@@ -51,16 +49,16 @@ export const stylesCardProduct = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.75,
     elevation: 3,
+    flex: 1,
   },
   image: {
-    width: '100%',
+    // width: '100%',
     height: 250,
+    marginBottom: 10,
   },
   fixToText: {
-    width:140,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignSelf:'flex-end'
   },
   button: {
     alignItems: 'center',
@@ -74,26 +72,44 @@ export const stylesCardProduct = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   title: {
-    color:'#2d2d2d',
-    fontSize:15,
-    fontFamily:'Louis George Cafe Bold',
+    color: '#2d2d2d',
+    fontSize: 15,
+    fontFamily: 'Louis George Cafe Bold',
     fontWeight: 'bold',
-    textAlign:'center'
+    textAlign: 'center',
   },
   description: {
     marginBottom: 10,
-    fontFamily:'Louis George Cafe Bold',
+    fontFamily: 'Louis George Cafe Bold',
   },
-  price:{
-    position:"absolute",
-    margin: 10,
+  price: {
+    // position: 'absolute',
+    // margin: 10,
     fontSize: 18,
-    fontFamily:'Louis George Cafe Bold',
-    backgroundColor:'#2d2d2d',
-    color: "#89c30d",
-    bottom:0,
-    padding:6,
-    borderRadius:6,
-  
-  }
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: '#2d2d2d',
+    color: '#89c30d',
+    bottom: 0,
+    padding: 6,
+    borderRadius: 4,
+  },
+  cart: {
+    fontSize: 14,
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: 'white',
+    color: '#89c30d',
+    margin: 3,
+    // padding: 4,
+    borderRadius: 4,
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.75,
+    elevation: 3,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

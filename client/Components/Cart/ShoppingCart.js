@@ -9,7 +9,7 @@ import storage from '../AsyncStorage/AsyncStorage';
 //   updateDBCart,
 //   deleteDBCart,
 //   clearMyUser,
-//   getDBMyUser,
+//   getUser,
 // } from "../../redux/actions";
 
 export const CartContext = createContext();
@@ -51,7 +51,7 @@ export const CartProvider = ({children}) => {
   // useEffect(async () => {
   //   if (userId) {
   //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getDBMyUser(userId));
+  //     const response = await dispatch(getUser(userId));
   //     if (response) {
   //     } else {
   //       SignOff();
@@ -62,7 +62,7 @@ export const CartProvider = ({children}) => {
   //   storage.set('isSaveDB', isSaveDB);
   //   if (userId) {
   //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getDBMyUser(userId));
+  //     const response = await dispatch(getUser(userId));
   //     if (response) {
   //       if (!isSaveDB) {
   //         setSaveDB(true);
@@ -140,16 +140,10 @@ export const CartProvider = ({children}) => {
     }
   };
   const addItemToCart = async (detailProduct, quantity) => {
-    const inCart = cartItems.find(
-      productInCart => productInCart.productId === detailProduct._id,
-    );
     if (quantity ? quantity : 1 <= detailProduct.stock) {
       const porductInCart = {
         quantity: quantity ? quantity : 1,
-        description: '',
         productId: detailProduct._id,
-        saleId: null,
-        userId: null,
         product: {
           _id: detailProduct._id,
           title: detailProduct.title,
