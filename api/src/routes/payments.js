@@ -65,6 +65,7 @@ router.post("/email", async (req, res) => {
   mailTransporter.sendMail(details,(err) => {
     if(err){
       console.log("fail", err);
+      res.status(400).send("fail")
     } else {
       console.log("email enviado papu");
     }
