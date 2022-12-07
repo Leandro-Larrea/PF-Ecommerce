@@ -8,18 +8,19 @@ router.post("/", async (req,res)=>{
     try {
         let user = await postUser(req.body)
         return res.status(200).json(user)     
-        return res.status(200).json(s)
     } catch (error) {
         console.log(error)
         res.status(200).send(error)
     } 
 });
 
+
+/////Devuelve todos los usuarios o por id
 router.get('/', async (req, res) => {
     try {
         const { id } = req.query
-        let admin = await getUser(id)
-        res.status(200).json(admin)
+        let users = await getUser(id)
+        res.status(200).json(users)
     } catch (error) {
         res.status(400).send(error)        
     }
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
 router.get('/admin', async (req, res) => {
     try {
         let admin = await User.find({admin: true})
-        res.status(200).json(admin)
+        res.status(200).json(admin[0])
     } catch (error) {
         res.status(400).send(error)          
     }
