@@ -3,7 +3,7 @@ import { postAdmin } from "../../redux/action"
 import { useDispatch } from 'react-redux'
  
 export default function SaveAdmin(props) {
-    let { name, mail, id, image } = props
+    let { name, mail, id, image, setLogin } = props
     const dispatch = useDispatch()
    
     const [ admin, setAdmin ] = useState({
@@ -41,6 +41,7 @@ function handleSubmit(e){
         admin: true 
     }
    dispatch(postAdmin(obj))
+   setLogin('ADMIN_OK')
 }
 
 if(name)
@@ -69,7 +70,6 @@ if(name)
                 <input type='submit' value='Enviar'/>
             </form>
 
-            <div>{admin.phone}{admin.country}{admin.city}{admin.address}</div>
         </div>
     )
     else{
