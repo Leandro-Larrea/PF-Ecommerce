@@ -39,7 +39,7 @@ export const Pay = () => {
       axios.post("/payments/email", {mail, name, lastname, price})
       .then(console.log("exitoso"))
       .catch(console.log("le erraste"))
-      console.log("mail enviado front");
+      console.log("mail enviado front asda");
 
     } catch (err) {
       console.log("data");
