@@ -9,7 +9,7 @@ const { User } = require("../models/User")
         throw ("u have already setted your profile")
      }
      const {country, city, address} = location;
-     console.log(obj)
+    // console.log(obj)
 
      if(!name || !lastName || !mail || !phone || !location || !country || !city || !address){
         throw("insufficient data")
