@@ -2,6 +2,7 @@ import { useStripe } from '@stripe/stripe-react-native'
 import React, { useState } from 'react'
 import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 export const Pay = () => {
   const total = useSelector(state => state.total);
@@ -35,6 +36,9 @@ export const Pay = () => {
       })
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
+      axios.post("https://pf-ecommerce-rho.vercel.app/payments/email", {mail, name, lastname, price})
+      console.log("mail enviado front");
+
     } catch (err) {
       console.log("data");
       console.error(err);
