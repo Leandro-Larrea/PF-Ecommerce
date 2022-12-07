@@ -36,10 +36,8 @@ export const Pay = () => {
       })
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
-      axios.post("/payments/email", {mail, name, lastname, price})
+      axios.post("https://pf-ecommerce-rho.vercel.app/payments/email", {mail, name, lastname, price})
       .then(console.log("exitoso"))
-      .catch(console.log("le erraste"))
-      console.log("mail enviado front asda");
 
     } catch (err) {
       console.log("data");
