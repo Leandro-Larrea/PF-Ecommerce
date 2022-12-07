@@ -9,7 +9,7 @@ import storage from '../AsyncStorage/AsyncStorage';
 //   updateDBCart,
 //   deleteDBCart,
 //   clearMyUser,
-//   getDBMyUser,
+//   getUser,
 // } from "../../redux/actions";
 
 export const CartContext = createContext();
@@ -19,19 +19,6 @@ export const CartProvider = ({children}) => {
   const myUser = useSelector(state => state.myUser);
   const [updateUser, setUpdateUser] = useState(false);
   const [cartItems, setCartItems] = useState(null);
-  // const verificar = () => {
-  //   try {
-  //     const cookies = new Cookies();
-  //     const token = cookies.get('token');
-  //     if (token) {
-  //       const tokenDecode = jwt_decode(token);
-  //       return tokenDecode.id;
-  //     }
-  //     return 0;
-  //   } catch (error) {
-  //     return 0;
-  //   }
-  // };
   const [userId, setUserId] = useState(0 /* verificar() */);
 
   const [isSaveDB, setSaveDB] = useState(() => {
@@ -55,13 +42,7 @@ export const CartProvider = ({children}) => {
             return setCartItems([]);
           });
       } else {
-        // storage.setJSON(
-        //   'products',
-        //   cartItems.map(item => `${item.productId}_${item.quantity}`),
-        // );
         storage.setJSON('products', cartItems);
-        console.log('cartItems');
-        // console.log('cart', cartItems);
       }
     }
     ejet();
@@ -70,7 +51,7 @@ export const CartProvider = ({children}) => {
   // useEffect(async () => {
   //   if (userId) {
   //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getDBMyUser(userId));
+  //     const response = await dispatch(getUser(userId));
   //     if (response) {
   //     } else {
   //       SignOff();
@@ -81,7 +62,7 @@ export const CartProvider = ({children}) => {
   //   storage.set('isSaveDB', isSaveDB);
   //   if (userId) {
   //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getDBMyUser(userId));
+  //     const response = await dispatch(getUser(userId));
   //     if (response) {
   //       if (!isSaveDB) {
   //         setSaveDB(true);
@@ -159,16 +140,10 @@ export const CartProvider = ({children}) => {
     }
   };
   const addItemToCart = async (detailProduct, quantity) => {
-    const inCart = cartItems.find(
-      productInCart => productInCart.productId === detailProduct._id,
-    );
     if (quantity ? quantity : 1 <= detailProduct.stock) {
       const porductInCart = {
         quantity: quantity ? quantity : 1,
-        description: '',
         productId: detailProduct._id,
-        saleId: null,
-        userId: null,
         product: {
           _id: detailProduct._id,
           title: detailProduct.title,

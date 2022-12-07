@@ -18,8 +18,7 @@ function Card({productInCart, navegar, index, aniRemoveItem}) {
   const {image, title, price} = productInCart.product;
   return (
     <View key={index} style={styles.container}>
-      <View style={{flex: 2}}>
-        {console.log(productInCart.productId)}
+      <View style={{flex: 2, marginRight: 10}}>
         <Image
           style={styles.image}
           source={{
@@ -29,7 +28,9 @@ function Card({productInCart, navegar, index, aniRemoveItem}) {
       </View>
       <View style={{flex: 5}}>
         <View>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title} numberOfLines={2}>
+            {title}
+          </Text>
           <Text>{price}$</Text>
         </View>
         <Button type="clear" onPress={() => navegar(productInCart.product)}>

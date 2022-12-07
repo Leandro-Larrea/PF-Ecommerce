@@ -1,17 +1,11 @@
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import {
-  ActivityIndicator,
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ActivityIndicator, Animated, Image, View} from 'react-native';
 import storage from '../AsyncStorage/AsyncStorage';
 import {CartContext} from '../Cart/ShoppingCart';
-import {useContext, memo} from 'react';
+import {useContext, memo, useRef} from 'react';
 import {stylesCardProduct} from '../../styles';
 import {useAuth0} from 'react-native-auth0';
+import {Button, Text} from '@rneui/themed';
 
 const CardProduct = ({navegar, product}) => {
   let {_id, title, image, description, price} = product;
@@ -26,7 +20,20 @@ const CardProduct = ({navegar, product}) => {
     return await authorize();
   };
 
+  const selectedAnim = useRef(new Animated.Value(1)).current;
   const handleButtonAdd = async inCart => {
+    Animated.sequence([
+      Animated.timing(selectedAnim, {
+        toValue: 2,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(selectedAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start();
     if (inCart) await deleteItemToCart(inCart);
     else await addItemToCart(product);
   };
@@ -43,7 +50,6 @@ const CardProduct = ({navegar, product}) => {
         resizeMode="contain"
         source={{uri: image && image.toString()}}
       />
-      <Text numberOfLines={1} style={styles.price}>US${price}</Text>
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>
@@ -52,20 +58,32 @@ const CardProduct = ({navegar, product}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <Button
-        color={'#2d2d2d'}
-          title={'VIEW'}
-          onPress={() => {
-            navegar(product);
-          }}></Button>
+        <Text numberOfLines={1} style={styles.price}>
+          US${price}
+        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            color={'#2d2d2d'}
+            title={'VIEW'}
+            onPress={() => {
+              navegar(product);
+            }}></Button>
 
-        <Button
-          title={inCart ? 'DEL CART' : 'ADD CART'}
-          color={inCart ? '#DC0025' : '#89c30d'}
-          style={{margin: 10}}
-          onPress={() => handleButtonAdd(inCart)}>
-          <Icon size={20} name="cart-plus" color="#fff" />
-        </Button>
+          <Button
+            type="solid"
+            buttonStyle={styles.cart}
+            onPress={() => {
+              handleButtonAdd(inCart);
+            }}>
+            <Animated.View style={[{transform: [{scale: selectedAnim}]}]}>
+              <IconMC
+                size={20}
+                name={inCart ? 'cart-off' : 'cart-plus'}
+                color={inCart ? '#FF4544' : '#65AE77'}
+              />
+            </Animated.View>
+          </Button>
+        </View>
       </View>
     </View>
   );
