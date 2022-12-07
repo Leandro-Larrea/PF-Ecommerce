@@ -41,10 +41,18 @@ const reviewProduct = async(obj) => {
    try {
     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}}) 
     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
-    let updateUser = await User.findByIdAndUpdate(userId,{$push:{reviews:{product:productId, review:review}}}) 
-    let updateProduct = await Product.findByIdAndUpdate(productId,{$push:{reviews:{user:userId, review:review}}})
-    let a = await User.findById(userId)
-    let b = await Product.findById(productId)
+    let updateUser = await User.findByIdAndUpdate(userId,{
+        $push:{
+            reviews:{product:productId, review:review}
+        }
+    }) 
+    let updateProduct = await Product.findByIdAndUpdate(productId,{
+        $push:{
+            reviews:{user:userId, review:review}
+        }
+    })
+    let a = await User.findById(userId,{reviews: 1})
+    let b = await Product.findById(productId, {reviews: 1})
     return [a,b]
    } catch (error) {
     throw (error)

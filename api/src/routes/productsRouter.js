@@ -38,7 +38,18 @@ router.post('/', async (req, res) => {
         }
 })
 
-router.put("/review", async (req,res)=>{
+router.get("/reviews", async (req,res)=>{
+    try {
+    let {id} = req.params
+
+    let a = await Product.findById(id);
+        res.status(200).json({a})
+    } catch (error) {
+        res.status(400).json({"errorGetById":error})
+    } 
+})
+
+router.put("/reviews", async (req,res)=>{
     try {
         let response = await reviewProduct(req.body)
         res.status(201).json(response)
