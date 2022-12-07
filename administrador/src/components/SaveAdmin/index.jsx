@@ -26,7 +26,21 @@ function handleChange(e) {
 function handleSubmit(e){
     e.preventDefault()
     console.log('handle')
-   postAdmin(admin)
+    let obj = {
+        _id: id,
+        lastName: 'Hola',
+        image: image,
+        name: name,
+        mail: mail,
+        phone: admin.phone,
+        location:{
+            city: admin.city,
+            country: admin.country,
+            address: admin.address,
+        },
+        admin: true 
+    }
+   dispatch(postAdmin(obj))
 }
 
 if(name)

@@ -42,7 +42,7 @@ export default function Login() {
           <div className={user? 'profile':'hidden'}>
             <br></br>
           {/* <SaveAdmin id={user.googleId} name={user.name} mail={user.email} image={a}/>  */}
-          <SaveAdmin id='123456' name='Leandro Freire' mail='asdfasd@asdf.com' image={imagedisk}/>
+          <SaveAdmin id='123456456789' name='Leandro Freire' mail='asdfasd@asdf.com' image={imagedisk}/>
           </div>
         </div>
     )

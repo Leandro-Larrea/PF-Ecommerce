@@ -2,11 +2,13 @@ const { Router } = require("express");
 const { postUser, getUser } = require("../controllers/users.js");
 const router = Router();
 const { User } = require('../models/User')
+const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary')
 
 router.post("/", async (req,res)=>{
     try {
         let user = await postUser(req.body)
         return res.status(200).json(user)     
+        return res.status(200).json(s)
     } catch (error) {
         console.log(error)
         res.status(200).send(error)
@@ -38,6 +40,7 @@ router.delete('/:_id', async (req, res) => {
     console.log('id: ', _id )
     try {
         let user = await User.findByIdAndDelete(_id)
+        await deleteFileCloudinary(user.imageId)
         res.status(200).json(user) 
     } catch (error) {
         res.status(400).send(error)
