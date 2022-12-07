@@ -56,9 +56,10 @@ router.delete("/title", async (req, res) => {
     let c = 0
     try {
         let obj = await getProducts(title)
+        console.log(obj)
         for (const it of obj) {
-            await deleteFileCloudinary(it.imageId)
-            deleted = await Product.deleteOne({_id: it._id})
+           
+            deleted = await Product.findByIdAndDelete(it._id)
             c += deleted.deletedCount
             }                
         res.status(200).json({'borrados: ': c})

@@ -6,21 +6,21 @@ import axios from 'axios';
 import {Auth0Provider} from 'react-native-auth0';
 import { REACT_APP_DOMAIN, REACT_APP_ID_CLIENT } from "@env"
 
-// axios.defaults.baseURL = 'http://192.168.100.32:3001';
-axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+// axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
 import { CartProvider } from './Components/Cart/ShoppingCart';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailProduct from './Components/Products/DetailProduct';
 import { NavigationContainer } from '@react-navigation/native';
 import { Pay } from './Components/Stripe/Pay';
 import { StripeProvider } from '@stripe/stripe-react-native';
-import { Profile } from './Components/LogButtons/Profile';
+import { Profile } from './Components/User/Profile';
 
-axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+
+axios.defaults.baseURL = 'http://192.168.0.161:3001';
 
 const Stack = createStackNavigator();
 const App = () => {
-
+  
   return (
     <Provider store={store}>
       <Auth0Provider
@@ -33,8 +33,9 @@ const App = () => {
               <Stack.Navigator initialRouteName="Main"   >
                 <Stack.Screen name={'Main'} component={MainContainer} options={{headerShown:false}}/>
                 <Stack.Screen name={'DetailProduct'} component={DetailProduct} />
+                {/* <Stack.Screen name={'ProfileEdit'} component={ProfileEdit} /> */}
                 <Stack.Screen name={'Pay'} component={Pay} />
-                  <Stack.Screen name={'Profile'} component={Profile} />
+                <Stack.Screen name={'Profile'} component={Profile} />
               </Stack.Navigator>
             </NavigationContainer>
           </StripeProvider>

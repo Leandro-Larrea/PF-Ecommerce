@@ -1,11 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
 import {Text, View, Image, StyleSheet} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
-import { LoginButton } from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../redux/actions";
+import { LoginButton } from "../LogButtons/LoginButton";
+import { LogoutButton } from "../LogButtons/LogoutButton";
 
 export const Profile = () => {
     const {user} = useAuth0();
+    const dispatch = useDispatch()
+    const userDb = useSelector(state => state.user)
+    useEffect(()=>{
+        if(user) dispatch(getUser(user.sub))
+        console.log("esto es user db",userDb)
+    },[])
+    console.log(user)
     //console.log(user)
     return (
         <>

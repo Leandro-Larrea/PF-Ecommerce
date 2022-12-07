@@ -21,22 +21,25 @@ const locationSchema = new Schema({
  const reviewsSchema = new Schema({
      product: {
        type: String,
-       required: true,
+       trim: true
      },
      review: {
        type: String,
-       required: true,
-       trim: true,
+       trim: true
      },
    });
 
 const userSchema = new Schema({
+    _id:{type: String,
+        required: true,
+        trim: true
+    },
     name:{
         type: String,
         required: true,
         trim: true
     },
-    description:{
+    lastName:{
         type: String,
         required: true,
         trim: true
@@ -46,21 +49,31 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
-    //  reviews:{
-        //  type:[reviewsSchema]
-    //  },
+    purchases:{
+          type:[reviewsSchema]
+      },
     phone:{
         type: String,
         required: true,
         trim: true
     },
+    reviews:[reviewsSchema],
     location:{
         type: locationSchema,
-        required: true
+    },
+    cart:{
+        type: Array,
+        required: false
     },
     admin:{
         type: Boolean,
-        required: true
+        default: false
+    },
+    image:{
+        type: String
+    },
+    imageId:{
+        type: String
     }
 },
     {
