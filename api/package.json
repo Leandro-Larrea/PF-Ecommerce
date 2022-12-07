@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon --watch index.js"
+    "dev": "nodemon -L index.js"
   },
   "keywords": [],
   "author": "",
