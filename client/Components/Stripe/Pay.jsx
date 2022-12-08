@@ -4,12 +4,16 @@ import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 
-export const Pay = () => {
+export const Pay = ({navigation}) => {
   const total = useSelector(state => state.total);
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [mail, setMail] = useState('');
   const [price, setPrice] = useState(total);
+
+  const navegar = () => {
+    navigation.navigate('Products')
+  }
 
   const stripe = useStripe();
   /* 192.168.100.32 */
@@ -36,7 +40,8 @@ export const Pay = () => {
       })
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
-      axios.post(`/payments/email`, {mail, name, lastname, price})
+      navegar();
+      axios.post(`https://pf-ecommerce-rho.vercel.app/payments/email`, {mail, name, lastname, price})
       .then(console.log("exitoso"))
 
     } catch (err) {
