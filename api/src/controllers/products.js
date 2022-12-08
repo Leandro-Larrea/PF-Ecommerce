@@ -81,6 +81,18 @@ const ratingProduct = async(obj) => {
  
  }
 
+ const getReviews = async () =>{
+    let products = await Product.find()
+    products = products.map(res => {
+        return {
+            productId: res._id,
+             reviews: res.reviews
+        } 
+    })
+    return products
+
+ }
+
 /////* product delete with buckup*///////
 const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
@@ -146,7 +158,8 @@ module.exports = {
     deleteProducts,
     postProducts,
     reviewProduct,
-    getProductField
+    getProductField,
+    getReviews
 };
 
 
