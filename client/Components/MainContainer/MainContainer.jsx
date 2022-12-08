@@ -16,7 +16,7 @@ import {PostUser} from '../User/PostUser';
 const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
-const postName = 'Post';
+const postName = 'My account';
 
 const Tab = createBottomTabNavigator();
 

@@ -94,7 +94,9 @@ export const stylesCardProduct = StyleSheet.create({
   },
   description: {
     marginBottom: 10,
-    fontFamily: 'Louis George Cafe Bold',
+    fontFamily: 'Louis George Cafe',
+    fontWeight: '100',
+    
   },
   price: {
     // position: 'absolute',
@@ -102,15 +104,20 @@ export const stylesCardProduct = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Louis George Cafe Bold',
     backgroundColor: '#2d2d2d',
-    color: '#89c30d',
+    color: '#adff2f',
     bottom: 0,
-    padding: 6,
     borderRadius: 4,
+    padding: 6,
+    paddingLeft: 9,
+    paddingRight: 9,
+    // textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    // textShadowOffset: {width: -1, height: 1},
+    // textShadowRadius: 1
   },
   cart: {
     fontSize: 14,
     fontFamily: 'Louis George Cafe Bold',
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
     color: '#89c30d',
     margin: 3,
     // padding: 4,
@@ -121,7 +128,7 @@ export const stylesCardProduct = StyleSheet.create({
     },
     shadowColor: 'black',
     shadowOpacity: 0.75,
-    elevation: 3,
+    elevation: 4,
 
     alignItems: 'center',
     justifyContent: 'center',

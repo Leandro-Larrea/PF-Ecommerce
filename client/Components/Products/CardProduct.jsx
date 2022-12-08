@@ -1,5 +1,5 @@
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import {ActivityIndicator, Animated, Image, View} from 'react-native';
+import {ActivityIndicator, Animated, Image, View, TouchableOpacity} from 'react-native';
 import storage from '../AsyncStorage/AsyncStorage';
 import {CartContext} from '../Cart/ShoppingCart';
 import {useContext, memo, useRef} from 'react';
@@ -39,7 +39,9 @@ const CardProduct = ({navegar, product}) => {
   };
 
   return (
-    <View style={styles.container} title={title}>
+    <TouchableOpacity style={styles.container} title={title} onPress={() => {
+      navegar(product);
+    }}>
       <Image
         //   defaultSource={require('../../android/app/src/main/assets/')}
         /*  onProgress={(loaded, total) => {
@@ -54,14 +56,14 @@ const CardProduct = ({navegar, product}) => {
         {title}
       </Text>
       <View style={styles.separator} />
-      <Text style={styles.description} numberOfLines={3}>
+      <Text style={styles.description} numberOfLines={2}>
         {description}
       </Text>
       <View style={styles.fixToText}>
         <Text numberOfLines={1} style={styles.price}>
           US${price}
         </Text>
-        <View style={{flexDirection: 'row'}}>
+        {/* <View style={{flexDirection: 'row'}}>
           <Button
             color={'#2d2d2d'}
             title={'VIEW'}
@@ -83,9 +85,9 @@ const CardProduct = ({navegar, product}) => {
               />
             </Animated.View>
           </Button>
-        </View>
+        </View> */}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = stylesCardProduct;

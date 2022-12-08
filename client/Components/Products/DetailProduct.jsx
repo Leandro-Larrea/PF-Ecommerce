@@ -14,7 +14,7 @@ function DetailProduct({route, navigation}) {
   const CustomTitle = () => {
     return (
       <View style={{flexDirection: 'column', alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold', fontSize: 18, color: '#89c30d'}}>
+        <Text style={{fontWeight: 'bold', fontSize: 18, color: '#adff2f'}}>
           {price}
           <Text style={{color: '#91AB5A'}}>$</Text>
         </Text>
@@ -98,7 +98,7 @@ function DetailProduct({route, navigation}) {
           }}>
           <Animated.View style={[{transform: [{scale: selectedAnim}]}]}>
             <IconMC
-              size={20}
+              size={26}
               name={inCart ? 'cart-off' : 'cart-plus'}
               color={inCart ? '#FF4544' : '#65AE77'}
             />
