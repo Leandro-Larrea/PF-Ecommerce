@@ -1,4 +1,5 @@
  const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
+const { Product } = require("../models/Product")
 const { User } = require("../models/User")
 
  const postUser = async (obj) =>{    
@@ -49,20 +50,54 @@ const { User } = require("../models/User")
  }
 
  const getUser = async (id) => {
-
-    let user
-
-    if(id){
-        console.log('id: ',id)
-        user = await User.findById(id)
+   console.log(id)  
+    if(id){  
+       let user = await User.findById(id)
+       console.log(user)
+       return user
     }
-    else{
-        user = await User.find()
-    }
-    user = user.filter(res => !res.admin)
-    return user
+     else{
+       let user = await User.find({adimin:false})
+       return user
+     }
+ }
+
+ const updateCart = async(id, cart) =>{
+   console.log("esto es cartcontroller", cart)
+   let r = await User.findByIdAndUpdate(id,{cart:cart})
+   let a = await User.findById(id)
+   return a
+ }
+
+ const getCart = async(id) =>{
+   
+   let r = await User.findById(id,{cart:1, _id:0})
+   console.log("desde get cart",r)
+   let box = [];
+   for(const e of r.cart){
+      let a = await Product.findById(e.productId)
+       let obj = {
+          productId: e.productId,
+          product: a,
+          quantity: e.quantity
+       }
+       box.push(obj)   
+   }
+   return box
+   // let result = r.cart.map(async (e) =>{
+   //    let a = await Product.findById(e.productId)
+   //    let obj = {
+   //       productId: e.productId,
+   //       product: a,
+   //       quantity: e.quantity
+   // }  
+   // } )
+   // return result
  }
 
  module.exports = {
-    postUser, getUser
+   postUser,
+   getUser,
+   getCart,
+   updateCart
  };

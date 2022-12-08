@@ -12,6 +12,4 @@ router.use("/users", userMidleware)
 router.use("/search", searchRouter)
 router.use("/payments", paymentsRouter)
 
-
-
 module.exports = router;

@@ -16,7 +16,7 @@ import {PostUser} from '../User/PostUser';
 const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
-const postName = 'My account';
+const profile = 'Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +42,7 @@ export const MainContainer = () => {
             iconName = focused ? 'search-sharp' : 'search-outline';
           } else if (rn === cartName) {
             iconName = focused ? 'cart-sharp' : 'cart-outline';
-          } else if (rn === postName) {
+          } else if (rn === profile) {
             iconName = focused ? 'add-circle-sharp' : 'add-circle-outline';
           }
           return <Icon name={iconName} size={size} color={color} />;
@@ -52,7 +52,8 @@ export const MainContainer = () => {
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={lookProductsName} component={LookProducts} />
       <Tab.Screen name={cartName} component={ListCart} />
-      <Tab.Screen name={postName} component={loggedIn ? PostUser : Profile} />
+      {/* <Tab.Screen name={postName} component={loggedIn ? PostUser : Profile} /> */}
+      <Tab.Screen name={profile} component={Profile} />
     </Tab.Navigator>
   );
 };

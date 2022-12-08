@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const {Product} = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, postProducts } = require("../controllers/products.js");
+const { getProducts, postProducts, reviewProduct, getProductField, getReviews } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -18,11 +18,33 @@ router.get("/", async(req, res) =>{
     }
 });
 
+router.get("/field", async (req,res)=>{
+    const {field} = req.query
+   
+    try {
+      let a = await getProductField(field)
+        res.status(200).json(a)
+    } catch (error) {
+        res.status(400).json(error)
+    } 
+})
+
+router.get("/reviews", async (req,res)=>{
+    const {field} = req.query
+   
+    try {
+        const result = await getReviews()
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(400).json(error)
+    } 
+})
+
 router.get("/:id", async (req,res)=>{
     try {
-    let {id} = req.params
-
-    let a = await Product.findById(id);
+        let {id} = req.params
+        
+        let a = await Product.findById(id);
         res.status(200).json({a})
     } catch (error) {
         res.status(400).json({"errorGetById":error})
@@ -34,8 +56,17 @@ router.post('/', async (req, res) => {
         let result = await postProducts(req.body)
         return res.status(200).json(result);
     }catch(error){
-            res.status(500).json({'error: ': error})
-        }
+        res.status(500).json({'error: ': error})
+    }
+})
+
+router.put("/reviews", async (req,res)=>{
+    try {
+        let response = await reviewProduct(req.body)
+        res.status(201).json(response)
+    } catch (error) {
+        res.status(400).send(error)
+    } 
 })
 
 router.put("/:id", async (req,res)=>{
