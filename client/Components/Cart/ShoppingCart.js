@@ -1,34 +1,29 @@
 import {createContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {setReducerCart} from '../../redux/actions';
 import storage from '../AsyncStorage/AsyncStorage';
-// import {
-//   updateToCart,
-//   getDBCart,
-//   createDBCart,
-//   updateDBCart,
-//   deleteDBCart,
-//   clearMyUser,
-//   getUser,
-// } from "../../redux/actions";
+import {
+  setReducerCart,
+  getUser,
+  clearUser,
+  // getDBCart,
+  // createDBCart,
+  // updateDBCart,
+  // deleteDBCart,
+} from '../../redux/actions';
+import {useAuth0} from 'react-native-auth0';
 
 export const CartContext = createContext();
 export const CartProvider = ({children}) => {
+  const {authorize, clearSession, user} = useAuth0();
+  const [loadindAuth0, setLoadindAuth0] = useState(false);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
-  const myUser = useSelector(state => state.myUser);
+  const myUserDB = useSelector(state => state.user);
   const [updateUser, setUpdateUser] = useState(false);
   const [cartItems, setCartItems] = useState(null);
-  const [userId, setUserId] = useState(0 /* verificar() */);
+  const [userId, setUserId] = useState(0);
 
-  const [isSaveDB, setSaveDB] = useState(() => {
-    try {
-      const SaveDBStorage = storage.get('isSaveDB');
-      return SaveDBStorage ? SaveDBStorage : false;
-    } catch (error) {
-      return false;
-    }
-  });
+  const [isSaveDB, setSaveDB] = useState(null);
 
   useEffect(() => {
     async function ejet() {
@@ -48,55 +43,92 @@ export const CartProvider = ({children}) => {
     ejet();
   }, [cartItems]);
 
-  // useEffect(async () => {
-  //   if (userId) {
-  //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getUser(userId));
-  //     if (response) {
-  //     } else {
-  //       SignOff();
-  //     }
-  //   }
-  // }, [updateUser]);
-  // useEffect(async () => {
-  //   storage.set('isSaveDB', isSaveDB);
-  //   if (userId) {
-  //     //"obtener la info del logueado ----> DB"
-  //     const response = await dispatch(getUser(userId));
-  //     if (response) {
-  //       if (!isSaveDB) {
-  //         setSaveDB(true);
-  //         //crear en db el carrito 1 sola vez
-  //         //"guardado el carrito ----> DB"
-  //         if (userId) {
-  //           Toast.fire({
-  //             icon: 'success',
-  //             title: 'saving...',
-  //           });
-  //         }
-  //         Swal.showLoading();
-  //         await dispatch(createDBCart(cartItems, userId, true));
-  //         //"obteniendo carrito ----> DB"
-  //         if (userId) {
-  //           Toast.fire({
-  //             icon: 'success',
-  //             title: 'geting cart...',
-  //           });
-  //         }
-  //         Swal.showLoading();
-  //         await dispatch(getDBCart(userId));
-  //         if (userId) {
-  //           Toast.fire({
-  //             icon: 'success',
-  //             title: 'successfully',
-  //           });
-  //         }
-  //       }
-  //     } else {
-  //       SignOff();
-  //     }
-  //   }
-  // }, [isSaveDB]);
+  useEffect(() => {
+    async function ejet() {
+      if (user) {
+        setUserId(user.sub);
+      } else {
+        setUserId(0);
+        setCartItems([]);
+        await dispatch(setReducerCart([]));
+        await dispatch(clearUser());
+        setSaveDB(false);
+      }
+      alert('userAuth0 ' + user);
+    }
+    ejet();
+  }, [user]);
+  useEffect(() => {
+    if (userId) {
+      //"obtener la info del logueado ----> DB"
+      async function ejet() {
+        const response = await dispatch(getUser(userId));
+        if (response) {
+        } else {
+          SignOff();
+        }
+      }
+      ejet();
+    }
+  }, [updateUser]);
+  useEffect(() => {
+    async function ejet() {
+      if (isSaveDB === null) {
+        // storage.removeItem('isSaveDB');
+        if (userId) {
+          storage
+            .get('isSaveDB')
+            .then(response => {
+              setSaveDB(response ? true : false);
+            })
+            .catch(error => {
+              setSaveDB(false);
+            });
+        } else {
+          console.log(isSaveDB, userId);
+          storage.set('isSaveDB', isSaveDB);
+          alert('shoppingCart ' + userId + ' isSaveDB ' + isSaveDB);
+          //"obtener la info del logueado ----> DB"
+          const response = await dispatch(getUser(userId));
+          console.log('myUserDB', response);
+          if (response) {
+            alert('shoppingCart response' + response);
+            if (!isSaveDB) {
+              setSaveDB(true);
+              //crear en db el carrito 1 sola vez
+              //"guardado el carrito ----> DB"
+              if (userId) {
+                // Toast.fire({
+                //   icon: 'success',
+                //   title: 'saving...',
+                // });
+              }
+              // Swal.showLoading();
+              // await dispatch(createDBCart(cartItems, userId, true));
+              //"obteniendo carrito ----> DB"
+              if (userId) {
+                // Toast.fire({
+                //   icon: 'success',
+                //   title: 'geting cart...',
+                // });
+              }
+              // Swal.showLoading();
+              // await dispatch(getDBCart(userId));
+              if (userId) {
+                // Toast.fire({
+                //   icon: 'success',
+                //   title: 'successfully',
+                // });
+              }
+            }
+          } else {
+            SignOff();
+          }
+        }
+      }
+    }
+    ejet();
+  }, [userId]);
 
   useEffect(() => {
     // if (userId) {
@@ -106,14 +138,15 @@ export const CartProvider = ({children}) => {
   }, [cart]);
   //-----------------> Login
   const logIn = () => {
-    setUserId(0 /* verificar() */);
     setSaveDB(false);
   };
   const SignOff = async () => {
-    setUserId(0 /* verificar() */);
+    await clearSession();
+    setUserId(0);
     setCartItems([]);
-    // await dispatch(updateToCart([]));
-    // await dispatch(clearMyUser());
+    await dispatch(setReducerCart([]));
+    await dispatch(clearUser());
+    setSaveDB(false);
   };
   //<--------------
 
@@ -132,7 +165,7 @@ export const CartProvider = ({children}) => {
     ) {
       inCart.quantity = quantity ? quantity : inCart.quantity + 1;
       setCartItems([...cartItems]);
-      // dispatch(updateToCart(cartItems));
+      // dispatch(setReducerCart(cartItems));
       // if (userId) {
       //   dispatch(updateDBCart(productInCart));
       // }
@@ -163,7 +196,7 @@ export const CartProvider = ({children}) => {
       //   dispatch(createDBCart(porductInCart, userId, true));
       //   //"obteniendo carrito ----> DB"
       //   dispatch(getDBCart(userId));
-      // } else dispatch(updateToCart(cartItems));
+      // } else dispatch(setReducerCart(cartItems));
 
       return;
     }
@@ -183,7 +216,7 @@ export const CartProvider = ({children}) => {
         inCart.quantity--;
         setCartItems([...cartItems]);
 
-        // dispatch(updateToCart(cartItems));
+        // dispatch(setReducerCart(cartItems));
         // if (userId) {
         //   dispatch(updateDBCart(inCart));
         // }
@@ -196,7 +229,7 @@ export const CartProvider = ({children}) => {
       }
     }
   };
-  const deleteItemToCart = productInCart => {
+  const deleteItemToCart = async productInCart => {
     const inCart = cartItems.find(
       proInCart => proInCart.productId === productInCart.productId,
     );
@@ -204,7 +237,7 @@ export const CartProvider = ({children}) => {
       cartItems.splice(cartItems.indexOf(inCart), 1);
       setCartItems([...cartItems]);
 
-      // dispatch(updateToCart(cartItems));
+      await dispatch(setReducerCart(cartItems));
       // if (userId) {
       //   dispatch(deleteDBCart(inCart.id));
       // }
@@ -214,13 +247,14 @@ export const CartProvider = ({children}) => {
       //   title: `Product ${inCart.product.name} delete from cart`,
       // });
     }
+    return 'finished';
   };
 
   return (
     <CartContext.Provider
       value={{
         userId,
-        myUser,
+        myUserDB,
         setUpdateUser,
         updateUser,
         logIn,

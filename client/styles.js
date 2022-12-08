@@ -59,6 +59,7 @@ export const stylesCardProduct = StyleSheet.create({
   fixToText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   button: {
     alignItems: 'center',
@@ -80,7 +81,8 @@ export const stylesCardProduct = StyleSheet.create({
   },
   description: {
     marginBottom: 10,
-    fontFamily: 'Louis George Cafe Bold',
+    color: 'gray',
+    // fontFamily: 'Louis George Cafe Bold',
   },
   price: {
     // position: 'absolute',

@@ -82,11 +82,21 @@ export function postUser(obj) {
 }
 
 export const getUser = id => dispatch => {
-  return axios.get(`/users?id=${id}`).then(res => {
-    dispatch({
-      type: 'GET_USER',
-      payload: res.data,
-    });
+  return axios
+    .get(`/users?id=${id}`)
+    .then(res => {
+      dispatch({
+        type: 'GET_USER',
+        payload: res.data,
+      });
+      return true;
+    })
+    .catch(() => false);
+};
+export const clearUser = () => dispatch => {
+  dispatch({
+    type: 'GET_USER',
+    payload: res.data,
   });
 };
 
