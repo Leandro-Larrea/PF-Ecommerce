@@ -10,21 +10,21 @@ import Header from '../Home/Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAuth0} from 'react-native-auth0';
 
-
-
 export const PostUser = () => {
-
+   
     const {user} = useAuth0();
     const dispatch = useDispatch();
+    const userDb = useSelector(state => state.user)
    
-
     // aca me traigo el estado de las categorias ej: state => state.allCategories
     const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
-        dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
-    }, [dispatch])
-
+        if(userDb){
+            setInput(userDb)
+        }
+    },[])
+    
     const [errors, setErrors] = useState({})
 
     function validate(input) {
@@ -36,9 +36,7 @@ export const PostUser = () => {
         if (!input.location.city) errors.city = "Enter city"
         if (!input.location.address) errors.address = "Enter address"
         if (!input.mail) errors.mail = "Enter mail"
-        
-      
-
+    
         return errors;
     }
 
@@ -50,7 +48,7 @@ export const PostUser = () => {
         image:"",
         phone:""
     })
-
+  
     const openGallery = () => {
         const options = {
             storageOptions: {
@@ -79,14 +77,16 @@ export const PostUser = () => {
         })
     }
 
-
     const handleSubmit = () => {
         if (!input.name || !input.lastName | !input.location.country || !input.location.city | !input.location.address || !input.mail || !input.phone) {
             Alert.alert('Completar todos los campos')
         } else {
-            console.log("else", user.sub)
-            dispatch(postUser({...input, _id:user.sub}));
-            Alert.alert('Producto Creado 👍 ')
+            if(!userDb){
+                dispatch(postUser({...input, _id:user.sub}));
+                 Alert.alert('data saved succesfully 👍 ')}
+            if(userDb){
+                 Alert.alert('aca habria que hacer algo pero no se que')}
+            }
             setInput({
                 name: '',
                 lastName: '',
@@ -97,20 +97,13 @@ export const PostUser = () => {
             })
             setImage({ uri: '' })
         }
-    }
+    
 
     return (
         <ScrollView>
-        {/* <LinearGradient
-        style={{paddingBottom: 67}}
-          colors={['#89c30d', 'white', '#2d2d2d' ]}
-          start={{ x: 0.7, y: 0 }}
-          > */}
-
             <View style={style.header}>
                 <Header />
             </View>
-
             <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.name && !errors.lastName && !errors.mail && !errors.phone && !errors.country && !errors.city && !errors.address ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Guardar Datos ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
                     textInputStyle={style.textoInput}
@@ -123,7 +116,6 @@ export const PostUser = () => {
                     value={input.name}
                     onChangeText={(text) => { setInput({ ...input, name: text }), setErrors(validate({ ...input, name: text })) }}
                     />
-
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
@@ -190,7 +182,6 @@ export const PostUser = () => {
                     value={input.location.address}
                     onChangeText={(text) => { setInput({ ...input, location:{...input.location,address: text }}), setErrors(validate({ ...input, location:{...input.location,address: text }})) }}
                     />
-
                 <View style={{ alignItems: "center" }}>
                     <TouchableOpacity
                         onPress={() => openGallery()}
@@ -203,14 +194,12 @@ export const PostUser = () => {
                         <Image
                             source={image}
                             style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
-
                         </Image> :
                         <Text style={{ color: "black" }}>Photo</Text>
                     }
                 </View>
 
             </Form>
-                    {/* </LinearGradient> */}
         </ScrollView>
     );
 }
