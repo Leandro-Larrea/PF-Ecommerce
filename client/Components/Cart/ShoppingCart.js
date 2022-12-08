@@ -5,6 +5,8 @@ import {
   setReducerCart,
   getUser,
   clearUser,
+  dbUpdateCart,
+  getDBCart,
   // getDBCart,
   // createDBCart,
   // updateDBCart,
@@ -73,9 +75,9 @@ export const CartProvider = ({children}) => {
   }, [updateUser]);
   useEffect(() => {
     async function ejet() {
-      if (isSaveDB === null) {
-        // storage.removeItem('isSaveDB');
-        if (userId) {
+      if (userId) {
+        if (isSaveDB === null) {
+          // storage.removeItem('isSaveDB');
           storage
             .get('isSaveDB')
             .then(response => {
@@ -94,32 +96,21 @@ export const CartProvider = ({children}) => {
           if (response) {
             alert('shoppingCart response' + response);
             if (!isSaveDB) {
-              setSaveDB(true);
               //crear en db el carrito 1 sola vez
               //"guardado el carrito ----> DB"
-              if (userId) {
-                // Toast.fire({
-                //   icon: 'success',
-                //   title: 'saving...',
-                // });
-              }
-              // Swal.showLoading();
-              // await dispatch(createDBCart(cartItems, userId, true));
+
+              await dispatch(
+                dbUpdateCart(
+                  cartItems.map(i => {
+                    i.quantity, i.productId;
+                  }),
+                  userId,
+                  true,
+                ),
+              );
               //"obteniendo carrito ----> DB"
-              if (userId) {
-                // Toast.fire({
-                //   icon: 'success',
-                //   title: 'geting cart...',
-                // });
-              }
-              // Swal.showLoading();
-              // await dispatch(getDBCart(userId));
-              if (userId) {
-                // Toast.fire({
-                //   icon: 'success',
-                //   title: 'successfully',
-                // });
-              }
+              await dispatch(getDBCart(userId));
+              setSaveDB(true);
             }
           } else {
             SignOff();
@@ -131,10 +122,10 @@ export const CartProvider = ({children}) => {
   }, [userId]);
 
   useEffect(() => {
-    // if (userId) {
-    //   setCartItems([...cart]);
-    //   //"finalCartDB"
-    // }
+    if (userId) {
+      setCartItems([...cart]);
+      //"finalCartDB"
+    }
   }, [cart]);
   //-----------------> Login
   const logIn = () => {
@@ -155,20 +146,30 @@ export const CartProvider = ({children}) => {
   };
 
   const updateItemToCart = async (productInCart, quantity) => {
-    const inCart = cartItems.find(
-      proInCart => proInCart.productId === productInCart.productId,
-    );
     if (
-      inCart && quantity
-        ? quantity <= inCart.product.stock
-        : inCart.quantity + 1 <= inCart.product.stock
+      productInCart && quantity
+        ? quantity <= productInCart.product.stock
+        : productInCart.quantity + 1 <= productInCart.product.stock
     ) {
-      inCart.quantity = quantity ? quantity : inCart.quantity + 1;
+      productInCart.quantity = quantity ? quantity : productInCart.quantity + 1;
       setCartItems([...cartItems]);
-      // dispatch(setReducerCart(cartItems));
-      // if (userId) {
-      //   dispatch(updateDBCart(productInCart));
-      // }
+      if (userId) {
+        const response = await dispatch(
+          dbUpdateCart(
+            cartItems.map(i => {
+              return i.quantity, i.productId;
+            }),
+            userId,
+            true,
+          ),
+        );
+        alert(
+          'response adUpdateCart: keys:' +
+            Object.keys(response) +
+            ' values: ' +
+            Object.values(response),
+        );
+      }
       return;
     }
   };
@@ -187,65 +188,55 @@ export const CartProvider = ({children}) => {
       };
       cartItems.push(porductInCart);
       setCartItems([...cartItems]);
-      // if (userId) {
-      //   Toast.fire({
-      //     icon: 'success',
-      //     title: 'loading...',
-      //   });
-      //   Swal.showLoading();
-      //   dispatch(createDBCart(porductInCart, userId, true));
-      //   //"obteniendo carrito ----> DB"
-      //   dispatch(getDBCart(userId));
-      // } else dispatch(setReducerCart(cartItems));
 
+      if (userId) {
+        await dispatch(
+          dbUpdateCart(
+            cartItems.map(i => {
+              return i.quantity, i.productId;
+            }),
+            userId,
+            true,
+          ),
+        );
+      }
       return;
     }
-    // Swal.fire({
-    //   icon: 'warning',
-    //   title: 'Oops...',
-    //   text: 'Not in stock',
-    // });
   };
 
-  const subtractItemToCart = productInCart => {
-    const inCart = cartItems.find(
-      proInCart => proInCart.productId === productInCart.productId,
-    );
-    if (inCart) {
-      if (inCart.quantity > 1) {
-        inCart.quantity--;
-        setCartItems([...cartItems]);
+  const subtractItemToCart = async productInCart => {
+    if (productInCart.quantity > 1) {
+      productInCart.quantity--;
+      setCartItems([...cartItems]);
 
-        // dispatch(setReducerCart(cartItems));
-        // if (userId) {
-        //   dispatch(updateDBCart(inCart));
-        // }
-      } else {
-        // Swal.fire({
-        //   icon: 'error',
-        //   title: 'Oops...',
-        //   text: 'You can buy from 1',
-        // });
+      if (userId) {
+        await dispatch(
+          dbUpdateCart(
+            cartItems.map(i => {
+              return i.quantity, i.productId;
+            }),
+            userId,
+            true,
+          ),
+        );
       }
+      return;
     }
   };
   const deleteItemToCart = async productInCart => {
-    const inCart = cartItems.find(
-      proInCart => proInCart.productId === productInCart.productId,
-    );
-    if (inCart) {
-      cartItems.splice(cartItems.indexOf(inCart), 1);
-      setCartItems([...cartItems]);
+    cartItems.splice(cartItems.indexOf(productInCart), 1);
+    setCartItems([...cartItems]);
 
-      await dispatch(setReducerCart(cartItems));
-      // if (userId) {
-      //   dispatch(deleteDBCart(inCart.id));
-      // }
-
-      // Toast.fire({
-      //   icon: 'error',
-      //   title: `Product ${inCart.product.name} delete from cart`,
-      // });
+    if (userId) {
+      await dispatch(
+        dbUpdateCart(
+          cartItems.map(i => {
+            return i.quantity, i.productId;
+          }),
+          userId,
+          true,
+        ),
+      );
     }
     return 'finished';
   };

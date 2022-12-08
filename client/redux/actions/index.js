@@ -16,6 +16,26 @@ export const setReducerCart = cart => {
     payload: cart,
   };
 };
+export const getDBCart = userId => dispatch => {
+  return axios
+    .get(`/users/cart/${userId}`)
+    .then(res => {
+      dispatch({
+        type: SET_REDUCER_CART,
+        payload: res.data,
+      });
+      return true;
+    })
+    .catch(() => false);
+};
+export const dbUpdateCart = (cart, userId) => dispatch => {
+  return axios
+    .put(`/users/cart/${userId}`, cart)
+    .then(({data}) => {
+      return data;
+    })
+    .catch(() => false);
+};
 export const getProducts = () => dispatch => {
   /*cada uno tiene que poner su propia IP*/
   return axios.get('/search').then(res => {
@@ -96,7 +116,7 @@ export const getUser = id => dispatch => {
 export const clearUser = () => dispatch => {
   dispatch({
     type: 'GET_USER',
-    payload: res.data,
+    payload: [],
   });
 };
 
