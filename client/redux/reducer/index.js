@@ -20,7 +20,7 @@ const initialState = {
     max: '',
     category: '',
   },
-  user: {},
+  user: null,
   total: 0,
 };
 

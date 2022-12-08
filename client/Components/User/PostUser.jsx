@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
-import { getCategories, postUser } from '../../redux/actions';
+import { getCategories, getUser, postUser } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,9 +15,14 @@ export const PostUser = () => {
     const {user} = useAuth0();
     const dispatch = useDispatch();
     const userDb = useSelector(state => state.user)
+    console.log(user)
    
     // aca me traigo el estado de las categorias ej: state => state.allCategories
     const allCategories = useSelector(state => state.categories)
+
+    useEffect(() => {
+       dispatch(getUser(user.sub))
+    },[])
 
     useEffect(() => {
         if(userDb){
@@ -46,7 +51,8 @@ export const PostUser = () => {
         lastName: '',
         location: { country:"", city:"", address:"" },
         image:"",
-        phone:""
+        phone:"",
+        mail:user.email
     })
   
     const openGallery = () => {

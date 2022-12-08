@@ -53,13 +53,11 @@ export const Profile = ({navigation}) => {
                 </View>
             )
             : (
-                <View>
-                <View>
-                    <Text>Not logged in. Please log in</Text>
-                </View>
-                <View style={styles.botonIn}>
-                    <LoginButton />
-                </View>
+                <View style={styles.containerLog}>  
+                        <Text style={styles.title}>Not logged in. Please log in</Text>
+                    <View style={styles.bottonIn}>
+                        <LoginButton />
+                    </View>
                 </View>
             )}
             </View>
@@ -71,13 +69,21 @@ const styles = StyleSheet.create({
     container: {
         display: "flex",
         flexDirection:"column",
-        flexWrap:"wrap",
+        justifyContent:"center",
+        alignItems:"center",
+        width:"100%",
         height:"100%",
         marginTop: 10,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,
         
+    },
+    containerLog:{
+        justifyContent:"space-between",
+        alignItems:"center",
+        width:"100%",
+        height:100
     },
     buttons:{
         justifyContent:"space-between",
@@ -103,15 +109,11 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     boton: {
-        width: 100,
-        height: 100,
-
+        marginTop: 20,
+        height: 100
     },
-    botonIn: {
-        width: '100%',
-        paddingTop: 15,
-        display: "flex",
-        justifyContent: 'center',
-        alignItems: "center",
-    },
+    bottonIn:{
+        width: 180
+    }
+    
 })
