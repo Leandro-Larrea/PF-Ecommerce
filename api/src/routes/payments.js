@@ -61,7 +61,7 @@ router.post("/email", async (req, res) => {
 
   await new Promise((resolve, reject) => {
     // verify connection configuration
-    transporter.verify(function (error, success) {
+    mailTransporter.verify(function (error, success) {
         if (error) {
             console.log(error);
             reject(error);
