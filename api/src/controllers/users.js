@@ -2,14 +2,14 @@
 const { User } = require("../models/User")
 
  const postUser = async (obj) =>{    
-     const {_id, name, lastName, mail , phone, location} = obj
+     const {_id, name, lastName, mail , phone, location, image} = obj
      let d = await User.findById(_id)
      console.log("aca estamos en controller",d)
      if(d){
         throw ("u have already setted your profile")
      }
      const {country, city, address} = location;
-     console.log(obj)
+    // console.log(obj)
 
      if(!name || !lastName || !mail || !phone || !location || !country || !city || !address){
         throw("insufficient data")
@@ -35,9 +35,11 @@ const { User } = require("../models/User")
     }
 
    
-     let {imageId, image} = await uploadToCloudinary(obj.image)
-     obj.image = image
-     obj.imageId = imageId 
+    if(image){
+      let {imageId, image} = await uploadToCloudinary(obj.image)
+      obj.image = image
+      obj.imageId = imageId 
+   }
 
     console.log(obj)
     let a = await User(obj)
@@ -47,16 +49,18 @@ const { User } = require("../models/User")
  }
 
  const getUser = async (id) => {
-    let admin;
+
+    let user
+
     if(id){
         console.log('id: ',id)
-        admin = await User.findById(id)
+        user = await User.findById(id)
     }
     else{
-        admin = await User.find()
+        user = await User.find()
     }
-    console.log('admin: ', admin)
-    return admin
+    user = user.filter(res => !res.admin)
+    return user
  }
 
  module.exports = {

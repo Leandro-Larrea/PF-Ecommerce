@@ -9,6 +9,7 @@ import { LogoutButton } from "../LogButtons/LogoutButton";
 
 export const Profile = () => {
     const {user} = useAuth0();
+    console.log(user)
     const dispatch = useDispatch()
     const userDb = useSelector(state => state.user)
     useEffect(()=>{
@@ -22,15 +23,15 @@ export const Profile = () => {
             <View style={styles.container}>
             {user ? (
                 <View style={styles.info}>
-                <View>
-                    <Text>Logged in as: {user.name}</Text>
-                    <Text>Email: {user.email}</Text>
-                    <Text>Nickname: {user.nickname}</Text>
-                    <Image source={user.image} />
-                </View>
-                <View style={styles.boton}>
-                    <LogoutButton />
-                </View>
+                    <View>
+                        <Text style ={styles.title}>Contact</Text>
+                        <Text style ={styles.data}>Email: {user.email}</Text>
+                        <Text style ={styles.data}>Nickname: {user.nickname}</Text>
+                        <Image source={user.image} />
+                    </View>
+                    <View style={styles.boton}>
+                        <LogoutButton />
+                    </View>
                 </View>
             )
             : (
@@ -50,12 +51,10 @@ export const Profile = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 20,
         display: "flex",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: 'center',
+        flexDirection:"column",
+        flexWrap:"wrap",
+        height:"100%",
         marginTop: 10,
         marginLeft: 20,
         marginRight: 20,
@@ -63,16 +62,22 @@ const styles = StyleSheet.create({
         
        
     },
+    title:{
+        fontSize: 30
+    },
+    data:{
+        fontSize:20,
+        lineHeight: 40    
+    },
     info: {
         width: '100%',
-        flexDirection: 'row',
+        fontSize: 30,
         justifyContent: "space-between",
     },
     boton: {
         width: 100,
         height: 100,
-        display: "flex",
-        flexDirection: "column",
+
     },
     botonIn: {
         width: '100%',

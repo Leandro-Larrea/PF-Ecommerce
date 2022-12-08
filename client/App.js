@@ -6,7 +6,8 @@ import axios from 'axios';
 import {Auth0Provider} from 'react-native-auth0';
 import {REACT_APP_DOMAIN, REACT_APP_ID_CLIENT} from '@env';
 
-// axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+// axios.defaults.baseURL = 'http://192.168.18.25:3001';
+axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
 import {CartProvider} from './Components/Cart/ShoppingCart';
 import {createStackNavigator} from '@react-navigation/stack';
 import DetailProduct from './Components/Products/DetailProduct';
@@ -16,7 +17,6 @@ import {StripeProvider} from '@stripe/stripe-react-native';
 import {Profile} from './Components/User/Profile';
 import {ProfileEdit} from './Components/User/ProfileEdit';
 
-axios.defaults.baseURL = 'http://192.168.18.25:3001';
 
 const Stack = createStackNavigator();
 const App = () => {

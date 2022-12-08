@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { postUser, getUser } = require("../controllers/users.js");
 const router = Router();
 const { User } = require('../models/User')
+const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary')
 
 router.post("/", async (req,res)=>{
     try {
@@ -13,11 +14,13 @@ router.post("/", async (req,res)=>{
     } 
 });
 
+
+/////Devuelve todos los usuarios o por id
 router.get('/', async (req, res) => {
     try {
         const { id } = req.query
-        let admin = await getUser(id)
-        res.status(200).json(admin)
+        let users = await getUser(id)
+        res.status(200).json(users)
     } catch (error) {
         res.status(400).send(error)        
     }
@@ -26,7 +29,7 @@ router.get('/', async (req, res) => {
 router.get('/admin', async (req, res) => {
     try {
         let admin = await User.find({admin: true})
-        res.status(200).json(admin)
+        res.status(200).json(admin[0])
     } catch (error) {
         res.status(400).send(error)          
     }
@@ -38,6 +41,7 @@ router.delete('/:_id', async (req, res) => {
     console.log('id: ', _id )
     try {
         let user = await User.findByIdAndDelete(_id)
+        await deleteFileCloudinary(user.imageId)
         res.status(200).json(user) 
     } catch (error) {
         res.status(400).send(error)
