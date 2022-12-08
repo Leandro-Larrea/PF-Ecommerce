@@ -51,6 +51,7 @@ router.post("/email", async (req, res) => {
   console.log("email", mail);
 
   let mailTransporter = nodemailer.createTransport({
+    host: 'https://pf-ecommerce-rho.vercel.app',
     service: "Outlook365",
     auth:{
       user: "matiassoto00@outlook.com",
