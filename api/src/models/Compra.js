@@ -20,4 +20,4 @@ const compraSchema = new Schema({
     }
 });
 
-module.exports = cartSchema;
+module.exports = compraSchema;

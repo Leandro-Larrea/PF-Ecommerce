@@ -29,6 +29,19 @@ const locationSchema = new Schema({
      },
    });
 
+   
+const cartSchema = new Schema({
+    productId:{
+      type: String,
+      required: true
+    },
+    quantity:{
+      type: Number,
+      required: true,
+      default: 1
+    }
+  });
+
 const userSchema = new Schema({
     _id:{type: String,
         required: true,
@@ -50,7 +63,7 @@ const userSchema = new Schema({
         trim: true
     },
     purchases:{
-          type:[reviewsSchema]
+          type:[]
       },
     phone:{
         type: String,
@@ -61,10 +74,7 @@ const userSchema = new Schema({
     location:{
         type: locationSchema,
     },
-    cart:{
-        type: Array,
-        required: false
-    },
+    cart:[cartSchema],
     admin:{
         type: Boolean,
         default: false
