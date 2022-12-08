@@ -4,6 +4,7 @@ const router = Router();
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 const nodemailer = require('nodemailer')
+const port = process.env.PORT || 3001;
 /* const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY); */
 
@@ -52,6 +53,7 @@ router.post("/email", async (req, res) => {
 
   let mailTransporter = nodemailer.createTransport({
     host: 'https://pf-ecommerce-rho.vercel.app',
+    port: port,
     service: "Outlook365",
     auth:{
       user: "matiassoto00@outlook.com",
@@ -64,7 +66,7 @@ router.post("/email", async (req, res) => {
     // verify connection configuration
     mailTransporter.verify(function (error, success) {
         if (error) {
-            console.log(error);
+            console.log("fallo verificacion",error);
             reject(error);
         } else {
             console.log("Server is ready to take our messages");
@@ -88,7 +90,7 @@ router.post("/email", async (req, res) => {
       if (err) {
         console.log("error", err);
       } else {
-        console.log(info);
+        console.log("fallo el envio",info);
         resolve (info)
       }
     })
