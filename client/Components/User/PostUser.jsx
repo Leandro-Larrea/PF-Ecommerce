@@ -1,18 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {Form, FormItem, Picker} from 'react-native-form-component';
-import {getCategories, postUser} from '../../redux/actions';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, FormItem, Picker } from 'react-native-form-component';
+import { getCategories, getUser, postUser } from '../../redux/actions';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../Home/Header';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,12 +12,18 @@ import {useAuth0} from 'react-native-auth0';
 import {stylesCardProduct} from '../../styles';
 
 export const PostUser = () => {
-  const {user} = useAuth0();
-  const dispatch = useDispatch();
-  const userDb = useSelector(state => state.user);
+   
+    const {user} = useAuth0();
+    const dispatch = useDispatch();
+    const userDb = useSelector(state => state.user)
+    console.log(user)
+   
+    // aca me traigo el estado de las categorias ej: state => state.allCategories
+    const allCategories = useSelector(state => state.categories)
 
-  // aca me traigo el estado de las categorias ej: state => state.allCategories
-  const allCategories = useSelector(state => state.categories);
+    useEffect(() => {
+       dispatch(getUser(user.sub))
+    },[])
 
   useEffect(() => {
     if (userDb) {
@@ -48,42 +46,43 @@ export const PostUser = () => {
     return errors;
   }
 
-  const [image, setImage] = useState({uri: ''});
-  const [input, setInput] = useState({
-    name: '',
-    lastName: '',
-    location: {country: '', city: '', address: ''},
-    image: '',
-    phone: '',
-  });
-
-  const openGallery = () => {
-    const options = {
-      storageOptions: {
-        path: 'images',
-        mediaType: 'photo',
-      },
-      includeBase64: true,
-    };
-    launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error : ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom Button: ', response.customButton);
-      } else {
-        const source = 'data:image/jpeg;base64,' + response.assets[0].base64;
-        setImage({uri: source});
-        console.log('se cargo la imagen wachin');
-        console.log(image);
-        setInput({...input, image: source});
-        setErrors(validate({...input, image: source}));
-        console.log('formulario', input);
-      }
-    });
-  };
+    const [image, setImage] = useState({ uri: '' });
+    const [input, setInput] = useState({
+        name: '',
+        lastName: '',
+        location: { country:"", city:"", address:"" },
+        image:"",
+        phone:"",
+        mail:user.email
+    })
+  
+    const openGallery = () => {
+        const options = {
+            storageOptions: {
+                path: 'images',
+                mediaType: 'photo',
+            },
+            includeBase64: true,
+        };
+        launchImageLibrary(options, response => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error : ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom Button: ', response.customButton);
+            } else {
+                const source = 'data:image/jpeg;base64,' + response.assets[0].base64;
+                setImage({ uri: source });
+                console.log("se cargo la imagen wachin");
+                console.log(image);
+                setInput({ ...input, image: source })
+                setErrors(validate({ ...input, image: source }))
+                console.log("formulario", input)
+            }
+        })
+    }
 
   const handleSubmit = () => {
     if (
