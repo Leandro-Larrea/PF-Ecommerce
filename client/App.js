@@ -18,6 +18,7 @@ import {Profile} from './Components/User/Profile';
 import {ProfileEdit} from './Components/User/ProfileEdit';
 import { PostUser } from './Components/User/PostUser';
 
+axios.defaults.baseURL = 'http://192.168.0.94:3001';
 
 const Stack = createStackNavigator();
 const App = () => {
