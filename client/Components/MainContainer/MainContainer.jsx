@@ -11,6 +11,7 @@ import ListCart from '../Cart/ListCart';
 import {Profile} from '../User/Profile';
 import {PostUser} from '../User/PostUser';
 import { MyAccount } from '../User/MyAccount';
+import ScreenLogin from '../LogButtons/ScreenLogin';
 
 //Screen-Name
 
@@ -55,7 +56,7 @@ export const MainContainer = () => {
       <Tab.Screen name={lookProductsName} component={LookProducts} />
       <Tab.Screen name={cartName} component={ListCart} />
       {/* <Tab.Screen name={postName} component={loggedIn ? PostUser : Profile} /> */}
-      <Tab.Screen name={myAccount} component={MyAccount} />
+      <Tab.Screen name={myAccount} component={loggedIn ? MyAccount : ScreenLogin} />
     </Tab.Navigator>
   );
 };
