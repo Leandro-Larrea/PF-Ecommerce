@@ -22,7 +22,9 @@ export const PostUser = () => {
     const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
-       dispatch(getUser(user.sub))
+      if (user) {
+        dispatch(getUser(user.sub))
+      }
     },[])
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export const PostUser = () => {
         location: { country:"", city:"", address:"" },
         image:"",
         phone:"",
-        mail:user.email
+        mail:user?.email
     })
   
     const openGallery = () => {
