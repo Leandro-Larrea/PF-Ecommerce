@@ -83,10 +83,11 @@ const style = StyleSheet.create({
   },
   categoriesText: {
     fontFamily:'Louis George Cafe Bold',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     flex: 0,
-    marginTop: 50,
+    marginTop: 40,
+    marginBottom:10,
     color:'black'
   },
   cuenta: {
