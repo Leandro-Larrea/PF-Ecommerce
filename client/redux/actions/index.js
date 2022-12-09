@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-export const SET_REDUCER_CART = 'SET_REDUCER_CART';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH = 'SEARCH';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
@@ -10,31 +9,39 @@ export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 export const GET_USER = 'GET_USER';
 
-export const setReducerCart = cart => {
-  return {
-    type: SET_REDUCER_CART,
-    payload: cart,
-  };
-};
 export const getDBCart = userId => dispatch => {
   return axios
     .get(`/users/cart/${userId}`)
     .then(res => {
-      dispatch({
-        type: SET_REDUCER_CART,
-        payload: res.data,
+      const cart = res.data.map(e => {
+        return {
+          quantity: e.quantity,
+          productId: e.productId,
+          product: {
+            _id: e.product._id,
+            title: e.product.title,
+            image: e.product.image,
+            price: e.product.price,
+            stock: e.product.stock,
+          },
+        };
       });
-      return true;
+      return cart;
     })
     .catch(() => false);
 };
 export const dbUpdateCart = (cart, userId) => dispatch => {
+  cart = cart.map(e => {
+    return {productId: e.productId, quantity: e.quantity};
+  });
   return axios
     .put(`/users/cart/${userId}`, cart)
-    .then(({data}) => {
-      return data;
+    .then(response => {
+      return true;
     })
-    .catch(() => false);
+    .catch(() => {
+      return false;
+    });
 };
 export const getProducts = () => dispatch => {
   /*cada uno tiene que poner su propia IP*/

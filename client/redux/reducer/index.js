@@ -1,5 +1,4 @@
 import {
-  SET_REDUCER_CART,
   GET_PRODUCTS,
   SEARCH,
   GET_CATEGORIES,
@@ -13,7 +12,6 @@ import {
 const initialState = {
   products: undefined,
   categories: [],
-  cart: [],
   filters: {
     title: '',
     min: '',
@@ -30,11 +28,6 @@ const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         total: payload,
-      };
-    case SET_REDUCER_CART:
-      return {
-        ...state,
-        cart: payload,
       };
     case GET_PRODUCTS:
       return {

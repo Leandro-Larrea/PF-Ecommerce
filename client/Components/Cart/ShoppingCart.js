@@ -1,132 +1,127 @@
 import {createContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import storage from '../AsyncStorage/AsyncStorage';
-import {
-  setReducerCart,
-  getUser,
-  clearUser,
-  dbUpdateCart,
-  getDBCart,
-  // getDBCart,
-  // createDBCart,
-  // updateDBCart,
-  // deleteDBCart,
-} from '../../redux/actions';
+import {getUser, clearUser, dbUpdateCart, getDBCart} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 
 export const CartContext = createContext();
 export const CartProvider = ({children}) => {
-  const {authorize, clearSession, user} = useAuth0();
-  const [loadindAuth0, setLoadindAuth0] = useState(false);
+  const {clearSession, user} = useAuth0();
+  let [init, setInit] = useState(false);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
   const myUserDB = useSelector(state => state.user);
   const [updateUser, setUpdateUser] = useState(false);
   const [cartItems, setCartItems] = useState(null);
-  const [userId, setUserId] = useState(0);
-
-  const [isSaveDB, setSaveDB] = useState(null);
-
-  useEffect(() => {
-    async function ejet() {
-      if (!cartItems) {
-        storage
-          .getJSON('products')
-          .then(async products => {
-            setCartItems(products?.length ? [...products] : []);
-          })
-          .catch(error => {
-            return setCartItems([]);
-          });
-      } else {
-        storage.setJSON('products', cartItems);
-      }
-    }
-    ejet();
-  }, [cartItems]);
+  const [userId, setUserId] = useState(null);
+  // user = undefined;
+  let [isSaveDB, setSaveDB] = useState(null);
 
   useEffect(() => {
     async function ejet() {
       if (user) {
         setUserId(user.sub);
       } else {
-        setUserId(0);
-        setCartItems([]);
-        await dispatch(setReducerCart([]));
-        await dispatch(clearUser());
-        setSaveDB(false);
+        // setUserId('google-oauth2|107115370877971409336');
+        if (init) {
+          setUserId(
+            null /*'google-oauth2|107115370877971409336'  'auth0|638bc7f0a442109d49bd4774' */,
+          );
+          setCartItems([]);
+          await dispatch(clearUser());
+
+          storage.set('isSaveDB', false);
+          setSaveDB(false);
+          setInit(false);
+        }
       }
-      alert('userAuth0 ' + user);
     }
     ejet();
   }, [user]);
+
   useEffect(() => {
-    if (userId) {
-      //"obtener la info del logueado ----> DB"
-      async function ejet() {
+    ejet();
+    async function ejet() {
+      if (!cartItems && !userId) {
+        storage
+          .getJSON('products')
+          .then(async products => {
+            const c = products?.length ? [...products] : [];
+            setCartItems(c);
+          })
+          .catch(error => {
+            return setCartItems([]);
+          });
+      } else {
+        if (userId && init) {
+          await dispatch(dbUpdateCart(cartItems, userId, true));
+        }
+        storage.setJSON('products', cartItems);
+      }
+    }
+  }, [cartItems]);
+  useEffect(() => {
+    storage
+      .get('isSaveDB')
+      .then(response => {
+        setSaveDB(response ? true : false);
+        ejet(response ? true : false);
+      })
+      .catch(error => {
+        setSaveDB(true);
+        ejet(true);
+      });
+    async function ejet(isSave = true) {
+      if (userId) {
+        //"obtener la info del logueado ----> DB"
         const response = await dispatch(getUser(userId));
         if (response) {
-        } else {
-          SignOff();
-        }
-      }
-      ejet();
-    }
-  }, [updateUser]);
-  useEffect(() => {
-    async function ejet() {
-      if (userId) {
-        if (isSaveDB === null) {
-          // storage.removeItem('isSaveDB');
-          storage
-            .get('isSaveDB')
-            .then(response => {
-              setSaveDB(response ? true : false);
-            })
-            .catch(error => {
-              setSaveDB(false);
-            });
-        } else {
-          console.log(isSaveDB, userId);
-          storage.set('isSaveDB', isSaveDB);
-          alert('shoppingCart ' + userId + ' isSaveDB ' + isSaveDB);
-          //"obtener la info del logueado ----> DB"
-          const response = await dispatch(getUser(userId));
-          console.log('myUserDB', response);
-          if (response) {
-            alert('shoppingCart response' + response);
-            if (!isSaveDB) {
-              //crear en db el carrito 1 sola vez
-              //"guardado el carrito ----> DB"
-
-              await dispatch(
-                dbUpdateCart(
-                  cartItems.map(i => {
-                    i.quantity, i.productId;
-                  }),
-                  userId,
-                  true,
-                ),
-              );
-              //"obteniendo carrito ----> DB"
-              await dispatch(getDBCart(userId));
-              setSaveDB(true);
+          let cartDB = [];
+          //"obteniendo carrito ----> DB"
+          if (!init) {
+            cartDB = await dispatch(getDBCart(userId));
+            function changePosition(arr, p1, p2) {
+              [arr[p1], arr[p2]] = [arr[p2], arr[p1]];
             }
-          } else {
-            SignOff();
+            [...cartItems].map((e, i) => {
+              const find = cartDB.find(item => item.productId === e.productId);
+              if (find) {
+                cartDB.splice(cartDB.indexOf(find), 1);
+                changePosition(cartItems, i, 0);
+              }
+            });
+            cartDB = [...cartItems, ...cartDB];
           }
+          if (!isSave) {
+            //crear en db el carrito 1 sola vez
+            //"guardado el carrito ----> DB"
+            if (cartItems) {
+              await dispatch(dbUpdateCart(cartDB, userId, true));
+
+              storage.setJSON('products', cartDB);
+            }
+
+            storage.set('isSaveDB', true);
+            // isSaveDB = true;
+            setSaveDB(true);
+          }
+          if (!init) {
+            init = true;
+            setInit(true);
+            setCartItems(cartDB);
+          }
+        } else {
+          // SignOff();
         }
       }
     }
-    ejet();
-  }, [userId]);
+  }, [userId, isSaveDB]);
 
-  useEffect(() => {
-    if (userId) {
-      setCartItems([...cart]);
-      //"finalCartDB"
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (userId && !init) {
+  //     //"finalCartDB"
+  //   }
+  // }, [cart]);
   //-----------------> Login
   const logIn = () => {
     setSaveDB(false);
@@ -135,9 +130,9 @@ export const CartProvider = ({children}) => {
     await clearSession();
     setUserId(0);
     setCartItems([]);
-    await dispatch(setReducerCart([]));
     await dispatch(clearUser());
     setSaveDB(false);
+    setInit(false);
   };
   //<--------------
 
@@ -153,23 +148,6 @@ export const CartProvider = ({children}) => {
     ) {
       productInCart.quantity = quantity ? quantity : productInCart.quantity + 1;
       setCartItems([...cartItems]);
-      if (userId) {
-        const response = await dispatch(
-          dbUpdateCart(
-            cartItems.map(i => {
-              return i.quantity, i.productId;
-            }),
-            userId,
-            true,
-          ),
-        );
-        alert(
-          'response adUpdateCart: keys:' +
-            Object.keys(response) +
-            ' values: ' +
-            Object.values(response),
-        );
-      }
       return;
     }
   };
@@ -188,18 +166,6 @@ export const CartProvider = ({children}) => {
       };
       cartItems.push(porductInCart);
       setCartItems([...cartItems]);
-
-      if (userId) {
-        await dispatch(
-          dbUpdateCart(
-            cartItems.map(i => {
-              return i.quantity, i.productId;
-            }),
-            userId,
-            true,
-          ),
-        );
-      }
       return;
     }
   };
@@ -208,36 +174,12 @@ export const CartProvider = ({children}) => {
     if (productInCart.quantity > 1) {
       productInCart.quantity--;
       setCartItems([...cartItems]);
-
-      if (userId) {
-        await dispatch(
-          dbUpdateCart(
-            cartItems.map(i => {
-              return i.quantity, i.productId;
-            }),
-            userId,
-            true,
-          ),
-        );
-      }
       return;
     }
   };
   const deleteItemToCart = async productInCart => {
     cartItems.splice(cartItems.indexOf(productInCart), 1);
     setCartItems([...cartItems]);
-
-    if (userId) {
-      await dispatch(
-        dbUpdateCart(
-          cartItems.map(i => {
-            return i.quantity, i.productId;
-          }),
-          userId,
-          true,
-        ),
-      );
-    }
     return 'finished';
   };
 

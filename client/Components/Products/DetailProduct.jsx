@@ -56,7 +56,7 @@ function DetailProduct({route, navigation}) {
                 setLoadingCart(true);
                 if (inCart) {
                   new Promise(resolver =>
-                    setTimeout(() => resolver(deleteItemToCart(inCart)), 1000),
+                    resolver(deleteItemToCart(inCart)),
                   ).then(response => {
                     setLoadingCart(false);
                     Animated.sequence([
@@ -71,10 +71,7 @@ function DetailProduct({route, navigation}) {
                   // navigation.goBack();
                 } else {
                   new Promise(resolver =>
-                    setTimeout(
-                      () => resolver(addItemToCart(route.params, 1)),
-                      1000,
-                    ),
+                    resolver(addItemToCart(route.params, 1)),
                   ).then(response => {
                     setLoadingCart(false);
                     Animated.sequence([
