@@ -32,15 +32,26 @@ export const PostUser = () => {
     
     const [errors, setErrors] = useState({})
 
+    const validation ={
+        name: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
+        lastName: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
+        // description: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,702}$/,
+        mail: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
+        phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        country: /^[A-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
+        city: /^[A-ZA-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
+        address: /^[A-ZA-Z]{1}[a-zA-Z.\d':,\s_-]{1,92}$/,
+      }
+
     function validate(input) {
         let errors = {};
-        if (!input.name) errors.name = "Enter name"
-        if (!input.lastName) errors.lastName = "Enter Last name"
-        if (!input.phone) errors.phone = "Enter phone"
-        if (!input.location.country) errors.country = "Enter country"
-        if (!input.location.city) errors.city = "Enter city"
-        if (!input.location.address) errors.address = "Enter address"
-        if (!input.mail) errors.mail = "Enter mail"
+        if (!validation.name.test(input.name)) errors.name = "Enter name"
+        if (!validation.lastName.test(input.lastName)) errors.lastName = "Enter Last name"
+        if (!validation.phone.test(input.phone)) errors.phone = "Enter phone"
+        if (!validation.country.test(input.location.country)) errors.country = "Enter country"
+        if (!validation.city.test(input.location.city)) errors.city = "Enter city"
+        if (!validation.address.test(input.location.address)) errors.address = "Enter address"
+        if (!validation.mail.test(input.mail)) errors.mail = "Enter mail"
     
         return errors;
     }
