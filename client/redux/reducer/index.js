@@ -22,7 +22,7 @@ const initialState = {
     category: '',
   },
   productReview:[],
-  user: {},
+  user: null,
   total: 0,
 };
 

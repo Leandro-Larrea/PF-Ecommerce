@@ -83,7 +83,8 @@ export function postUser(obj) {
   };
 }
 
-export const getUser = id => dispatch => {
+export const getUser = id => async dispatch => {
+  console.log(id)
   return axios.get(`/users?id=${id}`).then(res => {
     dispatch({
       type: 'GET_USER',

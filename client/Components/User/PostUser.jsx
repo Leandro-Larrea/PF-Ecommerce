@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
-import { getCategories, postUser } from '../../redux/actions';
+import { getCategories, getUser, postUser } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,35 +10,49 @@ import Header from '../Home/Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAuth0} from 'react-native-auth0';
 
-
-
 export const PostUser = () => {
-
+   
     const {user} = useAuth0();
     const dispatch = useDispatch();
+    const userDb = useSelector(state => state.user)
+    console.log(user)
    
-
     // aca me traigo el estado de las categorias ej: state => state.allCategories
     const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
-        dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
-    }, [dispatch])
+       dispatch(getUser(user.sub))
+    },[])
 
+    useEffect(() => {
+        if(userDb){
+            setInput(userDb)
+        }
+    },[])
+    
     const [errors, setErrors] = useState({})
+
+    const validation ={
+        name: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
+        lastName: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
+        // description: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,702}$/,
+        mail: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
+        phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        country: /^[A-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
+        city: /^[A-ZA-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
+        address: /^[A-ZA-Z]{1}[a-zA-Z.\d':,\s_-]{1,92}$/,
+      }
 
     function validate(input) {
         let errors = {};
-        if (!input.name) errors.name = "Enter name"
-        if (!input.lastName) errors.lastName = "Enter Last name"
-        if (!input.phone) errors.phone = "Enter phone"
-        if (!input.location.country) errors.country = "Enter country"
-        if (!input.location.city) errors.city = "Enter city"
-        if (!input.location.address) errors.address = "Enter address"
-        if (!input.mail) errors.mail = "Enter mail"
-        
-      
-
+        if (!validation.name.test(input.name)) errors.name = "Enter name"
+        if (!validation.lastName.test(input.lastName)) errors.lastName = "Enter Last name"
+        if (!validation.phone.test(input.phone)) errors.phone = "Enter phone"
+        if (!validation.country.test(input.location.country)) errors.country = "Enter country"
+        if (!validation.city.test(input.location.city)) errors.city = "Enter city"
+        if (!validation.address.test(input.location.address)) errors.address = "Enter address"
+        if (!validation.mail.test(input.mail)) errors.mail = "Enter mail"
+    
         return errors;
     }
 
@@ -48,9 +62,10 @@ export const PostUser = () => {
         lastName: '',
         location: { country:"", city:"", address:"" },
         image:"",
-        phone:""
+        phone:"",
+        mail:user.email
     })
-
+  
     const openGallery = () => {
         const options = {
             storageOptions: {
@@ -79,14 +94,16 @@ export const PostUser = () => {
         })
     }
 
-
     const handleSubmit = () => {
         if (!input.name || !input.lastName | !input.location.country || !input.location.city | !input.location.address || !input.mail || !input.phone) {
             Alert.alert('Completar todos los campos')
         } else {
-            console.log("else", user.sub)
-            dispatch(postUser({...input, _id:user.sub}));
-            Alert.alert('Producto Creado 👍 ')
+            if(!userDb){
+                dispatch(postUser({...input, _id:user.sub}));
+                 Alert.alert('data saved succesfully 👍 ')}
+            if(userDb){
+                 Alert.alert('aca habria que hacer algo pero no se que')}
+            }
             setInput({
                 name: '',
                 lastName: '',
@@ -97,20 +114,13 @@ export const PostUser = () => {
             })
             setImage({ uri: '' })
         }
-    }
+    
 
     return (
         <ScrollView>
-        {/* <LinearGradient
-        style={{paddingBottom: 67}}
-          colors={['#89c30d', 'white', '#2d2d2d' ]}
-          start={{ x: 0.7, y: 0 }}
-          > */}
-
             <View style={style.header}>
                 <Header />
             </View>
-
             <Form style={style.Form} buttonTextStyle={!Object.keys(errors).length > 0 ? style.buttonText : style.buttonTextFail} buttonStyle={!errors.name && !errors.lastName && !errors.mail && !errors.phone && !errors.country && !errors.city && !errors.address ? style.buttonForm : style.buttonFail} buttonText={!Object.keys(errors).length > 0 ? 'Guardar Datos ✅' : '*Faltan Datos*'} onButtonPress={() => handleSubmit()}>
                 <FormItem
                     textInputStyle={style.textoInput}
@@ -123,7 +133,6 @@ export const PostUser = () => {
                     value={input.name}
                     onChangeText={(text) => { setInput({ ...input, name: text }), setErrors(validate({ ...input, name: text })) }}
                     />
-
                 <FormItem
                     textInputStyle={style.textoInput}
                     cursorColor={"white"}
@@ -190,7 +199,6 @@ export const PostUser = () => {
                     value={input.location.address}
                     onChangeText={(text) => { setInput({ ...input, location:{...input.location,address: text }}), setErrors(validate({ ...input, location:{...input.location,address: text }})) }}
                     />
-
                 <View style={{ alignItems: "center" }}>
                     <TouchableOpacity
                         onPress={() => openGallery()}
@@ -203,14 +211,12 @@ export const PostUser = () => {
                         <Image
                             source={image}
                             style={{ height: 150, width: 150, borderRadius: 1, borderWidth: 2, borderColor: "black" }}>
-
                         </Image> :
                         <Text style={{ color: "black" }}>Photo</Text>
                     }
                 </View>
 
             </Form>
-                    {/* </LinearGradient> */}
         </ScrollView>
     );
 }

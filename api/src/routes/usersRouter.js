@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { postUser, getUser } = require("../controllers/users.js");
+const { postUser, getUser, getCart, updateCart } = require("../controllers/users.js");
 const router = Router();
 const { User } = require('../models/User')
 const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary')
@@ -19,11 +19,31 @@ router.post("/", async (req,res)=>{
 router.get('/', async (req, res) => {
     try {
         const { id } = req.query
-        let users = await getUser(id)
-        res.status(200).json(users)
+        let a = await getUser(id)
+      return  res.status(200).json(a)
     } catch (error) {
-        res.status(400).send(error)        
+      return  res.status(400).send(error)        
     }
+})
+
+router.put("/cart/:id", async (req,res)=>{
+    const {id} = req.params
+    try {
+        let response = await updateCart(id,req.body)
+        res.status(201).json(response)
+    } catch (error) {
+        res.status(400).send(error)
+    } 
+})
+
+router.get("/cart/:id", async (req,res)=>{
+    const {id} = req.params
+    try {
+        let response = await getCart(id)
+        res.status(201).json(response)
+    } catch (error) {
+        res.status(400).send(error)
+    } 
 })
 
 router.get('/admin', async (req, res) => {

@@ -32,7 +32,6 @@ const ratingSchema = new Schema({
   },
 });
 
-
 const productSchema = new Schema(
   {
     title: {
