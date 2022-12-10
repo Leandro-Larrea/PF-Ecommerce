@@ -1,5 +1,5 @@
 import {
-  SET_REDUCER_CART,
+  GET_PRODUCT_BYPK,
   GET_PRODUCTS,
   SEARCH,
   GET_CATEGORIES,
@@ -8,20 +8,20 @@ import {
   SET_FILTER,
   SET_PRICE,
   GET_USER,
-  GET_REVIEWS
+  GET_REVIEWS,
 } from '../actions';
 
 const initialState = {
+  detailProduct: undefined,
   products: undefined,
   categories: [],
-  cart: [],
   filters: {
     title: '',
     min: '',
     max: '',
     category: '',
   },
-  productReview:[],
+  productReview: [],
   user: null,
   total: 0,
 };
@@ -33,10 +33,10 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         total: payload,
       };
-    case SET_REDUCER_CART:
+    case GET_PRODUCT_BYPK:
       return {
         ...state,
-        cart: payload,
+        detailProduct: payload.a,
       };
     case GET_PRODUCTS:
       return {
@@ -103,8 +103,8 @@ const reducer = (state = initialState, {type, payload}) => {
     case GET_REVIEWS:
       return {
         ...state,
-        productReview:payload
-      }
+        productReview: payload,
+      };
     default:
       return state;
   }

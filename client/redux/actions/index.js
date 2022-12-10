@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { ActionSheetIOS } from 'react-native';
+import {ActionSheetIOS} from 'react-native';
 
-export const SET_REDUCER_CART = 'SET_REDUCER_CART';
+export const GET_PRODUCT_BYPK = 'GET_PRODUCT_BYPK';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH = 'SEARCH';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
@@ -10,13 +10,41 @@ export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 export const GET_USER = 'GET_USER';
-export const GET_REVIEWS='GET_REVIEWS'
+export const GET_REVIEWS = 'GET_REVIEWS';
 
-export const setReducerCart = cart => {
-  return {
-    type: SET_REDUCER_CART,
-    payload: cart,
-  };
+export const getDBCart = userId => dispatch => {
+  return axios
+    .get(`/users/cart/${userId}`)
+    .then(res => {
+      const cart = res.data.map(e => {
+        return {
+          quantity: e.quantity,
+          productId: e.productId,
+          product: {
+            _id: e.product._id,
+            title: e.product.title,
+            image: e.product.image,
+            price: e.product.price,
+            stock: e.product.stock,
+          },
+        };
+      });
+      return cart;
+    })
+    .catch(() => false);
+};
+export const dbUpdateCart = (cart, userId) => dispatch => {
+  cart = cart.map(e => {
+    return {productId: e.productId, quantity: e.quantity};
+  });
+  return axios
+    .put(`/users/cart/${userId}`, cart)
+    .then(response => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 };
 export const getProducts = () => dispatch => {
   /*cada uno tiene que poner su propia IP*/
@@ -27,6 +55,19 @@ export const getProducts = () => dispatch => {
     });
     return true;
   });
+};
+export const getProductByPK = productId => dispatch => {
+  return axios
+    .get(`/products/${productId}`)
+    .then(res => {
+      dispatch({
+        type: GET_PRODUCT_BYPK,
+        payload: res.data,
+      });
+      // console.log(res.data);
+      return true;
+    })
+    .catch(() => false);
 };
 
 export const getCategories = () => dispatch => {
@@ -83,13 +124,22 @@ export function postUser(obj) {
   };
 }
 
-export const getUser = id => async dispatch => {
-  console.log(id)
-  return axios.get(`/users?id=${id}`).then(res => {
-    dispatch({
-      type: 'GET_USER',
-      payload: res.data,
-    });
+export const getUser = id => dispatch => {
+  return axios
+    .get(`/users?id=${id}`)
+    .then(res => {
+      dispatch({
+        type: 'GET_USER',
+        payload: res.data,
+      });
+      return true;
+    })
+    .catch(() => false);
+};
+export const clearUser = () => dispatch => {
+  dispatch({
+    type: 'GET_USER',
+    payload: [],
   });
 };
 
@@ -101,7 +151,6 @@ export const filterByCategories = category => dispatch => {
     });
   });
 };
-
 
 export function addReview(reviewData) {
   return async function (dispatch) {
@@ -117,11 +166,9 @@ export function addReview(reviewData) {
   };
 }
 
-export const getReviews = (id) => dispatch => {
-
-  return axios.get('products/reviews')
-  .then(res => {
-    const productReviews = res.data.filter(e=>e.productId==id)
+export const getReviews = id => dispatch => {
+  return axios.get('products/reviews').then(res => {
+    const productReviews = res.data.filter(e => e.productId == id);
     dispatch({
       type: 'GET_REVIEWS',
       payload: productReviews,

@@ -6,6 +6,7 @@ import {useContext, memo, useRef} from 'react';
 import {stylesCardProduct} from '../../styles';
 import {useAuth0} from 'react-native-auth0';
 import {Button, Text} from '@rneui/themed';
+import CardPrice from '../CardPrice';
 
 const CardProduct = ({navegar, product}) => {
   let {_id, title, image, description, price} = product;
@@ -37,7 +38,7 @@ const CardProduct = ({navegar, product}) => {
     if (inCart) await deleteItemToCart(inCart);
     else await addItemToCart(product);
   };
-
+  const off = Math.floor(Math.random() * 20);
   return (
     <View style={styles.container} title={title}>
       <Image
@@ -58,9 +59,7 @@ const CardProduct = ({navegar, product}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <Text numberOfLines={1} style={styles.price}>
-          US${price}
-        </Text>
+        <CardPrice price={price} text={off + '% Off'} off={off} />
         <View style={{flexDirection: 'row'}}>
           <Button
             color={'#2d2d2d'}
