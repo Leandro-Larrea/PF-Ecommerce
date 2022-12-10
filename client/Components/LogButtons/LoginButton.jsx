@@ -15,12 +15,5 @@ export const LoginButton = () => {
         }
     };
 
-    return <Button  color={'#89c30d'} onPress={onPress} title="Log in" />
+    return <Button onPress={onPress} title="Log in" />
 }
-
-const styles = StyleSheet.create({
-    button: {
-      width:"100px",
-      color:"red"
-    }
-})
