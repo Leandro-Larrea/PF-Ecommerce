@@ -4,7 +4,7 @@ const router = Router();
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 const nodemailer = require('nodemailer')
-const port = process.env.PORT || 3001;
+/* const port = process.env.PORT || 3001; */
 /* const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY); */
 
@@ -43,6 +43,9 @@ router.post("/pay", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
+
+
   ////////NODEMAILER
 router.post("/email", async (req, res) => {
   console.log(req.body);
@@ -50,11 +53,13 @@ router.post("/email", async (req, res) => {
   let orderDate = date.getDate() + "-"+ date.getMonth()+ "-" +date.getFullYear();
   const {name, lastname, price, mail} = req.body
   console.log("email", mail);
-
+  /* Nombre de servidor: smtp.office365.com
+  Puerto: 587
+  Método de cifrado: STARTTLS */
   let mailTransporter = nodemailer.createTransport({
-    host: 'https://pf-ecommerce-rho.vercel.app',
-    port: port,
-    service: "Outlook365",
+    host: 'smtp.office365.com',
+    port: 587,
+    service: "hotmail",
     auth:{
       user: "matiassoto00@outlook.com",
       pass: "smite2014"
@@ -98,27 +103,10 @@ router.post("/email", async (req, res) => {
   res.status(200).json({ status : "OK"});
 })
 
-  /* let message = {
-    to: mail,
-    from: "matiassmite2017@outlook.com",
-    subject: "Ty for Buying",
-    text: "Gracias por tu compra rey",
-    html: "<h1>Gracias por tu compra</h1>"
-  }
+//////////////////NODEMAILER
 
-  sgMail.send(message)
-  .then(() => console.log("se envio el mail "))
-  .catch((error) => console.log("error", error))
-  res.status(200).send("email enviado")
-}) */
-  
-  
-  
-  
-  
-  
-  //////////////////NODEMAILER
-  router.post("/stripe", async (req, res) => {
+
+router.post("/stripe", async (req, res) => {
     const sig = req.headers["stripe-signature"];
     let event;
     try {
