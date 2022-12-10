@@ -1,7 +1,6 @@
 import React from "react";
 import {Button} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
-import { StyleSheet } from "react-native";
 import { color } from "@rneui/base";
 
 export const LoginButton = () => {

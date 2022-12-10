@@ -1,5 +1,4 @@
-import { View } from "react-native"
-import { Text } from "@rneui/base"
+import { View, Text } from "react-native"
 
 
 

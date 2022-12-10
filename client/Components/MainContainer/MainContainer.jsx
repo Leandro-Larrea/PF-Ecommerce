@@ -10,13 +10,16 @@ import {LookProducts} from '../LookProducts/LookProducts';
 import ListCart from '../Cart/ListCart';
 import {Profile} from '../User/Profile';
 import {PostUser} from '../User/PostUser';
+import { MyAccount } from '../User/MyAccount';
+import ScreenLogin from '../LogButtons/ScreenLogin';
 
 //Screen-Name
 
 const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
-const profile = 'Profile';
+//const profile = 'Profile';
+const myAccount = 'My Account';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +45,7 @@ export const MainContainer = () => {
             iconName = focused ? 'search-sharp' : 'search-outline';
           } else if (rn === cartName) {
             iconName = focused ? 'cart-sharp' : 'cart-outline';
-          } else if (rn === profile) {
+          } else if (rn === myAccount) {
             iconName = focused ? 'add-circle-sharp' : 'add-circle-outline';
           }
           return <Icon name={iconName} size={size} color={color} />;
@@ -53,7 +56,7 @@ export const MainContainer = () => {
       <Tab.Screen name={lookProductsName} component={LookProducts} />
       <Tab.Screen name={cartName} component={ListCart} />
       {/* <Tab.Screen name={postName} component={loggedIn ? PostUser : Profile} /> */}
-      <Tab.Screen name={profile} component={Profile} />
+      <Tab.Screen name={myAccount} component={loggedIn ? MyAccount : ScreenLogin} />
     </Tab.Navigator>
   );
 };
