@@ -19,7 +19,7 @@ export const PostUser = () => {
     console.log(user)
    
     // aca me traigo el estado de las categorias ej: state => state.allCategories
-    const allCategories = useSelector(state => state.categories)
+    //const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
       if (user) {
