@@ -7,6 +7,7 @@ import {
   SET_FILTER,
   SET_PRICE,
   GET_USER,
+  GET_REVIEWS
 } from '../actions';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     max: '',
     category: '',
   },
+  productReview:[],
   user: null,
   total: 0,
 };
@@ -90,6 +92,11 @@ const reducer = (state = initialState, {type, payload}) => {
           .reverse();
 
         return {...state, products: sort};
+      }
+    case GET_REVIEWS:
+      return {
+        ...state,
+        productReview:payload
       }
     default:
       return state;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ActionSheetIOS } from 'react-native';
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH = 'SEARCH';
@@ -8,6 +9,7 @@ export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 export const GET_USER = 'GET_USER';
+export const GET_REVIEWS='GET_REVIEWS'
 
 export const getDBCart = userId => dispatch => {
   return axios
@@ -132,6 +134,33 @@ export const filterByCategories = category => dispatch => {
     dispatch({
       type: 'FILTER_CATEGORIES',
       payload: res.data,
+    });
+  });
+};
+
+
+export function addReview(reviewData) {
+  return async function (dispatch) {
+    await axios
+      .put('/products/reviews', reviewData)
+      .then(a => {
+        return;
+      })
+      .catch(error => {
+        console.log('error', error);
+        return;
+      });
+  };
+}
+
+export const getReviews = (id) => dispatch => {
+
+  return axios.get('products/reviews')
+  .then(res => {
+    const productReviews = res.data.filter(e=>e.productId==id)
+    dispatch({
+      type: 'GET_REVIEWS',
+      payload: productReviews,
     });
   });
 };

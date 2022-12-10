@@ -23,7 +23,7 @@ const { User } = require("../models/User")
         phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
         country: /^[A-Z]{1}[a-zA-Z.:,'\s_-]{3,62}$/,
         city: /^[A-ZA-Z]{1}[a-zA-Z.:,'\s_-]{3,62}$/,
-        address: /^[A-ZA-Z]{1}[a-zA-Z.':,\s_-]{3,92}$/,
+        address: /^[A-ZA-Z]{1}[a-zA-Z.\d':,\s_-]{3,92}$/,
       }
       
       let box = {...obj.location, ...obj};
