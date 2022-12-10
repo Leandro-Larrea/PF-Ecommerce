@@ -58,8 +58,9 @@ router.post("/email", async (req, res) => {
   Método de cifrado: STARTTLS */
   let mailTransporter = nodemailer.createTransport({
     host: 'smtp.office365.com',
-    service: "outlook.com",
+    service: "Outlook365",
     port: 587,
+    secureConnection: false,
     secure: false,
     requireTLS: true,
     auth:{
