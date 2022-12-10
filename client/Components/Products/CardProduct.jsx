@@ -84,7 +84,7 @@ const CardProduct = ({navegar, product}) => {
               />
             </Animated.View>
           </Button>
-        </View> */}
+        </View>
       </View>
     </TouchableOpacity>
   );

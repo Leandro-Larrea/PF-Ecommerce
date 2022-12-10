@@ -131,6 +131,9 @@ export const PostUser = () => {
       <View style={style.header}>
         <Header />
       </View>
+      <View style={{paddingTop: 30}}>
+        <Text style={stylesCardProduct.title}>Please, complete yor profile information</Text>
+      </View>
       <Form
         style={style.Form}
         buttonTextStyle={

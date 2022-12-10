@@ -6,7 +6,7 @@ import axios from 'axios';
 import {Auth0Provider} from 'react-native-auth0';
 import {REACT_APP_DOMAIN, REACT_APP_ID_CLIENT} from '@env';
 
-// axios.defaults.baseURL = 'http://192.168.18.25:3001';
+
 axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
 import {CartProvider} from './Components/Cart/ShoppingCart';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,7 +18,7 @@ import {Profile} from './Components/User/Profile';
 import {ProfileEdit} from './Components/User/ProfileEdit';
 import {PostUser} from './Components/User/PostUser';
 
-axios.defaults.baseURL = 'http://192.168.100.11:3001';
+//axios.defaults.baseURL = 'http://192.168.100.11:3001';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -45,7 +45,7 @@ const App = () => {
                 />
                 <Stack.Screen name={'ProfileEdit'} component={ProfileEdit} />
                 <Stack.Screen name={'Pay'} component={Pay} />
-                {<Stack.Screen name={'Post'} component={PostUser} />}
+                <Stack.Screen name={'Post'} component={PostUser} />
               </Stack.Navigator>
             </NavigationContainer>
           </StripeProvider>

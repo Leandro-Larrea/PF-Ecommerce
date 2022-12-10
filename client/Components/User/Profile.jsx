@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect} from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {Text, View, Image, StyleSheet, Button} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,15 +25,15 @@ export const Profile = ({navigation}) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!userDb) {
-      setTimeout(() => {
-        alert(
-          'In order of be able of using the full aplication u need to setup your contact info',
-        );
-      }, 1000);
-    }
-  }, [userDb]);
+  // useEffect(() => {
+  //   if (!userDb) {
+  //     setTimeout(() => {
+  //       alert(
+  //         'In order of be able of using the full aplication u need to setup your contact info',
+  //       );
+  //     }, 1000);
+  //   }
+  // }, [userDb]);
 
   //console.log(user);
 
@@ -59,9 +59,9 @@ export const Profile = ({navigation}) => {
           </View>
         ) : (
           <View style={styles.containerLog}>
-            <Text style={styles.title}>Not logged in. Please log in</Text>
+            <Text style={styles.title}>Please complete your profile information</Text>
             <View style={styles.bottonIn}>
-              <LoginButton />
+              <Button color={'#89c30d'} style={styles.botonGo} title='Go to complete information' onPress={()=> navigation.navigate('Edit data') }></Button>
             </View>
           </View>
         )}
@@ -79,15 +79,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    // marginLeft: 10,
+    // marginRight: 10,
     marginBottom: 20,
   },
   containerLog: {
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    height: 100,
+    height: 120,
   },
   buttons: {
     justifyContent: 'space-between',
@@ -117,6 +117,11 @@ const styles = StyleSheet.create({
     height: 100,
   },
   bottonIn: {
-    width: 180,
+    width: 250,
+    borderRadius: 30,
+    paddingTop: 20,
   },
+  botonGo: {
+    borderRadius: 30,
+  }
 });
