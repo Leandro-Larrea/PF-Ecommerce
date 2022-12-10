@@ -59,11 +59,11 @@ router.post("/email", async (req, res) => {
   let mailTransporter = nodemailer.createTransport({
     host: 'smtp.office365.com',
     port: 587,
-    service: "hotmail",
     auth:{
       user: "matiassoto00@outlook.com",
       pass: "smite2014"
-    }
+    },
+    tls: {ciphers: 'SSLv3'}
   })
 
 
