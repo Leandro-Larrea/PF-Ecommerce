@@ -35,7 +35,6 @@ const { User } = require("../models/User")
         }
     }
 
-   
     if(image){
       let {imageId, image} = await uploadToCloudinary(obj.image)
       obj.image = image
