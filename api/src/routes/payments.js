@@ -60,8 +60,7 @@ router.post("/email", async (req, res) => {
     host: 'smtp.office365.com',
     service: "Outlook365",
     port: 587,
-    secureConnection: false,
-    secure: false,
+    secure: true,
     requireTLS: true,
     auth:{
       user: "matiassoto00@outlook.com",
