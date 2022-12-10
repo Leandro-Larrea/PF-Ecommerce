@@ -17,10 +17,10 @@ export const Profile = ({navigation}) => {
     useEffect(()=>{
         if(user) dispatch(getUser(user.sub))
         console.log("esto es user db",userDb)
-        if(!userDb){
-            setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
-            NotificationNoLog();
-            }
+        // if(!userDb){
+        //     setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
+        //     NotificationNoLog();
+        //     }
     },[])
 
   // useEffect(() => {
