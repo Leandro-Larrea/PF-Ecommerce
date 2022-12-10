@@ -56,3 +56,20 @@ export const ScheduleNotification = () => {
         vibration: 1000,
     })
 };
+
+export const NotificationNoLog = () => {
+    PushNotification.localNotification({
+        channelId: "abc",
+        channelName: "acb",
+        autoCancel: true,
+        bigText: "LOGEATE FORRO",
+        subText: "LOG PLS",
+        title: "LOGEATE PORQUE TE FAJO",
+        message: "DALE LOGEATE",
+        playSound: true,
+        soundName: "default",
+        /* importance: 10, */
+        vibrate: true,
+        vibration: 1000,
+    });
+}

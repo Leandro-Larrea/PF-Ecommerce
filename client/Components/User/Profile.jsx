@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../redux/actions";
 import { LoginButton } from "../LogButtons/LoginButton";
 import { LogoutButton } from "../LogButtons/LogoutButton";
+import { NotificationNoLog } from "../../src/services/LocalPushControllers";
 
 export const Profile = ({navigation}) => {
     const {user} = useAuth0();
@@ -18,14 +19,15 @@ export const Profile = ({navigation}) => {
         console.log("esto es user db",userDb)
         if(!userDb){
             setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
+            NotificationNoLog();
             }
     },[])
 
-    useEffect(()=>{
+/*     useEffect(()=>{
         if(!userDb){
             setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
             }
-    },[userDb])
+    },[userDb]) */
     
     console.log(user)
     
