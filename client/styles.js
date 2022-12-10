@@ -95,6 +95,25 @@ export const stylesCardProduct = StyleSheet.create({
     padding: 6,
     borderRadius: 4,
   },
+  cart: {
+    fontSize: 14,
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: 'white',
+    color: '#89c30d',
+    margin: 3,
+    // padding: 4,
+    borderRadius: 4,
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.75,
+    elevation: 3,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const WIDTH = Dimensions.get('window').width;

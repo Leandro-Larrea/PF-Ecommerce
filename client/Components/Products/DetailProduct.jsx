@@ -121,9 +121,11 @@ function DetailProduct({route, navigation}) {
             </Button>
           </View>
         </View>
-        <View style={styles.reviews}>
-          <Reviews product={_id} />
-        </View>
+        {detailProduct && (
+          <View style={styles.reviews}>
+            <Reviews reviews={detailProduct.reviews} productId={_id} />
+          </View>
+        )}
       </View>
     </ScrollView>
   );
