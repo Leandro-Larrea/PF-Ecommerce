@@ -4,88 +4,41 @@ import {useDispatch, useSelector} from 'react-redux';
 import {search, setFilter} from '../../redux/actions';
 import {useEffect} from 'react';
 
-export default function PriceFilter() {
+export default function PriceFilter({filters, fcUpdate}) {
   const dispatch = useDispatch();
 
-  const {filters} = useSelector(state => state);
-  const [filterInput, setFilterInput] = useState({
-    ...filters,
-  });
-
-  useEffect(() => {
-    if (filters.category !== filterInput.category) {
-      setFilterInput({...filterInput, category: filters.category});
-    }
-  }, [filters]);
-
-  const [min, setMin] = useState('');
-  const [max, setMax] = useState('');
+ 
 
   const handleMin = e => {
-    setMin(e);
-    setFilterInput({
-      ...filterInput,
-      min: e,
-    });
+    fcUpdate("min", e)
   };
-  const handleMax = e => {
-    setMax(e);
-    setFilterInput({
-      ...filterInput,
-      max: e,
-    });
+  const handleMax = e => { 
+    fcUpdate("max", e)
   };
 
-  const handlePress = () => {
-    const {title, min, max, category} = filterInput;
-    console.log('press', title, min, max, category);
-    if (parseInt(min) > parseInt(max)) {
-      Alert.alert(
-        'ups!',
-        'The minimum value cannot be greater than the maximum',
-        [
-          {
-            text: 'Ok',
-            onPress: () => console.log('Ask me later pressed'),
-          },
-        ],
-      );
-      setMin('');
-      setMax('');
-    } else {
-      dispatch(search(title, min, max, category));
-
-      setFilterInput({
-        ...filters,
-        min: '',
-        max: '',
-      });
-      dispatch(setFilter({...filters, min: '', max: ''}));
-      setMin('');
-      setMax('');
-    }
-  };
+  
 
   return (
     <View style={styles.container}>
       <Text>PRICE RANGE:</Text>
       <View style={styles.inputs}>
         <TextInput
+        
           placeholder="min"
           style={styles.input1}
           onChangeText={e => handleMin(e)}
-          value={min}
+          value={filters.min}
           keyboardType="numeric"
         />
         <TextInput
           placeholder="max"
           style={styles.input2}
           onChangeText={e => handleMax(e)}
-          value={max}
+          value={filters.max}
           keyboardType="numeric"
         />
       </View>
-      <Button color={'#df5a00'} title={'>'} onPress={() => handlePress()} />
+      {/* <Button color={'#df5a00'} title={'>'} onPress={() => handlePress()} /> */}
     </View>
   );
 }

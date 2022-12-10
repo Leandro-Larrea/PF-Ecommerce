@@ -1,7 +1,6 @@
 import React from "react";
 import {Button} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
-import { StyleSheet } from "react-native";
 import { color } from "@rneui/base";
 
 export const LoginButton = () => {
@@ -15,12 +14,5 @@ export const LoginButton = () => {
         }
     };
 
-    return <Button  color={'#89c30d'} onPress={onPress} title="Log in" />
+    return <Button onPress={onPress} title="Log in" />
 }
-
-const styles = StyleSheet.create({
-    button: {
-      width:"100px",
-      color:"red"
-    }
-})

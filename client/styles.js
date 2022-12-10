@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export const stylesCardCart = StyleSheet.create({
   container: {
@@ -56,9 +56,14 @@ export const stylesCardProduct = StyleSheet.create({
     height: 250,
     marginBottom: 10,
   },
+  fixToTextDetail: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   fixToText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   button: {
     alignItems: 'center',
@@ -80,12 +85,91 @@ export const stylesCardProduct = StyleSheet.create({
   },
   description: {
     marginBottom: 10,
-    fontFamily: 'Louis George Cafe Bold',
+    color: 'gray',
+    // fontFamily: 'Louis George Cafe Bold',
   },
   price: {
     // position: 'absolute',
     // margin: 10,
     fontSize: 18,
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: '#2d2d2d',
+    color: '#adff2f',
+    bottom: 0,
+    borderRadius: 4,
+    padding: 6,
+    paddingLeft: 9,
+    paddingRight: 9,
+    // textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    // textShadowOffset: {width: -1, height: 1},
+    // textShadowRadius: 1
+  },
+  cart: {
+    fontSize: 14,
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: '#f5f5f5',
+    color: '#89c30d',
+    margin: 3,
+    // padding: 4,
+    borderRadius: 4,
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.75,
+    elevation: 4,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
+export const stylesDetails = StyleSheet.create({
+  container: {
+    height: '100%',
+    padding: 20,
+    backgroundColor: '#2d2d2d',
+    flex: 1,
+  },
+  productCard: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: WIDTH * 0.8,
+    height: HEIGHT * 0.25,
+    alignSelf: 'center',
+    margin: 10,
+  },
+  title: {
+    fontFamily: 'Louis George Cafe Bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#bbb',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  description: {
+    fontFamily: 'Louis George Cafe Bold',
+    marginHorizontal: 10,
+  },
+
+  data: {
     fontFamily: 'Louis George Cafe Bold',
     backgroundColor: '#2d2d2d',
     color: '#89c30d',
@@ -96,7 +180,7 @@ export const stylesCardProduct = StyleSheet.create({
   cart: {
     fontSize: 14,
     fontFamily: 'Louis George Cafe Bold',
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
     color: '#89c30d',
     margin: 3,
     // padding: 4,
@@ -113,3 +197,211 @@ export const stylesCardProduct = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+// const WIDTH = Dimensions.get('window').width;
+// const HEIGHT = Dimensions.get('window').height;
+
+// export const stylesDetails = StyleSheet.create({
+//   container: {
+//     height: '100%',
+//     padding: 20,
+//     backgroundColor: '#2d2d2d',
+//     flex: 1,
+//   },
+//   productCard: {
+//     backgroundColor: 'white',
+//     padding: 10,
+//     borderRadius: 10,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   image: {
+//     width: WIDTH * 0.8,
+//     height: HEIGHT * 0.25,
+//     alignSelf: 'center',
+//     margin: 10,
+//   },
+//   title: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     fontSize: 18,
+//     textAlign: 'center',
+//   },
+//   separator: {
+//     marginVertical: 8,
+//     borderBottomColor: '#bbb',
+//     borderBottomWidth: StyleSheet.hairlineWidth,
+//   },
+//   description: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     marginHorizontal: 10,
+//   },
+
+//   data: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     backgroundColor: '#2d2d2d',
+//     color: '#89c30d',
+//     bottom: 0,
+//     padding: 6,
+//     borderRadius: 6,
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//     paddingHorizontal: 25,
+//   },
+//   price: {
+//     fontSize: 20,
+//     color: '#89c30d',
+//   },
+//   stock: {
+//     color: '#89c30d',
+//   },
+//   fixToText: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'flex-start',
+//   },
+//   reviews: {
+//     marginVertical: 20,
+//     backgroundColor: 'white',
+//     padding: 10,
+//     borderRadius: 10,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//     width: '100%',
+//   },
+//   cart: {
+//     fontSize: 14,
+//     fontFamily: 'Louis George Cafe Bold',
+//     backgroundColor: 'white',
+//     color: '#89c30d',
+//     margin: 3,
+//     // padding: 4,
+//     borderRadius: 4,
+//     shadowOffset: {
+//       width: 3,
+//       height: 3,
+//     },
+//     shadowColor: 'black',
+//     shadowOpacity: 0.75,
+//     elevation: 3,
+
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
+
+// const WIDTH = Dimensions.get('window').width;
+// const HEIGHT = Dimensions.get('window').height;
+
+// export const stylesDetails = StyleSheet.create({
+//   container: {
+//     height: '100%',
+//     padding: 20,
+//     backgroundColor: '#2d2d2d',
+//     flex: 1,
+//   },
+//   productCard: {
+//     backgroundColor: 'white',
+//     padding: 10,
+//     borderRadius: 10,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   image: {
+//     width: WIDTH * 0.8,
+//     height: HEIGHT * 0.25,
+//     alignSelf: 'center',
+//     margin: 10,
+//   },
+//   title: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     fontSize: 18,
+//     textAlign: 'center',
+//   },
+//   separator: {
+//     marginVertical: 8,
+//     borderBottomColor: '#bbb',
+//     borderBottomWidth: StyleSheet.hairlineWidth,
+//   },
+//   description: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     marginHorizontal: 10,
+//   },
+
+//   data: {
+//     fontFamily: 'Louis George Cafe Bold',
+//     backgroundColor: '#2d2d2d',
+//     color: '#89c30d',
+//     bottom: 0,
+//     padding: 6,
+//     borderRadius: 6,
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//     paddingHorizontal: 25,
+//   },
+//   price: {
+//     fontSize: 20,
+//     color: '#89c30d',
+//   },
+//   stock: {
+//     color: '#89c30d',
+//   },
+//   fixToText: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'flex-start',
+//   },
+//   reviews: {
+//     marginVertical: 20,
+//     backgroundColor: 'white',
+//     padding: 10,
+//     borderRadius: 10,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//     width: '100%',
+//   },
+//   cart: {
+//     fontSize: 14,
+//     fontFamily: 'Louis George Cafe Bold',
+//     backgroundColor: 'white',
+//     color: '#89c30d',
+//     margin: 3,
+//     // padding: 4,
+//     borderRadius: 4,
+//     shadowOffset: {
+//       width: 3,
+//       height: 3,
+//     },
+//     shadowColor: 'black',
+//     shadowOpacity: 0.75,
+//     elevation: 3,
+
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

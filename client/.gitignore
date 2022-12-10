@@ -64,4 +64,4 @@ buck-out/
 /vendor/bundle/
 
 # Auth0
-Auth0/auth0-config.js
+.env

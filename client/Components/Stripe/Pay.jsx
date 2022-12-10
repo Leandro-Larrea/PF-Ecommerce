@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { View, TextInput, Button, Alert, Text, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import { LocalNotification, ScheduleNotification } from '../../src/services/LocalPushControllers'
 
 export const Pay = ({navigation}) => {
   const total = useSelector(state => state.total);
@@ -41,8 +42,10 @@ export const Pay = ({navigation}) => {
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
       navegar();
-      axios.post(`https://pf-ecommerce-rho.vercel.app/payments/email`, {mail, name, lastname, price})
+      axios.post(`https://pf-ecommerce-production-ed4d.up.railway.app/payments/email`, {mail, name, lastname, price})
       .then(console.log("exitoso"))
+      LocalNotification();
+      ScheduleNotification();
 
     } catch (err) {
       console.log("data");
