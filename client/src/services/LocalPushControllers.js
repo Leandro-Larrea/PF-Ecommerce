@@ -62,10 +62,10 @@ export const NotificationNoLog = () => {
         channelId: "abc",
         channelName: "acb",
         autoCancel: true,
-        bigText: "LOGEATE FORRO",
+        bigText: "LOGEATEeeEEEEeEeE",
         subText: "LOG PLS",
-        title: "LOGEATE PORQUE TE FAJO",
-        message: "DALE LOGEATE",
+        title: "LOGEATE FORRO",
+        message: "DALE LOGEATEeEeEeEeE COMPLETA TODO EL FORM Y NO SUBAS ROSQUETES PLSSSSSSSSSSSS",
         playSound: true,
         soundName: "default",
         /* importance: 10, */

@@ -1,14 +1,17 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import {View, Text, Button, FlatList, LayoutAnimation} from 'react-native';
-import {FlashList} from '@shopify/flash-list';
-import {CartContext} from './ShoppingCart';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { View, Text, Button, FlatList, LayoutAnimation, Alert } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
+import { CartContext } from './ShoppingCart';
 import CardCart from './CardCart';
-import {useDispatch} from 'react-redux';
-import {SET_PRICE} from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_PRICE } from '../../redux/actions';
 
-const ListCart = ({navigation}) => {
+const ListCart = ({ navigation }) => {
+
+  const userDb = useSelector(state => state.user)
+
   const dispatch = useDispatch();
-  const {cartItems, resetCart, addItemToCart, deleteItemToCart} =
+  const { cartItems, resetCart, addItemToCart, deleteItemToCart } =
     useContext(CartContext);
   const [data, setData] = useState([...cartItems]);
   const list = useRef(FlashList);
@@ -36,24 +39,30 @@ const ListCart = ({navigation}) => {
   const final = total ? total.toFixed(2) : 0;
 
   const onPress = () => {
-    dispatch({type: SET_PRICE, payload: total});
-    navigation.navigate('Pay');
+    if (userDb === null || !Object.keys(userDb).length > 0) {
+      return Alert.alert('Please Complete your Profile Information')
+    } else if (final === 0) {
+      Alert.alert('You need to add items to the Cart to Checkout')
+    } else {
+      dispatch({ type: SET_PRICE, payload: total });
+      navigation.navigate('Pay');
+    }
   };
   function navegar(product) {
     navigation.navigate('DetailProduct', product);
   }
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View>
         <Button title="Reset" onPress={resetCart} />
         <Text>Carrito de Compras: {cartItems?.length} </Text>
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {!!data?.length && (
           <FlashList
             ref={list}
             data={data}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <CardCart
                 navegar={navegar}
                 productInCart={item}

@@ -19,7 +19,7 @@ const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
 //const profile = 'Profile';
-const myAccount = 'My Account';
+const myAccount = 'Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +46,7 @@ export const MainContainer = () => {
           } else if (rn === cartName) {
             iconName = focused ? 'cart-sharp' : 'cart-outline';
           } else if (rn === myAccount) {
-            iconName = focused ? 'add-circle-sharp' : 'add-circle-outline';
+            iconName = focused ? 'person-circle-sharp' : 'person-circle-outline';
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
