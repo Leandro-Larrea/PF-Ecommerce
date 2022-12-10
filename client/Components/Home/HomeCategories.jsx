@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { search } from '../../redux/actions';
 
 import headphone from '../../images/headphones.png'
 import joystick from '../../images/joystick.png'
@@ -23,12 +25,25 @@ const images=[headphone,monitors,joystick,chair]
 const data = categories.slice(5).map(e=> e.category)
 
 
+const dispatch = useDispatch()
+const handlePress= async(name)=>{
 
-const handlePress=()=>{
+     await dispatch( search("","","",name))
     navigation.navigate('Products')
     
 }
+const Item = ({ title }) => (
+  
+    <TouchableOpacity 
+    style={styles.item}
+    activeOpacity={0.7}
+    onPress={()=>handlePress({title})}
+    >
+        <Text style={styles.title} >{title}</Text>
+    </TouchableOpacity>
+  );
 
+  const renderItem = ({item, index}) => <Item key={index} title={item.title} />;
 
   return (
     <View style={styles.container}>
@@ -49,7 +64,7 @@ const handlePress=()=>{
       {
         data ? data.map(e=>{
           return (
-          <TouchableOpacity key={e}  style={styles.button} onPress={()=>handlePress()}> 
+          <TouchableOpacity key={e}  style={styles.button} onPress={()=>handlePress(e)}> 
             <Text style={styles.text}>{e}</Text>
           </TouchableOpacity>)
         })

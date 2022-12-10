@@ -13,44 +13,47 @@ import {cleanFilter, search, setFilter} from '../../redux/actions';
 import {useAuth0} from 'react-native-auth0';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchBar = ({navigation}) => {
+export const SearchBar = ({navigation, filters, fcUpdate}) => {
   const {user} = useAuth0();
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [filterInput, setFilterInput] = useState({
-    ...filters,
-    title: '',
-  });
+  // const [filterInput, setFilterInput] = useState({
+  //   ...filters,
+  //   title: '',
+  // });
 
-  const {filters} = useSelector(state => state);
+  // const {filters} = useSelector(state => state);
 
-  useEffect(() => {
-    if (filters.category !== filterInput.category) {
-      setFilterInput({...filterInput, category: filters.category});
-    }
-  }, [filters]);
+  // useEffect(() => {
+  //   if (filters.category !== filterInput.category) {
+  //     setFilterInput({...filterInput, category: filters.category});
+  //   }
+  // }, [filters]);
 
   const handleTextChange = name => {
-    setFilterInput({
-      ...filters,
-      title: name,
-    });
-    setName(name);
+    // setFilterInput({
+    //   ...filters,
+    //   title: name,
+    // });
+    // setName(name);
+   fcUpdate("title", name)
   };
 
   const handleSearch = e => {
     //dispatch(search(title,min));
-    let title = filterInput.title;
-    let min = filterInput.min;
-    let max = filterInput.max;
-    let category = filterInput.category;
-    dispatch(setFilter({...filters, title: ''}));
-    dispatch(search(title, min, max, category));
-    setFilterInput({
-      ...filters,
-      title: '',
-    });
-    setName('');
+    // let title = filterInput.title;
+    // let min = filterInput.min;
+    // let max = filterInput.max;
+    // let category = filterInput.category;
+    // dispatch(setFilter({...filters, title: ''}));
+    // dispatch(search(title, min, max, category));
+    // setFilterInput({
+    //   ...filters,
+    //   title: '',
+    // });
+    // setName('');
+    dispatch(search(filters.title, filters.min, filters.max, filters.category))
+    fcUpdate("title", "")
   };
 
   const loggedIn = user !== undefined && user !== null;
@@ -59,7 +62,7 @@ export const SearchBar = ({navigation}) => {
     <View style={style.main}>
       <TextInput
         placeholder="Search..."
-        value={name}
+        value={filters.title}
         onChangeText={e => handleTextChange(e)}
         style={style.Input}
       />

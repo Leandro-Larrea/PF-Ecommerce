@@ -10,14 +10,12 @@ export default function Sort() {
 
     const dispatch = useDispatch()
     const [selected, setSelected] = useState('')
-
     const data = ['min-max', 'max-min']
-
-
 
     const handleSort = () => {
         dispatch(sortByPrice(selected))
     }
+
     return (
         <View style={styles.containerPosition}>
             <View style={styles.container}>
@@ -38,8 +36,6 @@ export default function Sort() {
         </View>
     )
 }
-
-
 
 const styles = StyleSheet.create({
 
