@@ -6,8 +6,8 @@ import axios from 'axios';
 import {Auth0Provider} from 'react-native-auth0';
 import {REACT_APP_DOMAIN, REACT_APP_ID_CLIENT} from '@env';
 
-
-axios.defaults.baseURL = 'https://pf-ecommerce-rho.vercel.app';
+// axios.defaults.baseURL = 'http://192.168.0.161:3001';
+ axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
 import {CartProvider} from './Components/Cart/ShoppingCart';
 import {createStackNavigator} from '@react-navigation/stack';
 import DetailProduct from './Components/Products/DetailProduct';

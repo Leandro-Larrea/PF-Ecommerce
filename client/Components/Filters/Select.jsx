@@ -5,19 +5,19 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { search, setFilter } from '../../redux/actions';
 
-export default function ({ categories }) {
+export default function ({ categories, filters, fcUpdate }) {
 
 
   const dispatch = useDispatch();
-
+  const todos = "";
   const [selected, setSelected] = useState('');
-  const { filters } = useSelector(state => state);
-  const [filterInput, setFilterInput] = useState({
-    title: '',
-    min: '',
-    max: '',
-    category: '',
-  });
+  //  const { filters } = useSelector(state => state);
+   const [filterInput, setFilterInput] = useState({
+     title: '',
+     min: '',
+     max: '',
+     category: '',
+   });
 
   const data = categories.map(e => {
     return {
@@ -26,18 +26,20 @@ export default function ({ categories }) {
   });
 
   const handleChage = e => {
-    setSelected(e);
+    // setSelected(e);
 
-    setFilterInput({
-      ...filters,
-      category: e,
-    });
+    // setFilterInput({
+    //   ...filters,
+    //   category: e,
+    // });
+    if(e === "todos") e = ""
+    fcUpdate("category", e) 
   };
 
   const handleFilter = () => {
-    const { title, min, max, category } = filterInput
-    dispatch(search(title, min, max, category));
-    dispatch(setFilter(filterInput))
+    // const { title, min, max, category } = filterInput
+    dispatch(search("", filters.min, filters.max, filters.category));
+    // dispatch(setFilter(filterInput))
 
   };
 
@@ -48,7 +50,7 @@ export default function ({ categories }) {
           onSelect={() => handleFilter()}
           placeholder="category"
           setSelected={e => handleChage(e)}
-          data={data}
+          data={["todos",...data]}
           save="value"
           search={false}
           boxStyles={{ borderRadius: 0,}}

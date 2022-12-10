@@ -31,7 +31,7 @@ export const getDBCart = userId => dispatch => {
       });
       return cart;
     })
-    .catch(() => false);
+    .catch(() => []);
 };
 export const dbUpdateCart = (cart, userId) => dispatch => {
   cart = cart.map(e => {
@@ -128,11 +128,12 @@ export const getUser = id => dispatch => {
   return axios
     .get(`/users?id=${id}`)
     .then(res => {
+      console.log("respuesta", res.data);
       dispatch({
         type: 'GET_USER',
         payload: res.data,
       });
-      return true;
+      return res.data? true : false;
     })
     .catch(() => false);
 };

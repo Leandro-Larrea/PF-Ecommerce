@@ -26,22 +26,34 @@ export const LookProducts = ({navigation}) => {
     navigation.navigate('DetailProduct', product);
   }
 
+  const [filters, setFilters] = useState({
+    title: '',
+    min: '',
+    max: '',
+    category: '',
+  })
+useEffect(()=>{
+},[filters])
+  const fcUpdate = (input, value)=>{
+    setFilters({...filters, [input]:value})
+  }
+
   return (
     <View style={{flex: 1}}>
       <View>
         <View style={styles.filterContainer}>
-          <SearchBar navigation={navigation} />
+          <SearchBar navigation={navigation} filters={filters} fcUpdate={fcUpdate}/>
           <View style={styles.showAll}>
-            <ShowAll />
+            {/* <ShowAll /> */}
           </View>
           <View style={styles.filterRow}>
-            {categories && <Select categories={categories}></Select>}
+            {categories && <Select categories={categories} filters={filters} fcUpdate={fcUpdate}></Select>}
             <View>
-              <Sort />
+              <Sort filters={filters} fcUpdate={fcUpdate}/>
             </View>
           </View>
           
-          <PriceFilter />
+          <PriceFilter filters={filters} fcUpdate={fcUpdate}/>
         </View>
       </View>
       <View style={{flex: 5,position:"relative", zIndex:1}}>
@@ -50,30 +62,32 @@ export const LookProducts = ({navigation}) => {
     </View>
   );
 };
-const gap = 6;
+const gap = 3;
 const styles = StyleSheet.create({
   main: {
     paddingBottom:(gap/2),
     minHeight: 150,
     alignItems: 'center',
     justifyContent: 'center',
-   
     
   },
-   filterRow:{
+  filterRow:{
     margin:(gap/2),
-     zIndex:10,
-     flexDirection:"row",
-     position:"relative",
-     height:50,
-     justifyContent:"space-around",
-     flexWrap:"wrap",
-     maxWidth:"100%"
-   },
+    zIndex:10,
+    flexDirection:"row",
+    position:"relative",
+    height:50,
+    justifyContent:"space-around",
+    flexWrap:"wrap",
+    maxWidth:"100%"
+  },
   filterContainer: { 
     marginBottom:(gap/2),
+    paddingBottom:(gap/2+4),
     position:"relative",
-    zIndex: 5, 
+    zIndex: 5,
+    borderBottomColor:'#89c30d',
+    borderBottomWidth: 1 
   },
 
   showAll: {

@@ -2,28 +2,26 @@ import React from 'react';
 import {useEffect} from 'react';
 import {Text, View, Image, StyleSheet, Button} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
-import {TouchableHighlight} from 'react-native-gesture-handler';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUser} from '../../redux/actions';
-import {LoginButton} from '../LogButtons/LoginButton';
-import {LogoutButton} from '../LogButtons/LogoutButton';
+import { TouchableHighlight } from "react-native-gesture-handler";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../redux/actions";
+import { LoginButton } from "../LogButtons/LoginButton";
+import { LogoutButton } from "../LogButtons/LogoutButton";
+import { NotificationNoLog } from "../../src/services/LocalPushControllers";
 
 export const Profile = ({navigation}) => {
-  const {user} = useAuth0();
-
-  const dispatch = useDispatch();
-  const userDb = useSelector(state => state.user);
-  useEffect(() => {
-    if (user) dispatch(getUser(user.sub));
-    console.log('esto es user db', userDb);
-    if (!userDb) {
-      setTimeout(() => {
-        alert(
-          'In order of be able of using the full aplication u need to setup your contact info',
-        );
-      }, 1000);
-    }
-  }, []);
+    const {user} = useAuth0();
+    
+    const dispatch = useDispatch()
+    const userDb = useSelector(state => state.user)
+    useEffect(()=>{
+        if(user) dispatch(getUser(user.sub))
+        console.log("esto es user db",userDb)
+        if(!userDb){
+            setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
+            NotificationNoLog();
+            }
+    },[])
 
   // useEffect(() => {
   //   if (!userDb) {
