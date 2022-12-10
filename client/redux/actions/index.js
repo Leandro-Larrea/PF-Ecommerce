@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { ActionSheetIOS } from 'react-native';
+import {ActionSheetIOS} from 'react-native';
 
+export const GET_PRODUCT_BYPK = 'GET_PRODUCT_BYPK';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH = 'SEARCH';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
@@ -9,7 +10,7 @@ export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 export const GET_USER = 'GET_USER';
-export const GET_REVIEWS='GET_REVIEWS'
+export const GET_REVIEWS = 'GET_REVIEWS';
 
 export const getDBCart = userId => dispatch => {
   return axios
@@ -54,6 +55,19 @@ export const getProducts = () => dispatch => {
     });
     return true;
   });
+};
+export const getProductByPK = productId => dispatch => {
+  return axios
+    .get(`/products/${productId}`)
+    .then(res => {
+      dispatch({
+        type: GET_PRODUCT_BYPK,
+        payload: res.data,
+      });
+      // console.log(res.data);
+      return true;
+    })
+    .catch(() => false);
 };
 
 export const getCategories = () => dispatch => {
@@ -138,7 +152,6 @@ export const filterByCategories = category => dispatch => {
   });
 };
 
-
 export function addReview(reviewData) {
   return async function (dispatch) {
     await axios
@@ -153,11 +166,9 @@ export function addReview(reviewData) {
   };
 }
 
-export const getReviews = (id) => dispatch => {
-
-  return axios.get('products/reviews')
-  .then(res => {
-    const productReviews = res.data.filter(e=>e.productId==id)
+export const getReviews = id => dispatch => {
+  return axios.get('products/reviews').then(res => {
+    const productReviews = res.data.filter(e => e.productId == id);
     dispatch({
       type: 'GET_REVIEWS',
       payload: productReviews,

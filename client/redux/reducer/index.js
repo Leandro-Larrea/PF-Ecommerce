@@ -1,4 +1,5 @@
 import {
+  GET_PRODUCT_BYPK,
   GET_PRODUCTS,
   SEARCH,
   GET_CATEGORIES,
@@ -7,10 +8,11 @@ import {
   SET_FILTER,
   SET_PRICE,
   GET_USER,
-  GET_REVIEWS
+  GET_REVIEWS,
 } from '../actions';
 
 const initialState = {
+  detailProduct: undefined,
   products: undefined,
   categories: [],
   filters: {
@@ -19,7 +21,7 @@ const initialState = {
     max: '',
     category: '',
   },
-  productReview:[],
+  productReview: [],
   user: null,
   total: 0,
 };
@@ -30,6 +32,11 @@ const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         total: payload,
+      };
+    case GET_PRODUCT_BYPK:
+      return {
+        ...state,
+        detailProduct: payload.a,
       };
     case GET_PRODUCTS:
       return {
@@ -96,8 +103,8 @@ const reducer = (state = initialState, {type, payload}) => {
     case GET_REVIEWS:
       return {
         ...state,
-        productReview:payload
-      }
+        productReview: payload,
+      };
     default:
       return state;
   }

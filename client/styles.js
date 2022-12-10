@@ -1,4 +1,4 @@
-import {StyleSheet,Dimensions} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 export const stylesCardCart = StyleSheet.create({
   container: {
@@ -95,6 +95,91 @@ export const stylesCardProduct = StyleSheet.create({
     padding: 6,
     borderRadius: 4,
   },
+});
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
+export const stylesDetails = StyleSheet.create({
+  container: {
+    height: '100%',
+    padding: 20,
+    backgroundColor: '#2d2d2d',
+    flex: 1,
+  },
+  productCard: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: WIDTH * 0.8,
+    height: HEIGHT * 0.25,
+    alignSelf: 'center',
+    margin: 10,
+  },
+  title: {
+    fontFamily: 'Louis George Cafe Bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#bbb',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  description: {
+    fontFamily: 'Louis George Cafe Bold',
+    marginHorizontal: 10,
+  },
+
+  data: {
+    fontFamily: 'Louis George Cafe Bold',
+    backgroundColor: '#2d2d2d',
+    color: '#89c30d',
+    bottom: 0,
+    padding: 6,
+    borderRadius: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25,
+  },
+  price: {
+    fontSize: 20,
+    color: '#89c30d',
+  },
+  stock: {
+    color: '#89c30d',
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  reviews: {
+    marginVertical: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: '100%',
+  },
   cart: {
     fontSize: 14,
     fontFamily: 'Louis George Cafe Bold',
@@ -114,89 +199,4 @@ export const stylesCardProduct = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
-
-
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height
-
-export const stylesDetails = StyleSheet.create({
-  container:{
-    height: '100%',
-    padding:20,
-    backgroundColor:'#2d2d2d',
-    flex:1,
-  },
-  productCard:{
-    backgroundColor:'white',
-    padding:10,
-    borderRadius:10,
-    shadowColor: "#000",
-    shadowOffset: {
-	  width: 0,
-	  height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  image:{
-    width:WIDTH*0.8,
-    height:HEIGHT*0.25,
-    alignSelf:'center',
-    margin:10
-  },
-  title:{
-    fontFamily:'Louis George Cafe Bold',
-    fontSize:18,
-    textAlign:'center'
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  description:{
-    fontFamily:'Louis George Cafe Bold',
-    marginHorizontal:10
-  },
-
-    data:{
-      fontFamily:'Louis George Cafe Bold',
-      backgroundColor:'#2d2d2d',
-      color: "#89c30d",
-      bottom:0,
-      padding:6,
-      borderRadius:6,
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:'space-between',
-      paddingHorizontal:25,
-      
-    },
-    price:{
-      fontSize:20,
-      color:'#89c30d'
-    },
-    stock:{
-      color:'#89c30d'
-    },
-    fixToText:{
-      marginTop:10
-    },
-    reviews:{
-      marginVertical:20,
-      backgroundColor:'white',
-      padding:10,
-      borderRadius:10,
-      shadowColor: "#000",
-      shadowOffset: {
-      width: 0,
-      height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-      width:'100%'
-    }
 });
