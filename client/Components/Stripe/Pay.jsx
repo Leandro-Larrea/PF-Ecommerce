@@ -42,8 +42,8 @@ export const Pay = ({navigation}) => {
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
       navegar();
-      /* axios.post(`https://pf-ecommerce-rho.vercel.app/payments/email`, {mail, name, lastname, price})
-      .then(console.log("exitoso")) */
+      axios.post(`https://pf-ecommerce-production-ed4d.up.railway.app/payments/email`, {mail, name, lastname, price})
+      .then(console.log("exitoso"))
       LocalNotification();
       ScheduleNotification();
 
