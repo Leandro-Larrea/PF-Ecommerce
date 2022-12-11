@@ -18,7 +18,7 @@ import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Rating from './Rating';
 import Reviews from './Reviews';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProductByPK, getReviews} from '../../redux/actions';
+import {clean, getProductByPK, getReviews} from '../../redux/actions';
 
 function DetailProduct({route, navigation}) {
   const {_id, title, image, price} = route.params;
@@ -33,6 +33,9 @@ function DetailProduct({route, navigation}) {
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
+    return () => {
+      dispatch(clean());
+    }
   }, []);
   return (
     <ScrollView style={styles.container}>

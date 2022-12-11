@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {ActionSheetIOS} from 'react-native';
 
 export const GET_PRODUCT_BYPK = 'GET_PRODUCT_BYPK';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -11,6 +10,7 @@ export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
 export const GET_USER = 'GET_USER';
 export const GET_REVIEWS = 'GET_REVIEWS';
+export const CLEAN = 'CLEAN'
 
 export const getDBCart = userId => dispatch => {
   return axios
@@ -35,7 +35,7 @@ export const getDBCart = userId => dispatch => {
 };
 export const dbUpdateCart = (cart, userId) => dispatch => {
   cart = cart.map(e => {
-    return {productId: e.productId, quantity: e.quantity};
+    return { productId: e.productId, quantity: e.quantity };
   });
   return axios
     .put(`/users/cart/${userId}`, cart)
@@ -133,7 +133,7 @@ export const getUser = id => dispatch => {
         type: 'GET_USER',
         payload: res.data,
       });
-      return res.data? true : false;
+      return res.data ? true : false;
     })
     .catch(() => false);
 };
@@ -176,3 +176,10 @@ export const getReviews = id => dispatch => {
     });
   });
 };
+
+export const clean = (payload) => {
+  return {
+    type: CLEAN,
+    payload
+  }
+}
