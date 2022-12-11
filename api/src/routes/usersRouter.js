@@ -1,8 +1,9 @@
 const { Router } = require("express");
-const { postUser, getUser, getCart, updateCart } = require("../controllers/users.js");
+const { postUser, getUser, getCart, updateCart, getUserReviews } = require("../controllers/users.js");
 const router = Router();
 const { User } = require('../models/User')
-const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary')
+const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary');
+const { getReviews } = require("../controllers/products.js");
 
 router.post("/", async (req,res)=>{
     try {
@@ -14,6 +15,16 @@ router.post("/", async (req,res)=>{
     } 
 });
 
+router.get('/reviews', async (req, res) => {
+    try {
+        const { id } = req.query
+        
+        let a = await getUserReviews(id)
+      return  res.status(200).json(a)
+    } catch (error) {
+      return  res.status(400).send(error)        
+    }
+})
 
 /////Devuelve todos los usuarios o por id
 router.get('/', async (req, res) => {
