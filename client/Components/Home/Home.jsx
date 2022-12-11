@@ -30,7 +30,7 @@ export const Home = ({navigation}) => {
       </View>
       <View style={style.cuenta}>
         
-        <TouchableHighlight style={style.icon} onPress={()=> navigation.navigate('Profile')}>
+        <TouchableHighlight style={style.icon} onPress={()=> navigation.navigate('My Profile')}>
             <Icon name="person-outline" size={28} color="#89c30d" />
         </TouchableHighlight>
         <AuthenticationButton/>

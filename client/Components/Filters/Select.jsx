@@ -48,12 +48,12 @@ export default function ({ categories, filters, fcUpdate }) {
       <View style={styles.container}>
         <SelectList
           onSelect={() => handleFilter()}
-          placeholder="category"
+          placeholder="Category"
           setSelected={e => handleChage(e)}
           data={["todos",...data]}
           save="value"
           search={false}
-          boxStyles={{ borderRadius: 0,}}
+          boxStyles={{ borderRadius: 9, backgroundColor: "#f5f5f9", height: 44}}
           style={{color:"red"}}
           dropdownStyles={{borderRadius:10,backgroundColor:"#2d2d2d"}}
           dropdownTextStyles={{color:"white"}}
@@ -70,8 +70,7 @@ const styles = StyleSheet.create({
     position: "relative", 
     zIndex: 2,
     width:145,
-    height:50
-    
+    height:50,   
   },
   container:{
     zIndex:20,

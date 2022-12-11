@@ -76,10 +76,10 @@ export const SearchBar = ({navigation, filters, fcUpdate}) => {
       <View style={style.botonCuenta}>
         {loggedIn ? (
           <TouchableHighlight onPress={() => navigation.navigate('Profile')}>
-            <Icon size={28} name="person-outline" color="#6A37C4" />
+            <Icon size={28} name="person-outline" color="#89c30d" />
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight onPress={() => navigation.navigate('Profile')}>
+          <TouchableHighlight onPress={() => navigation.navigate('My Profile')}>
             <Icon name="person-outline" size={28} color="#89c30d" />
           </TouchableHighlight>
         )}
@@ -97,6 +97,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomWidth: 1.12
   },
 
   Input: {
