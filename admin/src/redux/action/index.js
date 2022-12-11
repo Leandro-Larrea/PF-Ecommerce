@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DELETE_PRODUCT, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS } from './const'
+import { DELETE_PRODUCT, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, RESTORE_PRODUCT } from './const'
 
 export function postAdmin(admin){
     return async function (){
@@ -69,6 +69,26 @@ export function deleteProduct(id){
         dispatch({
             type: DELETE_PRODUCT,
             payload: res.data._id
+        })
+    }  
+}
+
+export function getBackup() {
+    return async function(dispatch){
+        let res = await axios.get(`/products/deleted`)
+        dispatch({
+            type: GET_BACKUP,
+            payload: res.data
+        })
+    }
+}
+
+export function restoreProduct(id){
+    return async function(dispatch){
+        let res = await axios.put(`/products/restore/${id}`)
+        dispatch({
+            type: RESTORE_PRODUCT,
+            payload: res.data
         })
     }  
 }
