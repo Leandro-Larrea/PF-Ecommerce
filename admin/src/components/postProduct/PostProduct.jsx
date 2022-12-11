@@ -96,27 +96,23 @@ export const PostProduct = () => {
         <Sidebar />
         <div className="singleContainer">
           <Navbar />
-          <div>PostProduct
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>Product: </label>
-                <input type='text' name='title' onChange={handleChange} value={input.title}/>
+          <div className='main'>PostProduct
+            <form onSubmit={handleSubmit} className="form">
+              <div className='itemContainer'>
+                <label classname="label">Product: </label>
+                <input classname="inputI" type='text' name='title' onChange={handleChange} value={input.title}/>
               </div>
-              <div>
-                <label>Price:</label>
-                <input type='number' name='price' onChange={handleChange} value={input.price} />
+              <div className='itemContainer'>
+                <label classname="label">Price:</label>
+                <input classname="inputI" type='number' name='price' onChange={handleChange} value={input.price} />
               </div>
-              <div>
-                <label>Description:</label>
-                <input type='text' name='description' onChange={handleChange} value={input.description}/>
+              <div className='itemContainer'>
+                <label classname="label">Stock:</label>
+                <input classname="inputI" type='number' name='stock' onChange={handleChange} value={input.stock}/>
               </div>
-              <div>
-                <label>Stock:</label>
-                <input type='number' name='stock' onChange={handleChange} value={input.stock}/>
-              </div>
-              <div>
-                <label>Category: </label>
-                <select name='category' onChange={handleChange} id='selectCategory'>
+              <div className='itemContainer'>
+                <label classname="label">Category: </label>
+                <select classname="inputI" name='category' onChange={handleChange} id='selectCategory'>
                             <option value=''>Seleccionar</option>
                             {
                             categories.length? categories.map((r, i) => (
@@ -124,11 +120,15 @@ export const PostProduct = () => {
                             )): null}
                 </select>
               </div>
-              <div>
-                <label>Image:</label>
-                <input type='file' name='image' onChange={handleFileInputChange} />
+              <div className='itemContainer'>
+                <label classname="label" for="image">Image:</label>
+                <input classname="inputI" type='file' name='image' onChange={handleFileInputChange} />
               </div>
-                <input type='submit' value='Send' />
+              <div className='itemContainerText'>
+                <label classname="label">Description:</label>
+                <input classname="inputI" type='textArea' name='description' onChange={handleChange} value={input.description}/>
+              </div>
+                <input className='button' type='submit' value='Send' />
             </form>
             {input.image && <img src={input.image} alt = '' />}
           </div>
