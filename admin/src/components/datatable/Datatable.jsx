@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUsers } from "../../redux/action";
 
-
+//////USER LIST
 const Datatable = () => {
 
   const dispatch = useDispatch()
   const data = useSelector(state => state.users)
   //const [data, setData] = useState(userRows)
   
-  console.log('data ', data)
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch])
@@ -53,7 +52,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        Users List
         <Link to="/users/new" className="link">
           Add New
         </Link>
@@ -62,9 +61,9 @@ const Datatable = () => {
         className="datagrid"
         rows={data}
         columns={userColumns.concat(actionColumn)}
-        pageSize={9}
+        pageSize={11}
         rowsPerPageOptions={[9]}
-        checkboxSelection
+        /* checkboxSelection */
       />
     </div>
   );

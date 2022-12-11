@@ -34,10 +34,15 @@
     .percentage {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      margin-top: 5px;
+      font-size: 18px;
+      
 
       &.positive {
         color: green;
+
+        .starIcon{
+        }
       }
       &.negative {
         color: red;
@@ -49,6 +54,12 @@
       padding: 5px;
       border-radius: 5px;
       align-self: flex-end;
+    }
+
+    .image {
+      max-width: 100px;
+      max-height: 75px;
+      border-radius: 10px;
     }
   }
 }

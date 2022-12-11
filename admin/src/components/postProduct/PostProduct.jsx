@@ -19,7 +19,8 @@ export const PostProduct = () => {
       description: '',
       category: '',
       image: '',
-      stock: ''
+      stock: '',
+      rating: {points:0 , votes: 0}
   })
 
   useEffect(() => {
@@ -48,15 +49,11 @@ export const PostProduct = () => {
 
 
   function handleFileInputChange(e) {
-    let array = e.target.value.slice(0,4)
-    let a 
-    if(array !== 'http'){
       const reader = new FileReader()
       reader.readAsDataURL(e.target.files[0]) 
       reader.onloadend =  () => {
         setInput({...input, image: reader.result})
-      } 
-    }    
+      }    
   }
 
   function handleChange(e){
@@ -69,26 +66,23 @@ export const PostProduct = () => {
 
   async function handleSubmit(e){
     e.preventDefault()
-    /*     if (!input.title || !input.price || !input.description || !input.category || !input.image.length || !input.stock) {
+    if (!input.title || !input.price || !input.description || !input.category || !input.image.length || !input.stock) {
       alert('Completar todos los campos')
-    } else { */
-    console.log('lleno el input', input)
-    let res = await dispatch(postProduct(input));
-    console.log('listorti: ', res)
-    alert('Producto Creado 👍 ')
-    setInput({
-      title: '',
-      price: '',
-      description: '',
-      category: '',
-      image: '',
-      stock: ''
+    } 
+    else { 
+      console.log('lleno el input', input)
+      let res = await dispatch(postProduct(input));
+      console.log('listorti: ', res)
+      alert('Producto Creado 👍 ')
+      setInput({
+        title: '',
+        price: '',
+        description: '',
+        category: '',
+        image: '',
+        stock: ''
     })
-    console.log('input: ', input)
-
-  
-    
-    console.log('enviando formulario', input.image)
+    }
   }
 
   return (
@@ -123,6 +117,10 @@ export const PostProduct = () => {
               <div className='itemContainer'>
                 <label classname="label" for="image">Image:</label>
                 <input classname="inputI" type='file' name='image' onChange={handleFileInputChange} />
+              </div>
+              <div>
+                <label>Image URL</label>
+                <input type='text' name='image' onChange={handleChange} />
               </div>
               <div className='itemContainerText'>
                 <label classname="label">Description:</label>

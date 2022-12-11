@@ -1,10 +1,12 @@
-import { GET_ADMIN, GET_CATEGORIES, GET_PRODUCTS, GET_USER, GET_USERS } from "../action/const";
+import { GET_ADMIN, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS } from "../action/const";
 
 const initialState = {
     admin: {},
     products: [],
     users: [],
-    categories: []
+    categories: [],
+    userReviews: [],
+    userPayments: []
 }
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -64,6 +66,18 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 categories: payload
+            }
+
+        case GET_REVIEWS:
+            return{
+                ...state,
+                userReviews: payload
+            }
+
+        case GET_USER_PAYMENTS:
+            return{
+                ...state,
+                userPayments: payload
             }
     
         default:
