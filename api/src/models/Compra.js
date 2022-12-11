@@ -5,7 +5,7 @@ const productSchema = new Schema({
       type: String,
       required: true
     },
-    quantify:{
+    quantity:{
       type: Number,
       required: true,
       default: 1
@@ -19,12 +19,24 @@ const compraSchema = new Schema({
     products:[productSchema],
     totalPrice: {
         type: Number,
-        require: true
+        default: function(){
+          let total = 0
+          for(p of this.products){
+            total += p.price * p.quantity
+          }
+          return total
+        }
     },
-    userID: {
+    userId: {
         type: Object,
         require: true
     }
 });
 
-module.exports = compraSchema;
+const Compra = model("Compra", compraSchema);
+module.exports = {
+   Compra
+};
+module.exports = {
+  Compra
+};

@@ -16,7 +16,7 @@ export const PostUser = () => {
     const {user} = useAuth0();
     const dispatch = useDispatch();
     const userDb = useSelector(state => state.user)
-    console.log(user)
+
    
     // aca me traigo el estado de las categorias ej: state => state.allCategories
     //const allCategories = useSelector(state => state.categories)
@@ -28,6 +28,7 @@ export const PostUser = () => {
     },[])
 
   useEffect(() => {
+    console.log("useefect");
     if (userDb) {
       setInput(userDb);
     }
@@ -64,7 +65,7 @@ export const PostUser = () => {
         name: '',
         lastName: '',
         location: { country:"", city:"", address:"" },
-        image:"",
+        image: {},
         phone:"",
         mail:user?.email
     })
@@ -78,21 +79,18 @@ export const PostUser = () => {
             includeBase64: true,
         };
         launchImageLibrary(options, response => {
-            console.log('Response = ', response);
+  
             if (response.didCancel) {
-                console.log('User cancelled image picker');
+                
             } else if (response.error) {
-                console.log('ImagePicker Error : ', response.error);
+                ;
             } else if (response.customButton) {
-                console.log('User tapped custom Button: ', response.customButton);
+                
             } else {
-                const source = 'data:image/jpeg;base64,' + response.assets[0].base64;
-                setImage({ uri: source });
-                console.log("se cargo la imagen wachin");
-                console.log(image);
+                const source = 'data:image/jpeg;base64,' + response.assets[0].base64
+                /* setImage({ uri: source }); */
                 setInput({ ...input, image: source })
                 setErrors(validate({ ...input, image: source }))
-                console.log("formulario", input)
             }
         })
     }
@@ -109,13 +107,15 @@ export const PostUser = () => {
     } else {
       if (!userDb) {
         dispatch(postUser({...input, _id: user.sub}));
+        dispatch(getUser(user.sub))
         Alert.alert('data saved succesfully 👍 ');
       }
       if (userDb) {
         Alert.alert('aca habria que hacer algo pero no se que');
+        dispatch(getUser(user.sub))
       }
     }
-    setInput({
+   /*  setInput({
       name: '',
       lastName: '',
       location: {country: '', city: '', address: ''},
@@ -123,7 +123,7 @@ export const PostUser = () => {
       phone: '',
       mail: '',
     });
-    setImage({uri: ''});
+    setImage({uri: ''}); */
   };
 
   return (
@@ -285,7 +285,7 @@ export const PostUser = () => {
           </TouchableOpacity>
           {input.image.length > 0 ? (
             <Image
-              source={image}
+              source={{ uri: input.image}}
               style={{
                 height: 150,
                 width: 150,
