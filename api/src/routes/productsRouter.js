@@ -30,10 +30,10 @@ router.get("/field", async (req,res)=>{
 })
 
 router.get("/reviews", async (req,res)=>{
-    const {field} = req.query
+    const {id} = req.query
    
     try {
-        const result = await getReviews()
+        const result = await getReviews(id)
         res.status(200).json(result)
     } catch (error) {
         res.status(400).json(error)

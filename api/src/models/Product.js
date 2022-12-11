@@ -5,11 +5,9 @@ const { Schema, model, default: mongoose } = require("mongoose");
 const reviewsSchema = new Schema({
   user: {
     type: String,
-    required: true,
   },
   review: {
     type: String,
-    required: true,
     trim: true,
   },
 });
@@ -59,7 +57,6 @@ const productSchema = new Schema(
     },
     rating: {
         type: ratingSchema,
-        required: true
     },
     image:{
         type: String,
