@@ -9,11 +9,19 @@ import Paper from "@mui/material/Paper";
 import Sidebar from "../sidebar/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProduct } from "../../redux/action";
+import { deleteProduct, getProduct } from "../../redux/action";
+import { Link } from "react-router-dom";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import RestorePageIcon from '@mui/icons-material/RestorePage';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // icono para usuario
+import { useState } from "react";
 
+
+///LISTA DE PRODUCTOS
 const List = (list) => {
+
+const [ del, setDel ] = useState('')
 
 const dispatch = useDispatch()
 const products = useSelector(state => state.products)
@@ -24,6 +32,12 @@ useEffect(() => {
   dispatch(getProduct())
  }, [])   
 
+ function handleOnDelete(e, id){
+   dispatch(deleteProduct(id))
+   console.log('target ', id)
+ }
+
+console.log('productos ', products)
 if(!products){
   return (<div>Cargando</div>)
   }
@@ -46,6 +60,8 @@ else{
             <TableCell className="tableCell">Sales</TableCell>
             <TableCell className="tableCell">Rating</TableCell>
             <TableCell className="tableCell">Stock</TableCell>
+            <TableCell className="tableCell">Delete</TableCell>
+            <TableCell className="tableCell">Restore</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,9 +74,19 @@ else{
               <TableCell className="tableCell">{(r.price * 0.5)}</TableCell>
               <TableCell className="tableCell">{r.price}</TableCell>
               <TableCell className="tableCell">{r.sales}</TableCell>
-              <TableCell className="tableCell">{r.rating? r.rating.rating: ''}</TableCell>{/* {r.rating.rating} */}
+              <TableCell className="tableCell">{r.rating? r.rating.rating: ''}</TableCell>
               <TableCell className="tableCell">
                 <span className={`status ${r.stock}`}>{r.stock}</span>
+              </TableCell>
+              <TableCell className="tableCell">
+                <Link style={{textDecoration: "none"}}>
+                  <DeleteForeverIcon onClick={(e) => handleOnDelete(e, r._id)}/>
+                </Link>
+              </TableCell>
+              <TableCell className="tableCell">
+                <Link style={{textDecoration: "none"}}>
+                  <RestorePageIcon/>
+                </Link>
               </TableCell>
             </TableRow>
           ))}

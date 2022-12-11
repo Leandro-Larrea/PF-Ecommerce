@@ -1,4 +1,4 @@
-import { GET_ADMIN, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS } from "../action/const";
+import { DELETE_PRODUCT, GET_ADMIN, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS } from "../action/const";
 
 const initialState = {
     admin: {},
@@ -78,6 +78,12 @@ export default function reducer(state = initialState, {type, payload}) {
             return{
                 ...state,
                 userPayments: payload
+            }
+
+        case DELETE_PRODUCT:
+            return {
+                ...state,
+                products: state.products.filter(r => r._id!==payload)
             }
     
         default:

@@ -118,7 +118,7 @@ export const PostProduct = () => {
                 <label classname="label" for="image">Image:</label>
                 <input classname="inputI" type='file' name='image' onChange={handleFileInputChange} />
               </div>
-              <div>
+              <div className='itemContainer'>
                 <label>Image URL</label>
                 <input type='text' name='image' onChange={handleChange} />
               </div>
@@ -127,8 +127,10 @@ export const PostProduct = () => {
                 <input classname="inputI" type='textArea' name='description' onChange={handleChange} value={input.description}/>
               </div>
                 <input className='button' type='submit' value='Send' />
+              <div className='image'>
+                {input.image && <img src={input.image} alt = '' />}
+              </div> 
             </form>
-            {input.image && <img src={input.image} alt = '' />}
           </div>
         </div>
       </div>
