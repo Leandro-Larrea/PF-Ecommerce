@@ -9,6 +9,7 @@ import {
   SET_PRICE,
   GET_USER,
   GET_REVIEWS,
+  CLEAN
 } from '../actions';
 
 const initialState = {
@@ -105,6 +106,12 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         productReview: payload,
       };
+    case CLEAN:
+      return {
+        ...state,
+        /* productReview: [], */
+        detailProduct: undefined
+      }  
     default:
       return state;
   }
