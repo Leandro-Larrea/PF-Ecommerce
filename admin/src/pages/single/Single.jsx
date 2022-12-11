@@ -6,27 +6,34 @@ import List from "../../components/table/Table";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUsers } from "../../redux/action";
+import { getUserReviews, getUsers } from "../../redux/action";
 import { GET_USER } from "../../redux/action/const";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Widget from "../../components/widget/Widget";
 
 const Single = () => {
   let id = useParams()
-  const user = useSelector(state => state.user)
+  const { user, userReviews, userPayments }= useSelector(state => state)
+  
   const dispatch = useDispatch()
   //console.log('reviews de single ', user.reviews)
 
   useEffect(() => {
     dispatch(getUsers(id.userId))
+    dispatch(getUserReviews(id.userId))
 /*     return () => dispatch({
       type: GET_USER,
       payload: {}
     })   */
   },[])
   
-  console.log('usuario: ', id.userId)
-if(!user)
+  useEffect(() => {
+    console.log('usuario: ', userPayments)
+
+  }, [dispatch])
+
+
+  if(!user)
   return (<div>Cargando</div>)
   return (
     <div className="single">
@@ -74,7 +81,7 @@ if(!user)
         <div className="bottom">
         <h1 className="title">Reviews from {user.name}</h1>
         <div>
-          {user.reviews.length? user.reviews.map((r, i) => (<Widget key={i} type='user' reviews={r} userId={user.id}/>)) : ''}
+          {userReviews.length? userReviews.map((r, i) => (<Widget key={i} type='user' review={r.review} image={r.image} title={r.title} rating={r.rating} />)) : ''}
           
 
           

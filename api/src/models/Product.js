@@ -24,7 +24,7 @@ const ratingSchema = new Schema({
   rating: {
     type: Number,
     default: function () {
-      if (this.points > 0 || this.votes > 0) return this.points / this.votes;
+      if (this.points > 0 && this.votes > 0) return this.points / this.votes;
       return 0;
     },
   },

@@ -14,6 +14,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link, NavLink } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import ComputerIcon from '@mui/icons-material/Computer';
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -45,10 +46,12 @@ const Sidebar = () => {
               <span>Post products</span>
             </li>
           </Link>
-          <li>
-            <CreditCardIcon className="icon" />
-            <span>Orders</span>
-          </li>
+          <Link to='/products' style={{ textDecoration: "none" }}>
+            <li>
+              <ComputerIcon className="icon" />
+              <span>Products</span>
+            </li>
+          </Link>
           <li>
             <LocalShippingIcon className="icon" />
             <span>Delivery</span>

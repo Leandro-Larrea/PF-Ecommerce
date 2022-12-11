@@ -11,6 +11,8 @@ import { DarkModeContext } from "./context/darkModeContext";
 import Table from "./components/table/Table";
 import axios from 'axios'
 import { PostProduct } from "./components/postProduct/PostProduct";
+import { Products } from "./components/products/Products";
+
 
 axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
 
@@ -23,21 +25,25 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />
             <Route exact path="login" element={<Login />} />
-            <Route exact path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              />
-            </Route>
-            <Route exact path="postproducts">
-              <Route index element={<PostProduct />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
-              />
+              <Route exact path="users">
+                <Route index element={<List />} />
+                <Route path=":userId" element={<Single />} />
+                <Route
+                  path="new"
+                  element={<New inputs={userInputs} title="Add New User" />}
+                />
+              </Route>
+              <Route exact path="products">
+                <Route index element={<Products />} />
+                <Route path=":productId" element={<Single />} />
+              </Route>
+              <Route exact path="postproducts">
+                <Route index element={<PostProduct />} />
+                <Route path=":userId" element={<Single />} />
+                <Route
+                  path="new"
+                  element={<New inputs={productInputs} title="Add New Product" />}
+                />
             </Route>
           </Route>
         </Routes> 

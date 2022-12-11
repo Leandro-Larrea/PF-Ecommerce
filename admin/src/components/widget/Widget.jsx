@@ -6,15 +6,12 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { useSelect } from "@mui/base";
 import { useSelector } from "react-redux";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 //const Widget = ({ type }) => {
   const Widget = (props) => {
   let data;
-  let products = useSelector(state => state.products)
-  //products = products.filter(r => r.reviews.user===props.userId)
 
-
-console.log(props)
   //temporary
   const amount = 100;
   const diff = 20;
@@ -88,18 +85,18 @@ console.log(props)
   return (
     <div className="widget">
       <div className="left">
-        <span className="title">{data.title}</span>
+        <span className="title">{props.title}</span>
         <span className="counter">
-          {/* {data.isMoney && "$"} */} {props.reviews.review}
+          {/* {data.isMoney && "$"} */} {props.review}
         </span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
         <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
+          {props.rating.rating} 
+          <StarOutlineIcon className="starIcon"/>
         </div>
-        {data.icon}
+        <img src={props.image} alt='' className="image"/>
       </div>
     </div>
   );

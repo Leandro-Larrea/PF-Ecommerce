@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_CATEGORIES, GET_PRODUCTS, GET_USER, GET_USERS } from './const'
+import { GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS } from './const'
 
 export function postAdmin(admin){
     return async function (){
@@ -33,7 +33,6 @@ export function getUsers(id = ''){
                 type: GET_USERS,
                 payload: res.data
             })
-        console.log('actions user: ', res.data)
     }
 }
 
@@ -52,6 +51,27 @@ export function postProduct(product){
         let res = await axios.post(`/products`, product)
         return res.data
     }
+}
+
+export function getUserReviews(id){
+        return async function(dispatch){
+            let res = await axios.get(`/users/reviews?id=${id}`)
+            dispatch({
+                type: GET_REVIEWS,
+                payload: res.data
+            })
+        }
+}
+
+export function getUserPayments(id){
+    console.log('actions payments: ')
+ /*    return async function(dispatch){
+        let res = await axios.get(`/purchases/userPayment?id=${id}`)
+        dispatch({
+            type: GET_USER_PAYMENTS,
+            payload: res.data
+        })
+    } */
 }
     
 

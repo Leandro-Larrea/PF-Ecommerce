@@ -22,7 +22,6 @@ if(!list)
 
 useEffect(() => {
   dispatch(getProduct())
-  console.log('prod list ') 
  }, [])   
 
 if(!products){
@@ -41,7 +40,7 @@ else{
         <TableHead>
           <TableRow>
             <TableCell className="tableCell">Image</TableCell>
-            <TableCell className="tableCell">Product</TableCell>
+            <TableCell className="productCell">Product</TableCell>
             <TableCell className="tableCell">Cost</TableCell>
             <TableCell className="tableCell">Price</TableCell>
             <TableCell className="tableCell">Sales</TableCell>
@@ -50,19 +49,18 @@ else{
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((products) => (
+          {products.map((r) => (
             <TableRow key={products._id}>
                 <div className="cellWrapper">
-                  <img src={products.image} alt="" className="image" />
-                  {products.product}
+                  <img src={r.image} alt="" className="image" />
                 </div>
-              <TableCell className="tableCell">{products.title.slice(0, 50)}</TableCell>
-              <TableCell className="tableCell">{(products.price * 0.5)}</TableCell>
-              <TableCell className="tableCell">{products.price}</TableCell>
-              <TableCell className="tableCell">{products.sales}</TableCell>
-              <TableCell className="tableCell">{products.rating.rating}</TableCell>
+              <TableCell className="productCell">{r.title.slice(0, 50)}</TableCell>
+              <TableCell className="tableCell">{(r.price * 0.5)}</TableCell>
+              <TableCell className="tableCell">{r.price}</TableCell>
+              <TableCell className="tableCell">{r.sales}</TableCell>
+              <TableCell className="tableCell">{r.rating? r.rating.rating: ''}</TableCell>{/* {r.rating.rating} */}
               <TableCell className="tableCell">
-                <span className={`status ${products.stock}`}>{products.stock}</span>
+                <span className={`status ${r.stock}`}>{r.stock}</span>
               </TableCell>
             </TableRow>
           ))}
