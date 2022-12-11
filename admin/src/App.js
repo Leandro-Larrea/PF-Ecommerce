@@ -14,8 +14,8 @@ import { PostProduct } from "./components/postProduct/PostProduct";
 import { Products } from "./components/products/Products";
 
 
-axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
-
+//axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
+axios.defaults.baseURL = 'http://localhost:3001'
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -24,14 +24,12 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
+              <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
+            </Route>
             <Route exact path="login" element={<Login />} />
               <Route exact path="users">
                 <Route index element={<List />} />
                 <Route path=":userId" element={<Single />} />
-                <Route
-                  path="new"
-                  element={<New inputs={userInputs} title="Add New User" />}
-                />
               </Route>
               <Route exact path="products">
                 <Route index element={<Products />} />

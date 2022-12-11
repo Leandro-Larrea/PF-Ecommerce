@@ -7,6 +7,7 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
 import { useSelect } from "@mui/base";
 import { useSelector } from "react-redux";
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { Link } from 'react-router-dom'
 
 //const Widget = ({ type }) => {
   const Widget = (props) => {
@@ -21,7 +22,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
       data = {
         title: "USERS",
         isMoney: false,
-        link: "See all users",
+        link: "See all products",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -86,10 +87,12 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
     <div className="widget">
       <div className="left">
         <span className="title">{props.title}</span>
-        <span className="counter">
-          {/* {data.isMoney && "$"} */} {props.review}
+        <span className="review">
+           {props.review}
         </span>
-        <span className="link">{data.link}</span>
+        <Link to='/products' style={{textDecoration: "none"}}>
+          <span className="link">{data.link}</span>
+        </Link>
       </div>
       <div className="right">
         <div className="percentage positive">

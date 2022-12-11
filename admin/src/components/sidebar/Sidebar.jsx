@@ -15,6 +15,8 @@ import { Link, NavLink } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import ComputerIcon from '@mui/icons-material/Computer';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import RestorePageIcon from '@mui/icons-material/RestorePage';
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -29,10 +31,12 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link to='/' style={{ textDecoration: "none" }} >
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
@@ -52,10 +56,12 @@ const Sidebar = () => {
               <span>Products</span>
             </li>
           </Link>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
+          <Link to='/addadmin' style={{ textDecoration: "none" }}>
+            <li>
+              <SupervisorAccountIcon className="icon" />
+              <span>Add Admin</span>
+            </li>
+          </Link>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -66,10 +72,12 @@ const Sidebar = () => {
             <span>Notifications</span>
           </li>
           <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
+          <Link to='/products/restore' style={{ textDecoration: "none" }}>
+            <li>
+              <RestorePageIcon className="icon" />
+              <span>Restore deleted products</span>
+            </li>
+          </Link>
           <li>
             <PsychologyOutlinedIcon className="icon" />
             <span>Logs</span>
