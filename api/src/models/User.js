@@ -4,7 +4,7 @@ const locationSchema = new Schema({
     country:{
         type: String,
         required: true,
-        trim: true,      
+        trim: true,
     },
     city:{
         type: String,
