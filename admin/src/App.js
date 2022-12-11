@@ -12,7 +12,7 @@ import Table from "./components/table/Table";
 import axios from 'axios'
 import { PostProduct } from "./components/postProduct/PostProduct";
 
-axios.defaults.baseURL = 'http://192.168.1.9:3001';
+axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
