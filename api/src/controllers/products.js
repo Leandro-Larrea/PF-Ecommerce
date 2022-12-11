@@ -120,6 +120,7 @@ const deleteProducts = async(id)=>{
 
  const restoreProducts = async(id)=>{
     let productDb = await ProductBackUp.findById(id);
+    console.log("backup",productDb)
      let o = productDb;
      let obj = { 
          title: o.title,
@@ -156,6 +157,7 @@ const logicDelete = async(id,change)=>{
 module.exports = {
     getProducts,
     deleteProducts,
+    restoreProducts,
     postProducts,
     reviewProduct,
     getProductField,

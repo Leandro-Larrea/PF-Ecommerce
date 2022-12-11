@@ -22,7 +22,7 @@ const findPayments = async(id) =>{
 
 const findByUser = async(id) =>{
     if(id){
-        let payment = await Compra.findById(id)
+        let payment = await Compra.find({userId:id})
         return payment 
     }
         const payments = await Compra.find()
