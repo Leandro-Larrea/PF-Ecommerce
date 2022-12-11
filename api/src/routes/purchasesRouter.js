@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { savePayment, findPayments, findByUser } = require("../controllers/payments.js");
 const router = Router();
-const {Compra} = require("../models/Product.js");
 
 
 router.post("/", async (req,res)=>{
