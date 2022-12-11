@@ -41,6 +41,8 @@ export const stylesCardProduct = StyleSheet.create({
     margin: '2%',
     padding: '2%',
     borderRadius: 7,
+    position:"relative",
+    zIndex:2,
     shadowOffset: {
       width: 5,
       height: 5,
@@ -49,6 +51,12 @@ export const stylesCardProduct = StyleSheet.create({
     shadowOpacity: 0.75,
     elevation: 3,
     flex: 1,
+  },
+  pricePosition:{
+    position:"absolute",
+    width:100,
+    right: 0,
+    margin: 5
   },
   image: {
     // width: '100%',

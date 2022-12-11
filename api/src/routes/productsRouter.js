@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const {Product} = require("../models/Product.js")
+const {Product, ProductBackUp} = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, postProducts, reviewProduct, getProductField, getReviews } = require("../controllers/products.js");
+const { getProducts, postProducts, reviewProduct, getProductField, getReviews, deleteProducts, restoreProducts } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -12,6 +12,20 @@ router.get("/", async(req, res) =>{
            return res.status(200).json(filterProducts)
         }
         let products = await Product.find();
+         res.status(200).json(products);
+    } catch (error) {
+         res.status(404).send("it doesn't work");
+    }
+});
+
+router.get("/deleted", async(req, res)=>{
+    try {
+        let {name} = req.query
+        if(name){
+           let filterProducts = await getProducts(name)
+           return res.status(200).json(filterProducts)
+        }
+        let products = await ProductBackUp.find();
          res.status(200).json(products);
     } catch (error) {
          res.status(404).send("it doesn't work");
@@ -70,18 +84,31 @@ router.put("/reviews", async (req,res)=>{
     } 
 })
 
+router.put("/restore/:id", async(req, res)=>{
+    let {id} = req.params;
+    try {
+       let restored = await restoreProducts(id)
+       return res.status(201).json(restored)
+    } catch (error) {
+        return res.status(404).json({error:error})
+    }   
+}
+)
+
 router.put("/:id", async (req,res)=>{
     try {
     let {id} = req.params;
     let a = await Product.findByIdAndUpdate(id, req.body)
     let b = await Product.findById(id);
-        res.status(200).json({a,b})
+    res.status(200).json({a,b})
     } catch (error) {
         res.status(400).send("something went wrong")
     } 
 })
 
 ///////Ruta para borrar todos los documentos por algun fragmento del titulo
+
+
 
 router.delete("/title", async (req, res) => {
     let { title } = req.query
@@ -99,6 +126,18 @@ router.delete("/title", async (req, res) => {
         res.status(400).send({"something get wrong": error})
     } 
   })
+
+router.delete("/:id", async(req, res)=>{
+        let {id} = req.params;
+        try {
+           let deleted = await deleteProducts(id)
+           return res.status(201).json(deleted)
+        } catch (error) {
+            return res.status(404).json({error:error})
+        }   
+    }
+)
+
 
 
 module.exports = router;
