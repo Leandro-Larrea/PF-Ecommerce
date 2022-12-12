@@ -308,7 +308,8 @@ const style = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     width: 200,
-    left: 100,
+    alignSelf: "center"
+    
   },
   buttonText: {
     color: 'white',
