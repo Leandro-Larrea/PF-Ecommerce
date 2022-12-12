@@ -1,35 +1,55 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, postProduct } from '../../redux/action';
+import { useParams, useNavigate } from 'react-router-dom';
+import { cleanUp, getCategories, getProductDetail, postProduct, updateProduct } from '../../redux/action';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import './postProduct.scss'
 
 export const PostProduct = () => {
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [ file, setFile ] = useState('')
+  let {id} = useParams()
 
+  let detail = useSelector(state => state.productDetail)
+
+  const initialState = {
+    title: '',
+    price: '$',
+    description: '',
+    category: null,
+    image: '',
+    stock: '',
+    rating: {points:0 , votes: 0}
+  }
+  const [input, setInput] = useState(initialState)
+  
+  useEffect(()=>{
+    console.log(detail)
+    if(!id)setInput(initialState)
+    dispatch(getProductDetail(id))
+   return ()=> dispatch(cleanUp("productDetail"))
+  },[id])
+
+  
 
   // aca me traigo el estado de las categorias ej: state => state.allCategories
   const categories = useSelector(state => state.categories)
-  const [input, setInput] = useState({
-      title: '',
-      price: '',
-      description: '',
-      category: '',
-      image: '',
-      stock: '',
-      rating: {points:0 , votes: 0}
-  })
 
-  useEffect(() => {
-      dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
-  }, [dispatch])
+   useEffect(() => {
+       dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
+       return ()=>{if(id){ 
+         setInput(initialState)
+         id=null}}
+   }, [])
 
-  useEffect(async () => {
-    
-}, [input])
+    useEffect(() => {
+      if(id && detail)setInput({...detail, price: "$"+detail.price})
+      else {
+       setInput(initialState)
+      }
+  }, [detail])
 
 
   const [errors, setErrors] = useState({})
@@ -57,10 +77,14 @@ export const PostProduct = () => {
   }
 
   function handleChange(e){
-    if(e.target.name === 'stock')
-      setInput({...input, [e.target.name]: parseInt(e.target.value)})
-    else
-      setInput({...input, [e.target.name]: e.target.value})
+    let a = e.target.value
+    if(e.target.name === 'stock'){
+      setInput({...input, [e.target.name]: parseInt(a)})
+      return}   
+      if(e.target.name === "price" &&  /\d/.test(a) || a === "$"){ 
+    setInput({...input, [e.target.name]: a})}
+    else if(e.target.name !== "price")
+      setInput({...input, [e.target.name]: a})
   }
 
 
@@ -70,18 +94,15 @@ export const PostProduct = () => {
       alert('Completar todos los campos')
     } 
     else { 
-      console.log('lleno el input', input)
-      let res = await dispatch(postProduct(input));
+      let a = {...input, price: parseInt(input.price.slice(1))}
+      console.log('lleno el input', a)
+      let res = !id? await dispatch(postProduct(a)): await dispatch(updateProduct(id,a));
       console.log('listorti: ', res)
-      alert('Producto Creado 👍 ')
-      setInput({
-        title: '',
-        price: '',
-        description: '',
-        category: '',
-        image: '',
-        stock: ''
-    })
+      id? alert("product updated"): alert('Producto Creado 👍 ')
+      setInput(
+        initialState
+    )
+    if(id) navigate("/products")
     }
   }
 
@@ -94,15 +115,15 @@ export const PostProduct = () => {
             <form onSubmit={handleSubmit} className="form">
               <div className='itemContainer'>
                 <label classname="label">Product: </label>
-                <input classname="inputI" type='text' name='title' onChange={handleChange} value={input.title}/>
+                <input classname="inputI" type='text' placeholder='Playstaion' name='title' onChange={handleChange} value={input.title}/>
               </div>
               <div className='itemContainer'>
                 <label classname="label">Price:</label>
-                <input classname="inputI" type='number' name='price' onChange={handleChange} value={input.price} />
+                <input classname="inputI" type='text' placeholder="00" name='price' onChange={handleChange} value={input.price} />
               </div>
               <div className='itemContainer'>
                 <label classname="label">Stock:</label>
-                <input classname="inputI" type='number' name='stock' onChange={handleChange} value={input.stock}/>
+                <input classname="inputI" type='number' placeholder="00" name='stock' onChange={handleChange} value={input.stock}/>
               </div>
               <div className='itemContainer'>
                 <label classname="label">Category: </label>
@@ -114,22 +135,23 @@ export const PostProduct = () => {
                             )): null}
                 </select>
               </div>
+              <div className='itemContainerText'>
+                <label classname="label">Description:</label>
+                <textarea classname="inputI" name='description' onChange={handleChange} value={input.description}/>
+              </div>
               <div className='itemContainer'>
-                <label classname="label" for="image">Image:</label>
+                <label classname="label" htmlFor="image">Image:</label>
                 <input classname="inputI" type='file' name='image' onChange={handleFileInputChange} />
               </div>
               <div className='itemContainer'>
                 <label>Image URL</label>
-                <input type='text' name='image' onChange={handleChange} />
+                <input type='text'placeholder='https://...' name='image' onChange={handleChange} />
               </div>
-              <div className='itemContainerText'>
-                <label classname="label">Description:</label>
-                <input classname="inputI" type='textArea' name='description' onChange={handleChange} value={input.description}/>
-              </div>
-                <input className='button' type='submit' value='Send' />
               <div className='image'>
                 {input.image && <img src={input.image} alt = '' />}
               </div> 
+                <input className='button' type='submit' value='Send' />
+              
             </form>
           </div>
         </div>

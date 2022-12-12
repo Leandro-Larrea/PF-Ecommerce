@@ -10,18 +10,19 @@ import Sidebar from "../sidebar/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteProduct, getProduct, restoreProduct } from "../../redux/action";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useHistory} from "react-router-dom";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RestorePageIcon from '@mui/icons-material/RestorePage';
-
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // icono para usuario
 import { useState } from "react";
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+
 
 export const PostTable = (props) => {
     const { products, isProduct } = props
     const dispatch = useDispatch()
-    
-    
+     
+
     function handleOnDelete(e, id){
         dispatch(deleteProduct(id))
         console.log('target ', id)
@@ -49,6 +50,7 @@ export const PostTable = (props) => {
                 <TableCell className="tableCell">Rating</TableCell>
                 <TableCell className="tableCell">Stock</TableCell>
                 <TableCell className="tableCell">{isProduct? 'Delete' : 'Restore'}</TableCell>
+                <TableCell className="tableCell">Edit</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -77,6 +79,11 @@ export const PostTable = (props) => {
                             </Link>
                         </TableCell>
                     }
+                    <TableCell className="tableCell">
+                      <NavLink style={{textDecoration:"none", color:"green"}} to ={`/postproducts/${r._id}`}>
+                        { <ModeEditOutlinedIcon /> }
+                      </NavLink>
+                    </TableCell>
                 </TableRow>
               ))}
             </TableBody>

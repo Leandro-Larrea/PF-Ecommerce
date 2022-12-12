@@ -14,7 +14,7 @@
     box-shadow: 0px 0px 10px white;
     position: relative;
     .button{
-        grid-column: span 2;
+       
         justify-self: end;
         align-self: end;
         color: #6439ff;
@@ -32,31 +32,31 @@
         }
     }
     .image{
-        overflow: hidden;
-        grid-column: span 2;
-        width: 300px;
-        height: 300px;
-        border: 5px solid black;
+        display: flex;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        background-image: url("../../images/producto.jpg");
+        background-position: center;
+        
     }
 }
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;}
-.main{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    margin: 1%;
-    color:  #6439ff;
-    font-weight: bold;
-
-
-}
-
-.itemContainer{
+    .main{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin: 1%;
+        color:  #6439ff;
+        font-weight: bold;
+    }
+    
+    .itemContainer{
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
@@ -64,16 +64,30 @@
     height: 65px;
     label{
         color: rgba($color: #2e2e2e, $alpha: 1.0);
-    font-weight: 300;
-    font-size: 14px;
+        font-weight: 300;
+        font-size: 14px;
+    }
+    &:nth-child(6){
+        input{
+            border: none;    
+        }
     }
     input{
-        max-width: 137px;
-        border-color:rgba($color: #d1d1d1, $alpha: 1.0);
-        border: 0.5 px solid rgba($color: #2e2e2e, $alpha: 1.0);
+        box-sizing: border-box;
+        max-width: 142px;
+        border: none;
+        height: 30px;
+        border-bottom: 0.5px solid rgba($color: #2e2e2e, $alpha: 1.0);
         outline: none;
+        padding: 5px;
+        
+        
+       
         transition: 0.1s;
         &:hover{
+            border-color: #6439ff;
+        }
+        &:focus{
             border-color: #6439ff;
         }
     }
@@ -91,9 +105,17 @@
     color: rgba($color: #4e4c4c, $alpha: 1.0);
     font-weight: 300;
     }
-    input{
+    textArea{
         height: 100px;
         width: 100%;
+        padding: 10px;
+        border: 0.5px solid rgba($color: #4e4c4c, $alpha: 1.0);
+
+        &:focus{
+            outline: none;
+            border: 0.5px solid  #6439ff; 
+        }
     }
+  
 }
 
