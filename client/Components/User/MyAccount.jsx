@@ -13,15 +13,6 @@ const Tab = createMaterialTopTabNavigator()
 
 
 export const MyAccount = () => {
-  const {user} = useAuth0()
-  const userDb = useSelector(state => state.user)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-      dispatch(getUser(user.sub))
-      console.log("esto es user db", user)
-  },[dispatch])
-
   return (
     <Tab.Navigator initialRouteName='Profile'>
         <Tab.Screen name='Profile' component={Profile} />

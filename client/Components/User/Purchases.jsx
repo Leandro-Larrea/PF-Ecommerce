@@ -25,7 +25,7 @@ export const Purchases = () => {
         <Text style={stylesCardProduct.title}>
             Purchases
         </Text>
-        {purchases && (
+        {/* {purchases && (
           <FlatList
             data={purchases}
             renderItem={({ item, index}) => (
@@ -34,7 +34,7 @@ export const Purchases = () => {
               </>
           )}
           />
-        )}         
+        )}          */}
        
     </View>
   )
