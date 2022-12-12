@@ -110,7 +110,7 @@ export const PostUser = () => {
         dispatch(getUser(user.sub))
         Alert.alert('data saved succesfully 👍 ');
       }
-      if (userDb) {
+      if (userDb) {  //si ya hay userDb tendria q actualizar los campos cambiados
         Alert.alert('aca habria que hacer algo pero no se que');
         dispatch(getUser(user.sub))
       }

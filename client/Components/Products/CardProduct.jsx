@@ -63,12 +63,12 @@ const CardProduct = ({navegar, product}) => {
       <View style={styles.fixToText}>
         <CardPrice price={price} text={off + '% Off'} off={off} />
         <View style={{flexDirection: 'row'}}>
-          <Button
+          {/* <Button
             color={'#2d2d2d'}
             title={'VIEW'}
             onPress={() => {
               navegar(product);
-            }}></Button>
+            }}></Button> */}
 
           <Button
             type="solid"

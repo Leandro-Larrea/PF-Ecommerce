@@ -13,8 +13,8 @@ import { NotificationNoLog } from "../../src/services/LocalPushControllers";
 export const Profile = ({navigation}) => {
     const {user} = useAuth0();
 
-    const userDb = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const userDb = useSelector(state => state.user)
     
     useEffect(()=>{
         if(user) dispatch(getUser(user.sub))
@@ -23,7 +23,8 @@ export const Profile = ({navigation}) => {
             setTimeout(()=>{alert('In order of be able of using the full aplication u need to setup your contact info')},1000)
             NotificationNoLog();
             }
-    },[])
+    },[dispatch])
+    
 
 /*   useEffect(() => {
     if (Object.keys(userDb).length > 0) {
@@ -51,7 +52,7 @@ export const Profile = ({navigation}) => {
           (<View style={styles.info}>
             <View style={styles.buttons}>
               
-              <Image style={{width: 150, height: 150, borderWidth: 1, borderRadius: 400/2, borderColor: "black"}} source={ {uri :userDb.image}} />
+              <Image style={{width: 150, height: 150, borderWidth: 1, borderRadius: 400/2, borderColor: "black"}} source={ {uri :userDb.image.toString()}} />
               <Text style={styles.data}>Name: {userDb.name}</Text>
               <Text style={styles.data}>Email: {userDb.mail}</Text>
               <Text style={styles.data}>Phone: {userDb.phone}</Text>

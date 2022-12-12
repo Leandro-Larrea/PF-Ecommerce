@@ -19,7 +19,7 @@ export const Purchases = () => {
     console.log("user db de purche",userDb)
   },[])
 
-  const {purchases} = userDb
+  const purchases = userDb?.purchases
 
   return (
     <View>
