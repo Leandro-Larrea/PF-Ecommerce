@@ -1,9 +1,10 @@
-import { DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, RESTORE_PRODUCT } from "../action/const";
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
 
 const initialState = {
     admin: {},
     products: [],
     productsBackup: [],
+    productDetail: null,
     users: [],
     categories: [],
     userReviews: [],
@@ -24,7 +25,26 @@ export default function reducer(state = initialState, {type, payload}) {
                 ...state,
                 products: payload
             }
+
+        case PRODUCT_DETAIL:
+            return {
+                ...state,
+                productDetail: payload
+            }
+
+        case CLEAN_UP:
+            console.log("cleaning?", state)
+            return {
+                ...state,
+                [payload]: null
+            }
             
+            case UPDATE_PRODUCT:
+                let a = state.products.filter(e=> e._id !== payload._id)
+                return {
+                    ...state,
+                    products: [...a, payload]
+                }
         case GET_USERS:
             payload = payload.map(r => {
                 return{

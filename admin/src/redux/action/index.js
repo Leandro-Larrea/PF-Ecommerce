@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DELETE_PRODUCT, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, RESTORE_PRODUCT } from './const'
+import { CLEAN_UP, DELETE_PRODUCT, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from './const'
 
 export function postAdmin(admin){
     return async function (){
@@ -17,6 +17,26 @@ export function getProduct(id = ''){
             payload: res.data
         }) 
     }
+}
+
+export function getProductDetail(id){
+    return async function(dispatch){
+        let res = await axios.get(`/products/${id}`)
+        dispatch({
+            type: PRODUCT_DETAIL,
+            payload: res.data.a
+        }) 
+    }
+}
+
+export function cleanUp(state){  
+    console.log("action" ,state)
+    return async function(dispatch){
+    dispatch({
+        type: CLEAN_UP,
+        payload: state
+    })
+}
 }
 
 export function getUsers(id = ''){
@@ -50,6 +70,17 @@ export function postProduct(product){
     return async function(){
         let res = await axios.post(`/products`, product)
         return res.data
+    }
+}
+
+export function updateProduct(id,product){
+    return async function(dispatch){
+        console.log("action de update")
+        let res = await axios.put(`/products/${id}`, product)
+        dispatch({
+            type:UPDATE_PRODUCT,
+            payload:res.data.b
+        }) 
     }
 }
 
