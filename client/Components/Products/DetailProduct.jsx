@@ -25,19 +25,18 @@ function DetailProduct({route, navigation}) {
   const {_id, title, image, price} = route.params;
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const dispatch = useDispatch();
-  const {detailProduct} = useSelector(state => state);
+  const {detailProduct, user} = useSelector(state => state);
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
   
-  console.log("reviews", reviews);
   const selectedAnim = useRef(new Animated.Value(1)).current;
   const off = Math.floor(Math.random() * 20);
   
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
-    console.log("zzz");
+     
     return () => {
       dispatch(clean());
     }
@@ -138,7 +137,7 @@ function DetailProduct({route, navigation}) {
         </View>
         {reviews && (
           <View style={styles.reviews}>
-            <Reviews reviews={reviews.reviews} productId={_id} />
+            <Reviews reviews={reviews} productId={_id} />
           </View>
         )}
       </View>
