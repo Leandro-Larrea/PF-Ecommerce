@@ -84,6 +84,10 @@ const userSchema = new Schema({
     },
     imageId:{
         type: String
+    },
+    status: {
+        type: Boolean,
+        default: true
     }
 },
     {

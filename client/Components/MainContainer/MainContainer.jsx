@@ -19,7 +19,7 @@ const homeName = 'Home';
 const lookProductsName = 'Products';
 const cartName = 'Cart';
 //const profile = 'Profile';
-const myAccount = 'Profile';
+const myAccount = 'My Profile';
 
 const Tab = createBottomTabNavigator();
 

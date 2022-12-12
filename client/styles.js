@@ -1,5 +1,4 @@
 import {StyleSheet, Dimensions} from 'react-native';
-
 export const stylesCardCart = StyleSheet.create({
   container: {
     flex: 1,
@@ -42,6 +41,8 @@ export const stylesCardProduct = StyleSheet.create({
     margin: '2%',
     padding: '2%',
     borderRadius: 7,
+    position:"relative",
+    zIndex:2,
     shadowOffset: {
       width: 5,
       height: 5,
@@ -51,14 +52,16 @@ export const stylesCardProduct = StyleSheet.create({
     elevation: 3,
     flex: 1,
   },
+  pricePosition:{
+    position:"absolute",
+    width:100,
+    right: 0,
+    margin: 5
+  },
   image: {
     // width: '100%',
     height: 250,
     marginBottom: 10,
-  },
-  fixToTextDetail: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
   },
   fixToText: {
     flexDirection: 'row',
@@ -94,20 +97,15 @@ export const stylesCardProduct = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Louis George Cafe Bold',
     backgroundColor: '#2d2d2d',
-    color: '#adff2f',
+    color: '#89c30d',
     bottom: 0,
-    borderRadius: 4,
     padding: 6,
-    paddingLeft: 9,
-    paddingRight: 9,
-    // textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    // textShadowOffset: {width: -1, height: 1},
-    // textShadowRadius: 1
+    borderRadius: 4,
   },
   cart: {
     fontSize: 14,
     fontFamily: 'Louis George Cafe Bold',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     color: '#89c30d',
     margin: 3,
     // padding: 4,
@@ -118,7 +116,7 @@ export const stylesCardProduct = StyleSheet.create({
     },
     shadowColor: 'black',
     shadowOpacity: 0.75,
-    elevation: 4,
+    elevation: 3,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -127,7 +125,6 @@ export const stylesCardProduct = StyleSheet.create({
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
-
 export const stylesDetails = StyleSheet.create({
   container: {
     height: '100%',
@@ -168,19 +165,49 @@ export const stylesDetails = StyleSheet.create({
     fontFamily: 'Louis George Cafe Bold',
     marginHorizontal: 10,
   },
-
   data: {
     fontFamily: 'Louis George Cafe Bold',
     backgroundColor: '#2d2d2d',
     color: '#89c30d',
     bottom: 0,
     padding: 6,
-    borderRadius: 4,
+    borderRadius: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25,
+  },
+  price: {
+    fontSize: 20,
+    color: '#89c30d',
+  },
+  stock: {
+    color: '#89c30d',
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  reviews: {
+    marginVertical: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: '100%',
   },
   cart: {
     fontSize: 14,
     fontFamily: 'Louis George Cafe Bold',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     color: '#89c30d',
     margin: 3,
     // padding: 4,
@@ -192,7 +219,6 @@ export const stylesDetails = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: 0.75,
     elevation: 3,
-
     alignItems: 'center',
     justifyContent: 'center',
   },

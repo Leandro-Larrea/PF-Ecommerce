@@ -68,6 +68,24 @@ const { User } = require("../models/User")
    return a
  }
 
+ const getUserReviews = async (id) =>{
+   if(id){
+      let user = await User.findById(id,{reviews:1})
+      let box = [];
+      for(const rev of user.reviews){
+         let a = await Product.findById(rev.product)
+         let obj = {
+            title:a.title,
+            image:a.image,
+            rating: a.rating,
+            review: rev.review 
+            }
+         box.push(obj)
+      } 
+      return box
+   }
+}
+
  const getCart = async(id) =>{
    
    let r = await User.findById(id,{cart:1, _id:0})
@@ -98,5 +116,6 @@ const { User } = require("../models/User")
    postUser,
    getUser,
    getCart,
-   updateCart
+   updateCart,
+   getUserReviews
  };

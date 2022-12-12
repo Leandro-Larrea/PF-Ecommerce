@@ -1,0 +1,46 @@
+.table {
+  .productCell{
+    width: 500px;
+
+  }
+
+  .listContainer {
+
+    .listTitle{
+      font-weight: 500;
+      color: gray;
+      align-self: center;
+      }
+    }
+    .cellWrapper {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      padding-top: 10px;
+      
+
+      .image {
+        width: 35px;
+        height: 35px;
+        border-radius: 25%;
+        margin-right: 10px;
+        object-fit: cover;
+      }
+  }
+
+  .status {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Approved {
+      color: green;
+      background-color: rgba(0, 128, 0, 0.151);
+    }
+    &.Pending {
+      color: goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+  }
+}
+ 
+

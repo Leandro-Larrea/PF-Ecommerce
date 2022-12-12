@@ -53,6 +53,9 @@ const CardProduct = ({navegar, product}) => {
         resizeMode="contain"
         source={{uri: image && image.toString()}}
       />
+      <View style={styles.pricePosition}>
+          <CardPrice price={price} text={off + '% Off'} off={off}/>
+        </View>
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>
@@ -61,14 +64,14 @@ const CardProduct = ({navegar, product}) => {
         {description}
       </Text>
       <View style={styles.fixToText}>
-        <CardPrice price={price} text={off + '% Off'} off={off} />
-        <View style={{flexDirection: 'row'}}>
-          {/* <Button
+        
+        <View style={{flexDirection: 'row', width:"100%", justifyContent:'flex-end'}}>
+          <Button
             color={'#2d2d2d'}
             title={'VIEW'}
             onPress={() => {
               navegar(product);
-            }}></Button> */}
+            }}></Button>
 
           <Button
             type="solid"

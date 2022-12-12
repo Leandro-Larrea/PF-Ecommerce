@@ -1,0 +1,99 @@
+.form{
+    padding: 1rem;
+    box-sizing: border-box;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-items:center ;
+    min-width: 70%;
+    padding: 5%;
+    border: 1px solid rgba($color: #d1d1d1, $alpha: 1.0);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px white;
+    position: relative;
+    .button{
+        grid-column: span 2;
+        justify-self: end;
+        align-self: end;
+        color: #6439ff;
+        margin-top: 40px;
+        background-color: white;
+        width: 100px;
+        height: 36px;
+        border: 1px solid #6439ff;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: 0.1s;
+        &:hover{
+            background-color: #6439ff;
+            color: white;
+        }
+    }
+    .image{
+        overflow: hidden;
+        grid-column: span 2;
+        width: 300px;
+        height: 300px;
+        border: 5px solid black;
+    }
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;}
+.main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 1%;
+    color:  #6439ff;
+    font-weight: bold;
+
+
+}
+
+.itemContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    position: relative;
+    height: 65px;
+    label{
+        color: rgba($color: #2e2e2e, $alpha: 1.0);
+    font-weight: 300;
+    font-size: 14px;
+    }
+    input{
+        max-width: 137px;
+        border-color:rgba($color: #d1d1d1, $alpha: 1.0);
+        border: 0.5 px solid rgba($color: #2e2e2e, $alpha: 1.0);
+        outline: none;
+        transition: 0.1s;
+        &:hover{
+            border-color: #6439ff;
+        }
+    }
+}
+
+.itemContainerText{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: span 2;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    height: 100px;
+    label{
+    color: rgba($color: #4e4c4c, $alpha: 1.0);
+    font-weight: 300;
+    }
+    input{
+        height: 100px;
+        width: 100%;
+    }
+}
+
