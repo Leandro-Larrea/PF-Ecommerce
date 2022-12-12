@@ -20,18 +20,18 @@ export default function PriceFilter({filters, fcUpdate}) {
 
   return (
     <View style={styles.container}>
-      <Text>PRICE RANGE:</Text>
+      <Text style={{ color: "#2d2d2d", fontSize: 15, textDecorationColor: "red", textShadowColor: "grey", textShadowRadius: 10 }} >PRICE RANGE:</Text>
       <View style={styles.inputs}>
         <TextInput
         
-          placeholder="min"
+          placeholder="$Min"
           style={styles.input1}
           onChangeText={e => handleMin(e)}
           value={filters.min}
           keyboardType="numeric"
         />
         <TextInput
-          placeholder="max"
+          placeholder="$Max"
           style={styles.input2}
           onChangeText={e => handleMax(e)}
           value={filters.max}
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     borderColor: '#939ba6',
     paddingHorizontal: 10,
     color: '#df5a00',
+    backgroundColor: "#f5f5f9"
   },
 
   input2: {
@@ -75,5 +76,7 @@ const styles = StyleSheet.create({
     borderColor: '#939ba6',
     paddingHorizontal: 10,
     color: '#df5a00',
+    backgroundColor: "#f5f5f9"
+
   },
 });

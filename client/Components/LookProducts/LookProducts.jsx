@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
-import ShowAll from '../Filters/ShowAll';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import Sort from '../Filters/Sort';
-import {SearchBar} from '../SearchBar/SearchBar';
-
-import Detail from '../Products/DetailProduct';
-import {useDispatch, useSelector} from 'react-redux';
+import { SearchBar } from '../SearchBar/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient'
 
 //--componentes---
 import Cards from '../Products/CardProducts.jsx';
 import Select from '../Filters/Select';
-import {getCategories} from '../../redux/actions';
+import { getCategories } from '../../redux/actions';
 import PriceFilter from '../Filters/PriceFilter';
 
-export const LookProducts = ({navigation}) => {
+export const LookProducts = ({ navigation }) => {
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
   useEffect(() => {
@@ -32,31 +29,34 @@ export const LookProducts = ({navigation}) => {
     max: '',
     category: '',
   })
-useEffect(()=>{
-},[filters])
-  const fcUpdate = (input, value)=>{
-    setFilters({...filters, [input]:value})
+  useEffect(() => {
+  }, [filters])
+  const fcUpdate = (input, value) => {
+    setFilters({ ...filters, [input]: value })
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View>
-        <View style={styles.filterContainer}>
-          <SearchBar navigation={navigation} filters={filters} fcUpdate={fcUpdate}/>
-          <View style={styles.showAll}>
-            {/* <ShowAll /> */}
-          </View>
-          <View style={styles.filterRow}>
-            {categories && <Select categories={categories} filters={filters} fcUpdate={fcUpdate}></Select>}
-            <View>
-              <Sort filters={filters} fcUpdate={fcUpdate}/>
+        <LinearGradient colors={['#2d2d2d', 'white',]} style={{ borderBottomWidth: 1.12, zIndex: 10 }}>
+
+          <View style={styles.filterContainer}>
+            <SearchBar navigation={navigation} filters={filters} fcUpdate={fcUpdate} />
+            <View style={styles.showAll}>
+              {/* <ShowAll /> */}
             </View>
+            <View style={styles.filterRow}>
+              {categories && <Select categories={categories} filters={filters} fcUpdate={fcUpdate}></Select>}
+              <View>
+                <Sort filters={filters} fcUpdate={fcUpdate} />
+              </View>
+            </View>
+
+            <PriceFilter filters={filters} fcUpdate={fcUpdate} />
           </View>
-          
-          <PriceFilter filters={filters} fcUpdate={fcUpdate}/>
-        </View>
+        </LinearGradient>
       </View>
-      <View style={{flex: 5,position:"relative", zIndex:1}}>
+      <View style={{ flex: 5, position: "relative", zIndex: 1, backgroundColor: "#bfbfbf" }}>
         <Cards navegar={navegar} />
       </View>
     </View>
@@ -65,37 +65,35 @@ useEffect(()=>{
 const gap = 3;
 const styles = StyleSheet.create({
   main: {
-    paddingBottom:(gap/2),
+    paddingBottom: (gap / 2),
     minHeight: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    
+
   },
-  filterRow:{
-    margin:(gap/2),
-    zIndex:10,
-    flexDirection:"row",
-    position:"relative",
-    height:50,
-    justifyContent:"space-around",
-    flexWrap:"wrap",
-    maxWidth:"100%"
+  filterRow: {
+    margin: (gap / 2),
+    zIndex: 10,
+    flexDirection: "row",
+    position: "relative",
+    height: 50,
+    justifyContent: "space-around",
+    flexWrap: "wrap",
+    maxWidth: "100%",
   },
-  filterContainer: { 
-    marginBottom:(gap/2),
-    paddingBottom:(gap/2+4),
-    position:"relative",
+  filterContainer: {
+    marginBottom: (gap / 2),
+    paddingBottom: (gap / 2 + 4),
+    position: "relative",
     zIndex: 5,
-    borderBottomColor:'#89c30d',
-    borderBottomWidth: 1 
   },
 
   showAll: {
-    margin:(gap/2),
+    margin: (gap / 2),
     flexDirection: 'column',
-    width:"100%",
+    width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
-    
+
   },
 });
