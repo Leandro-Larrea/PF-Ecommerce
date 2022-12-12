@@ -39,7 +39,7 @@ console.log("CARRITO", cartItems);
     precios.length > 0 ? precios.reduce((prev, curr) => prev + curr) : 0;
   const final = total ? total.toFixed(2) : 0;
 
-  const detalleCompra = { userId: userDb._id, 
+  const detalleCompra = { userId: userDb?._id, 
   cartItems: cartItems.length > 0 ?
   cartItems.map(e => { return {id: e.productId, cantidad:  e.quantity, price: e.product.price}})
   : ''
