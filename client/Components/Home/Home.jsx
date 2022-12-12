@@ -31,16 +31,13 @@ export const Home = ({ navigation }) => {
           <Header></Header>
         </View>
         <View style={style.cuenta}>
-
           <TouchableHighlight style={style.icon} onPress={() => navigation.navigate('My Profile')}>
             <Icon name="person-outline" size={28} color="#89c30d" />
           </TouchableHighlight>
-          <AuthenticationButton />
-
+          {/* <AuthenticationButton /> */}
         </View>
 
         <View style={style.content}>
-
           <Carousel></Carousel>
           <View style={style.categoriaBox}>
             <Text style={style.categoriesText}>SUGGESTED CATEGORIES</Text>
@@ -95,11 +92,11 @@ const style = StyleSheet.create({
   },
   cuenta: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    minHeight: 50,
-    backgroundColor: 'black'
-
+    minHeight: 40,
+    backgroundColor: 'black',
+    paddingHorizontal: 10,
   },
   icon: {
     marginRight: 10
