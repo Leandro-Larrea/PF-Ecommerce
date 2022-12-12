@@ -29,7 +29,7 @@ const AuthenticationButton = () => {
       {loggedIn && <Text style={styles.logtext} > {user.name}</Text>}
       {!loggedIn && <Text style={styles.text}>You are not logged in</Text>}
       </View>
-      <View style={styles.boton}>
+      <View >
       <Button
         onPress={loggedIn ? onLogout : onLogin}
         title={loggedIn ? 'Log Out' : 'Log In'}
@@ -46,8 +46,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
-        
     },
     text:{
       color:'white',
@@ -59,6 +57,10 @@ const styles = StyleSheet.create({
       color:'white',
       marginRight:5,
       fontFamily:'Louis George Cafe Bold'
+    },
+    boton: {
+      borderRadius: 5,
+      height: 20,
     }
    
 })

@@ -8,7 +8,6 @@ import {useAuth0} from 'react-native-auth0';
 import { FlatList } from 'react-native-gesture-handler';
 
 
-
 export const Purchases = () => {
   const dispatch = useDispatch()
   const userDb = useSelector(state => state.user)

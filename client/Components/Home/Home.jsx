@@ -97,7 +97,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: 80,
+    minHeight: 50,
     backgroundColor: 'black'
 
   },

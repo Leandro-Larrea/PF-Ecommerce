@@ -53,7 +53,7 @@ export default function ({ categories, filters, fcUpdate }) {
           data={["todos",...data]}
           save="value"
           search={false}
-          boxStyles={{ borderRadius: 9, backgroundColor: "#f5f5f9", height: 44}}
+          boxStyles={{ borderRadius: 9, backgroundColor: "#f5f5f9", height: 35, paddingVertical: 4}}
           style={{color:"red"}}
           dropdownStyles={{borderRadius:10,backgroundColor:"#2d2d2d"}}
           dropdownTextStyles={{color:"white"}}

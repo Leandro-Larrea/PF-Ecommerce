@@ -2,16 +2,12 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Text, View, Image, StyleSheet, Button } from 'react-native';
 import { useAuth0 } from 'react-native-auth0';
-import { TouchableHighlight } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/actions";
-import { LoginButton } from "../LogButtons/LoginButton";
+import { clearUser, getUser } from "../../redux/actions";
 import { LogoutButton } from "../LogButtons/LogoutButton";
 import { NotificationNoLog } from "../../src/services/LocalPushControllers";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient'
-
-
 
 
 export const Profile = ({ navigation }) => {
@@ -22,11 +18,14 @@ export const Profile = ({ navigation }) => {
 
   useEffect(() => {
     if (user) dispatch(getUser(user.sub))
-    console.log("esto es user db", userDb)
-    if (!userDb) {
-      setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
-      NotificationNoLog();
+    return ()=>{
+      dispatch(clearUser())
     }
+    // console.log("esto es user db", userDb)
+    // if (!userDb) {
+    //   //setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
+    //   NotificationNoLog();
+    // }
   }, [])
 
   /*   useEffect(() => {
@@ -129,13 +128,13 @@ const styles = StyleSheet.create({
   },
   info: {
     width: '100%',
-
+    paddingTop: 60,
     fontSize: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   boton: {
-    marginTop: 40,
+    marginTop: 30,
   },
   bottonIn: {
     width: 250,
