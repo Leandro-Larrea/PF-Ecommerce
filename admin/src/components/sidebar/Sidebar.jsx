@@ -17,6 +17,7 @@ import { useContext } from "react";
 import ComputerIcon from '@mui/icons-material/Computer';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import RestorePageIcon from '@mui/icons-material/RestorePage';
+import logo from '../../images/logo.png'
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -24,7 +25,9 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Console.Games</span>
+          <span className="logo">
+            <img src={logo} alt='Console.Games' className="image"/>
+          </span>
         </Link>
       </div>
       <hr />
