@@ -19,7 +19,7 @@ export const RestoreProducts = () => {
     <div className="single">
         <Sidebar />
         <div className="singleContainer">
-            <Navbar />
+            <Navbar isDeleted={true}/>
             {deletedProducts.length? <PostTable products={deletedProducts} isProduct={false} /> : 'Cargando'}
         </div>
     </div>

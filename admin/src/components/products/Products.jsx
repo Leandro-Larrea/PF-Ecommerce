@@ -8,7 +8,7 @@ export const Products = () => {
     <div className="single">
         <Sidebar />
         <div className="singleContainer">
-            <Navbar />
+            <Navbar  />
                 <div>
                     <List/>
                 </div>
