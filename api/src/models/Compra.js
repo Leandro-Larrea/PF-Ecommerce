@@ -6,7 +6,7 @@ const productSchema = new Schema({
             type: String,
             require: true
         },
-        quantify: {
+        quantity: {
             type: Number,
             require: true
         },

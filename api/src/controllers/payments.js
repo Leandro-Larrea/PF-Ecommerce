@@ -5,10 +5,9 @@ const savePayment = async(payment) =>{
     const {cartItems, userId} = req.body
     if(!cartItems || !userId) throw ("insuficent data")
 
-    let a = await Compra(payment)
-    console.log(a)
+    let a = await Compra({userId, products:payment})
     let b = await a.save()
-     return b
+    return b
 }
 
 const findPayments = async(id) =>{

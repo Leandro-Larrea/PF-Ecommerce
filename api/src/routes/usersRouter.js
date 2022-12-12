@@ -4,6 +4,7 @@ const router = Router();
 const { User } = require('../models/User')
 const deleteFileCloudinary = require('../cloudinary/deleteFileCloudinary');
 const { getReviews } = require("../controllers/products.js");
+const { Product } = require("../models/Product.js");
 
 router.post("/", async (req,res)=>{
     try {
@@ -64,7 +65,14 @@ router.get('/admin', async (req, res) => {
         res.status(400).send(error)          
     }
 })
-
+router.put('/', async (req, res) => {
+    try {
+        let products = await Product.update({reviews:[]})
+        return res.status(201).json(products)
+      } catch (error) {
+          return res.status(404).send("la concha de la lora")
+      }
+})
 ///ruta de borrado permanente
 router.delete('/:_id', async (req, res) => {
     let _id = req.params
@@ -77,6 +85,7 @@ router.delete('/:_id', async (req, res) => {
         res.status(400).send(error)
     }
 })
+
 
 
 module.exports = router;
