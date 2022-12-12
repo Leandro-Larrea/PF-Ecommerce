@@ -32,10 +32,10 @@
         }
     }
     .image{
-        overflow: hidden;
+        display: flex;
+        justify-content: center;
         width: 200px;
         height: 200px;
-        
         background-image: url("../../images/producto.jpg");
         background-position: center;
         
@@ -54,8 +54,6 @@
         margin: 1%;
         color:  #6439ff;
         font-weight: bold;
-        
-        
     }
     
     .itemContainer{
@@ -76,7 +74,7 @@
     }
     input{
         box-sizing: border-box;
-        max-width: 143px;
+        max-width: 142px;
         border: none;
         height: 30px;
         border-bottom: 0.5px solid rgba($color: #2e2e2e, $alpha: 1.0);

@@ -1,35 +1,55 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, postProduct } from '../../redux/action';
+import { useParams, useNavigate } from 'react-router-dom';
+import { cleanUp, getCategories, getProductDetail, postProduct, updateProduct } from '../../redux/action';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import './postProduct.scss'
 
 export const PostProduct = () => {
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [ file, setFile ] = useState('')
+  let {id} = useParams()
 
+  let detail = useSelector(state => state.productDetail)
+
+  const initialState = {
+    title: '',
+    price: '$',
+    description: '',
+    category: null,
+    image: '',
+    stock: '',
+    rating: {points:0 , votes: 0}
+  }
+  const [input, setInput] = useState(initialState)
+  
+  useEffect(()=>{
+    console.log(detail)
+    if(!id)setInput(initialState)
+    dispatch(getProductDetail(id))
+   return ()=> dispatch(cleanUp("productDetail"))
+  },[id])
+
+  
 
   // aca me traigo el estado de las categorias ej: state => state.allCategories
   const categories = useSelector(state => state.categories)
-  const [input, setInput] = useState({
-      title: '',
-      price: '$',
-      description: '',
-      category: null,
-      image: '',
-      stock: '',
-      rating: {points:0 , votes: 0}
-  })
 
-  useEffect(() => {
-      dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
-  }, [dispatch])
+   useEffect(() => {
+       dispatch(getCategories()) //me traigo las categorias para despues poder seleccionarlas
+       return ()=>{if(id){ 
+         setInput(initialState)
+         id=null}}
+   }, [])
 
-  useEffect(async () => {
-    
-}, [input])
+    useEffect(() => {
+      if(id && detail)setInput({...detail, price: "$"+detail.price})
+      else {
+       setInput(initialState)
+      }
+  }, [detail])
 
 
   const [errors, setErrors] = useState({})
@@ -76,18 +96,13 @@ export const PostProduct = () => {
     else { 
       let a = {...input, price: parseInt(input.price.slice(1))}
       console.log('lleno el input', a)
-      let res = await dispatch(postProduct(a));
+      let res = !id? await dispatch(postProduct(a)): await dispatch(updateProduct(id,a));
       console.log('listorti: ', res)
-      alert('Producto Creado 👍 ')
-      setInput({
-        title: '',
-        price: '$',
-        description: '',
-        category: "",
-        image: '',
-        stock: '',
-        rating: {points:0 , votes: 0}
-    })
+      id? alert("product updated"): alert('Producto Creado 👍 ')
+      setInput(
+        initialState
+    )
+    if(id) navigate("/products")
     }
   }
 
