@@ -132,7 +132,7 @@ export const PostUser = () => {
         <Header />
       </View>
       <View style={{paddingTop: 30}}>
-        <Text style={stylesCardProduct.title}>Please, complete yor profile information</Text>
+        <Text style={stylesCardProduct.title}>Please, Complete your profile information</Text>
       </View>
       <Form
         style={style.Form}
@@ -308,7 +308,8 @@ const style = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     width: 200,
-    left: 100,
+    alignSelf: "center"
+    
   },
   buttonText: {
     color: 'white',

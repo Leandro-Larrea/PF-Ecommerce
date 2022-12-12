@@ -16,17 +16,17 @@ import RestorePageIcon from '@mui/icons-material/RestorePage';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // icono para usuario
 import { useState } from "react";
+import { PostTable } from "./PostTable";
 
 
 ///LISTA DE PRODUCTOS
-const List = (list) => {
+const List = () => {
 
 const [ del, setDel ] = useState('')
 
 const dispatch = useDispatch()
-const products = useSelector(state => state.products)
-if(!list)
-  products = list 
+let products = useSelector(state => state.products)
+
 
 useEffect(() => {
   dispatch(getProduct())
@@ -42,59 +42,7 @@ if(!products){
   return (<div>Cargando</div>)
   }
 else{ 
-  return (
-    <div>
-
-      <div className="listContainer">
-        <div className="listTitle">Products Table</div>
-      
-      </div>
-    <TableContainer component={Paper} className="table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className="tableCell">Image</TableCell>
-            <TableCell className="productCell">Product</TableCell>
-            <TableCell className="tableCell">Cost</TableCell>
-            <TableCell className="tableCell">Price</TableCell>
-            <TableCell className="tableCell">Sales</TableCell>
-            <TableCell className="tableCell">Rating</TableCell>
-            <TableCell className="tableCell">Stock</TableCell>
-            <TableCell className="tableCell">Delete</TableCell>
-            <TableCell className="tableCell">Restore</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {products.map((r) => (
-            <TableRow key={products._id}>
-                <div className="cellWrapper">
-                  <img src={r.image} alt="" className="image" />
-                </div>
-              <TableCell className="productCell">{r.title.slice(0, 50)}</TableCell>
-              <TableCell className="tableCell">{(r.price * 0.5)}</TableCell>
-              <TableCell className="tableCell">{r.price}</TableCell>
-              <TableCell className="tableCell">{r.sales}</TableCell>
-              <TableCell className="tableCell">{r.rating? r.rating.rating: ''}</TableCell>
-              <TableCell className="tableCell">
-                <span className={`status ${r.stock}`}>{r.stock}</span>
-              </TableCell>
-              <TableCell className="tableCell">
-                <Link style={{textDecoration: "none"}}>
-                  <DeleteForeverIcon onClick={(e) => handleOnDelete(e, r._id)}/>
-                </Link>
-              </TableCell>
-              <TableCell className="tableCell">
-                <Link style={{textDecoration: "none"}}>
-                  <RestorePageIcon/>
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </div>
-  )
+  return (<PostTable products={products} isProduct={true} />)
           }
 
 };

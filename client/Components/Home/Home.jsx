@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import {View, Text, SafeAreaView, StyleSheet, Button, TouchableHighlight} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { View, Text, SafeAreaView, StyleSheet, Button, TouchableHighlight, ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 /* import { NavBar } from '../NavBar/NavBar' */
-import {getCategories, getProducts} from '../../redux/actions';
+import { getCategories, getProducts } from '../../redux/actions';
 import AuthenticationButton from '../LogButtons/AuthenticationButton'
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -13,9 +13,9 @@ import Carousel from './Carousel';
 
 
 
-export const Home = ({navigation}) => {
+export const Home = ({ navigation }) => {
   const dispatch = useDispatch();
-  const {products, categories} = useSelector(state => state);
+  const { products, categories } = useSelector(state => state);
 
   useEffect(() => {
     if (!categories.length) {
@@ -25,34 +25,37 @@ export const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={style.container}>
-      <View style={style.header}>
-        <Header></Header>
-      </View>
-      <View style={style.cuenta}>
-        
-        <TouchableHighlight style={style.icon} onPress={()=> navigation.navigate('Profile')}>
+      <ScrollView>
+
+        <View style={style.header}>
+          <Header></Header>
+        </View>
+        <View style={style.cuenta}>
+
+          <TouchableHighlight style={style.icon} onPress={() => navigation.navigate('My Profile')}>
             <Icon name="person-outline" size={28} color="#89c30d" />
-        </TouchableHighlight>
-        <AuthenticationButton/>
+          </TouchableHighlight>
+          <AuthenticationButton />
 
-      </View>
-
-      <View style={style.content}>
-
-        <Carousel></Carousel>
-        <View style={style.categoriaBox}>
-          <Text style={style.categoriesText}>SUGGESTED CATEGORIES</Text>
-          {categories ? (
-            <HomeCategories
-              navigation={navigation}
-              categories={categories}></HomeCategories>
-          ) : (
-            <Text>cargando</Text>
-          )}
         </View>
 
-      </View>
-      {/* <NavBar/> */}
+        <View style={style.content}>
+
+          <Carousel></Carousel>
+          <View style={style.categoriaBox}>
+            <Text style={style.categoriesText}>SUGGESTED CATEGORIES</Text>
+            {categories ? (
+              <HomeCategories
+                navigation={navigation}
+                categories={categories}></HomeCategories>
+            ) : (
+              <Text>cargando</Text>
+            )}
+          </View>
+
+        </View>
+        {/* <NavBar/> */}
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -82,23 +85,23 @@ const style = StyleSheet.create({
     flex: 2,
   },
   categoriesText: {
-    fontFamily:'Louis George Cafe Bold',
+    fontFamily: 'Louis George Cafe Bold',
     fontSize: 18,
     textAlign: 'center',
     flex: 0,
     marginTop: 40,
-    marginBottom:10,
-    color:'black'
+    marginBottom: 10,
+    color: 'black'
   },
   cuenta: {
     flexDirection: 'row',
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
-    minHeight:50,
-    backgroundColor:'black'
-    
+    minHeight: 80,
+    backgroundColor: 'black'
+
   },
-  icon:{
-    marginRight:10
+  icon: {
+    marginRight: 10
   }
 });

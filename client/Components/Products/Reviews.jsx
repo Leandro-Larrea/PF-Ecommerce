@@ -18,12 +18,14 @@ export default function Reviews({reviews, productId}) {
 
   const {detailProduct} = useSelector(state => state);
 
-  // useEffect(()=>{
-  //   dispatch(getReviews(productId))
+/*   useEffect(()=>{
+    dispatch(getReviews(productId))
+    console.log("uwuwuwu");
 
-  // },[])
+  },[]) */
 
   const {user} = useAuth0();
+  console.log("user de autho", user);
 
   const [text, setText] = useState('');
 
@@ -44,14 +46,14 @@ export default function Reviews({reviews, productId}) {
   const handlePress = () => {
     if (reviewData.userId) {
       if (reviewData.review == '') {
-        Alert.alert('oh!', 'The message is require', [
+        return Alert.alert('oh!', 'The message is require', [
           {
             text: 'Ok',
             onPress: () => console.log('Ask me later pressed'),
           },
         ]);
       }
-      dispatch(addReview(reviewData));
+      dispatch(addReview(reviewData, productId));
       setText('');
     } else {
       Alert.alert('wait!', 'You have to log in', [

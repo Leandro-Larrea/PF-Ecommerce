@@ -21,23 +21,35 @@ import {useDispatch, useSelector} from 'react-redux';
 import {clean, getProductByPK, getReviews} from '../../redux/actions';
 
 function DetailProduct({route, navigation}) {
+
   const {_id, title, image, price} = route.params;
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const dispatch = useDispatch();
   const {detailProduct} = useSelector(state => state);
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
-
+  const reviews = useSelector(state => state.productReview)
+  
+  console.log("reviews", reviews);
   const selectedAnim = useRef(new Animated.Value(1)).current;
   const off = Math.floor(Math.random() * 20);
+  
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
+    console.log("zzz");
     return () => {
       dispatch(clean());
     }
   }, []);
+
+  /* useEffect(() => {
+    dispatch(getProductByPK(_id));
+
+  },[]) */
+
   return (
+    
     <ScrollView style={styles.container}>
       <View title={title} scrollEnabled={true}>
         <View style={styles.productCard}>
@@ -124,9 +136,9 @@ function DetailProduct({route, navigation}) {
             </Button>
           </View>
         </View>
-        {detailProduct && (
+        {reviews && (
           <View style={styles.reviews}>
-            <Reviews reviews={detailProduct.reviews} productId={_id} />
+            <Reviews reviews={reviews.reviews} productId={_id} />
           </View>
         )}
       </View>

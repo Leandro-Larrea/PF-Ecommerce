@@ -10,7 +10,7 @@ export default function Sort() {
 
     const dispatch = useDispatch()
     const [selected, setSelected] = useState('')
-    const data = ['min-max', 'max-min']
+    const data = ['Lower-Higher', 'Higher-Lower']
 
     const handleSort = () => {
         dispatch(sortByPrice(selected))
@@ -28,7 +28,7 @@ export default function Sort() {
                     data={data}
                     save="value"
                     search={false}
-                    boxStyles={{ borderRadius: 0,}}
+                    boxStyles={{ borderRadius: 9, backgroundColor: "#f5f5f9", height: 44}}
                     dropdownStyles={{borderRadius:10,backgroundColor:"#2d2d2d"}}
                     dropdownTextStyles={{color:"white"}}
                 />

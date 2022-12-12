@@ -37,7 +37,7 @@ const reducer = (state = initialState, {type, payload}) => {
     case GET_PRODUCT_BYPK:
       return {
         ...state,
-        detailProduct: payload.a,
+        detailProduct: payload.a
       };
     case GET_PRODUCTS:
       return {
@@ -75,7 +75,7 @@ const reducer = (state = initialState, {type, payload}) => {
       let productsData = [...state.products];
       let sort = [];
 
-      if (payload === 'min-max') {
+      if (payload === 'Lower-Higher') {
         sort = productsData.sort((a, b) => {
           if (a.price < b.price) {
             return -1;
