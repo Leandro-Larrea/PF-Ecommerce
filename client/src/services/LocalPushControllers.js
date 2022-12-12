@@ -21,7 +21,7 @@ PushNotification.createChannel(
         vibrate: true,
         vibration: 1000,
     },
-    created=> console.log(`canal creado ${created}`),
+    
 );
 
 export const LocalNotification = () => {
