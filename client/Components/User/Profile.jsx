@@ -29,6 +29,13 @@ export const Profile = ({ navigation }) => {
     // }
   }, [])
 
+  // useEffect(() => {
+  //   if (user) dispatch(getUser(user.sub))
+  //   return ()=>{
+  //     dispatch(clearUser())
+  //   }
+  // }, [])
+
  /*  useEffect(() => {
     if(userDb !== null) {
       dispatch(getUser(userDb._id))
