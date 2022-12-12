@@ -25,6 +25,7 @@ const initialState = {
   productReview: [],
   user: null,
   total: 0,
+  detalle: []
 };
 
 const reducer = (state = initialState, {type, payload}) => {
@@ -32,7 +33,8 @@ const reducer = (state = initialState, {type, payload}) => {
     case SET_PRICE:
       return {
         ...state,
-        total: payload,
+        total: payload.price,
+        detalle: payload.detalle
       };
     case GET_PRODUCT_BYPK:
       return {

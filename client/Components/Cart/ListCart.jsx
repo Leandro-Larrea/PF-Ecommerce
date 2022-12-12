@@ -9,6 +9,7 @@ import { SET_PRICE } from '../../redux/actions';
 const ListCart = ({ navigation }) => {
 
   const userDb = useSelector(state => state.user)
+  console.log("USUARIO DB", userDb);
 
   const dispatch = useDispatch();
   const { cartItems, resetCart, addItemToCart, deleteItemToCart } =
@@ -29,14 +30,21 @@ const ListCart = ({ navigation }) => {
     list.current?.prepareForLayoutAnimationRender();
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
   };
-
+console.log("CARRITO", cartItems);
   const precios =
     cartItems.length > 0
       ? cartItems.map(e => e.product.price * e.quantity)
       : '';
-  const total =
+  let total =
     precios.length > 0 ? precios.reduce((prev, curr) => prev + curr) : 0;
   const final = total ? total.toFixed(2) : 0;
+
+  const detalleCompra = { userId: userDb._id, 
+  cartItems: cartItems.length > 0 ?
+  cartItems.map(e => { return {id: e.productId, cantidad:  e.quantity, price: e.product.price}})
+  : ''
+  }
+  console.log("detalle", detalleCompra);
 
   const onPress = () => {
     if (userDb === null || !Object.keys(userDb).length > 0) {
@@ -44,7 +52,7 @@ const ListCart = ({ navigation }) => {
     } else if (final === 0) {
       Alert.alert('You need to add items to the Cart to Checkout')
     } else {
-      dispatch({ type: SET_PRICE, payload: total });
+      dispatch({ type: SET_PRICE, payload: { price: total, detalle : detalleCompra} });
       navigation.navigate('Pay');
     }
   };
