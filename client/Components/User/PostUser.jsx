@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity,Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
 import { getCategories, getUser, postUser } from '../../redux/actions';
@@ -126,13 +126,14 @@ export const PostUser = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={style.main}>
       <View style={style.header}>
         <Header />
       </View>
       <View style={{paddingTop: 30}}>
-        <Text style={stylesCardProduct.title}>Please, Complete your profile information</Text>
+        <Text style={style.title}>Please, Complete your profile information</Text>
       </View>
+      <View style={style.formContainer}>
       <Form
         style={style.Form}
         buttonTextStyle={
@@ -153,7 +154,7 @@ export const PostUser = () => {
         }
         buttonText={
           !Object.keys(errors).length > 0
-            ? 'Save data ✅'
+            ? 'Save'
             : '*Missing data*'
         }
         onButtonPress={() => handleSubmit()}>
@@ -221,7 +222,9 @@ export const PostUser = () => {
           style={style.inputForm}
           isRequired
           asterik
+
           value={input.location?.country}
+
           onChangeText={text => {
             setInput({...input, location: {...input.location, country: text}}),
               setErrors(
@@ -267,53 +270,67 @@ export const PostUser = () => {
               );
           }}
         />
-        <View style={{alignItems: 'center'}}>
-          <TouchableOpacity
-            onPress={() => openGallery()}
-            style={{
-              backgroundColor: '#018c34',
-              padding: 9,
-              flexDirection: 'row',
-              marginBottom: 9,
-            }}>
-            <Icon name="camera-sharp" size={30} color={'white'}></Icon>
-            <Text style={{color: 'white', fontSize: 17, marginTop: 3}}>
-              {' '}
-              Upload Image
-            </Text>
-          </TouchableOpacity>
+        <View style={style.photoContainer}>
           {input.image.length > 0 ? (
             <Image
               source={{ uri: input.image}}
               style={{
                 height: 150,
                 width: 150,
-                borderRadius: 1,
-                borderWidth: 2,
-                borderColor: 'black',
+                borderRadius: 100,
+                borderWidth: 1,
+                marginBottom:20,
+
               }}></Image>
           ) : (
             <Text style={{color: 'black'}}>Photo</Text>
           )}
+              <TouchableOpacity
+                onPress={() => openGallery()}
+                style={{
+                  flexDirection: 'row',
+                  height:'18%',
+                  width:'50%',
+                  borderRadius:5,
+                  backgroundColor:'#0e0e0e',
+                  padding:5,
+                  alignItems:'center',
+                  justifyContent:'center'
+                }}>
+                <Icon name="camera-sharp" size={30} color={'#c0c1cb'}></Icon>
+                <Text style={{color: '#c0c1cb', fontSize: 15, marginTop: 3}}>
+                  {' '}
+                  Upload Image
+                </Text>
+              </TouchableOpacity>
         </View>
       </Form>
+      </View>
     </ScrollView>
   );
 };
 
+
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 const style = StyleSheet.create({
+  main:{
+     backgroundColor:'#2d2d2d'
+    },
+  title:{
+    fontFamily:'Louis George Cafe Bold',
+    color:'white',
+    textAlign:'center',
+    fontSize:15
+  },
   buttonForm: {
-    backgroundColor: '#2d2d2d',
-    borderColor: 'white',
-    borderWidth: 1,
-    width: 200,
+    backgroundColor: '#89c30d',
+    width: '100%',
     alignSelf: "center"
     
   },
-  buttonText: {
-    color: 'white',
-    fontStyle: 'italic',
-  },
+  
   buttonTextFail: {
     color: 'red',
   },
@@ -323,12 +340,12 @@ const style = StyleSheet.create({
     marginTop: 40,
   },
   inputForm: {
-    backgroundColor: 'rgba(114, 115, 114, 1)',
-    marginHorizontal: 20,
+    backgroundColor: 'transparent',
+    borderColor:'#89c30d',
+    borderWidth:1,
+    marginTop:5
   },
-  label: {
-    marginLeft: 20,
-  },
+  
   buttonFail: {
     backgroundColor: 'transparent',
     borderRadius: 0,
@@ -336,13 +353,25 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 0,
   },
+  label:{
+   color:'white'
+  },
   textoInput: {
-    color: 'white',
+    color: '#c0c1cb',
   },
   header: {
-    flex: 1,
     backgroundColor: '#2d2d2d',
-    paddingTop: 15,
-    paddingBottom: 15,
+    height:HEIGHT*0.1,
+    borderBottomWidth:1,
+    borderColor:'#676767'
   },
+  formContainer:{
+    width:WIDTH*0.8,
+    alignSelf:'center'
+  },
+  photoContainer:{
+    alignItems:'center',
+    height:HEIGHT*0.30
+  }
+
 });
