@@ -16,17 +16,11 @@ import {useDispatch, useSelector} from 'react-redux';
 export default function Reviews({reviews, productId}) {
   const dispatch = useDispatch();
 
-  const {detailProduct} = useSelector(state => state);
-
-/*   useEffect(()=>{
-    dispatch(getReviews(productId))
-    console.log("uwuwuwu");
-
-  },[]) */
-
+  const userData = useSelector(state => state.user);
+  const userPurchase = userData.purchases
+  
+  console.log(userPurchase)
   const {user} = useAuth0();
-  console.log("user de autho", user);
-
   const [text, setText] = useState('');
 
   const [reviewData, setreviewData] = useState({
@@ -54,6 +48,11 @@ export default function Reviews({reviews, productId}) {
         ]);
       }
       dispatch(addReview(reviewData, productId));
+      setreviewData({
+        userId: user && user.sub,
+        productId: productId,
+        review: '',
+      })
       setText('');
     } else {
       Alert.alert('wait!', 'You have to log in', [
@@ -70,8 +69,8 @@ export default function Reviews({reviews, productId}) {
       <Text style={styles.title}>Customer reviews</Text>
       <View style={styles.separator} />
 
-      {reviews.length ? (
-        reviews.map(e => {
+      {reviews.reviews ? (
+        reviews.reviews.map(e => {
           return (
             <View style={styles.commentBox} key={e._id}>
               <Text style={styles.name}>by:{e.user}</Text>
