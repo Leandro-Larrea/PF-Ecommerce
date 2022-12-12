@@ -12,6 +12,7 @@ import Table from "./components/table/Table";
 import axios from 'axios'
 import { PostProduct } from "./components/postProduct/PostProduct";
 import { Products } from "./components/products/Products";
+import { RestoreProducts } from "./components/restoreProducts/RestoreProducts";
 
 
 //axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
@@ -33,7 +34,11 @@ function App() {
               </Route>
               <Route exact path="products">
                 <Route index element={<Products />} />
+                <Route path='restore' elements={<RestoreProducts />} />
                 <Route path=":productId" element={<Single />} />
+              </Route>
+              <Route exact path="restore">
+                <Route index element={<RestoreProducts />} />
               </Route>
               <Route exact path="postproducts">
                 <Route index element={<PostProduct />} />

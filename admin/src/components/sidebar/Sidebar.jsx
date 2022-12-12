@@ -72,7 +72,7 @@ const Sidebar = () => {
             <span>Notifications</span>
           </li>
           <p className="title">SERVICE</p>
-          <Link to='/products/restore' style={{ textDecoration: "none" }}>
+          <Link to='/restore' style={{ textDecoration: "none" }}>
             <li>
               <RestorePageIcon className="icon" />
               <span>Restore deleted products</span>
