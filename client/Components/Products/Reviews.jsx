@@ -18,7 +18,7 @@ export default function Reviews({reviews, productId}) {
 
   const userData = useSelector(state => state.user);
   const userPurchase = userData.purchases
-  
+
   console.log(userPurchase)
   const {user} = useAuth0();
   const [text, setText] = useState('');
@@ -69,7 +69,7 @@ export default function Reviews({reviews, productId}) {
       <Text style={styles.title}>Customer reviews</Text>
       <View style={styles.separator} />
 
-      {reviews.reviews ? (
+      {reviews.reviews.length ? (
         reviews.reviews.map(e => {
           return (
             <View style={styles.commentBox} key={e._id}>
