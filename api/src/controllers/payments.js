@@ -2,8 +2,8 @@ const { Compra } = require("../models/Compra")
 
 
 const savePayment = async(payment) =>{
-    const {productId, quantity, price, products, userId} = req.body
-    if(!productId || !quantity || !price || !products || !userId) throw ("insuficent data")
+    const {cartItems, userId} = req.body
+    if(!cartItems || !userId) throw ("insuficent data")
 
     let a = await Compra(payment)
     console.log(a)

@@ -97,7 +97,8 @@ const ratingProduct = async(obj) => {
 const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
      let o = productDb;
-     let obj = { 
+     let obj = {
+        _id: o._id, 
          title: o.title,
          price: o.price,
          description: o.description,
@@ -123,16 +124,17 @@ const deleteProducts = async(id)=>{
     console.log("backup",productDb)
      let o = productDb;
      let obj = { 
-         title: o.title,
-         price: o.price,
-         description: o.description,
-         category: o.category,
-         rating: o.rating,
-         image: o.image,
-         imageId: o.imageId,
-         details: o.details,
-         reviews: o.reviews,
-         createdAt:o.createdAt,
+        _id: o._id, 
+        title: o.title,
+        price: o.price,
+        description: o.description,
+        category: o.category,
+        rating: o.rating,
+        image: o.image,
+        imageId: o.imageId,
+        details: o.details,
+        reviews: o.reviews,
+        createdAt:o.createdAt,
        }
 
     let productMoved = await Product(obj);

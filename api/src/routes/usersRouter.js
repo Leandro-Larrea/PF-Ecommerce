@@ -18,7 +18,6 @@ router.post("/", async (req,res)=>{
 router.get('/reviews', async (req, res) => {
     try {
         const { id } = req.query
-        
         let a = await getUserReviews(id)
       return  res.status(200).json(a)
     } catch (error) {

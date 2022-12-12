@@ -14,9 +14,9 @@ const productSchema = new Schema({
             type: Number,
             require: true
         },
-        subtot:{
+        subtotal:{
             type: Number,
-            default: () => this.quant * this.price,
+            default: () => this.quantity * this.price,
             require: true
         }
 
@@ -36,7 +36,7 @@ const compraSchema = new Schema({
         }
     },
     userId: {
-        type: Object,
+        type: String,
         require: true
     }
 });

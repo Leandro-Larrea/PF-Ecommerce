@@ -7,8 +7,6 @@ import {useEffect} from 'react';
 export default function PriceFilter({filters, fcUpdate}) {
   const dispatch = useDispatch();
 
- 
-
   const handleMin = e => {
     fcUpdate("min", e)
   };
