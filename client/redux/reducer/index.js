@@ -37,7 +37,7 @@ const reducer = (state = initialState, {type, payload}) => {
     case GET_PRODUCT_BYPK:
       return {
         ...state,
-        detailProduct: payload.a,
+        detailProduct: payload.a
       };
     case GET_PRODUCTS:
       return {

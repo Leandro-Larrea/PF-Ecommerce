@@ -128,7 +128,6 @@ export const getUser = id => dispatch => {
   return axios
     .get(`/users?id=${id}`)
     .then(res => {
-      console.log("respuesta", res.data);
       dispatch({
         type: 'GET_USER',
         payload: res.data,
@@ -153,12 +152,16 @@ export const filterByCategories = category => dispatch => {
   });
 };
 
-export function addReview(reviewData) {
+export function addReview(reviewData, id) {
   return async function (dispatch) {
     await axios
       .put('/products/reviews', reviewData)
-      .then(a => {
-        return;
+      .then(res => {
+        const productReviews = res.data.filter(e => e.productId == id)[0];
+        dispatch({
+          type: 'GET_REVIEWS',
+          payload: productReviews,
+        });
       })
       .catch(error => {
         console.log('error', error);
@@ -168,8 +171,8 @@ export function addReview(reviewData) {
 }
 
 export const getReviews = id => dispatch => {
-  return axios.get('products/reviews').then(res => {
-    const productReviews = res.data.filter(e => e.productId == id);
+  return axios.get('/products/reviews').then(res => {
+    const productReviews = res.data.filter(e => e.productId == id)[0];
     dispatch({
       type: 'GET_REVIEWS',
       payload: productReviews,
