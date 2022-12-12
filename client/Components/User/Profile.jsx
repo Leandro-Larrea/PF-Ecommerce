@@ -12,14 +12,15 @@ import LinearGradient from 'react-native-linear-gradient'
 
 export const Profile = ({ navigation }) => {
   const { user } = useAuth0();
-
+  console.log("USER", user);
   const userDb = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (user) dispatch(getUser(user.sub))
-    return ()=>{
-      dispatch(clearUser())
+    if (!userDb) {
+      setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
+      NotificationNoLog();
     }
     // console.log("esto es user db", userDb)
     // if (!userDb) {
@@ -28,19 +29,20 @@ export const Profile = ({ navigation }) => {
     // }
   }, [])
 
-  /*   useEffect(() => {
-      if (Object.keys(userDb).length > 0) {
-        dispatch(getUser(user.sub))
-        console.log("uwuwuuw");
-      }
-    }, []); */
+ /*  useEffect(() => {
+    if(userDb !== null) {
+      dispatch(getUser(userDb._id))
+      console.log("powpwppopo");
+    }
+  },[]) */
+
+  
 
 
 
   return (
     <>
       <View style={styles.container}>
-        {console.log("asdasd", userDb)}
         {userDb === null || !Object.keys(userDb).length > 0 ? (
 
           <View style={styles.containerLog}>
@@ -53,7 +55,7 @@ export const Profile = ({ navigation }) => {
         ) :
           (<View style={styles.info}>
 
-            <View style={{ width: "100%", marginTop: -50 }}>
+            <View style={{ width: "100%", marginTop: -20 }}>
               <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[/* '#4c669f', '#3b5998', '#192f6a', */ '#63b360', '#549651', '#345c32']} style={{ paddingTop: 60 }}>
 
                 <Image style={{ width: 165, height: 165, borderWidth: 4, borderRadius: 400 / 2, borderColor: "white", marginBottom: 20, alignSelf: "center" }} source={{ uri: userDb.image }} />
