@@ -36,6 +36,9 @@ export const Pay = ({ navigation }) => {
     mail: user?.email
   })
   const total = useSelector(state => state.total).toFixed(2);
+  const detalle = useSelector(state => state.detalle)
+  console.log("aca me lo traigo", total);
+  console.log("detalle", detalle);
 
   const navegar = () => {
     navigation.navigate('Products')
@@ -66,6 +69,8 @@ export const Pay = ({ navigation }) => {
       })
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
+      axios.post(`/purchases`,detalle)
+      .then(console.log("se envio el detalle"))
       navegar();
      /*  https://pf-ecommerce-production-ed4d.up.railway.app/payments/email */
       axios.post(`https://pf-ecommerce-production-ed4d.up.railway.app/payments/email`, { input, total})

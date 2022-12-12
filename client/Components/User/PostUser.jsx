@@ -28,7 +28,6 @@ export const PostUser = () => {
     },[])
 
   useEffect(() => {
-    console.log("useefect");
     if (userDb) {
       setInput(userDb);
     }
@@ -223,7 +222,9 @@ export const PostUser = () => {
           style={style.inputForm}
           isRequired
           asterik
-          value={input.location&& input.location.country}
+
+          value={input.location?.country}
+
           onChangeText={text => {
             setInput({...input, location: {...input.location, country: text}}),
               setErrors(

@@ -10,3 +10,6 @@ export const GET_USER_PAYMENTS = 'GET_USER_PAYMENTS';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const RESTORE_PRODUCT = 'RESTORE_PRODUCT';
 export const GET_BACKUP = 'GET_BACKUP';
+export const PRODUCT_DETAIL = 'PRODUCT_DETAIL';
+export const CLEAN_UP = 'CLEAN_UP';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';

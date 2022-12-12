@@ -69,8 +69,9 @@ export default function Reviews({reviews, productId}) {
       <Text style={styles.title}>Customer reviews</Text>
       <View style={styles.separator} />
 
-      {reviews.reviews.length ? (
-        reviews.reviews.map(e => {
+      {reviews?.length ? (
+        reviews.map(e => {
+
           return (
             <View style={styles.commentBox} key={e._id}>
               <Text style={styles.name}>by:{e.user}</Text>

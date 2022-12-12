@@ -31,7 +31,7 @@ function App() {
               <Route exact path="users">
                 <Route index element={<List />} />
                 <Route path=":userId" element={<Single />} />
-              </Route>
+              </Route>  
               <Route exact path="products">
                 <Route index element={<Products />} />
                 <Route path='restore' elements={<RestoreProducts />} />
@@ -42,7 +42,7 @@ function App() {
               </Route>
               <Route exact path="postproducts">
                 <Route index element={<PostProduct />} />
-                <Route path=":userId" element={<Single />} />
+                <Route path=":id" element={<PostProduct />} />
                 <Route
                   path="new"
                   element={<New inputs={productInputs} title="Add New Product" />}
