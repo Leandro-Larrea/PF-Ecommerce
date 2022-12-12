@@ -38,6 +38,7 @@ const Navbar = (props) => {
         })
       }
       else alert('Sin coincidencias')
+      searchRef.current.value = ''
     }
     else{
         deleted.filter(r => { 
