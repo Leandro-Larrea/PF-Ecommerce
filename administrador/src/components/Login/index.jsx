@@ -1,17 +1,17 @@
-import GoogleLogin, { GoogleLogout } from 'react-google-login';
-import { gapi } from 'gapi-script'
 import { useEffect, useState } from 'react';
 import SaveAdmin from '../SaveAdmin';
-import imagedisk from '../../logo.png'
 import { getAdmin } from '../../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const  clientId  = process.env.REACT_APP_clientId
 
 
 export default function Login() {
+
+  const { loginWithRedirect } = useAuth0()
   
-  const [ user, setUser ] = useState({})
+ /*  const [ user, setUser ] = useState({})
   const [ flag, setFlag ] = useState('')
 
   const dispatch = useDispatch()
@@ -47,10 +47,7 @@ export default function Login() {
       }
       
       useEffect(() => {
-        const start = () => {
-          gapi.auth2.init({clientId})
-        }
-        gapi.load("client:auth2", start)
+
       },
       [])
 
@@ -58,23 +55,16 @@ export default function Login() {
         dispatch(getAdmin())
       }, [])
 
-    let a = user.imageUrl
+    let a = user.imageUrl */
    
     return (
           <div>
             <h3></h3>
-          <GoogleLogin
-            clientId
-            buttonText="Login con google"
-            onSuccess={responseGood}
-            onFailure={responseBad}
-            cookiePolicy={'single_host_policy'}
-          />
-          <div className={user? 'profile':'hidden'}>
+            <button onClick={() => loginWithRedirect()}>Login</button>
             <br></br>
-          {user? <SaveAdmin id={user.googleId} name={user.name} mail={user.email} image={a} flag={flag} setFlag={setFlag} /> : '' }
+         {/*  {user? <SaveAdmin id={user.googleId} name={user.name} mail={user.email} image={a} flag={flag} setFlag={setFlag} /> : '' } */}
           {/* <SaveAdmin id='123456' name='Leandro Freire' mail='asdfasd@asdf.com' image={imagedisk}/> */}
           </div>
-        </div>
+
     )
 }

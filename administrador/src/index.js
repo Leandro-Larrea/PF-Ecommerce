@@ -6,12 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import './index.css'
-
+import { Auth0Provider } from '@auth0/auth0-react'
+ 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-<Provider store={store} >
-    <App />
-</Provider>
+<Auth0Provider domain='dev-flcm7swxvdivj6bj.us.auth0.com' 
+                clientId='J5SmnckwdidpdUl72wl70rUi61gquJEJ' 
+                redirectUri={window.location.origin}>
+    <Provider store={store} >
+        <App />
+    </Provider>
+</Auth0Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
