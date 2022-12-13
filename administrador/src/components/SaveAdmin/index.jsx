@@ -3,7 +3,7 @@ import { postAdmin } from "../../redux/action"
 import { useDispatch } from 'react-redux'
  
 export default function SaveAdmin(props) {
-    let { name, mail, id, image, flag, setFlag } = props
+/*     let { name, mail, id, image, flag, setFlag } = props
     const dispatch = useDispatch()
    
     const [ admin, setAdmin ] = useState({
@@ -75,7 +75,7 @@ if(flag===1)
         </div>
     )
 
-    if(flag===2)
+    if(flag===2) */
         return (<div>CORRECTO</div>)
 
 }
