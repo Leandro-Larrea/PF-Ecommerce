@@ -16,10 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 export default function Reviews({reviews, productId}) {
   const dispatch = useDispatch();
 
-  const userData = useSelector(state => state.user);
-  const userPurchase = userData.purchases
 
-  console.log(userPurchase)
   const {user} = useAuth0();
   const [text, setText] = useState('');
 
@@ -69,8 +66,8 @@ export default function Reviews({reviews, productId}) {
       <Text style={styles.title}>Customer reviews</Text>
       <View style={styles.separator} />
 
-      {reviews?.length ? (
-        reviews.map(e => {
+      {reviews.reviews ? (
+        reviews.reviews.map(e => {
 
           return (
             <View style={styles.commentBox} key={e._id}>
@@ -81,7 +78,7 @@ export default function Reviews({reviews, productId}) {
         })
       ) : (
         <Text style={styles.noRev}>
-          There aren't any reviews for this productId yet!
+          There aren't any reviews for this product yet!
         </Text>
       )}
       <View style={styles.separator} />
