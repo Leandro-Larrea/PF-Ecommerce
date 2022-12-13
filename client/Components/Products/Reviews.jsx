@@ -16,7 +16,14 @@ import {useDispatch, useSelector} from 'react-redux';
 export default function Reviews({reviews, productId}) {
   const dispatch = useDispatch();
 
+const userData = useSelector(state=>state.user)
+const purchases = userData.purchases
 
+const PurchasesProductsID = purchases.map(e=>{
+  return e.products.map(e=>e.productId)
+}).flat()
+
+console.log(PurchasesProductsID,productId)
   const {user} = useAuth0();
   const [text, setText] = useState('');
 
@@ -36,7 +43,8 @@ export default function Reviews({reviews, productId}) {
 
   const handlePress = () => {
     if (reviewData.userId) {
-      if (reviewData.review == '') {
+      if(PurchasesProductsID.includes(productId)){
+        if (reviewData.review == '') {
         return Alert.alert('oh!', 'The message is require', [
           {
             text: 'Ok',
@@ -51,6 +59,15 @@ export default function Reviews({reviews, productId}) {
         review: '',
       })
       setText('');
+    } else{
+      Alert.alert('ups!', 'you cannot rate before buying the product',
+       [
+        {
+          text: 'Ok',
+          onPress: () => console.log('Ask me later pressed'),
+        },
+      ]);
+    }
     } else {
       Alert.alert('wait!', 'You have to log in', [
         {

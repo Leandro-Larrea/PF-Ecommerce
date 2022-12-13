@@ -111,7 +111,7 @@ const reducer = (state = initialState, {type, payload}) => {
     case CLEAN:
       return {
         ...state,
-        /* productReview: [], */
+        productReview: [],
         detailProduct: undefined
       }  
     default:
