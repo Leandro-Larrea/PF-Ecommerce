@@ -1,8 +1,8 @@
 import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script'
 import { useEffect, useState } from 'react';
-import SaveAdmin from '../SaveAdmin';
-import imagedisk from '../../logo.png'
+import SaveAdmin from '../SaveAdmin'
+import imagedisk from '../../images/logo.png'
 
 const  clientId  = process.env.REACT_APP_clientId
 
@@ -32,13 +32,15 @@ export default function Login() {
     return (
           <div>
             <h3></h3>
+            <div class="g-signin2" data-onsuccess="onSignIn">
           <GoogleLogin
             clientId
             buttonText="Login con google"
             onSuccess={responseGood}
             onFailure={responseBad}
             cookiePolicy={'single_host_policy'}
-          />
+            />
+            </div> 
           <div className={user? 'profile':'hidden'}>
             <br></br>
           {/* <SaveAdmin id={user.googleId} name={user.name} mail={user.email} image={a}/>  */}

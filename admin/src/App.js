@@ -1,5 +1,5 @@
 import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
+import Login from "./components/Login.jsx"
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
@@ -24,7 +24,8 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route exact path='/' element={<Login/>}/>
+            <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>
             <Route exact path="login" element={<Login />} />

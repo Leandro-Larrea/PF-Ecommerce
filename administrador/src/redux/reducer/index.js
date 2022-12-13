@@ -3,7 +3,12 @@ import { GET_ADMIN, GET_IDLOGIN, GET_USERS, POST_ADMIN } from "../action/const";
 const initialState = {
     admin: {},
     idLogin: '',
-    users: []
+    users: [],
+    previusLogin: {
+                    user: 'Admin',
+                    pass: '123456'
+                    },
+    adminDb: {}
 }
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -12,7 +17,7 @@ export default function reducer(state = initialState, {type, payload}) {
         case GET_ADMIN:
             return {
                 ...state,
-                admin: payload
+                adminDb: payload
             }
         
             case POST_ADMIN:
