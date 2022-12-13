@@ -45,34 +45,39 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingRight: 27,
+    paddingLeft: 50,
   },
   inputs: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: 140,
+    justifyContent: 'space-between',
+    width: 145,
+    
   },
   input1: {
-    height: 40,
-    width: 60,
+    height: 30,
+    width: 67,
     borderWidth: 1,
-    borderBottomLeftRadius: 5,
     borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
     borderColor: '#939ba6',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 1,
     color: '#df5a00',
     backgroundColor: "#f5f5f9"
   },
 
   input2: {
-    height: 40,
-    width: 60,
+    height: 30,
+    width: 67,
     borderWidth: 1,
-    borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
     borderColor: '#939ba6',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 1,
     color: '#df5a00',
     backgroundColor: "#f5f5f9"
 

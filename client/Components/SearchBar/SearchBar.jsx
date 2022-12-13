@@ -66,14 +66,12 @@ export const SearchBar = ({navigation, filters, fcUpdate}) => {
         onChangeText={e => handleTextChange(e)}
         style={style.Input}
       />
-      <View style={style.button}>
-        <Button
-          title="SEARCH"
-          color={'#89c30d'}
-          onPress={e => handleSearch(e)}
-          style={style.Button}></Button>
+      <View style={style.botonSearch}>
+        <TouchableHighlight onPress={e => handleSearch(e)} style={style.botonSearch}>
+            <Icon size={28} name="search" color="#89c30d" />
+        </TouchableHighlight>
       </View>
-      <View style={style.botonCuenta}>
+      {/* <View style={style.botonCuenta}>
         {loggedIn ? (
           <TouchableHighlight onPress={() => navigation.navigate('Profile')}>
             <Icon size={28} name="person-outline" color="#89c30d" />
@@ -83,7 +81,7 @@ export const SearchBar = ({navigation, filters, fcUpdate}) => {
             <Icon name="person-outline" size={28} color="#89c30d" />
           </TouchableHighlight>
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -91,27 +89,28 @@ export const SearchBar = ({navigation, filters, fcUpdate}) => {
 const style = StyleSheet.create({
   main: {
     backgroundColor: '#2d2d2d',
-    minHeight: 50,
-    paddingLeft: 40,
-    paddingRight: 20,
+    minHeight: 57,
+    paddingLeft: 28,
+    paddingRight: 28,
+    paddingTop: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 1.12
+    borderBottomWidth: 1.12,
   },
 
   Input: {
     backgroundColor: '#F5F5F5',
-
     paddingHorizontal: 10,
     fontFamily: 'Louis George Cafe Bold',
     height: 35,
-    width: 200,
-    borderRadius: 10,
+    width: 255,
+    borderRadius: 5,
   },
 
-  botonCuenta: {
-    marginLeft: 10,
-    justifyContent: 'flex-end',
+  botonSearch: {
+    borderRadius: 9,
+    padding: 3,
+    backgroundColor: `#252525`
   },
 });

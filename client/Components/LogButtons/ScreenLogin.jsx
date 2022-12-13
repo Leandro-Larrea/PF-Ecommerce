@@ -11,7 +11,7 @@ const ScreenLogin = () => {
         </View>
         <View style={styles.container}>
             <View style={styles.texto}>
-                <Text style={styles.textoFont}>Please, log in with Auth0 to acces profile information</Text>
+                <Text style={styles.textoFont}>Please, log in with Auth0 to access profile information</Text>
             </View>
             <View style={styles.boton}>
                 <LoginButton/>

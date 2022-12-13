@@ -14,5 +14,5 @@ export const LoginButton = () => {
         }
     };
 
-    return <Button onPress={onPress} title="Log in" />
+    return <Button onPress={onPress} title="Log in" color={'#89c30d'}/>
 }
