@@ -41,7 +41,7 @@ console.log("CARRITO", cartItems);
 
   const detalleCompra = { userId: userDb?._id, 
   cartItems: cartItems.length > 0 ?
-  cartItems.map(e => { return {id: e.productId, cantidad:  e.quantity, price: e.product.price}})
+  cartItems.map(e => { return {productId: e.productId, quantity:  e.quantity, price: e.product.price}})
   : ''
   }
   console.log("detalle", detalleCompra);
