@@ -24,11 +24,7 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
         <Routes>
           <Route path="/">
-<<<<<<< Updated upstream
-             <Route exact path='/' element={<Login/>}/> 
-=======
             {/* <Route exact path='/' element={<Login/>}/> */}
->>>>>>> Stashed changes
             <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>
