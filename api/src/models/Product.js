@@ -12,22 +12,38 @@ const reviewsSchema = new Schema({
   },
 });
 
+// const ratingSchema = new Schema({
+//   points: {
+//     type: Number,
+//     required: true
+//   },
+//   votes: {
+//     type: Number,
+//     required: true,
+//   },
+//   rating: {
+//     type: Number,
+//     default: function () {
+//       if (this.points > 0 && this.votes > 0) return this.points / this.votes;
+//       return 0;
+//     },
+//   },
+// });
+
 const ratingSchema = new Schema({
-  points: {
-    type: Number,
-    required: true
-  },
-  votes: {
-    type: Number,
-    required: true,
-  },
   rating: {
     type: Number,
-    default: function () {
-      if (this.points > 0 && this.votes > 0) return this.points / this.votes;
-      return 0;
-    },
-  },
+    default: function(){
+      let total = 0
+      if(this.votedFor.length){
+        for(p of this.votedFor){
+        total += p.rating 
+      }}
+      return total
+    }
+},
+  votedFor:{
+    type: Array}
 });
 
 const productSchema = new Schema(

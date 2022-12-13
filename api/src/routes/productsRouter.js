@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const {Product, ProductBackUp} = require("../models/Product.js")
 const uploadToCloudinary = require("../cloudinary/uploadToCloudinary")
-const { getProducts, postProducts, reviewProduct, getProductField, getReviews, deleteProducts, restoreProducts } = require("../controllers/products.js");
+const { getProducts, postProducts, reviewProduct, getProductField, getReviews, deleteProducts, restoreProducts, ratingProduct } = require("../controllers/products.js");
 
 router.get("/", async(req, res) =>{
     try {
@@ -94,6 +94,15 @@ router.put("/restore/:id", async(req, res)=>{
     }   
 }
 )
+
+router.put("/rating", async(req, res)=> {
+    const {userId, productId, rating} = req.body;
+    if(!productId || !rating || !userId){
+        return res.status(400).status("adsasdsad!")
+    }
+    let result = await ratingProduct(userId, productId, rating)
+    return res.status(201).json(result)
+})
 
 router.put("/:id", async (req,res)=>{
     try {
