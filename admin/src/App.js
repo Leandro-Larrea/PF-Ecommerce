@@ -24,7 +24,7 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
         <Routes>
           <Route path="/">
-            <Route exact path='/' element={<Login/>}/>
+             <Route exact path='/' element={<Login/>}/> 
             <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>
