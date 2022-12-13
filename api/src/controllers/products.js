@@ -23,10 +23,10 @@ const postProducts = async(obj) => {
         if(validation === 'OK'){
             const { image, imageId } = await uploadToCloudinary(obj.image)
             obj.image = image
-            obj.imageId = imageId 
+            obj.imageId = imageId
             const objectMongo = await Product(obj);
             console.log("holaaaa",objectMongo)
-            const result = await objectMongo.save(); 
+            const result = await objectMongo.save();
             return result
         }
         return validation
@@ -37,7 +37,7 @@ const postProducts = async(obj) => {
 }
 
 const getProductField = async(field)=>{
-  
+
    let a = await Product.find(null,{[field]:1, _id: 0})
    return a
 }
@@ -45,13 +45,13 @@ const getProductField = async(field)=>{
 const reviewProduct = async(obj) => {
    const { userId, productId, review } = obj
    try {
-    // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}}) 
+    // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}})
     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
     let updateUser = await User.findByIdAndUpdate(userId,{
         $push:{
             reviews:{product:productId, review:review}
         }
-    }) 
+    })
     let updateProduct = await Product.findByIdAndUpdate(productId,{
         $push:{
             reviews:{user:userId, review:review}
@@ -62,24 +62,31 @@ const reviewProduct = async(obj) => {
     return [a,b]
    } catch (error) {
     throw (error)
-   }   
+   }
 }
 
-const ratingProduct = async(obj) => {
-    const { userId, productId, review } = obj
-    try {
-     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}}) 
-     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
-     let updateUser = await User.findByIdAndUpdate(userId,{$push:{reviews:{product:productId, review:review}}}) 
-     let updateProduct = await Product.findByIdAndUpdate(productId,{$push:{reviews:{user:userId, review:review}}})
-     let a = await User.findById(userId)
-     let b = await Product.findById(productId)
-     return [a,b]
-    } catch (error) {
-     throw (error)
-    }   
- 
- }
+const ratingProduct = async(userId,productId,rating) => {
+    let product = await Product.findById(productId,{rating:1, _id:0})
+    if(product.rating.votedFor.map(e=> e.userId).includes(userId)){
+        let votedFor = product.rating.votedFor.map(e=> {
+            if(e.userId === userId) e.rating = rating
+            return e
+    })
+        let a = await Product.findByIdAndUpdate(productId,{rating:{votedFor}})
+        let b = await Product.findById(productId,{rating:1, _id:0})
+        return b
+    }
+
+    let votedFor = [...product.rating.votedFor, {userId, rating}]
+    let a = await Product.findByIdAndUpdate(productId,{rating:{votedFor}})
+    let b = await Product.findById(productId,{rating:1, _id:0})
+        return b
+
+
+}
+       
+
+
 
  const getReviews = async () =>{
     let products = await Product.find()
@@ -87,7 +94,7 @@ const ratingProduct = async(obj) => {
         return {
             productId: res._id,
              reviews: res.reviews
-        } 
+        }
     })
     return products
 
@@ -98,7 +105,7 @@ const deleteProducts = async(id)=>{
     let productDb = await Product.findById(id);
      let o = productDb;
      let obj = {
-        _id: o._id, 
+        _id: o._id,
          title: o.title,
          price: o.price,
          description: o.description,
@@ -123,8 +130,8 @@ const deleteProducts = async(id)=>{
     let productDb = await ProductBackUp.findById(id);
     console.log("backup",productDb)
      let o = productDb;
-     let obj = { 
-        _id: o._id, 
+     let obj = {
+        _id: o._id,
         title: o.title,
         price: o.price,
         description: o.description,
@@ -149,7 +156,7 @@ const deleteProducts = async(id)=>{
 //////* product logic "delete"*///////
 
 const logicDelete = async(id,change)=>{
-    let productDb = await Product.findByIdAndUpdate(id, available);   
+    let productDb = await Product.findByIdAndUpdate(id, available);
     console.log("hasta aca si")
     const saved = await productMoved.save();
     let a = await productDb.delete();
@@ -163,7 +170,8 @@ module.exports = {
     postProducts,
     reviewProduct,
     getProductField,
-    getReviews
+    getReviews,
+    ratingProduct
 };
 
 

@@ -1,5 +1,5 @@
 import Home from "./pages/home/Home";
-import Login from "./components/Login.jsx"
+// import Login from "./components/Login.jsx"
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
@@ -24,11 +24,15 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
         <Routes>
           <Route path="/">
+<<<<<<< Updated upstream
              <Route exact path='/' element={<Login/>}/> 
+=======
+            {/* <Route exact path='/' element={<Login/>}/> */}
+>>>>>>> Stashed changes
             <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>
-            <Route exact path="login" element={<Login />} />
+            {/* <Route exact path="login" element={<Login />} /> */}
               <Route exact path="users">
                 <Route index element={<List />} />
                 <Route path=":userId" element={<Single />} />
