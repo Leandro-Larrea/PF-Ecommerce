@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { postAdmin } from "../../redux/action"
 import { useDispatch } from 'react-redux'
+import { Link } from "react-router-dom"
  
 export default function SaveAdmin(props) {
-    let { name, mail, id, image } = props
+    let { name, mail, id, image, flag, setFlag } = props
     const dispatch = useDispatch()
    
     const [ admin, setAdmin ] = useState({
@@ -27,9 +28,12 @@ function handleSubmit(e){
     e.preventDefault()
     console.log('handle')
    postAdmin(admin)
+   setFlag(1)
 }
 
-if(name)
+
+
+if(flag===0)
     return (
         <div>
             <h1>Complete sus datos personales</h1>
@@ -56,6 +60,9 @@ if(name)
             </form>
 
             <div>{admin.phone}{admin.country}{admin.city}{admin.address}</div>
+            <Link to='/home'>
+                al home
+            </Link>
         </div>
     )
     else{
