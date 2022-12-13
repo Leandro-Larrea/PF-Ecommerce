@@ -14,17 +14,15 @@ const productSchema = new Schema({
             type: Number,
             require: true
         },
-        subtotal:{
-            type: Number,
-            default: () => this.quantity * this.price,
-            require: true
-        }
-
-    
+         subtotal:{
+             type: Number,
+             default: function(){ return this.quantity * this.price}
+         }
+  
 })
 
 const compraSchema = new Schema({
-    product: [productSchema],
+    products: [productSchema],
     totalPrice: {
         type: Number,
         default: function(){
