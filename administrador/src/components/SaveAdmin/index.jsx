@@ -3,7 +3,7 @@ import { postAdmin } from "../../redux/action"
 import { useDispatch } from 'react-redux'
  
 export default function SaveAdmin(props) {
-    let { name, mail, id, image, setLogin } = props
+    let { name, mail, id, image, flag, setFlag } = props
     const dispatch = useDispatch()
    
     const [ admin, setAdmin ] = useState({
@@ -28,7 +28,7 @@ function handleSubmit(e){
     console.log('handle')
     let obj = {
         _id: id,
-        lastName: 'Hola',
+        lastName: 'Administrator',
         image: image,
         name: name,
         mail: mail,
@@ -41,10 +41,12 @@ function handleSubmit(e){
         admin: true 
     }
    dispatch(postAdmin(obj))
-   setLogin('ADMIN_OK')
+   setFlag(2)
 }
-
-if(name)
+console.log('flag de save',  flag)
+if(flag===0)
+    return(<div>Ingreso incorrecto</div>)
+if(flag===1)
     return (
         <div>
             <h1>Complete sus datos personales</h1>
@@ -72,8 +74,8 @@ if(name)
 
         </div>
     )
-    else{
-        return <div></div>
-    }
+
+    if(flag===2)
+        return (<div>CORRECTO</div>)
 
 }
