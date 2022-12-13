@@ -64,6 +64,7 @@ export default function Login() {
             <br></br>
          {/*  {user? <SaveAdmin id={user.googleId} name={user.name} mail={user.email} image={a} flag={flag} setFlag={setFlag} /> : '' } */}
           {/* <SaveAdmin id='123456' name='Leandro Freire' mail='asdfasd@asdf.com' image={imagedisk}/> */}
+          <div>LISTOOOO</div>
           </div>
 
     )
