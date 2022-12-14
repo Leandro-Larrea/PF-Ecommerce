@@ -23,6 +23,7 @@ export const PostUser = () => {
     //const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
+      console.log("USEEFET 1 POST");
       if (user) {
         dispatch(getUser(user.sub))
       }
@@ -102,7 +103,7 @@ export const PostUser = () => {
         })
     }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       !input.name ||
       !input.lastName | !input.location.country ||
@@ -113,9 +114,9 @@ export const PostUser = () => {
       Alert.alert('Missing fields');
     } else {
       if (!userDb) {
-        dispatch(postUser({...input, _id: user.sub}));
+        Alert.alert('Data Saved Succesfully 👍 ');
+        await dispatch(postUser({...input, _id: user.sub}));
         dispatch(getUser(user.sub))
-        Alert.alert('data saved succesfully 👍 ');
       }
       if (userDb) {  //si ya hay userDb tendria q actualizar los campos cambiados
         Alert.alert('aca habria que hacer algo pero no se que');

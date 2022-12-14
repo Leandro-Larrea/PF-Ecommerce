@@ -27,6 +27,7 @@ function DetailProduct({route, navigation}) {
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const dispatch = useDispatch();
   const {detailProduct} = useSelector(state => state);
+  console.log("asdasd", detailProduct)
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
@@ -80,20 +81,20 @@ function DetailProduct({route, navigation}) {
 
           <View style={styles.fixToText}>
             <CardPrice price={price} text={off + '% Off'} off={off} />
-
+{ detailProduct && detailProduct.stock > 0 ?
             <Button
-              type="solid"
-              buttonStyle={styles.cart}
-              loading={loadingCart}
-              loadingProps={{
-                size: 'small',
-                color: 'rgba(111, 202, 186, 1)',
-              }}
-              onPress={() => {
-                Animated.sequence([
-                  Animated.timing(selectedAnim, {
-                    toValue: 0,
-                    duration: 150,
+            type="solid"
+            buttonStyle={styles.cart}
+            loading={loadingCart}
+            loadingProps={{
+              size: 'small',
+              color: 'rgba(111, 202, 186, 1)',
+            }}
+            onPress={() => {
+              Animated.sequence([
+                Animated.timing(selectedAnim, {
+                  toValue: 0,
+                  duration: 150,
                     useNativeDriver: true,
                   }),
                 ]).start(({finished}) => {
@@ -102,22 +103,22 @@ function DetailProduct({route, navigation}) {
                     if (inCart) {
                       new Promise(resolver =>
                         resolver(deleteItemToCart(inCart)),
-                      ).then(response => {
-                        setLoadingCart(false);
-                        Animated.sequence([
-                          Animated.timing(selectedAnim, {
-                            toValue: 1,
-                            duration: 150,
-                            useNativeDriver: true,
-                          }),
-                        ]).start();
-                      });
-
-                      // navigation.goBack();
-                    } else {
-                      new Promise(resolver =>
-                        resolver(addItemToCart(route.params, 1)),
-                      ).then(response => {
+                        ).then(response => {
+                          setLoadingCart(false);
+                          Animated.sequence([
+                            Animated.timing(selectedAnim, {
+                              toValue: 1,
+                              duration: 150,
+                              useNativeDriver: true,
+                            }),
+                          ]).start();
+                        });
+                        
+                        // navigation.goBack();
+                      } else {
+                        new Promise(resolver =>
+                          resolver(addItemToCart(route.params, 1)),
+                          ).then(response => {
                         setLoadingCart(false);
                         Animated.sequence([
                           Animated.timing(selectedAnim, {
@@ -136,11 +137,13 @@ function DetailProduct({route, navigation}) {
                   size={20}
                   name={inCart ? 'cart-off' : 'cart-plus'}
                   color={inCart ? '#FF4544' : '#65AE77'}
-                />
+                  />
               </Animated.View>
             </Button>
+            :
+            <Text>No Stock Available</Text>}
           </View>
-        </View>
+          </View>
         {reviews && (
           <View style={styles.reviews}>
             <Reviews reviews={reviews} productId={_id} />

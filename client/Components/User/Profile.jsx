@@ -17,6 +17,7 @@ export const Profile = ({ navigation }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log("USEEFFECT");
     if (user) dispatch(getUser(user.sub))
     if (!userDb) {
       setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
@@ -26,22 +27,6 @@ export const Profile = ({ navigation }) => {
       dispatch(clearUser());
     }
   }, [])
-
-  // useEffect(() => {
-  //   if (user) dispatch(getUser(user.sub))
-  //   return ()=>{
-  //     dispatch(clearUser())
-  //   }
-  // }, [])
-
- /*  useEffect(() => {
-    if(userDb !== null) {
-      dispatch(getUser(userDb._id))
-      console.log("powpwppopo");
-    }
-  },[]) */
-
-  
 
 
 
