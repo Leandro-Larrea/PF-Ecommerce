@@ -17,7 +17,7 @@ const productSchema = new Schema({
          subtotal:{
              type: Number,
              default: function(){ return this.quantity * this.price}
-         }
+        }
   
 })
 
@@ -37,7 +37,10 @@ const compraSchema = new Schema({
         type: String,
         require: true
     }
-});
+},  {
+    timestamps: true,
+    versionKey: false,
+  });
 
 
 const Compra = model("Compra", compraSchema);

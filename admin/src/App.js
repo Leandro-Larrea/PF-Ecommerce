@@ -13,10 +13,12 @@ import axios from 'axios'
 import { PostProduct } from "./components/postProduct/PostProduct";
 import { Products } from "./components/products/Products";
 import { RestoreProducts } from "./components/restoreProducts/RestoreProducts";
+import { Sells } from "./components/sells/Sells";
+import { SellsDetail } from "./components/sells/SellsDetails";
 
 
-axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
-//axios.defaults.baseURL = 'http://localhost:3001'
+ axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
+// axios.defaults.baseURL = 'http://localhost:3001'
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -37,6 +39,10 @@ function App() {
                 <Route index element={<Products />} />
                 <Route path='restore' elements={<RestoreProducts />} />
                 <Route path=":productId" element={<Single />} />
+              </Route>
+              <Route exact path="sells">
+                <Route index element={<Sells />} />
+                <Route path=":id" element={<SellsDetail />} />
               </Route>
               <Route exact path="restore">
                 <Route index element={<RestoreProducts />} />

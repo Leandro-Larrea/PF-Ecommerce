@@ -1,4 +1,4 @@
-import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_SELLS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, SELL_DETAILS, UPDATE_PRODUCT } from "../action/const";
 
 const initialState = {
     admin: {},
@@ -8,7 +8,8 @@ const initialState = {
     users: [],
     categories: [],
     userReviews: [],
-    userPayments: []
+    sells: [],
+    sellDetails: null
 }
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -24,6 +25,16 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 products: payload
+            }
+        case SELL_DETAILS:
+            return{
+                ...state,
+                sellDetails: payload
+            }
+            case GET_SELLS:
+            return {
+                ...state,
+                sells: payload
             }
 
         case PRODUCT_DETAIL:

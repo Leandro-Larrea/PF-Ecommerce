@@ -43,6 +43,7 @@ router.get("/field", async (req,res)=>{
     } 
 })
 
+
 router.get("/reviews", async (req,res)=>{
     const {id} = req.query
    
@@ -76,13 +77,15 @@ router.post('/', async (req, res) => {
 
 router.put("/reviews", async (req,res)=>{
     try {
-         await reviewProduct(req.body)
+        let a = await reviewProduct(req.body)
          let response = await getReviews()
         res.status(201).json(response)
     } catch (error) {
         res.status(400).send(error)
     } 
 })
+
+
 
 router.put("/restore/:id", async(req, res)=>{
     let {id} = req.params;
@@ -132,7 +135,7 @@ router.delete("/title", async (req, res) => {
             }                
         res.status(200).json({'borrados: ': c})
     } catch (error) {
-        res.status(400).send({"something get wrong": error})
+        res.status(400).send({"something went wrong": error})
     } 
   })
 
