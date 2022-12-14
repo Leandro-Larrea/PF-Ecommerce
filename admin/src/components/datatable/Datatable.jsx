@@ -14,6 +14,8 @@ const Datatable = () => {
   const data = useSelector(state => state.users)
   //const [data, setData] = useState(userRows)
   
+
+  
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch])
