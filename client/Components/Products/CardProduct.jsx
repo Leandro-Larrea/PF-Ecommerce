@@ -73,7 +73,7 @@ const CardProduct = ({navegar, product}) => {
               navegar(product);
             }}></Button>
 
-          <Button
+          {/* <Button
             type="solid"
             buttonStyle={styles.cart}
             onPress={() => {
@@ -86,7 +86,7 @@ const CardProduct = ({navegar, product}) => {
                 color={inCart ? '#FF4544' : '#65AE77'}
               />
             </Animated.View>
-          </Button>
+          </Button> */}
         </View>
       </View>
     </TouchableOpacity>

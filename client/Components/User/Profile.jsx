@@ -22,11 +22,9 @@ export const Profile = ({ navigation }) => {
       setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
       NotificationNoLog();
     }
-    // console.log("esto es user db", userDb)
-    // if (!userDb) {
-    //   //setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
-    //   NotificationNoLog();
-    // }
+    return () => {
+      dispatch(clearUser());
+    }
   }, [])
 
   // useEffect(() => {

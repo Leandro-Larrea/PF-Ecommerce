@@ -29,7 +29,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
   const [text, setText] = useState('');
 
   const [reviewData, setreviewData] = useState({
-    userId: user && user.sub,
+    userId: userData && userData.name + ' ' + userData.lastName,
     productId: productId,
     review: '',
   });
@@ -55,7 +55,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
       }
       dispatch(addReview(reviewData, productId));
       setreviewData({
-        userId: user && user.sub,
+        userId: userData && userData.name,
         productId: productId,
         review: '',
       })
@@ -89,7 +89,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
 
           return (
             <View style={styles.commentBox} key={e._id}>
-              <Text style={styles.name}>by:{e.user}</Text>
+              <Text style={styles.name}>by: {e.user}</Text>
               <Text>{e.review}</Text>
             </View>
           );
