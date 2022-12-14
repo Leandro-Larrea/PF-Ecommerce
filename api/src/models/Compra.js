@@ -47,6 +47,3 @@ const Compra = model("Compra", compraSchema);
 module.exports = {
    Compra
 };
-module.exports = {
-  Compra
-};

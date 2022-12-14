@@ -1,11 +1,23 @@
 import axios from 'axios'
-import { CLEAN_UP, DELETE_PRODUCT, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_SELLS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, SELL_DETAILS, UPDATE_PRODUCT } from './const'
+
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, SELL_DETAILS, UPDATE_PRODUCT, GET_SELLS } from './const'
+
 
 export function postAdmin(admin){
-    return async function (){
-        console.log('actions')
-        //let res = await axios.post(`http://localhost:3001/users`, admin)
-        //console.log(res)
+    return async function (dispatch){
+        console.log('actions', admin)
+        let res = await axios.post(`/administrator`, admin)
+        console.log(res)
+    }
+}
+
+export function getAdmins(){
+    return async function(dispatch){
+        let res = await axios.get(`/administrator`)
+        dispatch({
+            type: GET_ADMINS,
+            payload: res.data
+        })
     }
 }
 

@@ -1,7 +1,12 @@
-import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_SELLS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, SELL_DETAILS, UPDATE_PRODUCT } from "../action/const";
+
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS,  GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
+
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_SELLS, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, SELL_DETAILS, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
+
 
 const initialState = {
     admin: {},
+    admins: [],
     products: [],
     productsBackup: [],
     productDetail: null,
@@ -10,6 +15,10 @@ const initialState = {
     userReviews: [],
     sells: [],
     sellDetails: null
+    userPayments: [],
+    user_pass:{user: 'Admin',
+                pass: '123456'}
+
 }
 
 export default function reducer(state = initialState, {type, payload}) {
@@ -19,6 +28,12 @@ export default function reducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 admin: payload
+            }
+        
+        case GET_ADMINS:
+            return {
+                ...state,
+                admins: payload
             }
 
         case GET_PRODUCTS:
