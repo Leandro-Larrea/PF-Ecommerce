@@ -1,5 +1,4 @@
 import Home from "./pages/home/Home";
-import Login from "./components/Login.jsx"
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
@@ -13,10 +12,11 @@ import axios from 'axios'
 import { PostProduct } from "./components/postProduct/PostProduct";
 import { Products } from "./components/products/Products";
 import { RestoreProducts } from "./components/restoreProducts/RestoreProducts";
+import { PreLogin } from "./components/login/PreLogin";
 
 
-axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
-//axios.defaults.baseURL = 'http://localhost:3001'
+//axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
+axios.defaults.baseURL = 'http://localhost:3001'
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -24,11 +24,10 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
         <Routes>
           <Route path="/">
-             <Route exact path='/' element={<Login/>}/> 
+             <Route exact path='/' element={<PreLogin/>}/> 
             <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>
-            <Route exact path="login" element={<Login />} />
               <Route exact path="users">
                 <Route index element={<List />} />
                 <Route path=":userId" element={<Single />} />

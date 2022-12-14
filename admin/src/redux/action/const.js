@@ -1,4 +1,5 @@
 export const GET_ADMIN = 'GET_ADMIN';
+export const GET_ADMINS = 'GET_ADMINS'
 export const POST_ADMIN = 'POST_ADMIN';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const POST_PRODUCT = 'POST_PRODUCT';
