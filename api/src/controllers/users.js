@@ -4,11 +4,7 @@ const { User } = require("../models/User")
 
  const postUser = async (obj) =>{    
      const {_id, name, lastName, mail , phone, location, image} = obj
-     let d = await User.findById(_id)
-     console.log("aca estamos en controller",d)
-     if(d){
-        throw ("u have already setted your profile")
-     }
+    
      const {country, city, address} = location;
     // console.log(obj)
 
@@ -39,6 +35,14 @@ const { User } = require("../models/User")
       let {imageId, image} = await uploadToCloudinary(obj.image)
       obj.image = image
       obj.imageId = imageId 
+   }
+
+   let d = await User.findById(_id)
+   console.log("aca estamos en controller",d)
+   if(d){
+      let a = await User.findByIdAndUpdate(_id, obj)
+      let b = User.findById(_id)
+      return b
    }
 
     console.log(obj)

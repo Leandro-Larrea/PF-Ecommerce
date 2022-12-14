@@ -53,7 +53,7 @@ useEffect(()=>{
                     <TableCell className="tableCell">{r.totalPrice}</TableCell>
                     <TableCell className="tableCell">{r.products.length}</TableCell>
                     <TableCell className="tableCell">
-                        <Link to={`/sells/${r._id}`}>
+                        <Link style={{textDecoration: "none", color: "black"}} to={`/sells/${r._id}`}>
                             <RequestPageIcon/> 
                         </Link>
                     </TableCell>
