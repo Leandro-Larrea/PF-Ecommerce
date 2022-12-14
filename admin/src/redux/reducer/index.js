@@ -1,6 +1,3 @@
-
-import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS,  GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
-
 import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_SELLS, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, SELL_DETAILS, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
 
 
@@ -14,7 +11,7 @@ const initialState = {
     categories: [],
     userReviews: [],
     sells: [],
-    sellDetails: null
+    sellDetails: null,
     userPayments: [],
     user_pass:{user: 'Admin',
                 pass: '123456'}
