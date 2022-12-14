@@ -16,6 +16,7 @@ export const PostUser = () => {
     const {user} = useAuth0();
     const dispatch = useDispatch();
     const userDb = useSelector(state => state.user)
+    
     const [usuario, setUsuario] = useState(false)
 
    

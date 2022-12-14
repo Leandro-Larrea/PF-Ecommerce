@@ -15,10 +15,12 @@ import {useDispatch, useSelector} from 'react-redux';
 
 
 export default function Reviews({reviews, productId}) {
-  
+
 const dispatch = useDispatch();
 
 const userData = useSelector(state=>state.user)
+
+
 const purchases = userData && userData.purchases
 
 const PurchasesProductsID = purchases && purchases.map(e=>{
@@ -26,12 +28,14 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
 }).flat()
 
   const {user} = useAuth0();
+  
   const [text, setText] = useState('');
 
   const [reviewData, setreviewData] = useState({
-    userId: userData && userData.name + ' ' + userData.lastName,
+    userId: userData && userData._id,
     productId: productId,
     review: '',
+    userName: userData.name + ' ' + userData.lastName
   });
 
   const handleChange = e => {
@@ -55,9 +59,10 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
       }
       dispatch(addReview(reviewData, productId));
       setreviewData({
-        userId: userData && userData.name,
+        userId: userData && userData._id,
         productId: productId,
         review: '',
+        userName: userData.name + ' ' + userData.lastName
       })
       setText('');
     } else{

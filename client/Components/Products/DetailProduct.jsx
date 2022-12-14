@@ -27,7 +27,6 @@ function DetailProduct({route, navigation}) {
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const dispatch = useDispatch();
   const {detailProduct} = useSelector(state => state);
-  console.log("asdasd", detailProduct)
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
@@ -117,8 +116,10 @@ function DetailProduct({route, navigation}) {
                         // navigation.goBack();
                       } else {
                         new Promise(resolver =>
-                          resolver(addItemToCart(route.params, 1)),
+                          
+                          resolver(addItemToCart(detailProduct, 1)),
                           ).then(response => {
+                        
                         setLoadingCart(false);
                         Animated.sequence([
                           Animated.timing(selectedAnim, {

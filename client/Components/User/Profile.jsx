@@ -22,6 +22,7 @@ export const Profile = ({ navigation }) => {
     if (!userDb) {
       setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
       NotificationNoLog();
+      dispatch(getUser(user.sub))
     }
     return () => {
       dispatch(clearUser());
