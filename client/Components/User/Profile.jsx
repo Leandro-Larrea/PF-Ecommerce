@@ -12,22 +12,23 @@ import LinearGradient from 'react-native-linear-gradient'
 
 export const Profile = ({ navigation }) => {
   const { user } = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+
+  console.log("USER Prof Aut", user);
   const userDb = useSelector(state => state.user)
   /* console.log("USERDBLOG", userDb); */
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (user) dispatch(getUser(user.sub))
-    if (!userDb) {
-      setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
-      NotificationNoLog();
-    }
-    // console.log("esto es user db", userDb)
+    if (user) dispatch(getUser({_id: user.sub}))
+    //if (userDb) dispatch(getUser({_id: user.sub}), 10000)
     // if (!userDb) {
-    //   //setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
+    //   setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
     //   NotificationNoLog();
     // }
-  }, [])
+  }, [user, userDb])
+
+  console.log('user uEff Prof', userDb);
 
   // useEffect(() => {
   //   if (user) dispatch(getUser(user.sub))
@@ -57,6 +58,7 @@ export const Profile = ({ navigation }) => {
             <View style={styles.bottonIn}>
               <Button color={'#89c30d'} style={styles.botonGo} title='Go to complete information' onPress={() => navigation.navigate('Edit data')}></Button>
             </View>
+            <LogoutButton/>
           </View>
 
         ) :

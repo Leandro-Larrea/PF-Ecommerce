@@ -92,7 +92,7 @@ const style = StyleSheet.create({
   },
   cuenta: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     minHeight: 40,
     backgroundColor: 'black',
