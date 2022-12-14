@@ -51,7 +51,6 @@ export default function Login() {
         pass:'',
         pass2: ''
       })
-
     }
   }
 
