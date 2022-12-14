@@ -53,12 +53,12 @@ const Datatable = () => {
   } 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
+{/*       <div className="datatableTitle">
         Users List
         <Link to="/users/new" className="link">
           Add New
         </Link>
-      </div>
+      </div> */}
       <DataGrid
         className="datagrid"
         rows={data}
