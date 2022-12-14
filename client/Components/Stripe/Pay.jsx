@@ -1,15 +1,17 @@
 import { useStripe } from '@stripe/stripe-react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, TextInput, Button, Alert, Text, StyleSheet, ScrollView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { LocalNotification, ScheduleNotification } from '../../src/services/LocalPushControllers'
 import { useAuth0 } from 'react-native-auth0';
 import { getUser } from '../../redux/actions'
+import { CartContext } from '../Cart/ShoppingCart'
 
 
 export const Pay = ({ navigation }) => {
-
+  
+  const {resetCart} = useContext(CartContext)
   const { user } = useAuth0();
   const dispatch = useDispatch();
 
@@ -37,8 +39,6 @@ export const Pay = ({ navigation }) => {
   })
   const total = useSelector(state => state.total).toFixed(2);
   const detalle = useSelector(state => state.detalle)
-  console.log("aca me lo traigo", total);
-  console.log("detalle", detalle);
 
   const navegar = () => {
     navigation.navigate('Products')
@@ -69,6 +69,7 @@ export const Pay = ({ navigation }) => {
       })
       if (presentSheet.error) return Alert.alert(presentSheet.error.message)
       Alert.alert('Payment Complete, thank you!');
+      resetCart()
       axios.post(`/purchases`,detalle)
       .then(console.log("se envio el detalle"))
       navegar();

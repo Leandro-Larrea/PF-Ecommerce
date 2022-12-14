@@ -63,7 +63,7 @@ export const NotificationNoLog = () => {
         channelName: "acb",
         autoCancel: true,
         bigText: "LOGEATEeeEEEEeEeE",
-        subText: "LOG PLS",
+        subText: "Complete Your Profile",
         title: "LOGEATE FORRO",
         message: "DALE LOGEATEeEeEeEeE COMPLETA TODO EL FORM Y NO SUBAS ROSQUETES PLSSSSSSSSSSSS",
         playSound: true,

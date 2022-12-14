@@ -12,8 +12,8 @@ import LinearGradient from 'react-native-linear-gradient'
 
 export const Profile = ({ navigation }) => {
   const { user } = useAuth0();
-  console.log("USER", user);
   const userDb = useSelector(state => state.user)
+  /* console.log("USERDBLOG", userDb); */
   const dispatch = useDispatch()
 
   useEffect(() => {
