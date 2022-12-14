@@ -14,13 +14,22 @@ import { useEffect } from "react";
 import { getSells } from "../../redux/action";
 import { Products } from "../products/Products";
 import RequestPageIcon from '@mui/icons-material/RequestPage';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Sells = ()=>{
 
 const sells = useSelector(state=> state.sells)
 const dispatch = useDispatch()
 console.log("component", sells)
+
+const { admin } = useSelector(state => state)
+
+const navigate = useNavigate()
+
+useEffect(() => {
+  if(!admin) 
+  navigate('/')},[])
+
 useEffect(()=>{
     dispatch(getSells())
 },[])
