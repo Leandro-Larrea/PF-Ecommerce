@@ -19,9 +19,9 @@ import { SellsDetail } from "./components/sells/SellsDetails";
 import { PreLogin } from "./components/login/PreLogin";
 
 
+axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
+//axios.defaults.baseURL = 'http://localhost:3001'
 
- axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
-// axios.defaults.baseURL = 'http://localhost:3001'
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 

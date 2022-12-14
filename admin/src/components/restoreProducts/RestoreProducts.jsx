@@ -6,11 +6,19 @@ import './restoreProducts.scss'
 import List from '../table/Table'
 import { getBackup } from '../../redux/action'
 import { PostTable } from '../table/PostTable'
+import { useNavigate } from 'react-router-dom'
 
 export const RestoreProducts = () => {
-    console.log('restore')
-    const dispatch = useDispatch()
+  const { admin } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
     const deletedProducts = useSelector(state => state.productsBackup)
+
+    useEffect(() => {
+      if(!admin) 
+        navigate('/')},[])
 
     useEffect(() => {
         dispatch(getBackup())

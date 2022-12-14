@@ -5,7 +5,7 @@ import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_ADMINS, GET_BACKUP, GET_CATEGO
 
 
 const initialState = {
-    admin: {},
+    admin: null,
     admins: [],
     products: [],
     productsBackup: [],

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdmins } from '../../redux/action'
 import Login from './Login'
+import './PreLogin.scss'
 
 export const PreLogin = () => {
 
     const dispatch = useDispatch()
-    
+
+      
 
     useEffect(() => {
         dispatch(getAdmins())
@@ -44,24 +46,24 @@ export const PreLogin = () => {
     }
     if(flag=== 0 || flag === 1)
         return (
-          <div>
-              <form onSubmit={handleOnSubmit}>
-                  <div className='label'>
-                      <label>User:</label>
+          <div className='index'>
+              <form onSubmit={handleOnSubmit} className='formulario'>
+                  <div >
+                      <label className='label'>User:</label>
                   </div>
                   <div>
-                      <input type='text' name='user' onChange={handleOnChange} value={input.user} />
+                      <input autoFocus type='text' name='user' onChange={handleOnChange} value={input.user} className='input1' />
                   </div>
                   <div>
-                      <label>Password:</label>
+                      <label className='label'>Password:</label>
                   </div>
                   <div>
-                      <input type='password' name='pass' onChange={handleOnChange} value={input.pass} />
+                      <input type='password' name='pass' onChange={handleOnChange} value={input.pass} className='input'/>
                   </div>
                   <div>
-                      <input type='submit' value='Send'   />
-                  </div>
-                  {flag===1? <div>User or password failed</div>:''}
+                      <input type='submit' value='Send' className='button'  />
+                  </div >
+                  {flag===1? <div className='error'>User or password failed</div>:''}
               </form>
           </div>
         )
