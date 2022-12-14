@@ -13,5 +13,5 @@ export const LogoutButton = () => {
         }
     };
 
-    return <Button onPress={onPress} title="Log out" color={'#89c30d'}/>
+    return <Button onPress={onPress} title="Log out" color={'#FF6C6A'}/>
 }

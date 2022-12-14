@@ -18,15 +18,19 @@ export const Profile = ({ navigation }) => {
   const userDb = useSelector(state => state.user)
   /* console.log("USERDBLOG", userDb); */
   const dispatch = useDispatch()
+  
+  useEffect(() => {
+    if (loggedIn) dispatch(getUser(user.sub))
+    if (userDb) {
+      dispatch(getUser(user.sub), 1000)
+    }
+  }, [user])
 
   useEffect(() => {
-    if (user) dispatch(getUser({_id: user.sub}))
-    //if (userDb) dispatch(getUser({_id: user.sub}), 10000)
-    // if (!userDb) {
-    //   setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
-    //   NotificationNoLog();
-    // }
-  }, [user, userDb])
+    if (userDb !== null) {
+      dispatch(getUser(user.sub))
+    }
+  }, [])
 
   console.log('user uEff Prof', userDb);
 
@@ -56,9 +60,11 @@ export const Profile = ({ navigation }) => {
           <View style={styles.containerLog}>
             <Text style={styles.title}>Please complete your profile information</Text>
             <View style={styles.bottonIn}>
-              <Button color={'#89c30d'} style={styles.botonGo} title='Go to complete information' onPress={() => navigation.navigate('Edit data')}></Button>
+              <Button color={'#89c30d'}  title='Go to complete information' onPress={() => navigation.navigate('Edit data')}></Button>
             </View>
-            <LogoutButton/>
+            <View style={styles.botonGo}>
+              <LogoutButton/>
+            </View>
           </View>
 
         ) :
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    height: 120,
+    height: 150,
   },
   title: {
     fontSize: 25,
@@ -154,6 +160,7 @@ const styles = StyleSheet.create({
   },
   botonGo: {
     borderRadius: 30,
+    marginTop: 25,
   },
   name: {
     fontSize: 24,
