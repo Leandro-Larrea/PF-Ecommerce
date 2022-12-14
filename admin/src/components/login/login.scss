@@ -5,19 +5,44 @@
     justify-content: center;
 }
 
+.title{
+    padding-top: 70px;
+    color: rgb(165, 82, 82);
+}
+
 .formulario{
     -webkit-box-shadow: inset 0px 0px 15px 5px rgb(99, 56, 56); 
     box-shadow: inset 0px 0px 15px 5px rgb(124, 124, 124);
-    padding-top: 40px;
+    padding-top: 10px;
     text-align: center;
     width: 350px;
     height: 250px;
+
+    margin-top: 100px;
+}
+
+.formulario2{
+    -webkit-box-shadow: inset 0px 0px 15px 5px rgb(99, 56, 56); 
+    box-shadow: inset 0px 0px 15px 5px rgb(124, 124, 124);
+    padding-top: 20px;
+    text-align: center;
+    width: 350px;
+    height: 300px;
+
     margin-top: 100px;
 }
 
 .label{
    font-size: 20px; 
    font-weight: bold;
+}
+
+.labelError{
+    color: red;
+}
+
+.labelCorrect{
+    color: green;
 }
 
 .button{
@@ -30,6 +55,4 @@
     background-color: rgb(23, 21, 24);
     color: #fff;
 }
-
-
     
