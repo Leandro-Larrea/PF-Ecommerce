@@ -30,15 +30,17 @@ function DetailProduct({route, navigation}) {
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
-  
   const selectedAnim = useRef(new Animated.Value(1)).current;
   const off = Math.floor(Math.random() * 20);
   const {user} = useAuth0();
   
+
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
-    dispatch(getUser(user.sub))
+    
+    if(user){
+    dispatch(getUser(user.sub))}
      
     return () => {
       dispatch(clean());
@@ -49,7 +51,6 @@ function DetailProduct({route, navigation}) {
     dispatch(getProductByPK(_id));
 
   },[]) */
-
   return (
     
     <ScrollView style={styles.container}>
@@ -73,7 +74,9 @@ function DetailProduct({route, navigation}) {
             <Text style={styles.description}>{detailProduct.description}</Text>
           )}
 
-          {detailProduct && <Rating rating={detailProduct.rating} />}
+          { detailProduct && detailProduct.rating? <Rating rating={detailProduct.rating} productId={_id}/>
+           : <Text>no rating</Text>  
+        }
 
           <View style={styles.fixToText}>
             <CardPrice price={price} text={off + '% Off'} off={off} />

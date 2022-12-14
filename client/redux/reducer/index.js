@@ -9,6 +9,7 @@ import {
   SET_PRICE,
   GET_USER,
   GET_REVIEWS,
+  SET_RATING,
   CLEAN
 } from '../actions';
 
@@ -36,11 +37,14 @@ const reducer = (state = initialState, {type, payload}) => {
         total: payload.price,
         detalle: payload.detalle
       };
+
     case GET_PRODUCT_BYPK:
       return {
         ...state,
-        detailProduct: payload.a
+        detailProduct: payload.a,
+
       };
+
     case GET_PRODUCTS:
       return {
         ...state,
@@ -108,9 +112,20 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         productReview: payload,
       };
+    
+    case SET_RATING:
+      return{
+        ...state,
+        detailProduct:{
+          ...state.detailProduct, 
+          rating:payload
+        }
+      }
+
     case CLEAN:
       return {
         ...state,
+
         productReview: [],
         detailProduct: undefined
       }  

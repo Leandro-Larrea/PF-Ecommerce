@@ -1,17 +1,44 @@
 import { useState } from "react";
-import { View,Text,StyleSheet, Pressable, TouchableOpacity } from "react-native";
+import { View,Text,StyleSheet, Pressable, TouchableOpacity,Alert } from "react-native";
+import {useAuth0} from 'react-native-auth0';
+import {useDispatch, useSelector} from 'react-redux';
+import { addRating } from "../../redux/actions";
+
+export default function Rating({rating,productId}){
 
 
-export default function Rating({rating}){
+    
+    const votes = rating.votedFor && rating.votedFor.length 
+    const value = Math.round(rating.rating/votes)
 
+    const {user} = useAuth0();
+    const dispatch = useDispatch();
 
-    value = Math.ceil(rating.rating)  
-   
     const [defaultRating,setdefaultRating]=useState(value)
     const [maxRating,setmaxRating] = useState([1,2,3,4,5])
    
     const starFilled ='★'
     const starBorder ='☆'
+
+
+    const handlePress = (item)=>{
+        const ratingData= {
+            userId:user && user.sub,
+            productId:productId,
+            rating:item
+         }
+        if(user){
+            setdefaultRating(item)
+            dispatch(addRating(ratingData))
+        } else {
+            Alert.alert('wait!', 'You have to log in', [
+                {
+                  text: 'Ok',
+                  onPress: () => console.log('Ask me later pressed'),
+                },
+              ]);
+        }
+    }
     
     const CustomRatingBar = ()=>{
         return (
@@ -22,7 +49,7 @@ export default function Rating({rating}){
                             <View key={key}>
                                 <TouchableOpacity
                                 
-                                onPress={()=>setdefaultRating(item)}
+                                onPress={()=>handlePress(item)}
                                 >
                                   <Text style={styles.star}>{item<=defaultRating
                                          ? starFilled
@@ -43,7 +70,7 @@ export default function Rating({rating}){
         <View style={styles.container}>
          
           <CustomRatingBar/>
-        <Text style={styles.votes}> {'('+rating.votes+' votes)'} </Text>
+        <Text style={styles.votes}> {'('+votes+' votes)'} </Text>
         </View>
     )
 }
