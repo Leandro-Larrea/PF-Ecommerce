@@ -47,6 +47,28 @@ const reviewProduct = async(obj) => {
    try {
     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}})
     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
+    
+    let productR = await Product.findById(productId,{reviews:1, _id:0})
+    if(productR.reviews.map(e=> e.user).includes(userId)){
+        let updateReview = productR.reviews.map(e=> {
+            if(e.user === userId) e.review = review
+            return e
+        })
+        
+        let userReviews = await User.findById(userId, {reviews:1 ,_id:0})
+        let updatedUserReviews = userReviews.reviews.map(e=> {
+            if(e.product === productId) e.review = review
+            return e
+        })
+        console.log("dentro del if", updatedUserReviews)
+        await User.findByIdAndUpdate(userId, {reviews:updatedUserReviews})
+        await Product.findByIdAndUpdate(productId, {reviews:updateReview})
+        let a = await Product.findByIdAndUpdate(productId,{updateReview})
+        let b = await Product.findById(productId,{reviews:1, _id:0})
+        return b
+    }
+    
+
     let updateUser = await User.findByIdAndUpdate(userId,{
         $push:{
             reviews:{product:productId, review:review}
@@ -58,6 +80,7 @@ const reviewProduct = async(obj) => {
         }
     })
     let a = await User.findById(userId,{reviews: 1})
+    console.log(a)
     let b = await Product.findById(productId, {reviews: 1})
     return [a,b]
    } catch (error) {
