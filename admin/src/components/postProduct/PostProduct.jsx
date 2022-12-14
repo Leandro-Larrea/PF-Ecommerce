@@ -21,7 +21,6 @@ export const PostProduct = () => {
     category: null,
     image: '',
     stock: '',
-    rating: {points:0 , votes: 0}
   }
   const [input, setInput] = useState(initialState)
   
