@@ -16,6 +16,7 @@ export const PostUser = () => {
     const {user} = useAuth0();
     const dispatch = useDispatch();
     const userDb = useSelector(state => state.user)
+    const [usuario, setUsuario] = useState(false)
 
    
     // aca me traigo el estado de las categorias ej: state => state.allCategories
@@ -27,11 +28,18 @@ export const PostUser = () => {
       }
     },[])
 
-  useEffect(() => {
-    if (userDb) {
-      setInput(userDb);
-    }
-  }, []);
+    useEffect(() => {
+      if (userDb !== null && !Array.isArray(userDb)) {
+        setUsuario(true)
+      }
+    }, [userDb]);
+  
+    useEffect(() => {
+  
+      if (usuario === true) {
+        setInput(userDb);
+      }
+    },[usuario])
 
   const [errors, setErrors] = useState({});
 
@@ -64,7 +72,7 @@ export const PostUser = () => {
         name: '',
         lastName: '',
         location: { country:"", city:"", address:"" },
-        image: {},
+        image: "",
         phone:"",
         mail:user?.email
     })
@@ -223,7 +231,7 @@ export const PostUser = () => {
           isRequired
           asterik
 
-          value={input.location?.country}
+          value={input.location && input.location.country}
 
           onChangeText={text => {
             setInput({...input, location: {...input.location, country: text}}),
@@ -243,7 +251,7 @@ export const PostUser = () => {
           style={style.inputForm}
           isRequired
           asterik
-          value={input.location.city}
+          value={input.location && input.location.city}
           onChangeText={text => {
             setInput({...input, location: {...input.location, city: text}}),
               setErrors(
@@ -259,7 +267,7 @@ export const PostUser = () => {
           style={style.inputForm}
           isRequired
           asterik
-          value={input.location.address}
+          value={ input.location && input.location.address}
           onChangeText={text => {
             setInput({...input, location: {...input.location, address: text}}),
               setErrors(
@@ -271,7 +279,7 @@ export const PostUser = () => {
           }}
         />
         <View style={style.photoContainer}>
-          {input.image.length > 0 ? (
+          {input.image ? (
             <Image
               source={{ uri: input.image}}
               style={{

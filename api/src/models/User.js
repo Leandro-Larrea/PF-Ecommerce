@@ -18,6 +18,24 @@ const locationSchema = new Schema({
     },
 });
 
+const opinionSchema = new Schema({
+    productId:{
+        type: String,
+        required: true
+    },
+    rating:{
+        type: Number,
+        default: 0    
+    },
+    review:{
+        type: Boolean,
+        default: false
+             
+    },
+    
+});
+
+
  const reviewsSchema = new Schema({
      product: {
        type: String,
@@ -88,12 +106,14 @@ const userSchema = new Schema({
     status: {
         type: Boolean,
         default: true
-    }
+    },
+    opinion:[opinionSchema]
 },
     {
     timestamps: true,
     versionKey: false
     },
+
 )
 
  const User = model("User", userSchema);

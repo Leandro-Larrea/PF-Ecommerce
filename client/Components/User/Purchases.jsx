@@ -15,7 +15,7 @@ export const Purchases = () => {
 
   useEffect(() => {
     dispatch(getUser(user.sub))
-    console.log("user db de purche",userDb)
+    /* console.log("user db de purche",userDb) */
   },[])
 
   const purchases = userDb?.purchases

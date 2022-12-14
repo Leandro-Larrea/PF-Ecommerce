@@ -8,6 +8,7 @@ export const FILTER_CATEGORIES = 'FILTER_CATEGORIES';
 export const SORT_BY_PRICE = 'SORT_BY_PRICE';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_PRICE = 'SET_PRICE';
+export const SET_RATING = 'SET_RATING';
 export const GET_USER = 'GET_USER';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const CLEAN = 'CLEAN'
@@ -162,6 +163,25 @@ export function addReview(reviewData, id) {
           type: 'GET_REVIEWS',
           payload: productReviews,
         });
+      })
+      .catch(error => {
+        console.log('error', error);
+        return;
+      });
+  };
+}
+
+export function addRating(ratingData){
+  return async function (dispatch) {
+ 
+    await axios
+      .put('/products/rating', ratingData)
+      .then(res => {
+
+       dispatch({
+        type:'SET_RATING',
+        payload:res.data.rating
+       })
       })
       .catch(error => {
         console.log('error', error);
