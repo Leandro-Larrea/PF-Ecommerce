@@ -1,11 +1,11 @@
-.index{
+.indice{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.title{
+.titulo{
     padding-top: 70px;
     color: rgb(165, 82, 82);
 }
@@ -32,7 +32,7 @@
     margin-top: 100px;
 }
 
-.label{
+.etiqueta{
    font-size: 20px; 
    font-weight: bold;
 }
@@ -45,7 +45,7 @@
     color: green;
 }
 
-.button{
+.boton{
     -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
     box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
     width: 100px;

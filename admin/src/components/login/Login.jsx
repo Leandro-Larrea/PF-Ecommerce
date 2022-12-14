@@ -91,29 +91,29 @@ export default function Login() {
 
   if(!admins.length)
     return (
-      <div className='index'>
-        <h1 className='title'>
+      <div className='indice'>
+        <h1 className='titulo'>
           {admins?.length? 'Hello, please enter user and password': 'Hello, Welcom to Console.Game, please register an administrator'}
         </h1>
         <form onSubmit={handleOnSubmit1} className='formulario2'>
           <div>
             <div>
-              <label className='label'>Enter an user id:</label>
+              <label className='etiqueta'>Enter an user id:</label>
             </div>
             <input type='text' name='id' onChange={handleOnChange} value={input.id} className='input' />
             {input.id.length < 5? <div className='labelError'>Id is too short</div>: <div className='labelCorrect'>Id OK</div>}
           </div>
           <div>
-            <div className='label'>Enter a password</div>
+            <div className='etiqueta'>Enter a password</div>
             <input type='password' name='pass' onChange={handleOnChange} value={input.pass} className='input' />
           </div>
           <div>
-            <label className='label'>Enter a password again</label>
+            <label className='etiqueta'>Enter a password again</label>
             <input type='password' name='pass2' onChange={handleOnChange} value={input.pass2} className='input' />
           </div>
             {input.pass===input.pass2 && input.pass.length>0? <div className='labelCorrect'>Passwords corrects</div>:''}
             {input.pass===input.pass2 ?'':<label className='labelError'>Paswords are differents</label>}
-          {input.pass===input.pass2 && input.id.length>4? <input type='submit' value='Send' className='button'/>:''}
+          {input.pass===input.pass2 && input.id.length>4? <input type='submit' value='Send' className='boton'/>:''}
 
         </form>
       </div>
@@ -123,24 +123,24 @@ export default function Login() {
 
   if(flag===0)
     return (
-      <div className='index'>
+      <div className='indice'>
           <form onSubmit={handleOnSubmit2} className='formulario'>
-              <div className='label'>Enter your id admin and password
+              <div className='etiqueta'>Enter your id admin and password
               </div>
-                  <label className='label'>Admin id:</label>
+                  <label className='etiqueta'>Admin id:</label>
               <div>
                   <input autoFocus type='text' name='id' onChange={handleOnChange} value={input.id} className='input'/>
               </div>
               <div>
-                  <label className='label'>Password:</label>
+                  <label className='etiqueta'>Password:</label>
               </div>
               <div>
                   <input type='password' name='pass' onChange={handleOnChange} value={input.pass} className='input' />
               </div>
               <div>
-                  <input type='submit' value='Send'  className='button' />
+                  <input type='submit' value='Send'  className='boton' />
               </div>
-              {flag===1? <div className='label'>User or password failed</div>:''}
+              {flag===1? <div className='etiqueta'>User or password failed</div>:''}
           </form>
       </div>
     )

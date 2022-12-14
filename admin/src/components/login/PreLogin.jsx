@@ -46,22 +46,22 @@ export const PreLogin = () => {
     }
     if(flag=== 0 || flag === 1)
         return (
-          <div className='index'>
+          <div className='indice'>
               <form onSubmit={handleOnSubmit} className='formulario'>
                   <div >
-                      <label className='label'>User:</label>
+                      <label className='etiqueta'>User:</label>
                   </div>
                   <div>
                       <input autoFocus type='text' name='user' onChange={handleOnChange} value={input.user} className='input1' />
                   </div>
                   <div>
-                      <label className='label'>Password:</label>
+                      <label className='etiqueta'>Password:</label>
                   </div>
                   <div>
                       <input type='password' name='pass' onChange={handleOnChange} value={input.pass} className='input'/>
                   </div>
                   <div>
-                      <input type='submit' value='Send' className='button'  />
+                      <input type='submit' value='Send' className='boton'  />
                   </div >
                   {flag===1? <div className='error'>User or password failed</div>:''}
               </form>

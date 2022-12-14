@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { CLEAN_UP, DELETE_PRODUCT, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, UPDATE_PRODUCT } from './const'
+
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, RESTORE_PRODUCT, SELL_DETAILS, UPDATE_PRODUCT, GET_SELLS } from './const'
+
 
 export function postAdmin(admin){
     return async function (dispatch){
@@ -49,6 +51,16 @@ export function cleanUp(state){
 }
 }
 
+export function getSellDetails(id){
+    return async function(dispatch){
+        let res = await axios.get(`/purchases/${id}`)
+        dispatch({
+            type: SELL_DETAILS,
+            payload: res.data
+        }) 
+    }
+}
+
 export function getUsers(id = ''){
     console.log('actions id: ', id)
     return async function (dispatch){
@@ -63,6 +75,19 @@ export function getUsers(id = ''){
                 type: GET_USERS,
                 payload: res.data
             })
+    }
+}
+
+
+
+export function getSells() {
+    console.log("asdasdasd")
+    return async function(dispatch){
+        let res = await axios.get(`/purchases`)
+        dispatch({
+            type: GET_SELLS,
+            payload: res.data
+        })
     }
 }
 

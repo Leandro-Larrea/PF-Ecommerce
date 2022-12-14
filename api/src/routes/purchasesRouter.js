@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { savePayment, findPayments, findByUser } = require("../controllers/payments.js");
+const { savePayment, findPayments, findByUser, getPaymentDetails } = require("../controllers/payments.js");
 const router = Router();
 
 
@@ -22,11 +22,22 @@ router.get("/userPayment", async(req, res) =>{
     }
 });
 
-router.get("/:id", async(req, res) =>{
-    const { id } = req.params
+router.get("/", async(req, res) =>{
+    console.log("purchases") 
     try {
-        let payments = await findPayments(id);
+        let payments = await findPayments();
          res.status(200).json(payments);
+    } catch (error) {
+         res.status(404).send({'error: ': error});
+    }
+});
+
+router.get("/:id", async(req, res) =>{
+    console.log("purchases") 
+    const {id}= req.params
+    try {
+        let details = await getPaymentDetails(id);
+        return res.status(200).json(details);
     } catch (error) {
          res.status(404).send({'error: ': error});
     }
