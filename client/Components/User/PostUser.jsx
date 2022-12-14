@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Image, Alert, TouchableOpacity,Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem, Picker } from 'react-native-form-component';
-import { getCategories, getUser, postUser } from '../../redux/actions';
+import { cleanUser, getCategories, getUser, postUser } from '../../redux/actions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -119,7 +119,7 @@ export const PostUser = () => {
       }
       if (userDb) {  //si ya hay userDb tendria q actualizar los campos cambiados
         Alert.alert('aca habria que hacer algo pero no se que');
-        dispatch(getUser(user.sub))
+        dispatch(postUser({...input, _id: user.sub}))
       }
     }
    /*  setInput({
