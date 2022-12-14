@@ -223,7 +223,7 @@ export const PostUser = () => {
           isRequired
           asterik
 
-          value={input.location?.country}
+          value={input.location && input.location.country}
 
           onChangeText={text => {
             setInput({...input, location: {...input.location, country: text}}),

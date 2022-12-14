@@ -18,24 +18,29 @@ import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Rating from './Rating';
 import Reviews from './Reviews';
 import {useDispatch, useSelector} from 'react-redux';
-import {clean, getProductByPK, getReviews} from '../../redux/actions';
+import {clean, getProductByPK, getReviews, getUser} from '../../redux/actions';
+import {useAuth0} from 'react-native-auth0';
 
 function DetailProduct({route, navigation}) {
 
   const {_id, title, image, price} = route.params;
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
   const dispatch = useDispatch();
-  const {detailProduct, user} = useSelector(state => state);
+  const {detailProduct} = useSelector(state => state);
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
-  
   const selectedAnim = useRef(new Animated.Value(1)).current;
   const off = Math.floor(Math.random() * 20);
+  const {user} = useAuth0();
   
+
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
+    
+    if(user){
+    dispatch(getUser(user.sub))}
      
     return () => {
       dispatch(clean());
@@ -46,7 +51,6 @@ function DetailProduct({route, navigation}) {
     dispatch(getProductByPK(_id));
 
   },[]) */
-
   return (
     
     <ScrollView style={styles.container}>
@@ -70,7 +74,9 @@ function DetailProduct({route, navigation}) {
             <Text style={styles.description}>{detailProduct.description}</Text>
           )}
 
-          {detailProduct && <Rating rating={detailProduct.rating} />}
+          { detailProduct && detailProduct.rating? <Rating rating={detailProduct.rating} productId={_id}/>
+           : <Text>no rating</Text>  
+        }
 
           <View style={styles.fixToText}>
             <CardPrice price={price} text={off + '% Off'} off={off} />
