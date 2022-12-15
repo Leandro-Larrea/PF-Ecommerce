@@ -1,5 +1,4 @@
-import Navbar from "../navbar/Navbar"
-import '../table/table.scss'
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,23 +6,28 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Sidebar from "../sidebar/Sidebar";
-import { PostTable } from "../table/PostTable"
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSells } from "../../redux/action";
-import { Products } from "../products/Products";
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import { Link, useNavigate } from "react-router-dom";
 
-export const Sells = (sell = '')=>{
-  let sells
-  
-  sells = useSelector(state=> state.sells)
-  if(sell.length>1)
-    sells=sell
-  
+export const SingleTable = (props)=>{
+ let sells = []
+ props.sells.map(r => {
+    sells.push({
+        date: r.updatedAt,
+        totalPrice: r.totalPrice,
+        products: r.products,
+        amount: r.products.length,
+        _id: r._id
 
+    })
+ })
+ 
+  
 const dispatch = useDispatch()
 
 
@@ -35,16 +39,12 @@ useEffect(() => {
   if(!admin) 
   navigate('/')},[])
 
-useEffect(()=>{
-    dispatch(getSells())
-},[])
+console.log('asdfasdfasdfasdfasd', sells)
 
+if(sells.length)
+    return(
+    <div>
 
-    return(<div>
-        <div className="single">
-            <Sidebar />
-            <div className="singleContainer">
-                <Navbar isDeleted={true}/>
              <div>
           <div className="listContainer">
             <div className="listTitle">Products Table</div>
@@ -54,16 +54,16 @@ useEffect(()=>{
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell className="tableCell">User</TableCell>
+                <TableCell className="tableCell">Date</TableCell>
                 <TableCell className="tableCell">Total</TableCell>
                 <TableCell className="tableCell">Products</TableCell>
                 <TableCell className="tableCell">Details</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {sells.map((r) => (
+              {sells.length && sells.map((r) => (
                 <TableRow key={r._id}>
-                    <TableCell className="tableCell">{r.userId}</TableCell>
+                    <TableCell className="tableCell">{r.date && r.date.slice(0, 10)}</TableCell>
                     <TableCell className="tableCell">{r.totalPrice}</TableCell>
                     <TableCell className="tableCell">{r.products.length}</TableCell>
                     <TableCell className="tableCell">
@@ -79,7 +79,7 @@ useEffect(()=>{
         </TableContainer>
         </div> 
             </div>
-            </div>
-        </div>
+
     )
+else (<div></div>)
 }

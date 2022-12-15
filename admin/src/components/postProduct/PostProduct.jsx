@@ -30,7 +30,7 @@ export const PostProduct = () => {
   const [input, setInput] = useState(initialState)
   
   useEffect(()=>{
-    console.log(detail)
+
     if(!id)setInput(initialState)
     dispatch(getProductDetail(id))
    return ()=> dispatch(cleanUp("productDetail"))
@@ -99,9 +99,9 @@ export const PostProduct = () => {
     } 
     else { 
       let a = {...input, price: parseInt(input.price.slice(1))}
-      console.log('lleno el input', a)
+ 
       let res = !id? await dispatch(postProduct(a)): await dispatch(updateProduct(id,a));
-      console.log('listorti: ', res)
+
       id? alert("product updated"): alert('Producto Creado 👍 ')
       setInput(
         initialState

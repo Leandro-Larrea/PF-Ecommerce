@@ -33,7 +33,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/users/${params.row.id}`} style={{ textDecoration: "none" }}>
+            <Link to={`/users/${params?.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
 {/*             <div
@@ -63,7 +63,7 @@ const Datatable = () => {
         className="datagrid"
         rows={data}
         columns={userColumns.concat(actionColumn)}
-        pageSize={10}
+        pageSize={9}
         rowsPerPageOptions={[9]}
         /* checkboxSelection */
       />

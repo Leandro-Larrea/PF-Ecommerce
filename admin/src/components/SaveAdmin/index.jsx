@@ -21,12 +21,11 @@ export default function SaveAdmin(props) {
 
 function handleChange(e) {
     setAdmin({...admin, [e.target.name]: e.target.value})
-   // console.log(admin)
+
 }
 
 function handleSubmit(e){
     e.preventDefault()
-    console.log('handle')
    postAdmin(admin)
    setFlag(1)
 }

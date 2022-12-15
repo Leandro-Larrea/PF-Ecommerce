@@ -37,10 +37,10 @@ const savePayment = async(payment) =>{
 
 
 
-const findPayments = async(id) =>{
+const findPayments = async(id = '') =>{
     if(id){
         let payment = await Compra.findById(id)
-         payment.createdAt = dates(payment.createdAt)
+         //payment.createdAt = dates(payment.createdAt)
         return payment 
     }
     const payments = await Compra.find()

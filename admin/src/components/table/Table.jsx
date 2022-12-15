@@ -22,10 +22,8 @@ useEffect(() => {
 
  function handleOnDelete(e, id){
    dispatch(deleteProduct(id))
-   console.log('target ', id)
  }
 
-console.log('productos ', products)
 if(!products){
   return (<div>Cargando</div>)
   }

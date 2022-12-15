@@ -24,7 +24,7 @@ export const SellsDetail = ()=>{
 
 useEffect(()=>{
 dispatch(getSellDetails(id))
-console.log(details)
+
 return () => {
     dispatch(cleanUp("sellDetails"))
 }

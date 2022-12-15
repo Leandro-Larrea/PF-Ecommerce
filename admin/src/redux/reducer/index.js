@@ -1,4 +1,4 @@
-import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_SELLS, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, SELL_DETAILS, RESTORE_PRODUCT, UPDATE_PRODUCT } from "../action/const";
+import { CLEAN_UP, DELETE_PRODUCT, GET_ADMIN, GET_ADMINS, GET_BACKUP, GET_CATEGORIES, GET_SELLS, GET_PRODUCTS, GET_REVIEWS, GET_USER, GET_USERS, GET_USER_PAYMENTS, PRODUCT_DETAIL, SELL_DETAILS, RESTORE_PRODUCT, UPDATE_PRODUCT, GET_SELL } from "../action/const";
 
 
 const initialState = {
@@ -48,6 +48,12 @@ export default function reducer(state = initialState, {type, payload}) {
                 ...state,
                 sells: payload
             }
+        
+        case GET_SELL:
+            return {
+                ...state,
+                sell: payload
+            }
 
         case PRODUCT_DETAIL:
             return {
@@ -75,7 +81,7 @@ export default function reducer(state = initialState, {type, payload}) {
                     name: `${r.name} ${r.lastName}`,
                     email: r.mail,
                     phone: r.phone,
-                    img: r.image,
+                    //img: r.image,
                     status: r.status? 'active' : 'passive', 
                     location: r.location,
                     purchases: r.purchases,
