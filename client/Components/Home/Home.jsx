@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, getProducts } from '../../redux/actions';
 import AuthenticationButton from '../LogButtons/AuthenticationButton'
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import {useAuth0} from 'react-native-auth0';
 
 import HomeCategories from './HomeCategories';
 import Header from './Header';
@@ -17,12 +17,15 @@ export const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const { products, categories } = useSelector(state => state);
 
+  const {user} = useAuth0();
+
   useEffect(() => {
     if (!categories.length) {
       dispatch(getCategories());
     }
   }, []);
 
+  const loggedIn = user !== undefined && user !== null;
   return (
     <SafeAreaView style={style.container}>
       <ScrollView>
@@ -32,7 +35,7 @@ export const Home = ({ navigation }) => {
         </View>
         <View style={style.cuenta}>
           <TouchableHighlight style={style.icon} onPress={() => navigation.navigate('My Profile')}>
-            <Icon name="person-outline" size={28} color="#89c30d" />
+            <Icon name="person-outline" size={24} color={loggedIn ? '#65AE77' : '#FF4544'} />
           </TouchableHighlight>
           <AuthenticationButton />
         </View>
@@ -67,8 +70,8 @@ const style = StyleSheet.create({
   header: {
     flex: 1,
     backgroundColor: '#2d2d2d',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   headerText: {
     textAlign: 'center',
@@ -92,10 +95,10 @@ const style = StyleSheet.create({
   },
   cuenta: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    minHeight: 40,
-    backgroundColor: 'black',
+    minHeight: 45,
+    backgroundColor: '#101010',
     paddingHorizontal: 10,
   },
   icon: {

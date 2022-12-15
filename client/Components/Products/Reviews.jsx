@@ -35,7 +35,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
     userId: userData && userData._id,
     productId: productId,
     review: '',
-    userName: userData.name + ' ' + userData.lastName
+    userName: userData?.name + ' ' + userData?.lastName
   });
 
   const handleChange = e => {
