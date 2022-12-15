@@ -175,6 +175,14 @@ export function getUserPayments(id){
         })
     } */
 }
+
+export function putNotified(id){
+    console.log('usar este id para notified', id)
+    return async function(dispatch){
+        let res = await axios.put(`/purchases/${id}`)
+        console.log('notified', res.data)
+    }
+}
     
 
 

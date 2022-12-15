@@ -49,7 +49,7 @@ export const PostTable = (props) => {
                 <TableCell className="tableCell">Rating</TableCell>
                 <TableCell className="tableCell">Stock</TableCell>
                 <TableCell className="tableCell">{isProduct? 'Delete' : 'Restore'}</TableCell>
-                <TableCell className="tableCell">Edit</TableCell>
+                {isProduct && <TableCell className="tableCell">Edit</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -80,7 +80,7 @@ export const PostTable = (props) => {
                     }
                     <TableCell className="tableCell">
                       <NavLink style={{textDecoration:"none", color:"green"}} to ={`/postproducts/${r._id}`}>
-                        { <ModeEditOutlinedIcon /> }
+                        {isProduct && <ModeEditOutlinedIcon /> }
                       </NavLink>
                     </TableCell>
                 </TableRow>

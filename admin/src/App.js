@@ -17,6 +17,7 @@ import { Sells } from "./components/sells/Sells";
 import { SellsDetail } from "./components/sells/SellsDetails";
 
 import { PreLogin } from "./components/login/PreLogin";
+import { Notified } from "./components/notified/Notified";
 
 
 axios.defaults.baseURL = 'https://pf-ecommerce-production-ed4d.up.railway.app';
@@ -30,6 +31,9 @@ function App() {
         <Routes>
           <Route path="/">
              <Route exact path='/' element={<PreLogin/>}/> 
+              <Route exact path="notified">
+                <Route index element={<Notified />}/>
+              </Route>
             <Route path='/home' element={<Home />} />
               <Route exact path="addadmin" element={<New inputs={userInputs} title="Add New Admin" />} >
             </Route>

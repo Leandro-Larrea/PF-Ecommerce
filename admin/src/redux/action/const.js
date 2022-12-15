@@ -17,3 +17,4 @@ export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const GET_SELLS = 'GET_SELLS';
 export const GET_SELL = 'GET_SELL'
 export const SELL_DETAILS = 'SELL_DETAILS';
+export const PUT_NOTIFIED = 'PUT_NOTIFIED'

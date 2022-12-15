@@ -19,6 +19,7 @@ const Navbar = (props) => {
   //const { dispatch } = useContext(DarkModeContext);
   let { products } = useSelector(state => state)
   let deleted = useSelector(state => state.productsBackup)
+
   const dispatch = useDispatch()
   
   const searchRef = useRef(null)
@@ -84,17 +85,17 @@ const Navbar = (props) => {
 {/*           <div className="item">
             <FullscreenExitOutlinedIcon className="icon" />
           </div> */}
-          <div className="item">
+       {/*    <div className="item">
             <NotificationsNoneOutlinedIcon className="icon" />
             <div className="counter">1</div>
           </div>
           <div className="item">
             <ChatBubbleOutlineOutlinedIcon className="icon" />
             <div className="counter">2</div>
-          </div>
-          <div className="item">
+          </div> */}
+       {/*    <div className="item">
             <ListOutlinedIcon className="icon" />
-          </div>
+          </div> */}
           <div className="item">
             <SupervisorAccountIcon className="avatar" />
           </div>
