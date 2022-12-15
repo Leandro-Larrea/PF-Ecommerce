@@ -1,109 +1,153 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { Text, View, Image, StyleSheet, Button } from 'react-native';
-import { useAuth0 } from 'react-native-auth0';
-import { useDispatch, useSelector } from "react-redux";
-import { clearUser, getUser } from "../../redux/actions";
-import { LogoutButton } from "../LogButtons/LogoutButton";
-import { NotificationNoLog } from "../../src/services/LocalPushControllers";
+import {useEffect} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+import {useAuth0} from 'react-native-auth0';
+import {useDispatch, useSelector} from 'react-redux';
+import {clearUser, getUser} from '../../redux/actions';
+import {LogoutButton} from '../LogButtons/LogoutButton';
+import {NotificationNoLog} from '../../src/services/LocalPushControllers';
 import Icon from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient'
+import LinearGradient from 'react-native-linear-gradient';
 
-
-export const Profile = ({ navigation }) => {
-  const { user } = useAuth0();
+export const Profile = ({navigation}) => {
+  const {user} = useAuth0();
   const loggedIn = user !== undefined && user !== null;
 
-  console.log("USER Prof Aut", user);
-  const userDb = useSelector(state => state.user)
+  console.log('USER Prof Aut', user);
+  const userDb = useSelector(state => state.user);
   /* console.log("USERDBLOG", userDb); */
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log("USEEFFECT");
-    if (user) dispatch(getUser(user.sub))
+    console.log('USEEFFECT');
+    if (user) dispatch(getUser(user.sub));
     if (!userDb) {
-      setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
+      setTimeout(() => {
+        alert(
+          'In order of be able of using the full aplication u need to setup your contact info',
+        );
+      }, 1000);
       NotificationNoLog();
-      dispatch(getUser(user.sub))
+      dispatch(getUser(user.sub));
     }
     return () => {
       dispatch(clearUser());
-    }
-  }, [])
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   if (user) dispatch(getUser(user.sub))
-  //   return ()=>{
-  //     dispatch(clearUser())
-  //   }
-  // }, [])
-
- /*  useEffect(() => {
-    if(userDb !== null) {
-      dispatch(getUser(userDb._id))
-      console.log("powpwppopo");
-    }
-  },[]) */
-
-  
-
+  console.log('usuarioDb', userDb);
 
   return (
     <>
       <View style={styles.container}>
         {userDb === null || !Object.keys(userDb).length > 0 ? (
-
           <View style={styles.containerLog}>
-            <Text style={styles.title}>Please complete your profile information</Text>
+            <Text style={styles.title}>
+              Please complete your profile information
+            </Text>
             <View style={styles.bottonIn}>
-              <Button color={'#89c30d'}  title='Go to complete information' onPress={() => navigation.navigate('Edit data')}></Button>
+              <Button
+                color={'#89c30d'}
+                title="Go to complete information"
+                onPress={() => navigation.navigate('Edit data')}></Button>
             </View>
             <View style={styles.botonGo}>
-              <LogoutButton/>
+              <LogoutButton />
             </View>
           </View>
+        ) : (
+          <View style={styles.info}>
+            <View style={{width: '100%', marginTop: -20}}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={[
+                  /* '#4c669f', '#3b5998', '#192f6a', */ '#63b360',
+                  '#549651',
+                  '#345c32',
+                ]}
+                style={{paddingTop: 60}}>
+                <Image
+                  style={{
+                    width: 165,
+                    height: 165,
+                    borderWidth: 4,
+                    borderRadius: 400 / 2,
+                    borderColor: 'white',
+                    marginBottom: 20,
+                    alignSelf: 'center',
+                  }}
+                  source={{uri: userDb.image}}
+                />
 
-        ) :
-          (<View style={styles.info}>
-
-            <View style={{ width: "100%", marginTop: -20 }}>
-              <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[/* '#4c669f', '#3b5998', '#192f6a', */ '#63b360', '#549651', '#345c32']} style={{ paddingTop: 60 }}>
-
-                <Image style={{ width: 165, height: 165, borderWidth: 4, borderRadius: 400 / 2, borderColor: "white", marginBottom: 20, alignSelf: "center" }} source={{ uri: userDb.image }} />
-
-                <View style={styles.userName} >
-                  <Text style={styles.name}>{userDb.name + ' ' + userDb.lastName}</Text>
+                <View style={styles.userName}>
+                  <Text style={styles.name}>
+                    {userDb.name + ' ' + userDb.lastName}
+                  </Text>
                 </View>
               </LinearGradient>
             </View>
-<View style={{ marginTop: 10 }}>
+            <View style={{marginTop: 10}}>
+              <View>
+                <View style={styles.userInfo}>
+                  <Text style={styles.data}>
+                    <Icon name="mail" size={22}></Icon> {userDb.mail}
+                  </Text>
+                </View>
+                <View style={styles.userInfo}>
+                  <Text style={styles.data}>
+                    <Icon name="call" size={22}></Icon> {userDb.phone}
+                  </Text>
+                </View>
 
-            <View style={styles.userInfo}>
-              <Text style={styles.data}><Icon name='mail-outline' size={22}></Icon> {userDb.mail}</Text>
+                <View style={styles.userInfo}>
+                  <Text style={styles.data}>
+                    <Icon name="earth-sharp" size={22}></Icon>{' '}
+                    {userDb.location.country}
+                  </Text>
+                </View>
+
+                <View style={styles.userInfo}>
+                  <Text style={styles.data}>
+                    <Icon name="location-sharp" size={22}></Icon>{' '}
+                    {userDb.location.city}
+                  </Text>
+                </View>
+                <View style={styles.userInfo}>
+                  {userDb.admin == true ? (
+                    <Text style={styles.data}>
+                      <Icon name="settings" size={22}></Icon>  Go to admin{' '}
+                      <TouchableOpacity
+                        style={{color:'red', }}
+                        onPress={() => {
+                          alert('http//:dashboard-admin');
+                        }}>
+                          <Text style={{color:'green', fontSize: 18, fontWeight: '900', borderWidth: 1}}>  Dashboard  </Text>
+                      </TouchableOpacity>
+                    </Text>
+                  ) : (
+                    <Text style={styles.data}>
+                      <Icon name="settings" size={22}></Icon> Admin: false
+                    </Text>
+                  )}
+                </View>
+              </View>
             </View>
-            <View style={styles.userInfo}>
-              <Text style={styles.data}><Icon name='call' size={22}></Icon> {userDb.phone}</Text>
-            </View>
-
-            <View style={styles.userInfo}>
-              <Text style={styles.data}> <Icon name='earth-sharp' size={22}></Icon>  {userDb.location.country}</Text>
-            </View>
-
-            <View style={styles.userInfo}>
-              <Text style={styles.data}><Icon name='location-sharp' size={22}></Icon>  {userDb.location.city}</Text>
-            </View>
-
-          </View>
-
             <View style={styles.boton}>
               <LogoutButton />
             </View>
           </View>
-          )}
+        )}
       </View>
     </>
-    );
+  );
 };
 
 const styles = StyleSheet.create({
@@ -114,7 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    marginTop: -60,
+    marginTop: -55,
     // marginLeft: 10,
     // marginRight: 10,
     marginBottom: 10,
@@ -133,11 +177,11 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   data: {
-    color: "black",
+    color: 'black',
     opacity: 0.8,
     fontSize: 16,
     borderBottomWidth: 1,
-    borderColor: "#CDCDCD",
+    borderColor: '#CDCDCD',
     paddingVertical: 10,
   },
   info: {
@@ -148,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   boton: {
-    marginTop: 30,
+    marginTop: 15,
   },
   bottonIn: {
     width: 250,
@@ -161,12 +205,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 24,
-    color: "black",
-    fontWeight: "bold",
+    color: 'black',
+    fontWeight: 'bold',
   },
   userInfo: {
     padding: 6,
-    width: 350
+    width: 350,
   },
   userName: {
     flexDirection: 'row',
@@ -175,6 +219,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     paddingBottom: 5,
-    alignSelf: "center"
-  }
+    alignSelf: 'center',
+  },
 });
