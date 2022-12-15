@@ -6,7 +6,6 @@ import { Text, View } from 'react-native'
 import { stylesCardProduct } from '../../styles'
 import {useAuth0} from 'react-native-auth0';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import CardPurchases from './CardPurchases';
 
 export const Purchases = () => {
   const dispatch = useDispatch()
@@ -18,35 +17,27 @@ export const Purchases = () => {
     /* console.log("user db de purche",userDb) */
   },[])
 
-  const purchases = userDb?.purchases.map(p => p.products)
-  console.log('log purcha', purchases)
+  // const purchases = userDb?.purchases.map(p => p.products)
+  // console.log('log purcha', purchases)
 
   return (
     <View>
         <Text style={stylesCardProduct.title}>
             Purchases
         </Text>
-        <View>
+        {/*<View>
           {purchases?.length ? (
-            purchases.map(p => {
-              return (
-                <View key={p.title}>
-                <CardPurchases
-                  productId={p.productId}
-                  title={p.title}
-                  quantity={p.quantity}
-                  price={p.price}
-                />
-                </View>
-              )
-            })
+
+            
+            <View>
+            </View>
           ) : (
             <View>
               <Text>No hay purchases</Text>
             </View>
           )
           }
-        </View>
+        </View> */}
     </View>
   )
 }

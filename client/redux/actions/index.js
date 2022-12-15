@@ -115,7 +115,7 @@ export function postUser(obj) {
     await axios
       .post(`/users`, obj)
       .then(a => {
-        console.log(a.data, 'actionPost');
+        console.log(a.data);
         return;
       })
       .catch(error => {
