@@ -118,20 +118,20 @@ export const PostProduct = () => {
           <div className='main'>PostProduct
             <form onSubmit={handleSubmit} className="form">
               <div className='itemContainer'>
-                <label classname="label">Product: </label>
-                <input classname="inputI" type='text' placeholder='Playstaion' name='title' onChange={handleChange} value={input.title}/>
+                <label className="label">Product: </label>
+                <input className="inputI" type='text' placeholder='Playstaion' name='title' onChange={handleChange} value={input.title}/>
               </div>
               <div className='itemContainer'>
-                <label classname="label">Price:</label>
-                <input classname="inputI" type='text' placeholder="00" name='price' onChange={handleChange} value={input.price} />
+                <label className="label">Price:</label>
+                <input className="inputI" type='text' placeholder="00" name='price' onChange={handleChange} value={input.price} />
               </div>
               <div className='itemContainer'>
-                <label classname="label">Stock:</label>
-                <input classname="inputI" type='number' placeholder="00" name='stock' onChange={handleChange} value={input.stock}/>
+                <label className="label">Stock:</label>
+                <input className="inputI" type='number' placeholder="00" name='stock' onChange={handleChange} value={input.stock}/>
               </div>
               <div className='itemContainer'>
-                <label classname="label">Category: </label>
-                <select classname="inputI" name='category' onChange={handleChange} id='selectCategory'>
+                <label className="label">Category: </label>
+                <select className="inputI" name='category' onChange={handleChange} id='selectCategory'>
                             <option value=''>Seleccionar</option>
                             {
                             categories.length? categories.map((r, i) => (
@@ -140,12 +140,12 @@ export const PostProduct = () => {
                 </select>
               </div>
               <div className='itemContainerText'>
-                <label classname="label">Description:</label>
-                <textarea classname="inputI" name='description' onChange={handleChange} value={input.description}/>
+                <label className="label">Description:</label>
+                <textarea className="inputI" name='description' onChange={handleChange} value={input.description}/>
               </div>
               <div className='itemContainer'>
-                <label classname="label" htmlFor="image">Image:</label>
-                <input classname="inputI" type='file' name='image' onChange={handleFileInputChange} />
+                <label className="label" htmlFor="image">Image:</label>
+                <input className="inputI" type='file' name='image' onChange={handleFileInputChange} />
               </div>
               <div className='itemContainer'>
                 <label>Image URL</label>

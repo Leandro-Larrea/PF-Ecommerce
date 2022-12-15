@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useParams } from "react-router-dom"
-import { cleanUp, getSellDetails } from "../../redux/action"
+import { cleanUp, getSellDetails, putNotified } from "../../redux/action"
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import Navbar from "../navbar/Navbar"
 import Sidebar from "../sidebar/Sidebar"
@@ -24,7 +24,7 @@ export const SellsDetail = ()=>{
 
 useEffect(()=>{
 dispatch(getSellDetails(id))
-
+dispatch(putNotified(id))
 return () => {
     dispatch(cleanUp("sellDetails"))
 }

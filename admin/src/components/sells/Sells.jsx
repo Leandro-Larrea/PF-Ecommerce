@@ -16,12 +16,12 @@ import { Products } from "../products/Products";
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import { Link, useNavigate } from "react-router-dom";
 
-export const Sells = (sell = '')=>{
-  let sells
-  
-  sells = useSelector(state=> state.sells)
-  if(sell.length>1)
-    sells=sell
+export const Sells = (props)=>{
+ 
+ 
+  let sells = useSelector(state=> state.sells)
+   if(props.sell && props.sell.length)
+    sells=props.sell 
   
 
 const dispatch = useDispatch()

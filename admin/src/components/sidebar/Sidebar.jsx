@@ -18,20 +18,26 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import RestorePageIcon from '@mui/icons-material/RestorePage';
 import logo from '../../images/logo.png'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GET_ADMIN } from "../../redux/action/const";
+import { getSells } from "../../redux/action";
+import { useSelect } from "@mui/base";
 
 const Sidebar = () => {
 
   const { dispatch } = useContext(DarkModeContext);
   const dispatch2 = useDispatch()
+  const { sells } = useSelector(state => state)
 
   useEffect(() => {
+    dispatch2(getSells())
     return () => dispatch2({
       type: GET_ADMIN,
       payload: {}  
     })
   },[]) 
+  let notified = sells.filter(r => !r.notified)  
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -83,9 +89,12 @@ const Sidebar = () => {
             <span>Sells</span>
           </Link>
           </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
+
+          <li className="item">
+            {notified.length && <Link to='/notified' style={{textDecoration: "none"}} >
+              <NotificationsNoneIcon className="icon" />
+              {notified.length?<span style={{color: "red"}}>Notifications {notified.length}</span>:<span style={{color: "green"}}>No notifications</span>}
+            </Link>}
           </li>
           <p className="title">SERVICE</p>
             <li>
@@ -94,19 +103,19 @@ const Sidebar = () => {
               <span>Restore deleted products</span>
           </Link>
             </li>
-          <li>
+{/*           <li>
             <PsychologyOutlinedIcon className="icon" />
             <span>Logs</span>
-          </li>
-          <li>
+          </li> */}
+ {/*          <li>
             <SettingsApplicationsIcon className="icon" />
             <span>Settings</span>
-          </li>
+          </li> */}
           <p className="title">USER</p>
-          <li>
+  {/*         <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
-          </li>
+          </li> */}
             <li>
           <Link to='/' style={{ textDecoration: "none" }}>
               <ExitToAppIcon className="icon" />
