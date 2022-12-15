@@ -4,8 +4,13 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import { useSelector } from "react-redux";
 
 const Featured = () => {
+  
+  let products = useSelector(state => state.products)
+
+  console.log('productos', products)
   return (
     <div className="featured">
       <div className="top">
