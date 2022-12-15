@@ -19,7 +19,6 @@ export default function Login() {
     dispatch(getAdmins())
     if(admins)
     flag = 20
-    console.log('useEffect')
   },[])
 
   const [ input, setInput ] = useState({

@@ -93,7 +93,7 @@ export function getSells(id='') {
             type: GET_SELL,
             payload: res.data
         })
-        console.log("action sell id", id)}
+        console.log("action sell id", res.data)}
     }
 }
 

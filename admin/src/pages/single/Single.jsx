@@ -1,6 +1,4 @@
 import "./single.scss";
-
-import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +9,7 @@ import Widget from "../../components/widget/Widget";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { SingleTable } from "./SingleTable";
+import SingleChart from "./SingleChart";
 
 const Single = () => {
 
@@ -51,12 +50,6 @@ console.log('single sells  ', sells)
        
             <h1 className="title">Information</h1>
             <div className="item">
-{/*               <img
-                src={user.img}
-                alt=""
-                className="itemImg"
-              /> */}
-              {/* <AccountCircleIcon className="itemImg" /> */}
               <div className="details">
                 <h1 className="itemTitle">{user.name}</h1>
                 <div className="detailItem">
@@ -81,7 +74,7 @@ console.log('single sells  ', sells)
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+            <SingleChart aspect={3 / 1} title="User Spending ( Last 6 Months)" sells={sells}/>
           </div>
         </div>
         <div className="bottom">

@@ -23,10 +23,14 @@
         text-align: center;
 
         img {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
+          width: 600px;
+          height: 450px;
+          padding: 1%;
+          border-radius: 10%;
           object-fit: cover;
+         
+          
+
         }
       }
 
@@ -41,6 +45,7 @@
 
           .formInput {
             width: 40%;
+            padding-left: 50px;
 
             label {
               display: flex;
@@ -74,4 +79,34 @@
       }
     }
   }
+}
+
+.iconoAdmin{
+ background-color: #000;
+
+}
+
+.labelError1{
+  color: red;
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+.labelCorrect1{
+  color: green;
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+.boton1{
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  cursor:pointer;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  margin-left: 15px;
+  border-radius: 5px;
+  background-color: rgb(23, 21, 24);
+  color: #fff;
+  font-size: 18px;
 }

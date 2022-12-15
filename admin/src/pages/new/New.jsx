@@ -3,14 +3,34 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import img from '../../images/admin.jpg'
+import { postAdmin } from "../../redux/action";
+
 
 const New = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
-  const { admin } = useSelector(state => state)
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
+  const [ input, setInput ] = useState({
+    id: '',
+    pass: ''
+  })
+
+  function handleOnChange(e){
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+    console.log('asdf', input.id, input.pass)
+  }
+
+  function handleOnClick(e){
+    e.preventDefault()
+    console.log('asdf')
+    dispatch(postAdmin(input))
+    alert('Administrator registered')
+  }
 
 
   return (
@@ -22,38 +42,24 @@ const New = ({ inputs, title }) => {
           <h1>{title}</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            />
-          </div>
+
           <div className="right">
             <form>
               <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
+                <label>Id Administrator:</label>
+                <input type='text' name='id' onChange={handleOnChange} value={input.id} />
+                <label>Password:</label>
+                <input type='password' name='pass' onChange={handleOnChange} value={input.pass} />
+              
               </div>
-
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
-                </div>
-              ))}
-              <button>Send</button>
+              <div className="left">
+            <img src={img}  alt="" className="img"/>
+          </div>
             </form>
+            {input.id.length < 5? <div className='labelError1'>Id is too short</div>: <div className='labelCorrect1'>Id OK</div>}
+             {input.pass.length > 5 && input.id.length>4? <button className='boton1' onClick={handleOnClick}>Send</button>:''} 
+           
+          
           </div>
         </div>
       </div>
