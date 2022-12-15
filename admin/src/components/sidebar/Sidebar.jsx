@@ -45,55 +45,55 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to='/home' style={{ textDecoration: "none" }} >
             <li>
+          <Link to='/home' style={{ textDecoration: "none" }} >
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
-            </li>
           </Link>
+            </li>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
+          <Link to="/users" style={{ textDecoration: "none" }}>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
-            </li>
           </Link>
-          <Link to="/postproducts" style={{ textDecoration: "none" }}>
+            </li>
             <li>
+          <Link to="/postproducts" style={{ textDecoration: "none" }}>
               <StoreIcon className="icon" />
               <span>Post products</span>
-            </li>
           </Link>
-          <Link to='/products' style={{ textDecoration: "none" }}>
+            </li>
             <li>
+          <Link to='/products' style={{ textDecoration: "none" }}>
               <ComputerIcon className="icon" />
               <span>Products</span>
-            </li>
           </Link>
-          <Link to='/addadmin' style={{ textDecoration: "none" }}>
+            </li>
             <li>
+          <Link to='/addadmin' style={{ textDecoration: "none" }}>
               <SupervisorAccountIcon className="icon" />
               <span>Add Admin</span>
-            </li>
           </Link>
+            </li>
           <p className="title">USEFUL</p>
-          <Link to ="/sells" style={{ textDecoration: "none" }}>
           <li>
+          <Link to ="/sells" style={{ textDecoration: "none" }}>
             <InsertChartIcon className="icon" />
             <span>Sells</span>
-          </li>
           </Link>
+          </li>
           <li>
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
           </li>
           <p className="title">SERVICE</p>
-          <Link to='/restore' style={{ textDecoration: "none" }}>
             <li>
+          <Link to='/restore' style={{ textDecoration: "none" }}>
               <RestorePageIcon className="icon" />
               <span>Restore deleted products</span>
-            </li>
           </Link>
+            </li>
           <li>
             <PsychologyOutlinedIcon className="icon" />
             <span>Logs</span>
@@ -107,12 +107,12 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <Link to='/' style={{ textDecoration: "none" }}>
             <li>
+          <Link to='/' style={{ textDecoration: "none" }}>
               <ExitToAppIcon className="icon" />
               <span>Logout</span>
-            </li>
           </Link>
+            </li>
         </ul>
       </div>
       <div className="bottom">

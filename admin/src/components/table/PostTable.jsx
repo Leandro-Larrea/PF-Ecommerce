@@ -25,7 +25,6 @@ export const PostTable = (props) => {
 
     function handleOnDelete(e, id){
         dispatch(deleteProduct(id))
-        console.log('target ', id)
       }
 
     function handleOnRestore(e, id){
@@ -54,8 +53,8 @@ export const PostTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((r) => (
-                <TableRow key={products._id}>
+              {products.map((r, i) => (
+                <TableRow key={i}>
                         <div className="cellWrapper">
                           <img src={r.image} alt="" className="image" />
                         </div>

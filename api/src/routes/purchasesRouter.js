@@ -23,9 +23,10 @@ router.get("/userPayment", async(req, res) =>{
 });
 
 router.get("/", async(req, res) =>{
+    const { id } = req.query
     console.log("purchases") 
     try {
-        let payments = await findPayments();
+        let payments = await findPayments(id);
          res.status(200).json(payments);
     } catch (error) {
          res.status(404).send({'error: ': error});

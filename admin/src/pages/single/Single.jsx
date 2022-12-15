@@ -1,33 +1,40 @@
 import "./single.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
+
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserReviews, getUsers } from "../../redux/action";
+import { getSells, getUserReviews, getUsers } from "../../redux/action";
 import Widget from "../../components/widget/Widget";
+
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import { SingleTable } from "./SingleTable";
 
 const Single = () => {
 
   let id = useParams()
-  const { user, userReviews, userPayments }= useSelector(state => state)
-  
-  const dispatch = useDispatch()
-  //console.log('reviews de single ', user.reviews)
+ 
+  let { sells } = useSelector(state => state)
+  const { user, userReviews, userPayments,  }= useSelector(state => state)
 
+  
+ const dispatch = useDispatch()
+  sells = sells?.filter(r =>  r.userId===id.userId)
+
+console.log('single sells  ', sells)
+  
   useEffect(() => {
+    dispatch(getSells())
     dispatch(getUsers(id.userId))
     dispatch(getUserReviews(id.userId))
-/*     return () => dispatch({
-      type: GET_USER,
-      payload: {}
-    })   */
+
   },[])
   
   useEffect(() => {
-    console.log('usuario: ', userPayments)
+
+    //console.log('usuario: ', userPayments)
 
   }, [dispatch])
 
@@ -86,7 +93,7 @@ const Single = () => {
           
         </div>
         <h1 className="title">Last Transactions</h1>
-          <List/> 
+          {sells.length ?<SingleTable sells={sells} /> :''}
         </div>
       </div>
     </div>
