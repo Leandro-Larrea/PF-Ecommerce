@@ -59,10 +59,15 @@ router.get("/:id", async (req,res)=>{
     try {
         let {id} = req.params
         
-        let a = await Product.findById(id);
-        res.status(200).json({a})
+        // let a = await Product.findOne({_id:id});
+        // if(!a) {
+        //     return res.status(404).json("product not found")
+        // }
+        let a = await Product.findOne({_id: id});
+        if(a)  return res.status(200).json(a)
+        return res.status(404).json("product not found")
     } catch (error) {
-        res.status(400).json({"errorGetById":error})
+      return res.status(500).json({"errorGetById":error})
     } 
 })
 
