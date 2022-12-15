@@ -1,6 +1,8 @@
 import React from 'react';
-import {Button, Text, View, StyleSheet} from 'react-native';
+import {Button, Text, View, StyleSheet, TouchableHighlight} from 'react-native';
 import {useAuth0} from 'react-native-auth0';
+//import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AuthenticationButton = () => {
   const {authorize, clearSession, user} = useAuth0();
@@ -30,12 +32,19 @@ const AuthenticationButton = () => {
       {!loggedIn && <Text style={styles.text}>You are not logged in</Text>}
       </View>
       <View >
-      <Button
-        onPress={loggedIn ? onLogout : onLogin}
-        title={loggedIn ? 'Log Out' : 'Log In'}
-        style={styles.boton}
-        color={'#89c30d'}
-      />
+        <TouchableHighlight
+          onPress={loggedIn ? onLogout : onLogin}
+          //title={loggedIn ? 'Log Out' : 'Log In'}
+          style={styles.boton}
+          color={'#89c30d'}
+        >
+          <Icon
+                  size={28}
+                  name={loggedIn ? 'log-out-outline' : 'log-in-outline'}
+                  color={loggedIn ? '#FF4544' : '#65AE77'}
+                />
+          
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -46,21 +55,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        width: '73%'
     },
     text:{
-      color:'white',
-      fontSize:18,
+      color:'#f5f5f5',
+      fontSize:17,
       marginRight:5,
-      fontFamily:'Louis George Cafe Bold'
+      fontFamily:'Louis George Cafe',
+      fontWeight: '100'
     },
     logtext:{
-      color:'white',
+      color:'#f5f5f5',
+      fontSize:17,
       marginRight:5,
       fontFamily:'Louis George Cafe Bold'
     },
     boton: {
-      borderRadius: 5,
-      height: 20,
+      height: 28,
+      marginLeft: 1,
     }
    
 })

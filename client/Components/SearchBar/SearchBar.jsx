@@ -89,7 +89,7 @@ export const SearchBar = ({navigation, filters, fcUpdate}) => {
 const style = StyleSheet.create({
   main: {
     backgroundColor: '#2d2d2d',
-    minHeight: 57,
+    minHeight: 60,
     paddingLeft: 28,
     paddingRight: 28,
     paddingTop: 2,
