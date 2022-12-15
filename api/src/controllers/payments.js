@@ -4,7 +4,7 @@ const { User } = require("../models/User")
 
 const stock = async (cart)=>{
     for(const e of cart){
-        await Product.findByIdAndUpdate(e.productId,{$inc: {stock: -e.quantity}})
+        await Product.findByIdAndUpdate(e.productId,{$inc: {stock: -e.quantity, sales: e.quantity}})
     }
 }
 
