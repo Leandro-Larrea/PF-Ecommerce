@@ -68,7 +68,8 @@ router.get('/admin', async (req, res) => {
 router.put('/', async (req, res) => {
     try {
         let products = await Product.update({reviews:[]})
-        return res.status(201).json(products)
+        let users = await User.update({reviews:[]})
+        return res.status(201).json([products, users])
       } catch (error) {
           return res.status(404).send("la concha de la lora")
       }

@@ -43,7 +43,8 @@ const getProductField = async(field)=>{
 }
 
 const reviewProduct = async(obj) => {
-   const { userId, productId, review } = obj
+   const {userName, userId, productId, review } = obj
+   if(!userId || !productId || !review || !userName) throw "faltan argumentos"
    try {
     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}})
     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
@@ -67,21 +68,22 @@ const reviewProduct = async(obj) => {
         let b = await Product.findById(productId,{reviews:1, _id:0})
         return b
     }
-    
 
     let updateUser = await User.findByIdAndUpdate(userId,{
         $push:{
             reviews:{product:productId, review:review}
         }
     })
+
+    console.log("Esto es push",userName)
     let updateProduct = await Product.findByIdAndUpdate(productId,{
         $push:{
-            reviews:{user:userId, review:review}
+            reviews:{userName: userName, user: userId, review: review}
         }
     })
     let a = await User.findById(userId,{reviews: 1})
-    console.log(a)
     let b = await Product.findById(productId, {reviews: 1})
+    console.log(b)
     return [a,b]
    } catch (error) {
     throw (error)
@@ -108,8 +110,6 @@ const ratingProduct = async(userId,productId,rating) => {
 
 }
        
-
-
 
  const getReviews = async () =>{
     let products = await Product.find()
