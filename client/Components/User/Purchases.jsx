@@ -1,43 +1,55 @@
 import React from 'react'
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/actions";
-import { Text, View } from 'react-native'
+import { getPurchases, getUser } from "../../redux/actions";
+import { Text, View,StyleSheet } from 'react-native'
 import { stylesCardProduct } from '../../styles'
 import {useAuth0} from 'react-native-auth0';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import PurchaseCard from './purchaseCard';
 
 export const Purchases = () => {
   const dispatch = useDispatch()
   const userDb = useSelector(state => state.user)
   const {user} = useAuth0();
+  const purchases = useSelector(state=>state.userPurchases)
 
   useEffect(() => {
     dispatch(getUser(user.sub))
-    /* console.log("user db de purche",userDb) */
+    if(user) {dispatch(getPurchases(user.sub))}
+    
   },[])
-
   // const purchases = userDb?.purchases.map(p => p.products)
   // console.log('log purcha', purchases)
 
   return (
-    <View>
-        <Text style={stylesCardProduct.title}>
-            Purchases
-        </Text>
-        {/*<View>
-          {purchases?.length ? (
+    <ScrollView  style={styles.container} >
 
-            
+        {<View>
+          {purchases && purchases.length ?
+             purchases.map(e=>{
+              return (
+                <PurchaseCard data={e}/>
+              )
+             }
+             )
+          : (
             <View>
-            </View>
-          ) : (
-            <View>
-              <Text>No hay purchases</Text>
+              <Text>No purchases</Text>
             </View>
           )
           }
-        </View> */}
-    </View>
+        </View> }
+    </ScrollView >
   )
 }
+
+
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor:'#2d2d2d',
+    paddingTop:50
+  },
+  
+
+});
