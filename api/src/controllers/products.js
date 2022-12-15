@@ -43,22 +43,47 @@ const getProductField = async(field)=>{
 }
 
 const reviewProduct = async(obj) => {
-   const { userId, productId, review } = obj
+   const {userName, userId, productId, review } = obj
+   if(!userId || !productId || !review || !userName) throw "faltan argumentos"
    try {
     // let updateUser = await User.findByIdAndUpdate(userId,{$pop:{reviews:-1}})
     // let updateProduct = await Product.findByIdAndUpdate(productId,{$pop:{reviews:-1}})
+    
+    let productR = await Product.findById(productId,{reviews:1, _id:0})
+    if(productR.reviews.map(e=> e.user).includes(userId)){
+        let updateReview = productR.reviews.map(e=> {
+            if(e.user === userId) e.review = review
+            return e
+        })
+        
+        let userReviews = await User.findById(userId, {reviews:1 ,_id:0})
+        let updatedUserReviews = userReviews.reviews.map(e=> {
+            if(e.product === productId) e.review = review
+            return e
+        })
+        console.log("dentro del if", updatedUserReviews)
+        await User.findByIdAndUpdate(userId, {reviews:updatedUserReviews})
+        await Product.findByIdAndUpdate(productId, {reviews:updateReview})
+        let a = await Product.findByIdAndUpdate(productId,{updateReview})
+        let b = await Product.findById(productId,{reviews:1, _id:0})
+        return b
+    }
+
     let updateUser = await User.findByIdAndUpdate(userId,{
         $push:{
             reviews:{product:productId, review:review}
         }
     })
+
+    console.log("Esto es push",userName)
     let updateProduct = await Product.findByIdAndUpdate(productId,{
         $push:{
-            reviews:{user:userId, review:review}
+            reviews:{userName: userName, user: userId, review: review}
         }
     })
     let a = await User.findById(userId,{reviews: 1})
     let b = await Product.findById(productId, {reviews: 1})
+    console.log(b)
     return [a,b]
    } catch (error) {
     throw (error)
@@ -85,8 +110,6 @@ const ratingProduct = async(userId,productId,rating) => {
 
 }
        
-
-
 
  const getReviews = async () =>{
     let products = await Product.find()

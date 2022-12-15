@@ -14,6 +14,8 @@ const Datatable = () => {
   const data = useSelector(state => state.users)
   //const [data, setData] = useState(userRows)
   
+
+  
   useEffect(() => {
     dispatch(getUsers())
   }, [dispatch])
@@ -51,12 +53,12 @@ const Datatable = () => {
   } 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
+{/*       <div className="datatableTitle">
         Users List
         <Link to="/users/new" className="link">
           Add New
         </Link>
-      </div>
+      </div> */}
       <DataGrid
         className="datagrid"
         rows={data}

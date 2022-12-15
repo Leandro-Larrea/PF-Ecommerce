@@ -13,14 +13,25 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link, NavLink } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ComputerIcon from '@mui/icons-material/Computer';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import RestorePageIcon from '@mui/icons-material/RestorePage';
 import logo from '../../images/logo.png'
+import { useDispatch } from "react-redux";
+import { GET_ADMIN } from "../../redux/action/const";
 
 const Sidebar = () => {
+
   const { dispatch } = useContext(DarkModeContext);
+  const dispatch2 = useDispatch()
+
+  useEffect(() => {
+    return () => dispatch2({
+      type: GET_ADMIN,
+      payload: {}  
+    })
+  },[]) 
   return (
     <div className="sidebar">
       <div className="top">
@@ -66,10 +77,12 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">USEFUL</p>
+          <Link to ="/sells" style={{ textDecoration: "none" }}>
           <li>
             <InsertChartIcon className="icon" />
-            <span>Stats</span>
+            <span>Sells</span>
           </li>
+          </Link>
           <li>
             <NotificationsNoneIcon className="icon" />
             <span>Notifications</span>
@@ -94,10 +107,12 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <Link to='/' style={{ textDecoration: "none" }}>
+            <li>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="bottom">

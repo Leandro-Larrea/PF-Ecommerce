@@ -9,6 +9,11 @@ import './postProduct.scss'
 export const PostProduct = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const { admin } = useSelector(state => state)
+
+  useEffect(() => {
+    if(!admin) 
+    navigate('/')},[])
   const [ file, setFile ] = useState('')
   let {id} = useParams()
 

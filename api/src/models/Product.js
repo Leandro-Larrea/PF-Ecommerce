@@ -3,6 +3,10 @@ const { Schema, model, default: mongoose } = require("mongoose");
 /* trim is gonna clean up the spaces at the end and begining of the string "   asd  ".trim() = "asd"*/
 
 const reviewsSchema = new Schema({
+  userName: {
+    type: String,
+    required: true
+  },
   user: {
     type: String,
   },

@@ -20,19 +20,17 @@ export const Profile = ({ navigation }) => {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    if (loggedIn) dispatch(getUser(user.sub))
-    if (userDb) {
-      dispatch(getUser(user.sub), 1000)
-    }
-  }, [user])
-
-  useEffect(() => {
-    if (userDb !== null) {
+    console.log("USEEFFECT");
+    if (user) dispatch(getUser(user.sub))
+    if (!userDb) {
+      setTimeout(() => { alert('In order of be able of using the full aplication u need to setup your contact info') }, 1000)
+      NotificationNoLog();
       dispatch(getUser(user.sub))
     }
+    return () => {
+      dispatch(clearUser());
+    }
   }, [])
-
-  console.log('user uEff Prof', userDb);
 
   // useEffect(() => {
   //   if (user) dispatch(getUser(user.sub))
@@ -49,7 +47,6 @@ export const Profile = ({ navigation }) => {
   },[]) */
 
   
-
 
 
   return (

@@ -7,11 +7,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserReviews, getUsers } from "../../redux/action";
-import { GET_USER } from "../../redux/action/const";
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Widget from "../../components/widget/Widget";
 
 const Single = () => {
+
   let id = useParams()
   const { user, userReviews, userPayments }= useSelector(state => state)
   

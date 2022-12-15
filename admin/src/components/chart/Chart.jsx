@@ -7,8 +7,12 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSells } from "../../redux/action";
 
-const data = [
+
+/* const data = [
   { name: "January", Total: 1200 },
   { name: "February", Total: 2100 },
   { name: "March", Total: 800 },
@@ -16,8 +20,26 @@ const data = [
   { name: "May", Total: 900 },
   { name: "June", Total: 1700 },
 ];
-
+ */
 const Chart = ({ aspect, title }) => {
+  const dispatch = useDispatch()
+
+  let { sells } = useSelector(state => state)
+  sells = sells.filter(r => r.updatedAt)
+  console.log('ventas: ', sells)
+
+  const data = sells.map(r => {
+      return {
+        name: r.updatedAt.slice(0, 10),
+        Total: r.totalPrice
+      }
+  })
+  console.log('data', data)
+  
+  useEffect(() => {
+    dispatch(getSells())
+  }, [])
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
