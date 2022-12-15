@@ -84,7 +84,7 @@ router.put("/reviews", async (req,res)=>{
     try {
         let a = await reviewProduct(req.body)
          let response = await getReviews()
-        res.status(201).json(a)
+        res.status(201).json(response)
     } catch (error) {
         res.status(400).send(error)
     } 
