@@ -10,6 +10,8 @@ import {
   GET_USER,
   GET_REVIEWS,
   SET_RATING,
+  GET_PURCHASES,
+  PUCHASE_DETAIL,
   CLEAN
 } from '../actions';
 
@@ -26,7 +28,9 @@ const initialState = {
   productReview: [],
   user: null,
   total: 0,
-  detalle: []
+  detalle: [],
+  userPurchases:[],
+  purchaseDetail:{}
 };
 
 const reducer = (state = initialState, {type, payload}) => {
@@ -121,13 +125,23 @@ const reducer = (state = initialState, {type, payload}) => {
           rating:payload
         }
       }
-
+    case GET_PURCHASES:
+      return {
+       ...state,
+       userPurchases:payload
+    }
+   case PUCHASE_DETAIL:
+    return {
+      ...state,
+      purchaseDetail:payload
+    }
     case CLEAN:
       return {
         ...state,
 
         productReview: [],
-        detailProduct: undefined
+        detailProduct: undefined,
+        purchaseDetail:{}
       }  
     default:
       return state;

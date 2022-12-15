@@ -11,6 +11,8 @@ export const SET_PRICE = 'SET_PRICE';
 export const SET_RATING = 'SET_RATING';
 export const GET_USER = 'GET_USER';
 export const GET_REVIEWS = 'GET_REVIEWS';
+export const GET_PURCHASES = 'GET_PURCHASES'
+export const PUCHASE_DETAIL = 'PUCHASE_DETAIL'
 export const CLEAN = 'CLEAN'
 
 export const getDBCart = userId => dispatch => {
@@ -199,6 +201,26 @@ export const getReviews = id => dispatch => {
     });
   });
 };
+
+export const getPurchases = id => dispatch => {
+  return axios.get(`/purchases/userPayment?id=${id}`)
+  .then(res=>{
+    dispatch({
+      type:'GET_PURCHASES',
+      payload:res.data
+  })
+  })
+}
+export const purchaseDetails = id => dispatch =>{
+  return axios.get(`/purchases/${id}`)
+  .then(res=>{
+    dispatch({
+      type:'PUCHASE_DETAIL',
+      payload:res.data
+    }
+    )
+  })
+}
 
 export const clean = (payload) => {
   return {

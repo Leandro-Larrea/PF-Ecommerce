@@ -28,7 +28,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
 }).flat()
 
   const {user} = useAuth0();
-  
+  console.log(user.sub)
   const [text, setText] = useState('');
 
   const [reviewData, setreviewData] = useState({
@@ -94,7 +94,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
 
           return (
             <View style={styles.commentBox} key={e._id}>
-              <Text style={styles.name}>by: {e.user}</Text>
+              <Text style={styles.name}>by: {e.userName}</Text>
               <Text>{e.review}</Text>
             </View>
           );
