@@ -1,8 +1,8 @@
 import { useStripe } from '@stripe/stripe-react-native'
 import React, { useState, useEffect, useContext } from 'react'
-import { View, TextInput, Button, Alert, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, TextInput, Button, Alert, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
+import axios from 'axios' 
 import { LocalNotification, ScheduleNotification } from '../../src/services/LocalPushControllers'
 import { useAuth0 } from 'react-native-auth0';
 import { getUser } from '../../redux/actions'
@@ -87,6 +87,11 @@ export const Pay = ({ navigation }) => {
 
   return (
     <ScrollView>
+      <View>
+        <Image 
+        source={{ uri: 'https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2021/03/stripe-partnet-exito-startup-empresas.png?fit=1800%2C900&quality=50&strip=all&ssl=1' }}
+        style={{ width: "100%", height: 100 }} />
+      </View>
       <View style={{
         marginTop: 15,
         marginBottom: 15,
@@ -174,16 +179,18 @@ export const Pay = ({ navigation }) => {
         <Text style={{
           fontSize: 20,
           width: "100%",
-          color: "green",
+          color: "white",
           backgroundColor: "#2d2d2d",
           padding: 12,
           paddingRight: 80,
 
-        }}>Order summary:      ${total}  USD</Text>
+        }}>Order summary:      ${total} USD</Text>
       </View>
 
       <View style={{ marginTop: 20 }}>
-        <Button title="Pay Now" onPress={subscribe} ></Button>
+        <TouchableOpacity onPress={subscribe} style={style.touchable}> 
+        <Text style={style.touchText}>Pay Now</Text> 
+        </TouchableOpacity>
       </View>
 
     </ScrollView>
@@ -210,6 +217,20 @@ const style = StyleSheet.create({
     borderColor: "#CDCDCD",
     paddingVertical: 10,
   },
+  touchable: {
+    alignSelf: "center",
+    alignItems: "center",
+    backgroundColor: "#89c30d",
+    padding: 10,
+    marginBottom: 30,
+    width: "90%",
+    borderRadius: 5,
 
+  },
+  touchText: {
+    color: "white",
+    fontSize: 25,
+    shadowColor: "black"
+  }
 
 })
