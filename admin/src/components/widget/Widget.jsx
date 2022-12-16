@@ -96,7 +96,7 @@ import { Link } from 'react-router-dom'
       </div>
       <div className="right">
         <div className="percentage positive">
-          {props.rating.rating} 
+          {props.rating && props.rating.rating} 
           <StarOutlineIcon className="starIcon"/>
         </div>
         <img src={props.image} alt='' className="image"/>
