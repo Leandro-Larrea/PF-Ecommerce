@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './previusLogin.scss'
 import Login from '../Login'
 import { useSelector } from 'react-redux'
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAdmins } from '../../redux/action'
 import Login from './Login'
 import './PreLogin.scss'
-
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 export const PreLogin = () => {
 
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export const PreLogin = () => {
       },[])
 
     const { user_pass } = useSelector(state => state)
-
+      console.log(user_pass)
     const [ flag, setFlag ] = useState(0)
     
     const [ input, setInput ] = useState({
@@ -46,26 +46,23 @@ export const PreLogin = () => {
     }
     if(flag=== 0 || flag === 1)
         return (
-          <div className='indice'>
-              <form onSubmit={handleOnSubmit} className='formulario'>
-                  <div >
-                      <label className='etiqueta'>User:</label>
-                  </div>
-                  <div>
-                      <input autoFocus type='text' name='user' onChange={handleOnChange} value={input.user} className='input1' />
-                  </div>
-                  <div>
-                      <label className='etiqueta'>Password:</label>
-                  </div>
-                  <div>
-                      <input type='password' name='pass' onChange={handleOnChange} value={input.pass} className='input'/>
-                  </div>
-                  <div>
-                      <input type='submit' value='Send' className='boton'  />
-                  </div >
-                  {flag===1? <div className='error'>User or password failed</div>:''}
-              </form>
-          </div>
+            <div className='containerMainLogin'>
+                <div className='mainLogin'>
+                   <form onSubmit={handleOnSubmit} className='formLogin'>
+                        <h1>Pre Login</h1>
+                        <div className='itemLogin'>
+                            <label>User:</label>
+                            <input placeholder='Type the admin'  type='text' name='user' onChange={handleOnChange} value={input.user}/>        
+                       </div>
+                       <div className='itemLogin'>
+                           <label>Password:</label>
+                           <input placeholder='Type the password' type='password' name='pass' onChange={handleOnChange} value={input.pass} />
+                       </div>
+                        <button type='submit' className='buttonLogin'>Login</button>
+                        {flag===1? <div className='error'>User or password failed</div>:''}
+                    </form>
+                </div>
+            </div>
         )
     if(flag===2)
             return (<Login  />)

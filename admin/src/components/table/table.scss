@@ -1,8 +1,16 @@
 .table {
+  display: flex;
   .productCell{
-    width: 500px;
-
+    width: 30%;
+    
   }
+  .tableCell{
+   width: calc(70%/7);
+  
+  }
+.ased{
+  cursor: pointer;
+}
 
 
   .listContainer {

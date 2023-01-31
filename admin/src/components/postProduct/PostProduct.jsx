@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { cleanUp, getCategories, getProductDetail, postProduct, updateProduct } from '../../redux/action';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import './postProduct.scss'
+import swal from "sweetalert"
+import { CreateButton } from './createButton';
 
 export const PostProduct = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { admin } = useSelector(state => state)
-
+  const [loading, setLoadgin] = useState(false)
   useEffect(() => {
     if(!admin) 
     navigate('/')},[])
@@ -36,8 +38,6 @@ export const PostProduct = () => {
    return ()=> dispatch(cleanUp("productDetail"))
   },[id])
 
-  
-
   // aca me traigo el estado de las categorias ej: state => state.allCategories
   const categories = useSelector(state => state.categories)
 
@@ -48,8 +48,18 @@ export const PostProduct = () => {
          id=null}}
    }, [])
 
+   function priceComparation(){
+    let change = parseInt(input.price.slice(1))
+    const {price} = detail
+    if (change *2 <= detail.price ) return swal({
+      title:"Cuidado!",
+      text:`el precio introducido( $${change}) es ${(((price *100) / change)/100).toFixed(0)} veces menor que el precio original del producto!`,
+      icon: "warning"})
+  }
+
     useEffect(() => {
-      if(id && detail)setInput({...detail, price: "$"+detail.price})
+      if(id && detail){  
+        setInput({...detail, price: "$"+detail.price})}
       else {
        setInput(initialState)
       }
@@ -95,21 +105,31 @@ export const PostProduct = () => {
   async function handleSubmit(e){
     e.preventDefault()
     if (!input.title || !input.price || !input.description || !input.category || !input.image.length || !input.stock) {
-      alert('Completar todos los campos')
+      swal('Completar todos los campos')
     } 
     else { 
+      setLoadgin(true)
       let a = {...input, price: parseInt(input.price.slice(1))}
  
       let res = !id? await dispatch(postProduct(a)): await dispatch(updateProduct(id,a));
-
-      id? alert("product updated"): alert('Producto Creado 👍 ')
+      if(res){
+        setLoadgin(false)
+      id? await swal({
+        title:"Updated",
+        text:`The product has been updated succesfully!`,
+        icon: "success"})
+    : await swal({
+      title:"Created",
+      text:`The product has been created succesfully!`,
+      icon: "success"})
       setInput(
         initialState
     )
     if(id) navigate("/products")
     }
   }
-
+  setLoadgin(false)
+}
   return (
       <div className="single">
         <Sidebar />
@@ -123,7 +143,7 @@ export const PostProduct = () => {
               </div>
               <div className='itemContainer'>
                 <label className="label">Price:</label>
-                <input className="inputI" type='text' placeholder="00" name='price' onChange={handleChange} value={input.price} />
+                <input onBlur={priceComparation} className="inputI" type='text' placeholder="00" name='price' onChange={handleChange} value={input.price} />
               </div>
               <div className='itemContainer'>
                 <label className="label">Stock:</label>
@@ -154,7 +174,7 @@ export const PostProduct = () => {
               <div className='image'>
                 {input.image && <img src={input.image} alt = '' />}
               </div> 
-                <input className='button' type='submit' value='Send' />
+                <CreateButton loader={loading} name={id?"edit":"create"}/>
               
             </form>
           </div>

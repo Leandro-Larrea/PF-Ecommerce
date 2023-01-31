@@ -116,12 +116,12 @@ export function postProduct(product){
 
 export function updateProduct(id,product){
     return async function(dispatch){
-        console.log("action de update")
         let res = await axios.put(`/products/${id}`, product)
         dispatch({
             type:UPDATE_PRODUCT,
             payload:res.data.b
         }) 
+        return res.data
     }
 }
 

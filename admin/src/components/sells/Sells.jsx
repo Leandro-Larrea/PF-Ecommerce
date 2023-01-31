@@ -64,7 +64,7 @@ useEffect(()=>{
               {sells.map((r) => (
                 <TableRow key={r._id}>
                     <TableCell className="tableCell">{r.userId}</TableCell>
-                    <TableCell className="tableCell">{r.totalPrice}</TableCell>
+                    <TableCell className="tableCell">${r.totalPrice}</TableCell>
                     <TableCell className="tableCell">{r.products.length}</TableCell>
                     <TableCell className="tableCell">
                         <Link style={{textDecoration: "none", color: "black"}} to={`/sells/${r._id}`}>

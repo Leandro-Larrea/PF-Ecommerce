@@ -59,28 +59,28 @@ export const PostTable = (props) => {
                           <img src={r.image} alt="" className="image" />
                         </div>
                     <TableCell className="productCell">{r.title.slice(0, 50)}</TableCell>
-                    <TableCell className="tableCell">{(r.price * 0.5)}</TableCell>
-                    <TableCell className="tableCell">{r.price}</TableCell>
+                    <TableCell className="tableCell">{("$" + r.price * 0.5)}</TableCell>
+                    <TableCell className="tableCell">{"$" + r.price}</TableCell>
                     <TableCell className="tableCell">{r.sales}</TableCell>
                     <TableCell className="tableCell">{r.rating? r.rating.rating: ''}</TableCell>
                     <TableCell className="tableCell">
-                        <span className={`status ${r.stock}`}>{isProduct? r.stock : '0'}</span>
+                        <span style={r.stock <3?{color:"red"}:{color:"black"}} className={`status ${r.stock}`}>{isProduct? r.stock : '0'}</span>
                     </TableCell>
                     {isProduct? 
                         <TableCell className="tableCell">
-                            <Link style={{textDecoration: "none"}}>
-                                <DeleteForeverIcon onClick={(e) => handleOnDelete(e, r._id)}/>
-                             </Link>
+                         
+                                <DeleteForeverIcon style={{cursor:"pointer", color:"red"}} onClick={(e) => handleOnDelete(e, r._id)}/>
+                               
                         </TableCell> 
                         :<TableCell className="tableCell">
-                            <Link style={{textDecoration: "none"}}>
-                                <RestorePageIcon onClick={(e) => handleOnRestore(e, r._id)} />
-                            </Link>
+                              
+                                <RestorePageIcon  onClick={(e) => handleOnRestore(e, r._id)} />
+                              
                         </TableCell>
                     }
                     <TableCell className="tableCell">
                       <NavLink style={{textDecoration:"none", color:"green"}} to ={`/postproducts/${r._id}`}>
-                        {isProduct && <ModeEditOutlinedIcon /> }
+                        {isProduct && <ModeEditOutlinedIcon className='ased'/> }
                       </NavLink>
                     </TableCell>
                 </TableRow>

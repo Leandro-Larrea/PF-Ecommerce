@@ -27,7 +27,7 @@ function App() {
   const { darkMode } = useContext(DarkModeContext);
 
   return (
-    <div className={darkMode ? "app dark" : "app"}>
+    <div style={{overflow:"hidden"}}>
         <Routes>
           <Route path="/">
              <Route exact path='/' element={<PreLogin/>}/> 

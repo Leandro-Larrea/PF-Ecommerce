@@ -61,7 +61,7 @@ return(
                 </div>
                <div className="right">
                     <div className="percentage positive">
-                    ${e.price} x{e.quantity} 
+                    "$"{e.price} x{e.quantity} 
                     </div>
                     <img src={e.image} alt='' className="image"/>
                </div>
