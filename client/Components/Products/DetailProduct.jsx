@@ -23,7 +23,7 @@ import { useAuth0 } from 'react-native-auth0';
 
 function DetailProduct({ route, navigation }) {
 
-  const { _id, title, image, price } = route.params;
+  const { _id, title, image, price, off } = route.params;
   const { cartItems, addItemToCart, deleteItemToCart } = useContext(CartContext);
   const dispatch = useDispatch();
   const { detailProduct } = useSelector(state => state);
@@ -31,7 +31,7 @@ function DetailProduct({ route, navigation }) {
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
   const selectedAnim = useRef(new Animated.Value(1)).current;
-  const off = Math.floor(Math.random() * 20);
+
   const { user } = useAuth0();
 
 
@@ -80,7 +80,7 @@ function DetailProduct({ route, navigation }) {
           }
 
           <View style={styles.fixToText}>
-            <CardPrice price={price} text={off + '% Off'} off={off} />
+          {price && <CardPrice price={price} text={off + '% Off'} off={off + 1}/>}
             {detailProduct && detailProduct.stock > 0 ?
               <Button
               type="solid"

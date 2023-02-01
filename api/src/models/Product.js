@@ -16,24 +16,6 @@ const reviewsSchema = new Schema({
   },
 });
 
-// const ratingSchema = new Schema({
-//   points: {
-//     type: Number,
-//     required: true
-//   },
-//   votes: {
-//     type: Number,
-//     required: true,
-//   },
-//   rating: {
-//     type: Number,
-//     default: function () {
-//       if (this.points > 0 && this.votes > 0) return this.points / this.votes;
-//       return 0;
-//     },
-//   },
-// });
-
 const ratingSchema = new Schema({
   rating: {
     type: Number,
@@ -62,6 +44,11 @@ const productSchema = new Schema(
       required: true,
       trim: true,
     },
+
+    off: {
+      type: Number,
+    },
+
     description: {
       type: String,
       required: true,
