@@ -26,9 +26,6 @@ export const SingleTable = (props)=>{
 
     })
  })
-
- console.log(sells)
- 
   
 const dispatch = useDispatch()
 

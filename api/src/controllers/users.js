@@ -6,7 +6,6 @@ const { User } = require("../models/User")
      const {_id, name, lastName, mail , phone, location, image} = obj
     
      const {country, city, address} = location;
-    // console.log(obj)
 
      if(!name || !lastName || !mail || !phone || !location || !country || !city || !address){
         throw("insufficient data")
@@ -23,7 +22,6 @@ const { User } = require("../models/User")
       }
       
       let box = {...obj.location, ...obj};
-      console.log("desde controller user",box)
       
     for(const e of Object.keys(box).filter( e => e !== "location" && e !== "admin" && e !== "_id" && e !=="image")){
         if(!validation[e].test(box[e])){
@@ -38,25 +36,20 @@ const { User } = require("../models/User")
    }
 
    let d = await User.findById(_id)
-   console.log("aca estamos en controller",d)
    if(d){
       let a = await User.findByIdAndUpdate(_id, obj)
       let b = User.findById(_id)
       return b
    }
 
-    console.log(obj)
     let a = await User(obj)
-    console.log(a)
     let b = await a.save()
      return b
  }
 
  const getUser = async (id) => {
-   console.log(id)  
     if(id){  
        let user = await User.findById(id)
-       console.log(user)
        return user
     }
      else{
@@ -66,7 +59,6 @@ const { User } = require("../models/User")
  }
 
  const updateCart = async(id, cart) =>{
-   console.log("esto es cartcontroller", cart)
    let r = await User.findByIdAndUpdate(id,{cart:cart})
    let a = await User.findById(id)
    return a
@@ -93,7 +85,6 @@ const { User } = require("../models/User")
  const getCart = async(id) =>{
    
    let r = await User.findById(id,{cart:1, _id:0})
-   console.log("desde get cart",r)
    let box = [];
    for(const e of r.cart){
       let a = await Product.findById(e.productId)

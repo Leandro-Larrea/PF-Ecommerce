@@ -74,7 +74,7 @@ export const PostTable = (props) => {
                         </TableCell> 
                         :<TableCell className="tableCell">
                               
-                                <RestorePageIcon  onClick={(e) => handleOnRestore(e, r._id)} />
+                                <RestorePageIcon className='ased' onClick={(e) => handleOnRestore(e, r._id)} />
                               
                         </TableCell>
                     }

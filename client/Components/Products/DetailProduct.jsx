@@ -27,7 +27,6 @@ function DetailProduct({ route, navigation }) {
   const { cartItems, addItemToCart, deleteItemToCart } = useContext(CartContext);
   const dispatch = useDispatch();
   const { detailProduct } = useSelector(state => state);
-  console.log("detalleProducto", detailProduct);
   const [loadingCart, setLoadingCart] = useState(false);
   const inCart = cartItems.find(product => product.productId === _id);
   const reviews = useSelector(state => state.productReview)
@@ -63,10 +62,6 @@ function DetailProduct({ route, navigation }) {
       <View title={title} scrollEnabled={true}>
         <View style={styles.productCard}>
           <Image
-            //   defaultSource={require('../../android/app/src/main/assets/')}
-            /*  onProgress={(loaded, total) => {
-              console.log(loaded);
-            }} */
             style={styles.image}
             PlaceholderContent={<ActivityIndicator />}
             resizeMode="contain"

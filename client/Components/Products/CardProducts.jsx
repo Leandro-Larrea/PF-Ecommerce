@@ -15,9 +15,7 @@ export default function Cards({navegar}) {
     async function ejet() {
       if (!products) {
         await dispatch(getProducts());
-      } /* else {
-        console.log('cards', products?.[0]);
-      } */
+      } 
     }
     ejet();
   }, [products]);

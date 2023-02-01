@@ -19,13 +19,11 @@ const getProducts = async(title)=>{
 const postProducts = async(obj) => {
     try {
         let validation = productValidation(obj)
-        console.log("desde el try")
         if(validation === 'OK'){
             const { image, imageId } = await uploadToCloudinary(obj.image)
             obj.image = image
             obj.imageId = imageId
             const objectMongo = await Product(obj);
-            console.log("holaaaa",objectMongo)
             const result = await objectMongo.save();
             return result
         }
@@ -61,7 +59,6 @@ const reviewProduct = async(obj) => {
             if(e.product === productId) e.review = review
             return e
         })
-        console.log("dentro del if", updatedUserReviews)
         await User.findByIdAndUpdate(userId, {reviews:updatedUserReviews})
         await Product.findByIdAndUpdate(productId, {reviews:updateReview})
         let a = await Product.findByIdAndUpdate(productId,{updateReview})
@@ -75,7 +72,6 @@ const reviewProduct = async(obj) => {
         }
     })
 
-    console.log("Esto es push",userName)
     let updateProduct = await Product.findByIdAndUpdate(productId,{
         $push:{
             reviews:{userName: userName, user: userId, review: review}
@@ -83,7 +79,6 @@ const reviewProduct = async(obj) => {
     })
     let a = await User.findById(userId,{reviews: 1})
     let b = await Product.findById(productId, {reviews: 1})
-    console.log(b)
     return [a,b]
    } catch (error) {
     throw (error)
@@ -142,7 +137,6 @@ const deleteProducts = async(id)=>{
        }
 
     let productMoved = await ProductBackUp(obj);
-    console.log("hasta aca si")
     const saved = await productMoved.save();
     let a = await productDb.delete();
     if (a) return a;
@@ -151,7 +145,6 @@ const deleteProducts = async(id)=>{
 
  const restoreProducts = async(id)=>{
     let productDb = await ProductBackUp.findById(id);
-    console.log("backup",productDb)
      let o = productDb;
      let obj = {
         _id: o._id,
@@ -168,7 +161,6 @@ const deleteProducts = async(id)=>{
        }
 
     let productMoved = await Product(obj);
-    console.log("hasta aca si")
     const saved = await productMoved.save();
     let a = await productDb.delete();
     if (a) return a;
@@ -180,7 +172,6 @@ const deleteProducts = async(id)=>{
 
 const logicDelete = async(id,change)=>{
     let productDb = await Product.findByIdAndUpdate(id, available);
-    console.log("hasta aca si")
     const saved = await productMoved.save();
     let a = await productDb.delete();
     if (a) return a;

@@ -19,7 +19,6 @@ const AuthenticationButton = () => {
     try {
       await clearSession();
     } catch (e) {
-      console.log('Log out cancelled');
     }
   };
 

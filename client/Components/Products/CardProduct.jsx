@@ -44,10 +44,6 @@ const CardProduct = ({navegar, product}) => {
       navegar(product);
     }}>
       <Image
-        //   defaultSource={require('../../android/app/src/main/assets/')}
-        /*  onProgress={(loaded, total) => {
-          console.log(loaded);
-        }} */
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"

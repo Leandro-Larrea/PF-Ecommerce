@@ -32,9 +32,7 @@ export default function Cards({ navigation }) {
     async function ejet() {
       if (!products) {
         await dispatch(getProducts());
-      } /* else {
-        console.log('cards', products?.[0]);
-      } */
+      } 
     }
     ejet();
   }, [products]);

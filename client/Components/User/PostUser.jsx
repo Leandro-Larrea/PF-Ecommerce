@@ -24,7 +24,6 @@ export const PostUser = () => {
     //const allCategories = useSelector(state => state.categories)
 
     useEffect(() => {
-      console.log("USEEFET 1 POST");
       if (user) {
         dispatch(getUser(user.sub))
       }

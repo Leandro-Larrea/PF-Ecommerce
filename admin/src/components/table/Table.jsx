@@ -15,9 +15,6 @@ const [ del, setDel ] = useState('')
 const dispatch = useDispatch()
 let products = useSelector(state => state.products)
 
-console.log('todos los productos: ', products)
-
-
 useEffect(() => {
   dispatch(getProduct())
  }, [])   

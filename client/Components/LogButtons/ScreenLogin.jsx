@@ -2,8 +2,12 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { LoginButton } from './LoginButton'
 import Header from '../Home/Header'
+import { useAuth0 } from 'react-native-auth0'
 
 const ScreenLogin = () => {
+    const {user} = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+  console.log(user)
   return (
     <View style={styles.containerLog}>
         <View style={styles.header}>

@@ -12,7 +12,6 @@ const getAdmins = async (id = '') => {
 }
 
 const postAdmin = async (id, pass) => {
-    console.log(id, pass)
     const obj = {
         _id: id,
         pass: pass

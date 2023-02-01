@@ -22,11 +22,9 @@ export const Profile = ({navigation}) => {
 
   console.log('USER Prof Aut', user);
   const userDb = useSelector(state => state.user);
-  /* console.log("USERDBLOG", userDb); */
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('USEEFFECT');
     if (user) dispatch(getUser(user.sub));
     if (!userDb) {
       setTimeout(() => {

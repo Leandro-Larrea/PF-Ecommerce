@@ -26,7 +26,6 @@ const Chart = ({ aspect, title }) => {
 
   let { sells } = useSelector(state => state)
   sells = sells.filter(r => r.updatedAt)
-  console.log('ventas: ', sells)
 
   const data = sells.map(r => {
       return {
@@ -34,7 +33,6 @@ const Chart = ({ aspect, title }) => {
         Total: r.totalPrice
       }
   })
-  console.log('data', data)
   
   useEffect(() => {
     dispatch(getSells())
