@@ -10,13 +10,14 @@ import Header from '../Home/Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAuth0} from 'react-native-auth0';
 import {stylesCardProduct} from '../../styles';
+import validate from '../../functions/userValidation';
+import { color } from '@rneui/base';
 
 export const PostUser = () => {
    
     const {user} = useAuth0();
     const dispatch = useDispatch();
     const userDb = useSelector(state => state.user)
-    
     const [usuario, setUsuario] = useState(false)
 
    
@@ -43,30 +44,6 @@ export const PostUser = () => {
     },[usuario])
 
   const [errors, setErrors] = useState({});
-
-    const validation ={
-        name: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
-        lastName: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{1,40}$/,
-        // description: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,702}$/,
-        mail: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-        phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-        country: /^[A-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
-        city: /^[A-ZA-Z]{1}[a-zA-Z.:,'\s_-]{1,62}$/,
-        address: /^[A-ZA-Z]{1}[a-zA-Z.\d':,\s_-]{1,92}$/,
-      }
-
-    function validate(input) {
-        let errors = {};
-        if (!validation.name.test(input.name)) errors.name = "Enter name"
-        if (!validation.lastName.test(input.lastName)) errors.lastName = "Enter Last name"
-        if (!validation.phone.test(input.phone)) errors.phone = "Enter phone"
-        if (!validation.country.test(input.location.country)) errors.country = "Enter country"
-        if (!validation.city.test(input.location.city)) errors.city = "Enter city"
-        if (!validation.address.test(input.location.address)) errors.address = "Enter address"
-        if (!validation.mail.test(input.mail)) errors.mail = "Enter mail"
-    
-        return errors;
-    }
 
     const [image, setImage] = useState({ uri: '' });
     const [input, setInput] = useState({
@@ -106,8 +83,8 @@ export const PostUser = () => {
   const handleSubmit = async () => {
     if (
       !input.name ||
-      !input.lastName | !input.location.country ||
-      !input.location.city | !input.location.address ||
+      !input.lastName || !input.location.country ||
+      !input.location.city || !input.location.address ||
       !input.mail ||
       !input.phone
     ) {
@@ -118,20 +95,11 @@ export const PostUser = () => {
         await dispatch(postUser({...input, _id: user.sub}));
         dispatch(getUser(user.sub))
       }
-      if (userDb) {  //si ya hay userDb tendria q actualizar los campos cambiados
-        Alert.alert('aca habria que hacer algo pero no se que');
+      if (userDb) { 
+        Alert.alert('Data Saved Succesfully 👍 ');
         dispatch(postUser({...input, _id: user.sub}))
       }
     }
-   /*  setInput({
-      name: '',
-      lastName: '',
-      location: {country: '', city: '', address: ''},
-      image: '',
-      phone: '',
-      mail: '',
-    });
-    setImage({uri: ''}); */
   };
 
   return (
@@ -146,7 +114,7 @@ export const PostUser = () => {
       <Form
         style={style.Form}
         buttonTextStyle={
-          !Object.keys(errors).length > 0
+          !Object.values(errors).some(e=> e !== null)
             ? style.buttonText
             : style.buttonTextFail
         }
@@ -162,121 +130,116 @@ export const PostUser = () => {
             : style.buttonFail
         }
         buttonText={
-          !Object.keys(errors).length > 0
+          !Object.values(errors).some(e=> e !== null)
             ? 'Save'
             : '*Missing data*'
         }
+         
+          
         onButtonPress={() => handleSubmit()}>
+          <Text style={errors.name?style.msg: style.none}>{errors.name}</Text>
         <FormItem
+          onBlur={()=>  setErrors({...errors, ...validate("name",input)})}
           textInputStyle={style.textoInput}
           cursorColor={'white'}
           label="Name"
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.name? style.errorForm:style.inputForm}
           isRequired
           asterik
           value={input.name}
           onChangeText={text => {
-            setInput({...input, name: text}),
-              setErrors(validate({...input, name: text}));
+            setInput({...input, name: text})             
           }}
         />
+        <Text style={errors.lastName?style.msg: style.none}>{errors.lastName}</Text>
         <FormItem
+           onBlur={()=>  setErrors({...errors, ...validate("lastName",input)})}
           textInputStyle={style.textoInput}
           cursorColor={'white'}
           label="Last name"
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.lastName? style.errorForm:style.inputForm}
           isRequired
           asterik
           value={input.lastName}
           onChangeText={text => {
-            setInput({...input, lastName: text}),
-              setErrors(validate({...input, lastName: text}));
+            setInput({...input, lastName: text})
           }}
         />
+        <Text style={errors.mail?style.msg: style.none}>{errors.mail}</Text>
         <FormItem
           textInputStyle={style.textoInput}
           cursorColor={'white'}
+          onBlur={()=>  setErrors({...errors, ...validate("mail",input)})}
           label="mail"
           labelStyle={style.label}
-          style={style.inputForm}
           isRequired
+          style={errors.mail? style.errorForm:style.inputForm}
           asterik
           value={input.mail}
           onChangeText={text => {
-            setInput({...input, mail: text}),
-              setErrors(validate({...input, mail: text}));
+            setInput({...input, mail: text})
           }}
         />
+        <Text style={errors.phone?style.msg: style.none}>{errors.phone}</Text>
         <FormItem
           textInputStyle={style.textoInput}
           cursorColor={'white'}
+          onBlur={()=>  setErrors({...errors, ...validate("phone",input)})}
           label="Phone"
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.phone? style.errorForm:style.inputForm}
           isRequired
           asterik
           value={input.phone}
           onChangeText={e => {
-            setInput({...input, phone: e}),
-              setErrors(validate({...input, phone: e}));
+            setInput({...input, phone: e}) 
           }}
         />
+        <Text style={errors.country?style.msg: style.none}>{errors.country}</Text>
         <FormItem
           textInputStyle={style.textoInput}
           cursorColor={'white'}
+          onBlur={()=>  setErrors({...errors, ...validate("country",input)})}
           label="Country"
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.country? style.errorForm:style.inputForm}
           isRequired
           asterik
-
           value={input.location && input.location.country}
-
           onChangeText={text => {
-            setInput({...input, location: {...input.location, country: text}}),
-              setErrors(
-                validate({
-                  ...input,
-                  location: {...input.location, country: text},
-                }),
-              );
+            setInput({...input, location: {...input.location, country: text}})
           }}
         />
+        <Text style={errors.city?style.msg: style.none}>{errors.city}</Text>
         <FormItem
           textInputStyle={style.textoInput}
           cursorColor={'white'}
+          onBlur={()=>  setErrors({...errors, ...validate("city",input)})}
           label="City"
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.city? style.errorForm:style.inputForm}
           isRequired
           asterik
           value={input.location && input.location.city}
           onChangeText={text => {
-            setInput({...input, location: {...input.location, city: text}}),
-              setErrors(
-                validate({...input, location: {...input.location, city: text}}),
-              );
+            setInput({...input, location: {...input.location, city: text}})
           }}
         />
+        <Text style={errors.address?style.msg: style.none}>{errors.address}</Text>
         <FormItem
           textInputStyle={style.textoInput}
           cursorColor={'white'}
           label="Address"
+          onBlur={()=>  setErrors({...errors, ...validate("address",input)})}
           labelStyle={style.label}
-          style={style.inputForm}
+          style={errors.address? style.errorForm:style.inputForm}
           isRequired
           asterik
           value={ input.location && input.location.address}
           onChangeText={text => {
-            setInput({...input, location: {...input.location, address: text}}),
-              setErrors(
-                validate({
-                  ...input,
-                  location: {...input.location, address: text},
-                }),
-              );
+            setInput({...input, location: {...input.location, address: text}})
           }}
         />
         <View style={style.photoContainer}>
@@ -292,7 +255,7 @@ export const PostUser = () => {
 
               }}></Image>
           ) : (
-            <Text style={{color: 'black'}}>Photo</Text>
+            <Text style={{color: 'white'}}>Photo</Text>
           )}
               <TouchableOpacity
                 onPress={() => openGallery()}
@@ -336,8 +299,15 @@ const style = StyleSheet.create({
   buttonForm: {
     backgroundColor: '#89c30d',
     width: '100%',
-    alignSelf: "center"
-    
+    alignSelf: "center",
+    color:"white"
+  },
+  msg:{
+    color:"white",
+    textAlign:"right"
+  },
+  none:{
+    display:"none"
   },
   
   buttonTextFail: {
@@ -349,12 +319,18 @@ const style = StyleSheet.create({
     marginTop: 40,
   },
   inputForm: {
-    backgroundColor: 'transparent',
     borderColor:'#89c30d',
-    borderWidth:1,
+    borderWidth:2,
     marginTop:5
   },
-  
+
+  errorForm: {
+    
+    borderColor: "red",
+    borderWidth:2,
+    marginTop:5
+  },
+
   buttonFail: {
     backgroundColor: 'transparent',
     borderRadius: 0,
@@ -366,7 +342,7 @@ const style = StyleSheet.create({
    color:'white'
   },
   textoInput: {
-    color: '#c0c1cb',
+    color:"black",
   },
   header: {
     backgroundColor: '#2d2d2d',

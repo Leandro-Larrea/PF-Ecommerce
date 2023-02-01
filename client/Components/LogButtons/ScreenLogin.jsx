@@ -3,12 +3,17 @@ import { Text, View, StyleSheet } from 'react-native'
 import { LoginButton } from './LoginButton'
 import Header from '../Home/Header'
 import { useAuth0 } from 'react-native-auth0'
+import { useState } from 'react'
 
 const ScreenLogin = () => {
+
+    const [loader, setLoader] = useState(false)
+
     const {user} = useAuth0();
   const loggedIn = user !== undefined && user !== null;
   console.log(user)
-  return (
+
+    return (
     <View style={styles.containerLog}>
         <View style={styles.header}>
             <Header/>
@@ -22,7 +27,7 @@ const ScreenLogin = () => {
             </View>
         </View>
     </View>
-  )
+  ) 
 }
 
 const styles = StyleSheet.create({
