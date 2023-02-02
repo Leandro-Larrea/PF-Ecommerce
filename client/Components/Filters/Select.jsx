@@ -32,7 +32,7 @@ export default function ({ categories, filters, fcUpdate }) {
     //   ...filters,
     //   category: e,
     // });
-    if(e === "todos") e = ""
+    if(e === "All") e = ""
     fcUpdate("category", e) 
   };
 
@@ -50,7 +50,7 @@ export default function ({ categories, filters, fcUpdate }) {
           onSelect={() => handleFilter()}
           placeholder="Category"
           setSelected={e => handleChage(e)}
-          data={["todos",...data]}
+          data={["All",...data]}
           save="value"
           search={false}
           boxStyles={{ borderRadius: 9, backgroundColor: "#f5f5f9", height: 35, paddingVertical: 4}}

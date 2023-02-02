@@ -18,7 +18,6 @@ export const Notified = () => {
     dispatch(getSells())
   }, [])
   let notified = sells.filter(r => !r.notified)
-  console.log('las notificaciones de notified', notified)
 
   return (
     <div>

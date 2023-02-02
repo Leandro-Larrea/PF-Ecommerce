@@ -21,10 +21,7 @@ require.extensions['.html'] = function (module, filename) {
 
 router.post("/pay", async (req, res) => {
     try {
-      console.log("payment aca", req.body);
       const { input, total } = req.body;
-      console.log("input del body", input);
-      console.log("precio", total);
       if (!input.name) return res.status(400).json({ message: "Please enter a name" });
       if (!input.lastName) return res.status(400).json({ message: "Please enter a LastName" });
       if (!input.mail ) return res.status(400).json({ message: "Please enter a mail" });
@@ -57,11 +54,9 @@ router.post("/pay", async (req, res) => {
 
   ////////NODEMAILER
 router.post("/email", async (req, res) => {
-  console.log(req.body);
   let date = new Date();
   let orderDate = date.getDate() + "-"+ date.getMonth()+ "-" +date.getFullYear();
   const { input, total } = req.body
-  console.log("email", input.mail);
   /* Nombre de servidor: smtp.office365.com
   Puerto: 587
   Método de cifrado: STARTTLS */
@@ -82,10 +77,8 @@ router.post("/email", async (req, res) => {
     // verify connection configuration
     mailTransporter.verify(function (error, success) {
         if (error) {
-            console.log("fallo verificacion",error);
             reject(error);
         } else {
-            console.log("Server is ready to take our messages");
             resolve(success);
         }
     });
@@ -104,9 +97,7 @@ router.post("/email", async (req, res) => {
   await new Promise((resolve, reject) => {
     mailTransporter.sendMail(details,(err, info) => {
       if (err) {
-        console.log("error", err);
       } else {
-        console.log("fallo el envio",info);
         resolve (info)
       }
     })

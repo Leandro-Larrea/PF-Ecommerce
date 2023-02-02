@@ -8,7 +8,7 @@ export const LoginButton = () => {
 
     const onPress = async () => {
         try {
-            await authorize();
+            await authorize();ejemplo
         } catch (e) {
             console.log(e);
         }

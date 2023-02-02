@@ -67,7 +67,6 @@ export const getProductByPK = productId => dispatch => {
         type: GET_PRODUCT_BYPK,
         payload: res.data,
       });
-      // console.log(res.data);
       return true;
     })
     .catch(() => false);
@@ -121,7 +120,6 @@ export function postUser(obj) {
         return;
       })
       .catch(error => {
-        console.log('error', error);
         return;
       });
   };

@@ -34,7 +34,6 @@ export default function Rating({rating,productId}){
             Alert.alert('wait!', 'You have to log in', [
                 {
                   text: 'Ok',
-                  onPress: () => console.log('Ask me later pressed'),
                 },
               ]);
         }

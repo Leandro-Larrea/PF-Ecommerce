@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {clearUser, getUser} from '../../redux/actions';
 import {LogoutButton} from '../LogButtons/LogoutButton';
 import {NotificationNoLog} from '../../src/services/LocalPushControllers';
+import userImage from "../../images/carousel2.jpg";
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -22,16 +23,14 @@ export const Profile = ({navigation}) => {
 
   console.log('USER Prof Aut', user);
   const userDb = useSelector(state => state.user);
-  /* console.log("USERDBLOG", userDb); */
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('USEEFFECT');
     if (user) dispatch(getUser(user.sub));
     if (!userDb) {
       setTimeout(() => {
         alert(
-          'In order of be able of using the full aplication u need to setup your contact info',
+          'In order of being able of using the full aplication u need to setup your contact info',
         );
       }, 1000);
       NotificationNoLog();
@@ -73,7 +72,7 @@ export const Profile = ({navigation}) => {
                   '#549651',
                   '#345c32',
                 ]}
-                style={{paddingTop: 60}}>
+                style={{paddingTop: 70}}>
                 <Image
                   style={{
                     width: 165,
@@ -83,8 +82,9 @@ export const Profile = ({navigation}) => {
                     borderColor: 'white',
                     marginBottom: 20,
                     alignSelf: 'center',
+                    backgroundColor:"white"
                   }}
-                  source={{uri: userDb.image}}
+                  source={userDb.image? {uri: userDb.image}: require("../../images/profile-icon.png")}
                 />
 
                 <View style={styles.userName}>
@@ -120,24 +120,7 @@ export const Profile = ({navigation}) => {
                     {userDb.location.city}
                   </Text>
                 </View>
-                <View style={styles.userInfo}>
-                  {userDb.admin == true ? (
-                    <Text style={styles.data}>
-                      <Icon name="settings" size={22}></Icon>  Go to admin{' '}
-                      <TouchableOpacity
-                        style={{color:'red', }}
-                        onPress={() => {
-                          alert('http//:dashboard-admin');
-                        }}>
-                          <Text style={{color:'green', fontSize: 18, fontWeight: '900', borderWidth: 1}}>  Dashboard  </Text>
-                      </TouchableOpacity>
-                    </Text>
-                  ) : (
-                    <Text style={styles.data}>
-                      <Icon name="settings" size={22}></Icon> Admin: false
-                    </Text>
-                  )}
-                </View>
+                
               </View>
             </View>
             <View style={styles.boton}>

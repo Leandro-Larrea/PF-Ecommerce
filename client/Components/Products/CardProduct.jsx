@@ -9,7 +9,7 @@ import {Button, Text} from '@rneui/themed';
 import CardPrice from '../CardPrice';
 
 const CardProduct = ({navegar, product}) => {
-  let {_id, title, image, description, price} = product;
+  let {_id, title, image, description, price, off} = product;
 
   const {cartItems, addItemToCart, deleteItemToCart} = useContext(CartContext);
 
@@ -38,23 +38,19 @@ const CardProduct = ({navegar, product}) => {
     if (inCart) await deleteItemToCart(inCart);
     else await addItemToCart(product);
   };
-  const off = Math.floor(Math.random() * 20);
+  // const off = Math.floor(Math.random() * 20);
   return (
     <TouchableOpacity style={styles.container} title={title} onPress={() => {
       navegar(product);
     }}>
       <Image
-        //   defaultSource={require('../../android/app/src/main/assets/')}
-        /*  onProgress={(loaded, total) => {
-          console.log(loaded);
-        }} */
         style={styles.image}
         PlaceholderContent={<ActivityIndicator />}
         resizeMode="contain"
         source={{uri: image && image.toString()}}
       />
       <View style={styles.pricePosition}>
-          <CardPrice price={price} text={off + '% Off'} off={off}/>
+          {price && <CardPrice price={price} text={off + '% Off'} off={off + 1}/>}
         </View>
       <Text style={styles.title} numberOfLines={2}>
         {title}

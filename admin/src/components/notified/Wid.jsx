@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 //const Widget = ({ type }) => {
   const Wid = (props) => {
   let data;
-console.log('las props de widgets', props)
   //temporary
   const amount = 100;
   const diff = 20;

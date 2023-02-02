@@ -28,7 +28,7 @@ const PurchasesProductsID = purchases && purchases.map(e=>{
 }).flat()
 
   const {user} = useAuth0();
-  console.log(user.sub)
+
   const [text, setText] = useState('');
 
   const [reviewData, setreviewData] = useState({

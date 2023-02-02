@@ -123,6 +123,9 @@ router.put("/:id", async (req,res)=>{
     } 
 })
 
+
+
+
 ///////Ruta para borrar todos los documentos por algun fragmento del titulo
 
 

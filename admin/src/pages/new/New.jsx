@@ -22,12 +22,10 @@ const New = ({ inputs, title }) => {
       ...input,
       [e.target.name]: e.target.value
     })
-    console.log('asdf', input.id, input.pass)
   }
 
   function handleOnClick(e){
     e.preventDefault()
-    console.log('asdf')
     dispatch(postAdmin(input))
     alert('Administrator registered')
   }

@@ -4,18 +4,16 @@ import { getAdmins } from '../../redux/action'
 import Login from './Login'
 import './PreLogin.scss'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+
 export const PreLogin = () => {
 
     const dispatch = useDispatch()
-
-      
 
     useEffect(() => {
         dispatch(getAdmins())
       },[])
 
     const { user_pass } = useSelector(state => state)
-      console.log(user_pass)
     const [ flag, setFlag ] = useState(0)
     
     const [ input, setInput ] = useState({

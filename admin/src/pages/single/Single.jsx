@@ -21,8 +21,6 @@ const Single = () => {
   
  const dispatch = useDispatch()
   sells = sells?.filter(r =>  r.userId===id.userId)
-
-console.log('single sells  ', sells)
   
   useEffect(() => {
     dispatch(getSells())
@@ -31,13 +29,6 @@ console.log('single sells  ', sells)
 
   },[])
   
-  useEffect(() => {
-
-    //console.log('usuario: ', userPayments)
-
-  }, [dispatch])
-
-
   if(!user)
   return (<div>Cargando</div>)
   return (

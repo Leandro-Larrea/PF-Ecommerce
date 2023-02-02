@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const AuthenticationButton = () => {
   const {authorize, clearSession, user} = useAuth0();
-
+  
   const onLogin = async () => {
     try {
       await authorize({scope: 'openid profile email'});
@@ -19,7 +19,6 @@ const AuthenticationButton = () => {
     try {
       await clearSession();
     } catch (e) {
-      console.log('Log out cancelled');
     }
   };
 

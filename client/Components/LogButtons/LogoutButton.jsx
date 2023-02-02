@@ -9,7 +9,6 @@ export const LogoutButton = () => {
         try {
             await clearSession();
         } catch (e) {
-            console.log(e);
         }
     };
 

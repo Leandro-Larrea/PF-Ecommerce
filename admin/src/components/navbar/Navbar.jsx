@@ -26,7 +26,6 @@ const Navbar = (props) => {
 
   async function handleOnClick(e){
       let response = []
-      console.log('target ', searchRef.current.value)
     if(!props.isDeleted){
       products.filter(r => { 
         if(r.title.toLowerCase().includes(searchRef.current.value.toLowerCase()))

@@ -64,7 +64,6 @@ export default function Login() {
     let r = admins.filter(r => r._id===input.id)
     console.log('r',r)
     if(r.length === 1 && r[0].pass === input.pass){
-      console.log('bien')
       dispatch({
         type: GET_ADMIN,
         payload: {id: input.id, pass: input.pass}

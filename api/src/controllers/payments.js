@@ -11,7 +11,6 @@ const stock = async (cart)=>{
 const dates = (date) =>{
     let a = date.split("")
     let b = a.slice(0,10)
-    console.log(b)
     let c = a.slice(12,20)
     let d = b.join("") + " " + c.join("")
     return d
@@ -22,7 +21,6 @@ const savePayment = async(payment) =>{
     if(!cartItems || !userId) throw ("insuficent data")
 
     let a = await Compra({userId, products:cartItems})
-    console.log(a)
     let b = await a.save()
     let updateUser = await User.findByIdAndUpdate(userId,{
         $push:{
@@ -30,7 +28,6 @@ const savePayment = async(payment) =>{
         }
     })
     await stock(cartItems)
-    console.log(updateUser)
     let newUser = await User.findById(userId) 
     return newUser
 }
@@ -44,7 +41,6 @@ const findPayments = async(id = '') =>{
         return payment 
     }
     const payments = await Compra.find()
-//     console.log(a)
    
 //    let a = payments.map(e=> {
 //         let obj = {
@@ -75,7 +71,6 @@ const getPaymentDetails = async(id)=>{
     }
 
 const user = await User.findById(payment.userId,{name: 1, lastName: 1, mail: 1})
-console.log(user)
 payment.products = items
     let facturation = {
         user,
