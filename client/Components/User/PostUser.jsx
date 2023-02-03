@@ -75,12 +75,14 @@ export const PostUser = () => {
                 const source = 'data:image/jpeg;base64,' + response.assets[0].base64
                 /* setImage({ uri: source }); */
                 setInput({ ...input, image: source })
-                setErrors(validate({ ...input, image: source }))
+               
+                
             }
         })
     }
 
   const handleSubmit = async () => {
+    console.log(input)
     if (
       !input.name ||
       !input.lastName || !input.location.country ||
@@ -97,7 +99,7 @@ export const PostUser = () => {
       }
       if (userDb) { 
         Alert.alert('Data Saved Succesfully 👍 ');
-        dispatch(postUser({...input, _id: user.sub}))
+       await dispatch(postUser({...input, _id: user.sub}))
       }
     }
   };
