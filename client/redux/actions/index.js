@@ -14,6 +14,7 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const GET_PURCHASES = 'GET_PURCHASES'
 export const PUCHASE_DETAIL = 'PUCHASE_DETAIL'
 export const CLEAN = 'CLEAN'
+export const NEW_USER = 'NEW_USER'
 
 export const getDBCart = userId => dispatch => {
   return axios
@@ -117,7 +118,10 @@ export function postUser(obj) {
       .post(`/users`, obj)
       .then(a => {
         console.log("hola esto es el post",a.data);
-        return;
+        return dispatch({
+          type: NEW_USER,
+          payload: a.data,
+        }) 
       })
       .catch(error => {
         return;

@@ -12,7 +12,8 @@ import {
   SET_RATING,
   GET_PURCHASES,
   PUCHASE_DETAIL,
-  CLEAN
+  CLEAN,
+  NEW_USER
 } from '../actions';
 
 const initialState = {
@@ -65,6 +66,11 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         user: payload,
       };
+      case NEW_USER:
+        return {
+          ...state,
+          user: payload,
+        };
     case SET_FILTER:
       return {
         ...state,
