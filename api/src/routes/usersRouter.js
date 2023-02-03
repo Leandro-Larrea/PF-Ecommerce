@@ -9,6 +9,7 @@ const { Product } = require("../models/Product.js");
 router.post("/", async (req,res)=>{
     try {
         let user = await postUser(req.body)
+        console.log("asdasd",user)
         return res.status(200).json(user)     
     } catch (error) {
         console.log(error)

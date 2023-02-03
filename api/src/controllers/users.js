@@ -10,6 +10,20 @@ const { User } = require("../models/User")
      if(!name || !lastName || !mail || !phone || !location || !country || !city || !address){
         throw("insufficient data")
      }
+
+     if(image){
+      let {imageId, image} = await uploadToCloudinary(obj.image)
+      obj.image = image
+      obj.imageId = imageId 
+   }
+
+     let d = await User.findById(_id)
+   if(d){
+      let a = await User.findByIdAndUpdate(_id, obj)
+      let b = await User.findById(_id)
+      return b
+   }
+
      const validation ={
         name: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,40}$/,
         lastName: /^[A-Z]{1}[a-zA-Z.¿?¡!',:;\s_-]{3,40}$/,
@@ -35,12 +49,7 @@ const { User } = require("../models/User")
       obj.imageId = imageId 
    }
 
-   let d = await User.findById(_id)
-   if(d){
-      let a = await User.findByIdAndUpdate(_id, obj)
-      let b = User.findById(_id)
-      return b
-   }
+   
 
     let a = await User(obj)
     let b = await a.save()
