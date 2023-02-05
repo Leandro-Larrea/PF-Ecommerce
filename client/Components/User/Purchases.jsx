@@ -34,8 +34,8 @@ export const Purchases = () => {
              }
              )
           : (
-            <View>
-              <Text>No purchases</Text>
+            <View >
+              <Text style={styles.noPurchases}>Without purchases</Text>
             </View>
           )
           }
@@ -48,8 +48,17 @@ export const Purchases = () => {
 const styles = StyleSheet.create({
   container:{
     backgroundColor:'#2d2d2d',
-    paddingTop:50
+    paddingTop:50,
   },
-  
+  noPurchases:{
+    color:"white",
+    fontSize: 20,
+    textAlign:"center",
+    backgroundColor:'#89c30d',
+    margin: 10,
+    padding:8,
+    borderRadius:20
+
+  }
 
 });

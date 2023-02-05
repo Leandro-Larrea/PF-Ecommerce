@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useEffect} from 'react';
 import {
   Text,
@@ -24,25 +24,40 @@ export const Profile = ({navigation}) => {
   console.log('USER Prof Aut', user);
   const userDb = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
-    if (user) dispatch(getUser(user.sub));
-    if (!userDb) {
-      setTimeout(() => {
-        alert(
-          'In order of being able of using the full aplication u need to setup your contact info',
-        );
-      }, 1000);
-      NotificationNoLog();
-      dispatch(getUser(user.sub));
+    
+    async function getCurrentUser(){
+      console.log("casad aca si ")
+      setLoader(true)
+        let a = await dispatch(getUser(user.sub));
+      if (!a) {
+        setTimeout(() => {
+          alert(
+            'In order of being able of using the full aplication u need to setup your contact info',
+          );
+        }, 1000);
+        NotificationNoLog();
+      }   
+      setLoader(false)
     }
+    if (user && !userDb) {
+      getCurrentUser()
+    }
+    
     return () => {
       dispatch(clearUser());
     };
-  }, []);
+  }, [user]);
 
   console.log('usuarioDb', userDb);
 
+if(loader || !user){ return <View style={styles.container}>
+                                <Image source={require("../../images/loader.gif")}></Image>
+                            </View>
+}
+else{
   return (
     <>
       <View style={styles.container}>
@@ -130,7 +145,7 @@ export const Profile = ({navigation}) => {
         )}
       </View>
     </>
-  );
+  );}
 };
 
 const styles = StyleSheet.create({

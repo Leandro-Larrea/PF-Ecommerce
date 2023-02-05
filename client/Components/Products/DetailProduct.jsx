@@ -34,7 +34,6 @@ function DetailProduct({ route, navigation }) {
 
   const { user } = useAuth0();
 
-
   useEffect(() => {
     dispatch(getReviews(_id));
     dispatch(getProductByPK(_id));
@@ -52,7 +51,9 @@ function DetailProduct({ route, navigation }) {
     dispatch(getProductByPK(_id));
     
   },[]) */
-  return (
+  if(price && reviews && detailProduct && Object.keys(detailProduct).length){
+    console.log(detailProduct)
+  return ( 
 
     <ScrollView style={styles.container}>
       {detailProduct === 'product not found' ? 
@@ -80,7 +81,7 @@ function DetailProduct({ route, navigation }) {
           }
 
           <View style={styles.fixToText}>
-          {price && <CardPrice price={price} text={off + '% Off'} off={off + 1}/>}
+          {detailProduct && <CardPrice price={price} text={detailProduct.off + 1 + '% Off'} off={off}/>}
             {detailProduct && detailProduct.stock > 0 ?
               <Button
               type="solid"
@@ -154,7 +155,13 @@ function DetailProduct({ route, navigation }) {
       </View>
   }
     </ScrollView>
-  );
+  );}
+  else{
+   return <View style={styles.container}>    
+            <View style={styles.container2}>
+              <Image source={require("../../images/loader.gif")}></Image>
+            </View>
+          </View>}
 }
 
 const styles = stylesDetails;

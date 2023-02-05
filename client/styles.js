@@ -132,6 +132,11 @@ export const stylesDetails = StyleSheet.create({
     backgroundColor: '#2d2d2d',
     flex: 1,
   },
+  container2:{
+    alignSelf:"center",
+    justifySelf:"center",
+    marginTop:"50%"
+  },
   productCard: {
     backgroundColor: 'white',
     padding: 10,
