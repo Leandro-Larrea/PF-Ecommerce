@@ -50,7 +50,7 @@ const CardProduct = ({navegar, product}) => {
         source={{uri: image && image.toString()}}
       />
       <View style={styles.pricePosition}>
-          {price && <CardPrice price={price} text={off + '% Off'} off={off + 1}/>}
+          {price && <CardPrice price={price} text={off +1 + '% Off'} off={off}/>}
         </View>
       <Text style={styles.title} numberOfLines={2}>
         {title}

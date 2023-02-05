@@ -68,6 +68,7 @@ export const getProductByPK = productId => dispatch => {
         type: GET_PRODUCT_BYPK,
         payload: res.data,
       });
+      console.log("Esto es el detail de la action",res.data)
       return true;
     })
     .catch(() => false);
@@ -137,6 +138,7 @@ export const getUser = id => dispatch => {
         type: 'GET_USER',
         payload: res.data,
       });
+      console.log("hola esto es getUser", res.data)
       return res.data ? true : false;
     })
     .catch(() => false);
@@ -144,7 +146,7 @@ export const getUser = id => dispatch => {
 export const clearUser = () => dispatch => {
   dispatch({
     type: 'GET_USER',
-    payload: [],
+    payload: null,
   });
 };
 
